@@ -4,22 +4,24 @@
  */
 package clases;
 
-/**
- *
- * @author joanmanuel
- */
+import java.util.Vector;
+
 public class Estudiante {
     
-    private final String nombre_estudiante;
-    private final String CI;
-    private final String carrera;
-    private boolean activo;
+    protected final String nombre_estudiante;
+    protected final String CI;
+    protected boolean activo;
+    protected Vector<Nota> notas;
     
-    public Estudiante(String nombre, String CI, String carrera){
+    public Estudiante(String nombre, String CI){
         this.nombre_estudiante = nombre;
         this.CI = CI;
-        this.carrera = carrera;
         activo = true;
+        notas = new Vector<Nota>();
+    }
+    
+    public Vector<Nota> getNotas(){
+    	return notas;
     }
 
     public String getNombre_estudiante() {
@@ -28,10 +30,6 @@ public class Estudiante {
 
     public String getCI() {
         return CI;
-    }
-
-    public String getCarrera() {
-        return carrera;
     }
 
     public boolean isActivo() {

@@ -26,21 +26,49 @@ public class Crear_brigada extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Seleccionar_carrera = new javax.swing.JButton();
+        Carrera_seleccionada = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Seleccionar_carrera.setText("Seleccionar Carrera");
+        Seleccionar_carrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Seleccionar_carreraActionPerformed(evt);
+            }
+        });
+
+        Carrera_seleccionada.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Carrera_seleccionada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Seleccionar_carrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(Seleccionar_carrera)
+                .addGap(18, 18, 18)
+                .addComponent(Carrera_seleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(297, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Seleccionar_carreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Seleccionar_carreraActionPerformed
+       Gestor_carreras GC = new Gestor_carreras();
+       GC.setVisible(true);
+      // this.setEnabled(false);
+    }//GEN-LAST:event_Seleccionar_carreraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +106,7 @@ public class Crear_brigada extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Carrera_seleccionada;
+    private javax.swing.JButton Seleccionar_carrera;
     // End of variables declaration//GEN-END:variables
 }
