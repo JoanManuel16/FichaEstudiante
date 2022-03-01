@@ -27,32 +27,25 @@ public class Secuencias_cadenas {
 
     }
 
-    public boolean mayor_subcadena(String A, String B) {
+    public static boolean mayor_subcadena(String A, String B) {
 
         int base = 311;
-        String menor = A;
-        String mayor = B;
         long Hash = 0;
 
-        if (A.length() > B.length()) {
-            menor = B;
-            mayor = A;
-        }
-
-        for (int i = 0; i < menor.length(); i++) {
-            Hash = Hash * 10 + (menor.charAt(i) - 'a') * base;
+        for (int i = 0; i < A.length(); i++) {
+            Hash = Hash * 10 + (A.charAt(i) - 'a') * base;
         }
 
         long Hash2 = 0;
 
-        for (int i = 0; i < mayor.length(); i++) {
-            Hash = Hash * 10 + (mayor.charAt(i) - 'a') * base;
+        for (int i = 0; i < B.length(); i++) {
+            Hash2 = Hash2 * 10 + (B.charAt(i) - 'a') * base;
 
-            if (i >= menor.length()) {
+            if (i >= A.length()) {
                 if (Hash == Hash2) {
                     return true;
                 }
-                Hash = (Hash - ((mayor.charAt(i - menor.length()) - 'a') * base)) / 10;
+                Hash2 = (Hash2 - ((B.charAt(i - A.length()) - 'a') * base)) / 10;
             }
         }
         return false;

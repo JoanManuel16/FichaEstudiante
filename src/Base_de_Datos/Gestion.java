@@ -287,5 +287,27 @@ public class Gestion {
         
         return asig;
     }
+    
+    public boolean agregar_asignatura(String X){
+        
+        try {
+            C.conectar();
+            String stat = "select from asignaturas where nombre_asignatura = '" + X + "' ";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                throw new SQLException();
+            }
+            
+            stat = "insert into asignaturas values(null, '" + X  +"')";
+            C.getConsulta().execute(stat);
+            
+        } catch (SQLException ex) {
+            C.desconectar();
+            return false;
+        }
+        
+        C.desconectar();
+        return true;
+    }
    
 }

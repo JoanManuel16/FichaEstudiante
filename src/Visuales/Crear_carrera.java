@@ -5,11 +5,14 @@
 package Visuales;
 
 import Base_de_Datos.Gestion;
-import java.util.Stack;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import utiles.Secuencias_cadenas;
 import utiles.Tupla;
 
 /**
@@ -58,6 +61,38 @@ public class Crear_carrera extends javax.swing.JFrame {
             
             df.addRow(ob);
         }
+            
+             seleccionAsig.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+            int fila = seleccionAsig.rowAtPoint(e.getPoint());
+            int columna = seleccionAsig.columnAtPoint(e.getPoint());
+            
+            if(fila > -1){
+                
+                String asig = (String)seleccionAsig.getValueAt(fila, columna);
+                
+                int semestre;
+                if(buttonGroup1.isSelected(PrimerSem.getModel())){
+                    semestre = 1;
+                }
+                else{
+                    semestre = 2;
+                }
+                
+                int anno = Integer.parseInt((String)Annos.getSelectedItem());
+                 
+                int respuesta = JOptionPane.showConfirmDialog(null, "Desea agregar la asignatura al semestre " + semestre + " del anno " + anno + "?");
+                
+                if(respuesta == 0){
+                    Asignaturas.elementAt(anno).add(new Tupla<>(semestre, asig));
+                    
+                    actualizarTablaSem(anno);
+                }
+                
+            }
+        }
+        });
     }
     
     public void actualizarTablaSem(int anno){
@@ -169,9 +204,20 @@ public class Crear_carrera extends javax.swing.JFrame {
 
         jLabel3.setText("Asignatura:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 78, -1, -1));
+
+        AsignaturaNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                AsignaturaNombreKeyReleased(evt);
+            }
+        });
         getContentPane().add(AsignaturaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 75, 180, -1));
 
         AgregarAsig.setText("Agregar Asignatura");
+        AgregarAsig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarAsigActionPerformed(evt);
+            }
+        });
         getContentPane().add(AgregarAsig, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 135, -1, -1));
 
         Finalizar.setText("Finalizar");
@@ -218,6 +264,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         Annos.setSelectedIndex(Annos.getItemCount());
         Asignaturas.add(new Vector<>());
         actualizarTablaSem(Annos.getItemCount());
+        actualizarTablaAsig(NombreAsig);
         PrimerSem.setSelected(true);
 
         
@@ -234,6 +281,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         Annos.setSelectedIndex(Annos.getItemCount());
         Asignaturas.remove(Asignaturas.size()-1);
         actualizarTablaSem(Annos.getItemCount());
+        actualizarTablaAsig(NombreAsig);
         PrimerSem.setSelected(true);
         
     }//GEN-LAST:event_Eliminar_annoActionPerformed
@@ -242,9 +290,81 @@ public class Crear_carrera extends javax.swing.JFrame {
         
         actualizarTablaSem(Annos.getSelectedIndex());
         PrimerSem.setSelected(true);
+        actualizarTablaAsig(NombreAsig);
         
     }//GEN-LAST:event_AnnosActionPerformed
 
+    private void AsignaturaNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AsignaturaNombreKeyReleased
+        
+         if(sonNumeros(evt.getKeyChar())){
+            Character caracterEtrada = evt.getKeyChar();
+            String reeplazo = AsignaturaNombre.getText().replaceAll(caracterEtrada.toString(),"");
+         AsignaturaNombre.setText(reeplazo);
+        }
+         
+          String temp = AsignaturaNombre.getText();
+         if(temp.length()>=3){
+             Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < NombreAsig.size(); i++){
+                 if(Secuencias_cadenas.mayor_subcadena(temp, NombreAsig.elementAt(i))){
+                     Similares.add(NombreAsig.elementAt(i));
+                 }
+             }
+             actualizarTablaAsig(Similares);
+         }
+         else if(temp.length()<3){
+             actualizarTablaAsig(NombreAsig);
+         }
+        
+    }//GEN-LAST:event_AsignaturaNombreKeyReleased
+
+    private void AgregarAsigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAsigActionPerformed
+        
+        if(AsignaturaNombre.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "No hay ningun nombre de asignatura");
+        return;
+        }
+        
+        String temp = AsignaturaNombre.getText();
+        Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < NombreAsig.size(); i++){
+                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, NombreAsig.elementAt(i))>=75.00){
+                     Similares.add(NombreAsig.elementAt(i));
+                 }
+             }
+             
+             String[] S = new String[Similares.size()];
+             Similares.copyInto(S);
+             
+                    String  x =(String) JOptionPane.showInputDialog(null, "Estas asignaturas son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+            
+                    if(x == null){
+                        NombreAsig.add(temp);
+                        G.agregar_asignatura(x);
+                        Vector<String> V = new Vector<>();
+                        V.add(x);
+                        actualizarTablaAsig(V);
+                    }
+                    
+                    
+    }//GEN-LAST:event_AgregarAsigActionPerformed
+
+    
+    private boolean sonNumeros(Character c) {
+        Vector<Character> v = new Vector<>();
+        v.add('0');
+        v.add('1');
+        v.add('2');
+        v.add('3');
+        v.add('4');
+        v.add('5');
+        v.add('6');
+        v.add('7');
+        v.add('8');
+        v.add('9');
+        return v.contains(c);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarAsig;
