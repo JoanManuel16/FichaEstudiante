@@ -8,12 +8,13 @@ import Base_de_Datos.Gestion;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import utiles.Tupla;
+import clases.Carrera;
+import static utiles.Secuencias_cadenas.sonNumeros;
 
 /**
  *
@@ -46,6 +47,31 @@ public class Crear_carrera extends javax.swing.JFrame {
       PrimerSem.setSelected(true);
         
         
+    }
+    
+    public Crear_carrera(Carrera Carr){
+         initComponents();
+        nombre_carrera = Carr.getNombre();
+        Asignaturas = Carr.getAsignaturas();
+        NombreAsig = G.obtener_asignaturas();
+        
+        for(int i = 0; i < Asignaturas.size(); i++){
+            Annos.addItem((i+1)+"");
+            for(int j = 0; j < Asignaturas.elementAt(i).size(); j++){
+                NombreAsig.remove(Asignaturas.elementAt(i).elementAt(j).getN2());
+            }
+        }
+        
+        CarreraNombre.setText(nombre_carrera);        
+
+        Annos.setSelectedIndex(0);
+        actualizarTablaAsig(NombreAsig);
+        
+        actualizarTablaSem(Annos.getSelectedIndex());
+        
+      buttonGroup1.add(PrimerSem);
+      buttonGroup1.add(SegundoSem);
+      PrimerSem.setSelected(true);
     }
     
     
@@ -86,6 +112,7 @@ public class Crear_carrera extends javax.swing.JFrame {
                 
                 if(respuesta == 0){
                     Asignaturas.elementAt(anno).add(new Tupla<>(semestre, asig));
+                    NombreAsig.remove(asig);
                     
                     actualizarTablaSem(anno);
                 }
@@ -138,6 +165,25 @@ public class Crear_carrera extends javax.swing.JFrame {
             df.addRow(ob);
         }
             
+             AsigXSem.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+            int fila = AsigXSem.rowAtPoint(e.getPoint());
+            int columna = AsigXSem.columnAtPoint(e.getPoint());
+            
+            if(fila > -1){
+                
+                String asig = (String)AsigXSem.getValueAt(fila, columna);
+                if(!(asig.equals("Primer Semestre") || asig.equals("Segundo Semestre"))){
+               
+                    Menu_seleccion.setLocation(e.getPoint());
+                    Menu_seleccion.setVisible(true);
+                }
+               
+            }
+        }
+        });
+            
     }
 
     
@@ -148,6 +194,9 @@ public class Crear_carrera extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        Menu_seleccion = new javax.swing.JPopupMenu();
+        Cambiar_semestre = new javax.swing.JMenuItem();
+        Eliminar = new javax.swing.JMenuItem();
         Carrera = new javax.swing.JLabel();
         CarreraNombre = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -164,6 +213,22 @@ public class Crear_carrera extends javax.swing.JFrame {
         Annos = new javax.swing.JComboBox<>();
         Annadir_anno = new javax.swing.JButton();
         Eliminar_anno = new javax.swing.JButton();
+
+        Cambiar_semestre.setText("jMenuItem1");
+        Cambiar_semestre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Cambiar_semestreMouseReleased(evt);
+            }
+        });
+        Menu_seleccion.add(Cambiar_semestre);
+
+        Eliminar.setText("jMenuItem2");
+        Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                EliminarMouseReleased(evt);
+            }
+        });
+        Menu_seleccion.add(Eliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -221,6 +286,11 @@ public class Crear_carrera extends javax.swing.JFrame {
         getContentPane().add(AgregarAsig, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 135, -1, -1));
 
         Finalizar.setText("Finalizar");
+        Finalizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                FinalizarMouseReleased(evt);
+            }
+        });
         getContentPane().add(Finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, -1, -1));
 
         PrimerSem.setText("Primer Semestre");
@@ -349,21 +419,108 @@ public class Crear_carrera extends javax.swing.JFrame {
                     
     }//GEN-LAST:event_AgregarAsigActionPerformed
 
+    private void Cambiar_semestreMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Cambiar_semestreMouseReleased
+        
+        if(evt.getButton() == MouseEvent.BUTTON1){
+            String S = (String)AsigXSem.getValueAt(AsigXSem.getSelectedRow(), AsigXSem.getSelectedColumn());
+            
+            int anno = Annos.getSelectedIndex()+1;
+            
+            for(int i = 0; i < Asignaturas.elementAt(anno).size(); i++){
+                
+                if(Asignaturas.elementAt(anno).elementAt(i).getN2().equals(S)){
+                    if(Asignaturas.elementAt(anno).elementAt(i).getN1() == 1){
+                       Asignaturas.elementAt(anno).elementAt(i).setN1(2);
+                    }
+                    else{
+                        Asignaturas.elementAt(anno).elementAt(i).setN1(1);
+                    }
+                    break;
+                }
+            }
+            actualizarTablaSem(anno);
+            
+            Menu_seleccion.setVisible(false);
+            
+        }
+        
+    }//GEN-LAST:event_Cambiar_semestreMouseReleased
+
+    private void EliminarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarMouseReleased
+        
+         if(evt.getButton() == MouseEvent.BUTTON1){
+            String S = (String)AsigXSem.getValueAt(AsigXSem.getSelectedRow(), AsigXSem.getSelectedColumn());
+            
+            int anno = Annos.getSelectedIndex()+1;
+            
+            for(int i = 0; i < Asignaturas.elementAt(anno).size(); i++){
+                
+                if(Asignaturas.elementAt(anno).elementAt(i).getN2().equals(S)){
+                    NombreAsig.add(S);
+                    Asignaturas.elementAt(anno).remove(i);
+                    break;
+                }
+            }
+            actualizarTablaSem(anno);
+            
+            Menu_seleccion.setVisible(false);
+            
+        }
+        
+    }//GEN-LAST:event_EliminarMouseReleased
+
+    private void FinalizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FinalizarMouseReleased
+        
+        String s = "Se presentan los siguientes problemas: ";
+        String s2 = "\n El ano: ";
+        String s3 = "no tiene asignaturas.";
+        String s4 = "\n Los siguientes semestres del anno ";
+        String s5 = "no tienen asignaturas: ";
+        for(int i = 0; i < Asignaturas.size(); i++){
+            if(Asignaturas.elementAt(i).isEmpty()){
+                s  = s + s2 + (i+1) + s3;
+                continue;
+            }
+            boolean primerS = false;
+            boolean segundoS = false;
+            
+            for(int j = 0; j < Asignaturas.elementAt(i).size(); j++){
+                if(Asignaturas.elementAt(i).elementAt(j).getN1()==1){
+                    primerS=true;
+                }
+                else{
+                    segundoS=true;
+                }
+            }
+            if(!primerS || !segundoS){
+                s = s + s4 + (i+1) + s5;
+            }
+            if(!primerS){
+                s = s + "\n 1";
+            }
+            if(!segundoS){
+                s = s + "\n 2";
+            }
+        }
+        
+        if(!s.equals("Se presentan los siguientes problemas: ")){
+            JOptionPane.showMessageDialog(null, s);
+            return;
+        }
+        
+        Carrera C = new Carrera(nombre_carrera, Asignaturas);
+        
+        G.agregar_carrera(C);
+        
+        Gestor_carreras GC = new Gestor_carreras(false);
+        GC.setVisible(true);
+        this.dispose();
+        
+        
+    }//GEN-LAST:event_FinalizarMouseReleased
+
     
-    private boolean sonNumeros(Character c) {
-        Vector<Character> v = new Vector<>();
-        v.add('0');
-        v.add('1');
-        v.add('2');
-        v.add('3');
-        v.add('4');
-        v.add('5');
-        v.add('6');
-        v.add('7');
-        v.add('8');
-        v.add('9');
-        return v.contains(c);
-    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -373,10 +530,13 @@ public class Crear_carrera extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> Annos;
     private javax.swing.JTable AsigXSem;
     private javax.swing.JTextField AsignaturaNombre;
+    private javax.swing.JMenuItem Cambiar_semestre;
     private javax.swing.JLabel Carrera;
     private javax.swing.JLabel CarreraNombre;
+    private javax.swing.JMenuItem Eliminar;
     private javax.swing.JButton Eliminar_anno;
     private javax.swing.JButton Finalizar;
+    private javax.swing.JPopupMenu Menu_seleccion;
     private javax.swing.JRadioButton PrimerSem;
     private javax.swing.JRadioButton SegundoSem;
     private javax.swing.ButtonGroup buttonGroup1;

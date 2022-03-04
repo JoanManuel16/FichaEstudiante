@@ -4,17 +4,95 @@
  */
 package Visuales;
 
+import Base_de_Datos.Gestion;
+import clases.Carrera;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import utiles.Secuencias_cadenas;
+import static utiles.Secuencias_cadenas.sonNumeros;
+import utiles.Tupla;
+
 /**
  *
  * @author joanmanuel
  */
 public class Gestor_carreras extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Gestor_carreras
-     */
-    public Gestor_carreras() {
+    
+    private Vector<String> carreras;
+    private Gestion G = new Gestion();
+    private boolean Main;
+    
+    public Gestor_carreras(boolean Main) {
         initComponents();
+        carreras = G.obtener_carreras();
+        actualizarTabla(carreras);
+        this.Main = Main;
+        if(Main){
+            Finalizar.setVisible(false);
+        }
+        
+        
+    }
+    
+    
+    private void actualizarTabla(Vector<String> V){
+        
+        DefaultTableModel df= new DefaultTableModel();
+            Tabla_carreras= new JTable(df);
+            jScrollPane1.setViewportView(Tabla_carreras);
+            df.addColumn("Nombre de la carrera");
+            
+            Object[] ob = new Object[1];
+            for (int i = 0; i < V.size(); i++) {
+            ob[0] = V.elementAt(i);
+            
+            df.addRow(ob);
+        }
+            
+             Tabla_carreras.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+            int fila = Tabla_carreras.rowAtPoint(e.getPoint());
+            int columna = Tabla_carreras.columnAtPoint(e.getPoint());
+            
+            if(fila > -1){
+                
+                String carrera = (String)Tabla_carreras.getValueAt(fila, columna);
+               
+                if(Habilitar.isSelected()){
+                    
+                    int b = JOptionPane.showConfirmDialog(null, "Desea editar esta carrera?");
+                    
+                    if(b == 0){
+                    
+                    Carrera Carr = G.obtener_carrera(carrera);
+                    Crear_carrera CC = new Crear_carrera(Carr);
+                    
+                    CC.setVisible(true);
+                    dispose();
+                    }
+                }
+                
+                if(!Habilitar.isSelected() && !Main){
+                    int b = JOptionPane.showConfirmDialog(null, "Desea seleccionar esta carrera para la brigada?");
+                    
+                    if(b == 0){
+                    
+                    Crear_brigada CB = new Crear_brigada(carrera);
+                    CB.setVisible(true);
+                    dispose();
+                    }
+                }
+               
+            }
+        }
+        });
+        
     }
 
     /**
@@ -26,20 +104,25 @@ public class Gestor_carreras extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        Nombre_carrera = new javax.swing.JLabel();
+        Texto_carrera = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla_carreras = new javax.swing.JTable();
         Crear_carrera = new javax.swing.JButton();
         Habilitar = new javax.swing.JRadioButton();
+        Finalizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        Nombre_carrera.setText("Carrera:");
 
-        jTextField1.setText("jTextField1");
+        Texto_carrera.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Texto_carreraKeyReleased(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_carreras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -50,7 +133,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla_carreras);
 
         Crear_carrera.setText("Crear nueva carrera");
         Crear_carrera.addActionListener(new java.awt.event.ActionListener() {
@@ -61,40 +144,44 @@ public class Gestor_carreras extends javax.swing.JFrame {
 
         Habilitar.setText("Habilitar Edicion");
 
+        Finalizar.setText("Finalizar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Crear_carrera))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Habilitar)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(Habilitar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Finalizar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Nombre_carrera)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Texto_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Crear_carrera)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Crear_carrera))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Texto_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Nombre_carrera)
+                        .addComponent(Crear_carrera)))
                 .addGap(18, 18, 18)
-                .addComponent(Habilitar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Finalizar)
+                    .addComponent(Habilitar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -102,54 +189,71 @@ public class Gestor_carreras extends javax.swing.JFrame {
 
     private void Crear_carreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Crear_carreraActionPerformed
         
-        String nombre = jTextField1.getText();
+         if(Texto_carrera.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "No hay ningun nombre de carrera");
+        return;
+        }
         
-        Crear_carrera CC = new Crear_carrera(nombre);
-        CC.setVisible(true);
-        this.dispose();
+        String temp = Texto_carrera.getText();
+        Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < carreras.size(); i++){
+                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, carreras.elementAt(i))>=75.00){
+                     Similares.add(carreras.elementAt(i));
+                 }
+             }
+             
+             String[] S = new String[Similares.size()];
+             Similares.copyInto(S);
+             
+                    String  x =(String) JOptionPane.showInputDialog(null, "Estas carreras son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+            
+                    if(x == null){
+                        
+                    Crear_carrera CC = new Crear_carrera(temp);
+                    CC.setVisible(true);
+                    this.dispose();
+                    return;    
+                    }
+                    
+                    Vector<String> V = new Vector<String>();
+                    V.add(x);
+                    
+                   actualizarTabla(V);
+                    
     }//GEN-LAST:event_Crear_carreraActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gestor_carreras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gestor_carreras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gestor_carreras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gestor_carreras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void Texto_carreraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Texto_carreraKeyReleased
+        
+          if(sonNumeros(evt.getKeyChar())){
+            Character caracterEtrada = evt.getKeyChar();
+            String reeplazo = Texto_carrera.getText().replaceAll(caracterEtrada.toString(),"");
+            Texto_carrera.setText(reeplazo);
         }
-        //</editor-fold>
+         
+          String temp = Texto_carrera.getText();
+         if(temp.length()>=3){
+             Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < carreras.size(); i++){
+                 if(Secuencias_cadenas.mayor_subcadena(temp, carreras.elementAt(i))){
+                     Similares.add(carreras.elementAt(i));
+                 }
+             }
+             actualizarTabla(Similares);
+         }
+         else if(temp.length()<3){
+             actualizarTabla(carreras);
+         }
+        
+    }//GEN-LAST:event_Texto_carreraKeyReleased
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Gestor_carreras().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Crear_carrera;
+    private javax.swing.JButton Finalizar;
     private javax.swing.JRadioButton Habilitar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel Nombre_carrera;
+    private javax.swing.JTable Tabla_carreras;
+    private javax.swing.JTextField Texto_carrera;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

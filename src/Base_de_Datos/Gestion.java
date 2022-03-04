@@ -100,6 +100,42 @@ public class Gestion {
     	return true;
     }
     
+    
+    public boolean agregar_estudiante(Estudiante E){
+         C.conectar();
+            
+            String stat = "select * from EstudianteSencillo where CI = '" + E.getCI() + "'";
+            
+        try {
+           
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                
+                int idB = RS.getInt("id_brigada");
+                
+                if(idB != 0){
+                    throw new SQLException();
+                }
+                
+                C.desconectar();
+                return true;
+                
+            }
+            
+            stat = "insert into EstudianteSencillo values(null, '" + E.getNombre_estudiante() + "', '" + E.getCI() + "', 0)";
+            C.getConsulta().execute(stat);
+            
+        } catch (SQLException ex) {
+            
+            C.desconectar();
+            return false;
+        }
+        
+        C.desconectar();
+        return true;
+    }
+    
+    
     public boolean agregar_estudiante(Brigada B, DatosEstudiante DE) {
     	
     	C.conectar();
@@ -308,6 +344,87 @@ public class Gestion {
         
         C.desconectar();
         return true;
+    }
+    
+    public Vector<String> obtener_carreras(){
+        Vector<String> carreras = new Vector<>();
+        C.conectar();    
+            String stat = "select * from carrera";
+        try {
+         
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(!RS.next()){
+                throw new SQLException();
+            }
+            while(RS.next()){
+                carreras.add(RS.getString("nombre_carrera"));
+            }
+        } catch (SQLException ex) {
+                     C.desconectar();
+                    return carreras;
+        }
+        
+                    C.desconectar();
+                    return carreras;
+    }
+
+    public Carrera obtener_carrera(String carr) {
+         Vector<Vector<Tupla<Integer, String>>> Asignaturas = new Vector<>();
+            
+            C.conectar();
+        
+        try {
+           
+            String stat = "select id_carrera from carrera where nombre_carrera = '" + carr + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            
+            int idC = RS.getInt("id_carrera");
+            
+            stat = "select * from asignaturas_semestre join asignaturas on asignaturas_semestre.id_asignatura = asignaturas.id_asignatura where id_carrera = " + idC;
+            RS = C.getConsulta().executeQuery(stat);
+            
+            while(RS.next()){
+                int anno = RS.getInt("anno_brigada");
+                int semestre = RS.getInt("semestre");
+                String nombre_asig = RS.getString("nombre_asignatura");
+                
+                while(anno > Asignaturas.size()){
+                    Asignaturas.add(new Vector<>());
+                }
+                
+                Asignaturas.elementAt(anno-1).add(new Tupla<>(semestre, nombre_asig));
+                
+            }
+         
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+           C.desconectar();
+           return new Carrera(carr, Asignaturas);
+    }
+
+    public void eliminar_brigada_a_estudiante(String ci) {
+
+        C.conectar();
+            
+        try {
+            
+            String stat = "update EstudianteSencillo set id_brigada = 0 where CI = '" + ci + "'";
+            C.getConsulta().execute(stat);
+            
+            stat = "select id_estudiante Estudiante where CI = '" + ci  + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            
+            if(RS.next()){
+                stat = "update Estudiante set id_brigada = 0 where CI = '" + ci + "'";
+                C.getConsulta().execute(stat);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
    
 }

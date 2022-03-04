@@ -1,5 +1,9 @@
 package utiles;
 
+import java.awt.event.KeyEvent;
+import java.util.Vector;
+import javax.swing.JTextField;
+
 public class Secuencias_cadenas {
 
     public static double LongestCommonSubsequence(String A, String B) {
@@ -49,5 +53,52 @@ public class Secuencias_cadenas {
             }
         }
         return false;
+    }
+    
+    
+    public static boolean sonNumeros(Character c) {
+      
+          if (c == KeyEvent.CHAR_UNDEFINED || c == '\b'
+                || c == '\n') {
+            return true;
+        }
+        
+        Vector<Character> v = new Vector<>();
+        v.add('0');
+        v.add('1');
+        v.add('2');
+        v.add('3');
+        v.add('4');
+        v.add('5');
+        v.add('6');
+        v.add('7');
+        v.add('8');
+        v.add('9');
+        return v.contains(c);
+    }
+    
+     public static void borrarLetras(char X, JTextField texto) {
+        if (X == KeyEvent.CHAR_UNDEFINED || X == '\b'
+                || X == '\n') {
+            return;
+        }
+
+        String Xs = texto.getText();
+        int t = 0;
+        try {
+            int x = Integer.parseInt("" + X);
+        } catch (NumberFormatException e) {
+            do {
+                t = Xs.indexOf(X + "");
+                if (t == -1) {
+                    break;
+                }
+                String x1 = Xs.substring(0, t);
+                String x2 = Xs.substring(t + 1);
+                Xs = x1 + x2;
+                texto.setText(x1 + x2);
+            } while (true);
+        }
+
     }
 }
