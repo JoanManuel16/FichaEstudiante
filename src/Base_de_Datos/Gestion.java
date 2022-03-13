@@ -328,7 +328,7 @@ public class Gestion {
         
         try {
             C.conectar();
-            String stat = "select from asignaturas where nombre_asignatura = '" + X + "' ";
+            String stat = "select * from asignaturas where nombre_asignatura = '" + X + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             if(RS.next()){
                 throw new SQLException();
@@ -424,6 +424,11 @@ public class Gestion {
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    }
+
+    public void editar_carrera(Carrera Carr) {
+
 
     }
    

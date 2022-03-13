@@ -29,7 +29,7 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        CrearBrigada = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -44,8 +44,13 @@ public class Main extends javax.swing.JFrame {
         jMenuItem1.setText("Brigadas Existentes");
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("Crear Nueva Brigada");
-        jMenu1.add(jMenuItem2);
+        CrearBrigada.setText("Crear Nueva Brigada");
+        CrearBrigada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearBrigadaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(CrearBrigada);
 
         jMenuBar1.add(jMenu1);
 
@@ -94,6 +99,14 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void CrearBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearBrigadaActionPerformed
+       
+        Gestor_carreras GC = new Gestor_carreras(false);
+        GC.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_CrearBrigadaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -130,12 +143,12 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem CrearBrigada;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

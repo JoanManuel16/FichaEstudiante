@@ -27,6 +27,7 @@ public class Crear_carrera extends javax.swing.JFrame {
     private Vector<Vector<Tupla<Integer, String>>> Asignaturas;
     private Vector<String> NombreAsig;
     private Base_de_Datos.Gestion  G = new Gestion();
+    private boolean edicion;
     
     public Crear_carrera(String NC) {
         initComponents();
@@ -45,6 +46,7 @@ public class Crear_carrera extends javax.swing.JFrame {
       buttonGroup1.add(PrimerSem);
       buttonGroup1.add(SegundoSem);
       PrimerSem.setSelected(true);
+      edicion = false;
         
         
     }
@@ -72,13 +74,14 @@ public class Crear_carrera extends javax.swing.JFrame {
       buttonGroup1.add(PrimerSem);
       buttonGroup1.add(SegundoSem);
       PrimerSem.setSelected(true);
+      edicion = true;
     }
     
     
     private void actualizarTablaAsig(Vector<String> V) {
             DefaultTableModel df= new DefaultTableModel();
             seleccionAsig= new JTable(df);
-            jScrollPane2.setViewportView(seleccionAsig);
+            jScrollPane1.setViewportView(seleccionAsig);
             df.addColumn("Nombre de la asignatura");
             
             Object[] ob = new Object[1];
@@ -111,10 +114,11 @@ public class Crear_carrera extends javax.swing.JFrame {
                 int respuesta = JOptionPane.showConfirmDialog(null, "Desea agregar la asignatura al semestre " + semestre + " del anno " + anno + "?");
                 
                 if(respuesta == 0){
-                    Asignaturas.elementAt(anno).add(new Tupla<>(semestre, asig));
+                    Asignaturas.elementAt(anno-1).add(new Tupla<>(semestre, asig));
                     NombreAsig.remove(asig);
                     
-                    actualizarTablaSem(anno);
+                    actualizarTablaSem(anno-1);
+                    actualizarTablaAsig(NombreAsig);
                 }
                 
             }
@@ -149,7 +153,7 @@ public class Crear_carrera extends javax.swing.JFrame {
             
             for (int i = 0; i < primerSemestre.size(); i++) {
             ob[0] = primerSemestre.elementAt(i);
-            ob[1] = anno;
+            ob[1] = anno+1;
             
             df.addRow(ob);
         }
@@ -160,7 +164,7 @@ public class Crear_carrera extends javax.swing.JFrame {
             
             for (int i = 0; i < segundoSemestre.size(); i++) {
             ob[0] = segundoSemestre.elementAt(i);
-            ob[1] = anno;
+            ob[1] = anno+1;
             
             df.addRow(ob);
         }
@@ -214,7 +218,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         Annadir_anno = new javax.swing.JButton();
         Eliminar_anno = new javax.swing.JButton();
 
-        Cambiar_semestre.setText("jMenuItem1");
+        Cambiar_semestre.setText("Cambiar asignatura de semestre");
         Cambiar_semestre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 Cambiar_semestreMouseReleased(evt);
@@ -222,7 +226,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         });
         Menu_seleccion.add(Cambiar_semestre);
 
-        Eliminar.setText("jMenuItem2");
+        Eliminar.setText("Eliminar asignatura");
         Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 EliminarMouseReleased(evt);
@@ -330,13 +334,10 @@ public class Crear_carrera extends javax.swing.JFrame {
 
     private void Annadir_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Annadir_annoActionPerformed
         
-        Annos.addItem((Integer.parseInt(Annos.getItemAt(Annos.getItemCount()))+1)+"");
-        Annos.setSelectedIndex(Annos.getItemCount());
-        Asignaturas.add(new Vector<>());
-        actualizarTablaSem(Annos.getItemCount());
-        actualizarTablaAsig(NombreAsig);
-        PrimerSem.setSelected(true);
-
+        int cantA = Annos.getItemCount()+1;
+            
+        Annos.addItem(cantA+"");
+        Asignaturas.add(new Vector<>());   
         
     }//GEN-LAST:event_Annadir_annoActionPerformed
 
@@ -347,10 +348,10 @@ public class Crear_carrera extends javax.swing.JFrame {
         return;
         }
         
-        Annos.removeItemAt(Annos.getItemCount());
-        Annos.setSelectedIndex(Annos.getItemCount());
+        Annos.setSelectedIndex(Annos.getItemCount()-2);
+        Annos.removeItemAt(Annos.getItemCount()-1);
         Asignaturas.remove(Asignaturas.size()-1);
-        actualizarTablaSem(Annos.getItemCount());
+        actualizarTablaSem(Annos.getItemCount()-1);
         actualizarTablaAsig(NombreAsig);
         PrimerSem.setSelected(true);
         
@@ -403,6 +404,8 @@ public class Crear_carrera extends javax.swing.JFrame {
                  }
              }
              
+             if(!Similares.isEmpty()){
+             
              String[] S = new String[Similares.size()];
              Similares.copyInto(S);
              
@@ -410,12 +413,24 @@ public class Crear_carrera extends javax.swing.JFrame {
             
                     if(x == null){
                         NombreAsig.add(temp);
-                        G.agregar_asignatura(x);
+                        G.agregar_asignatura(temp);
+                        Vector<String> V = new Vector<>();
+                        V.add(temp);
+                        actualizarTablaAsig(V);
+                    }
+                    else{
                         Vector<String> V = new Vector<>();
                         V.add(x);
                         actualizarTablaAsig(V);
                     }
-                    
+             }
+             else{
+                 NombreAsig.add(temp);
+                        G.agregar_asignatura(temp);
+                        Vector<String> V = new Vector<>();
+                        V.add(temp);
+                        actualizarTablaAsig(V);
+             }
                     
     }//GEN-LAST:event_AgregarAsigActionPerformed
 
@@ -424,7 +439,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         if(evt.getButton() == MouseEvent.BUTTON1){
             String S = (String)AsigXSem.getValueAt(AsigXSem.getSelectedRow(), AsigXSem.getSelectedColumn());
             
-            int anno = Annos.getSelectedIndex()+1;
+            int anno = Annos.getSelectedIndex();
             
             for(int i = 0; i < Asignaturas.elementAt(anno).size(); i++){
                 
@@ -510,12 +525,20 @@ public class Crear_carrera extends javax.swing.JFrame {
         
         Carrera C = new Carrera(nombre_carrera, Asignaturas);
         
-        G.agregar_carrera(C);
+        
+        if(edicion){
+        G.editar_carrera(C);
         
         Gestor_carreras GC = new Gestor_carreras(false);
         GC.setVisible(true);
         this.dispose();
-        
+        }
+        else{
+        G.agregar_carrera(C);
+            Crear_brigada CB = new Crear_brigada(C.getNombre());
+            CB.setVisible(true);
+            this.dispose();
+        }
         
     }//GEN-LAST:event_FinalizarMouseReleased
 

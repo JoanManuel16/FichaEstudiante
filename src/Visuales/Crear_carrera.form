@@ -12,7 +12,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="Cambiar_semestre">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Cambiar asignatura de semestre"/>
           </Properties>
           <Events>
             <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Cambiar_semestreMouseReleased"/>
@@ -20,7 +20,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="Eliminar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem2"/>
+            <Property name="text" type="java.lang.String" value="Eliminar asignatura"/>
           </Properties>
           <Events>
             <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EliminarMouseReleased"/>

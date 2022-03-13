@@ -14,7 +14,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import static utiles.Secuencias_cadenas.sonNumeros;
-import utiles.Tupla;
 
 /**
  *
@@ -145,6 +144,11 @@ public class Gestor_carreras extends javax.swing.JFrame {
         Habilitar.setText("Habilitar Edicion");
 
         Finalizar.setText("Finalizar");
+        Finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinalizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,6 +206,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                  }
              }
              
+             if(!Similares.isEmpty()){
              String[] S = new String[Similares.size()];
              Similares.copyInto(S);
              
@@ -212,7 +217,6 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     Crear_carrera CC = new Crear_carrera(temp);
                     CC.setVisible(true);
                     this.dispose();
-                    return;    
                     }
                     
                     Vector<String> V = new Vector<String>();
@@ -220,6 +224,12 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     
                    actualizarTabla(V);
                     
+             }
+             else{
+                  Crear_carrera CC = new Crear_carrera(temp);
+                    CC.setVisible(true);
+                    this.dispose();
+             }
     }//GEN-LAST:event_Crear_carreraActionPerformed
 
     private void Texto_carreraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Texto_carreraKeyReleased
@@ -245,6 +255,14 @@ public class Gestor_carreras extends javax.swing.JFrame {
          }
         
     }//GEN-LAST:event_Texto_carreraKeyReleased
+
+    private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
+        
+        Main M = new Main();
+        M.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_FinalizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
