@@ -14,10 +14,13 @@
                 <Property name="text" type="java.lang.String" value="Brigadas Existentes"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="CrearBrigada">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Crear Nueva Brigada"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CrearBrigadaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
