@@ -74,8 +74,18 @@ public class Filtrar_evento extends javax.swing.JFrame {
         });
 
         jButton1.setText("Aceptar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setText("Nuevo Evento");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,8 +171,8 @@ public class Filtrar_evento extends javax.swing.JFrame {
         String temp = TextNombreEvento.getText();
         Vector<String> Similares = new Vector<>();
              for(int i = 0; i < NombreEventos.size(); i++){
-                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, N.elementAt(i))>=75.00){
-                     Similares.add(carreras.elementAt(i));
+                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, NombreEventos.elementAt(i))>=75.00){
+                     Similares.add(NombreEventos.elementAt(i));
                  }
              }
              
@@ -173,59 +183,30 @@ public class Filtrar_evento extends javax.swing.JFrame {
                     String  x =(String) JOptionPane.showInputDialog(null, "Estas carreras son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
             
                     if(x == null){
-                        
-                    Crear_carrera CC = new Crear_carrera(temp);
-                    CC.setVisible(true);
-                    this.dispose();
+                        g.agregar_nombre_evento(temp);
+                        JOptionPane.showMessageDialog(null, "Evento: "+temp+"agregado satisfactoriamente", "Mensaje del sistema",JOptionPane.QUESTION_MESSAGE);
                     }
                     
                     Vector<String> V = new Vector<String>();
                     V.add(x);
                     
                    actualizarTabla(V);
-                    
+
              }
              else{
-                  Crear_carrera CC = new Crear_carrera(temp);
-                    CC.setVisible(true);
-                    this.dispose();
+                 Crear_evento cr = new Crear_evento();
+                 cr.setVisible(true);
+                 this.dispose();
              }
     }//GEN-LAST:event_jButton3MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Filtrar_evento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Filtrar_evento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Filtrar_evento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Filtrar_evento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jButton2MouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Filtrar_evento().setVisible(true);
-            }
-        });
-    }
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        //falta crear el gestor de brigada para poder seleccionar una brigada para agragr eventos directamente a los estudiantes
+    }//GEN-LAST:event_jButton1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelNombreEvento;

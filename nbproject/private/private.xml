@@ -3,12 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Main.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/utiles/Secuencias_cadenas.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Gestor_carreras.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Base_de_Datos/Gestion.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Base_de_Datos/Conexion.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Crear_carrera.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/Visuales/Filtrar_evento.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/clases/Evento.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/Visuales/Crear_evento.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/Visuales/Gestor_carreras.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/clases/Estudiante.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/Visuales/Crear_carrera.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/Base_de_Datos/Gestion.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/utiles/Secuencias_cadenas.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/Visuales/Main.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/Visuales/Gestor_brigada.java</file>
+            <file>file:/home/joanmanuel/Escritorio/FichaEstudiantes/src/Visuales/Crear_brigada.java</file>
         </group>
     </open-files>
 </project-private>
