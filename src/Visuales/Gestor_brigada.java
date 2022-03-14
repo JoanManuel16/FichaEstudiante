@@ -4,6 +4,14 @@
  */
 package Visuales;
 
+import Base_de_Datos.Gestion;
+import clases.Brigada;
+import java.util.Vector;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import utiles.Secuencias_cadenas;
+import static utiles.Secuencias_cadenas.sonNumeros;
+
 /**
  *
  * @author joanmanuel
@@ -13,8 +21,19 @@ public class Gestor_brigada extends javax.swing.JFrame {
     /**
      * Creates new form Gestor_brigada
      */
+    private Gestion g;
+    private Vector<String> carreras;
+    private Vector<String> Similares;
+    private boolean flag;
+    private Vector<Brigada> brigada;
+
     public Gestor_brigada() {
         initComponents();
+        g = new Gestion();
+        carreras = g.obtener_carreras();
+        Similares = new Vector<>();
+        flag = false;
+        actualizartablaCarreras(carreras);
     }
 
     /**
@@ -26,57 +45,188 @@ public class Gestor_brigada extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TableBrigadasExistentes = new javax.swing.JTable();
+        ButtonAceptar = new javax.swing.JButton();
+        LabelBeigadasExistentes = new javax.swing.JLabel();
+        TextBrigada = new javax.swing.JTextField();
+        ButtonCancelar = new javax.swing.JButton();
+        ComboBoxAnnos = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        TableBrigadasExistentes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(TableBrigadasExistentes);
+
+        ButtonAceptar.setText("Aceptar");
+        ButtonAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonAceptarMouseClicked(evt);
+            }
+        });
+
+        LabelBeigadasExistentes.setText("Brigadas Existentes");
+
+        TextBrigada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TextBrigadaKeyReleased(evt);
+            }
+        });
+
+        ButtonCancelar.setText("Cancelar");
+
+        ComboBoxAnnos.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                ComboBoxAnnosPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LabelBeigadasExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TextBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ComboBoxAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addComponent(ButtonAceptar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ButtonCancelar)
+                .addGap(118, 118, 118))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelBeigadasExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonAceptar)
+                    .addComponent(ButtonCancelar))
+                .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void TextBrigadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextBrigadaKeyReleased
+        if (sonNumeros(evt.getKeyChar())) {
+            Character caracterEtrada = evt.getKeyChar();
+            String reeplazo = TextBrigada.getText().replaceAll(caracterEtrada.toString(), "");
+            TextBrigada.setText(reeplazo);
+        }
+        Similares.removeAllElements();
+        String temp = TextBrigada.getText();
+        if (temp.length() >= 3) {
+
+            for (int i = 0; i < carreras.size(); i++) {
+                if (Secuencias_cadenas.mayor_subcadena(temp, carreras.elementAt(i))) {
+                    Similares.add(carreras.elementAt(i));
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gestor_brigada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gestor_brigada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gestor_brigada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gestor_brigada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            actualizartablaCarreras(Similares);
+        } else if (temp.length() < 3) {
+            actualizartablaCarreras(carreras);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Gestor_brigada().setVisible(true);
+    }//GEN-LAST:event_TextBrigadaKeyReleased
+
+    private void ButtonAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAceptarMouseClicked
+        if (!flag) {
+            flag = true;
+            if (!Similares.isEmpty()) {
+                String carreraSeleccionada = Similares.elementAt(TableBrigadasExistentes.getSelectedRow());
+                brigada = g.obtenerBrigadasDeUnaCarrera(carreraSeleccionada);
+            } else {
+                String carreraSeleccionada = carreras.elementAt(TableBrigadasExistentes.getSelectedRow());
+                brigada = g.obtenerBrigadasDeUnaCarrera(carreraSeleccionada);
             }
-        });
+        
+            for (int i = 0; i < brigada.size(); i++) {
+                ComboBoxAnnos.addItem((i + 1) + "");
+            }
+            ComboBoxAnnos.setSelectedIndex(0);
+            ComboBoxAnnos.setVisible(true);
+            LabelBeigadasExistentes.setText("Alumnos de la brigada");
+            actualizarTablaBrigadas(brigada.elementAt(ComboBoxAnnos.getSelectedIndex()));
+        }
+        else if (flag){
+            //retornar la brigada seleccionada para hacer los cambios que se vayan a hacer 
+            Brigada b = brigada.elementAt(ComboBoxAnnos.getSelectedIndex());
+            
+        }
+    }//GEN-LAST:event_ButtonAceptarMouseClicked
+
+    private void ComboBoxAnnosPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
+        actualizarTablaBrigadas(brigada.elementAt(ComboBoxAnnos.getSelectedIndex()));
+    }//GEN-LAST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
+
+  
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonAceptar;
+    private javax.swing.JButton ButtonCancelar;
+    private javax.swing.JComboBox<String> ComboBoxAnnos;
+    private javax.swing.JLabel LabelBeigadasExistentes;
+    private javax.swing.JTable TableBrigadasExistentes;
+    private javax.swing.JTextField TextBrigada;
+    private javax.swing.JScrollPane jScrollPane1;
+    // End of variables declaration//GEN-END:variables
+
+    private void actualizartablaCarreras(Vector<String> carreras) {
+        DefaultTableModel df = new DefaultTableModel();
+        TableBrigadasExistentes = new JTable(df);
+        jScrollPane1.setViewportView(TableBrigadasExistentes);
+        df.addColumn("Nombre de la carrera");
+
+        Object[] ob = new Object[1];
+        for (int i = 0; i < carreras.size(); i++) {
+            ob[0] = carreras.elementAt(i);
+            df.addRow(ob);
+        }
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    private void actualizarTablaBrigadas(Brigada b) {
+        DefaultTableModel df = new DefaultTableModel();
+        TableBrigadasExistentes = new JTable(df);
+        jScrollPane1.setViewportView(TableBrigadasExistentes);
+        df.addColumn("Nombre del Estudiante");
+        df.addColumn("Carnet de Identidad");
+
+        Object[] ob = new Object[2];
+        for (int i = 0; i < b.getEstudiantes().size(); i++) {
+            ob[0] = b.getEstudiantes().elementAt(i).getNombre_estudiante();
+            ob[1] = b.getEstudiantes().elementAt(i).getCI();
+            df.addRow(ob);
+        }
+
+    }
 }

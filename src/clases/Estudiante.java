@@ -39,6 +39,10 @@ public class Estudiante {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    public void setNotas(Vector<Nota> notas) {
+        this.notas = notas;
+    }
     
     
     

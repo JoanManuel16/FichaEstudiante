@@ -433,17 +433,57 @@ public class Gestion {
     }
 
     public Vector<String> getDimensiones() {
+       C.conectar();
         Vector <String> v = new Vector<>();        
         try {
-            String stat = "slect nombre_dimension from dimensiones ";
+            String stat = "select nombre_dimension from dimensiones ";
             ResultSet rs = C.getConsulta().executeQuery(stat);
             while (rs.next()) {
                 v.add(rs.getString("nombre_dimension"));
             }
+            C.desconectar();
         } catch (SQLException ex) {
+            C.desconectar();
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
        return v;
+    }
+
+    public Vector<Brigada> obtenerBrigadasDeUnaCarrera(String carreraSeleccionada) {
+            //No estoy seguro si sacar las notas aqui tambien no lo creo necesario
+        Vector<Brigada> brigasdasDeLacarrera = new Vector<>();
+        Vector<Tupla<Integer,Integer>> anno_annoBrigada = new Vector<>();
+        Vector<Integer>Id_brigadas = new Vector<>();
+        Vector<Estudiante> estudiantes= new Vector<>();
+        try {
+            C.conectar();
+            String stat ="select id_carrera from carrera where nombre_carrera= '"+carreraSeleccionada+"'";
+            ResultSet rs = C.getConsulta().executeQuery(stat);
+            int id_carrera = rs.getInt("id_carrera");
+            stat ="slect * from brigada where id_carrera="+id_carrera;
+            rs=C.getConsulta().executeQuery(stat);
+            while (rs.next()) {
+                anno_annoBrigada.add(new Tupla<>(rs.getInt("ano_brigada"),rs.getInt("anno")));
+                Id_brigadas.add(rs.getInt("id_brigada"));
+            }
+            for (int i = 0; i < Id_brigadas.size(); i++) {
+                stat ="slect * from estudiante where id_brigada="+Id_brigadas.elementAt(i);
+                   rs=C.getConsulta().executeQuery(stat);
+                   while (rs.next()) {                    
+                    String nombreEstudiante = rs.getString("nombre_estudiante");
+                    String CI = rs.getString("CI");
+                    Estudiante e = new Estudiante(CI, CI);
+                    estudiantes.add(e);
+                }
+                       Brigada b = new Brigada(carreraSeleccionada, anno_annoBrigada.elementAt(i).getN1(), anno_annoBrigada.elementAt(i).getN2(), estudiantes);
+                       brigasdasDeLacarrera.add(b);
+            }
+            C.desconectar();
+        } catch (SQLException ex) {
+            C.desconectar();
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return brigasdasDeLacarrera;
     }
    
 }
