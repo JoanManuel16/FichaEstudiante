@@ -2,6 +2,7 @@ package utiles;
 
 import java.awt.event.KeyEvent;
 import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 public class Secuencias_cadenas {
@@ -106,4 +107,9 @@ public class Secuencias_cadenas {
         }
 
     }
+  public static void llenarComboBox(Vector<String> v, JComboBox jc){
+        for (String v1 : v) {
+            jc.addItem(v1);
+        }
+  }
 }

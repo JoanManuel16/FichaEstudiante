@@ -431,5 +431,19 @@ public class Gestion {
 
 
     }
+
+    public Vector<String> getDimensiones() {
+        Vector <String> v = new Vector<>();        
+        try {
+            String stat = "slect nombre_dimension from dimensiones ";
+            ResultSet rs = C.getConsulta().executeQuery(stat);
+            while (rs.next()) {
+                v.add(rs.getString("nombre_dimension"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return v;
+    }
    
 }

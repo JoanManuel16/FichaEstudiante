@@ -4,6 +4,10 @@
  */
 package Visuales;
 
+import Base_de_Datos.Gestion;
+import java.util.Vector;
+import static utiles.Secuencias_cadenas.sonNumeros;
+
 /**
  *
  * @author joanmanuel
@@ -13,8 +17,13 @@ public class Crear_evento extends javax.swing.JFrame {
     /**
      * Creates new form Crear_evento
      */
+    private Vector<String>dimensiones;
+    private Gestion g;
     public Crear_evento() {
         initComponents();
+        g= new Gestion();
+        dimensiones = g.getDimensiones();
+        llenarCombobox(dimensiones,ComboBoxDimensines);
     }
 
     /**
@@ -26,57 +35,97 @@ public class Crear_evento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Nombre_evento = new javax.swing.JLabel();
+        TextNombreEvento = new javax.swing.JTextField();
+        Label_dimensionEvento = new javax.swing.JLabel();
+        ComboBoxDimensines = new javax.swing.JComboBox<>();
+        ButtonAceptar = new javax.swing.JButton();
+        ButtonCAncelar = new javax.swing.JButton();
+        AgregarDimension = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Nombre_evento.setText("Nombre del Evento");
+
+        TextNombreEvento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TextNombreEventoKeyReleased(evt);
+            }
+        });
+
+        Label_dimensionEvento.setText("Dimension del Evento");
+
+        ComboBoxDimensines.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+
+        ButtonAceptar.setText("Aceptar");
+
+        ButtonCAncelar.setText("Cancelar");
+
+        AgregarDimension.setText("Agregar Diemsion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(Nombre_evento))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Label_dimensionEvento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ButtonAceptar, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(AgregarDimension)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addComponent(ButtonCAncelar))
+                    .addComponent(TextNombreEvento)
+                    .addComponent(ComboBoxDimensines, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Nombre_evento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Label_dimensionEvento)
+                    .addComponent(ComboBoxDimensines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonAceptar)
+                    .addComponent(ButtonCAncelar)
+                    .addComponent(AgregarDimension))
+                .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Crear_evento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Crear_evento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Crear_evento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Crear_evento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void TextNombreEventoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextNombreEventoKeyReleased
+          if(sonNumeros(evt.getKeyChar())){
+            Character caracterEtrada = evt.getKeyChar();
+            String reeplazo = TextNombreEvento.getText().replaceAll(caracterEtrada.toString(),"");
+            TextNombreEvento.setText(reeplazo);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_TextNombreEventoKeyReleased
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Crear_evento().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AgregarDimension;
+    private javax.swing.JButton ButtonAceptar;
+    private javax.swing.JButton ButtonCAncelar;
+    private javax.swing.JComboBox<String> ComboBoxDimensines;
+    private javax.swing.JLabel Label_dimensionEvento;
+    private javax.swing.JLabel Nombre_evento;
+    private javax.swing.JTextField TextNombreEvento;
     // End of variables declaration//GEN-END:variables
 }
