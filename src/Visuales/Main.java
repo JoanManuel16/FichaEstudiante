@@ -57,6 +57,11 @@ public class Main extends javax.swing.JFrame {
         jMenu2.setText("Eventos");
 
         jMenuItem3.setText("Crear evento");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("Filtrar por eventos");
@@ -106,6 +111,12 @@ public class Main extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_CrearBrigadaActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Crear_evento cr = new Crear_evento();
+                cr.setVisible(true);
+                this.dispose();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

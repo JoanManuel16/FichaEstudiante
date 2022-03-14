@@ -6,7 +6,9 @@ package Visuales;
 
 import Base_de_Datos.Gestion;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import static utiles.Secuencias_cadenas.sonNumeros;
+import static utiles.Secuencias_cadenas.llenarComboBox;
 
 /**
  *
@@ -22,8 +24,6 @@ public class Crear_evento extends javax.swing.JFrame {
     public Crear_evento() {
         initComponents();
         g= new Gestion();
-        dimensiones = g.getDimensiones();
-        llenarCombobox(dimensiones,ComboBoxDimensines);
     }
 
     /**
@@ -37,13 +37,15 @@ public class Crear_evento extends javax.swing.JFrame {
 
         Nombre_evento = new javax.swing.JLabel();
         TextNombreEvento = new javax.swing.JTextField();
-        Label_dimensionEvento = new javax.swing.JLabel();
-        ComboBoxDimensines = new javax.swing.JComboBox<>();
         ButtonAceptar = new javax.swing.JButton();
         ButtonCAncelar = new javax.swing.JButton();
-        AgregarDimension = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         Nombre_evento.setText("Nombre del Evento");
 
@@ -53,40 +55,34 @@ public class Crear_evento extends javax.swing.JFrame {
             }
         });
 
-        Label_dimensionEvento.setText("Dimension del Evento");
-
-        ComboBoxDimensines.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-
         ButtonAceptar.setText("Aceptar");
+        ButtonAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonAceptarMouseClicked(evt);
+            }
+        });
 
         ButtonCAncelar.setText("Cancelar");
-
-        AgregarDimension.setText("Agregar Diemsion");
+        ButtonCAncelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonCAncelarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(Nombre_evento))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Label_dimensionEvento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ButtonAceptar, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(AgregarDimension)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                        .addComponent(ButtonCAncelar))
-                    .addComponent(TextNombreEvento)
-                    .addComponent(ComboBoxDimensines, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Nombre_evento)
+                    .addComponent(ButtonAceptar))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TextNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonCAncelar))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,16 +91,11 @@ public class Crear_evento extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Nombre_evento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TextNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Label_dimensionEvento)
-                    .addComponent(ComboBoxDimensines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonAceptar)
-                    .addComponent(ButtonCAncelar)
-                    .addComponent(AgregarDimension))
-                .addGap(28, 28, 28))
+                    .addComponent(ButtonCAncelar))
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -118,13 +109,28 @@ public class Crear_evento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TextNombreEventoKeyReleased
 
+    private void ButtonAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAceptarMouseClicked
+        if(TextNombreEvento.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El nombre del evento esta vacio", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        g.agregar_nombre_evento(TextNombreEvento.getText());
+        TextNombreEvento.setText("");
+    }//GEN-LAST:event_ButtonAceptarMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Main m = new Main();
+        m.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void ButtonCAncelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCAncelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_ButtonCAncelarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AgregarDimension;
     private javax.swing.JButton ButtonAceptar;
     private javax.swing.JButton ButtonCAncelar;
-    private javax.swing.JComboBox<String> ComboBoxDimensines;
-    private javax.swing.JLabel Label_dimensionEvento;
     private javax.swing.JLabel Nombre_evento;
     private javax.swing.JTextField TextNombreEvento;
     // End of variables declaration//GEN-END:variables

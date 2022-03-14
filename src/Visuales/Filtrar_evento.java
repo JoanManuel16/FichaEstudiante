@@ -4,6 +4,17 @@
  */
 package Visuales;
 
+import Base_de_Datos.Gestion;
+import clases.Carrera;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import utiles.Secuencias_cadenas;
+import static utiles.Secuencias_cadenas.sonNumeros;
+
 /**
  *
  * @author joanmanuel
@@ -13,8 +24,13 @@ public class Filtrar_evento extends javax.swing.JFrame {
     /**
      * Creates new form Filtrar_evento
      */
+    private Vector<String>NombreEventos;
+    private Gestion g;
     public Filtrar_evento() {
         initComponents();
+        g= new Gestion();
+        NombreEventos=g.obtener_nombres_eventos();
+        actualizarTabla(NombreEventos);
     }
 
     /**
@@ -26,21 +42,155 @@ public class Filtrar_evento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TableEventos = new javax.swing.JTable();
+        LabelNombreEvento = new javax.swing.JLabel();
+        TextNombreEvento = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        TableEventos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(TableEventos);
+
+        LabelNombreEvento.setText("Nombre del evento");
+
+        TextNombreEvento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TextNombreEventoKeyReleased(evt);
+            }
+        });
+
+        jButton1.setText("Aceptar");
+
+        jButton2.setText("Cancelar");
+
+        jButton3.setText("Nuevo Evento");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(LabelNombreEvento))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(TextNombreEvento))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelNombreEvento)
+                    .addComponent(TextNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TextNombreEventoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextNombreEventoKeyReleased
+           
+          if(sonNumeros(evt.getKeyChar())){
+            Character caracterEtrada = evt.getKeyChar();
+            String reeplazo = TextNombreEvento.getText().replaceAll(caracterEtrada.toString(),"");
+            TextNombreEvento.setText(reeplazo);
+        }
+         
+          String temp = TextNombreEvento.getText();
+         if(temp.length()>=3){
+             Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < NombreEventos.size(); i++){
+                 if(Secuencias_cadenas.mayor_subcadena(temp, NombreEventos.elementAt(i))){
+                     Similares.add(NombreEventos.elementAt(i));
+                 }
+             }
+             actualizarTabla(Similares);
+         }
+         else if(temp.length()<3){
+             actualizarTabla(NombreEventos);
+         }
+    }//GEN-LAST:event_TextNombreEventoKeyReleased
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+       
+         if(TextNombreEvento.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El nombre del Evetno esta vacio", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+        
+        String temp = TextNombreEvento.getText();
+        Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < NombreEventos.size(); i++){
+                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, N.elementAt(i))>=75.00){
+                     Similares.add(carreras.elementAt(i));
+                 }
+             }
+             
+             if(!Similares.isEmpty()){
+             String[] S = new String[Similares.size()];
+             Similares.copyInto(S);
+             
+                    String  x =(String) JOptionPane.showInputDialog(null, "Estas carreras son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+            
+                    if(x == null){
+                        
+                    Crear_carrera CC = new Crear_carrera(temp);
+                    CC.setVisible(true);
+                    this.dispose();
+                    }
+                    
+                    Vector<String> V = new Vector<String>();
+                    V.add(x);
+                    
+                   actualizarTabla(V);
+                    
+             }
+             else{
+                  Crear_carrera CC = new Crear_carrera(temp);
+                    CC.setVisible(true);
+                    this.dispose();
+             }
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +228,25 @@ public class Filtrar_evento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LabelNombreEvento;
+    private javax.swing.JTable TableEventos;
+    private javax.swing.JTextField TextNombreEvento;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarTabla(Vector<String> v) {
+        DefaultTableModel df= new DefaultTableModel();
+            TableEventos= new JTable(df);
+            jScrollPane1.setViewportView(TableEventos);
+            df.addColumn("Nombre del Evento");
+            
+            Object[] ob = new Object[1];
+            for (int i = 0; i < v.size(); i++) {
+            ob[0] = v.elementAt(i);
+            df.addRow(ob);
+        }
+    }
 }
