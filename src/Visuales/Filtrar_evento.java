@@ -194,7 +194,7 @@ public class Filtrar_evento extends javax.swing.JFrame {
 
              }
              else{
-                 Crear_evento cr = new Crear_evento();
+                 Editor_evento cr = new Editor_evento();
                  cr.setVisible(true);
                  this.dispose();
              }

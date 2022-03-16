@@ -20,7 +20,7 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  *
  * @author joanmanuel
  */
-public class Crear_carrera extends javax.swing.JFrame {
+public class Editor_carrera extends javax.swing.JFrame {
 
     
     private String nombre_carrera;
@@ -29,7 +29,7 @@ public class Crear_carrera extends javax.swing.JFrame {
     private Base_de_Datos.Gestion  G = new Gestion();
     private boolean edicion;
     
-    public Crear_carrera(String NC) {
+    public Editor_carrera(String NC) {
         initComponents();
         nombre_carrera = NC;
         Asignaturas = new Vector<>();
@@ -51,7 +51,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         
     }
     
-    public Crear_carrera(Carrera Carr){
+    public Editor_carrera(Carrera Carr){
          initComponents();
         nombre_carrera = Carr.getNombre();
         Asignaturas = Carr.getAsignaturas();
@@ -598,7 +598,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         }
         else{
         G.agregar_carrera(C);
-            Crear_brigada CB = new Crear_brigada(C.getNombre());
+            Editor_brigada CB = new Editor_brigada(C.getNombre());
             CB.setVisible(true);
             this.dispose();
         }

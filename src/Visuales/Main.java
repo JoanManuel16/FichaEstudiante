@@ -113,7 +113,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_CrearBrigadaActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        Crear_evento cr = new Crear_evento();
+        Editor_evento cr = new Editor_evento();
                 cr.setVisible(true);
                 this.dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed

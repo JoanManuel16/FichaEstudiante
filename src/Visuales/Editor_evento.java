@@ -13,14 +13,14 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  *
  * @author joanmanuel
  */
-public class Crear_evento extends javax.swing.JFrame {
+public class Editor_evento extends javax.swing.JFrame {
 
     /**
      * Creates new form Crear_evento
      */
     private Vector<String>dimensiones;
     private Gestion g;
-    public Crear_evento() {
+    public Editor_evento() {
         initComponents();
         g= new Gestion();
     }

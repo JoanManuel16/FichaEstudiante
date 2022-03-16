@@ -18,6 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utiles.Tupla;
 
+
+//UPDATEAR los datos del estudiante solo cuando se vaya a cargar. Nunca antes.
 public class Gestion {
     private final Conexion C;
     
@@ -39,10 +41,24 @@ public class Gestion {
     	stat = "insert into brigada values(null, " + B.getAnno_brigada() + ", (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "'), " + B.getAnno() + ")";
     	C.getConsulta().execute(stat);
     	
+        stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
+        RS = C.getConsulta().executeQuery(stat);
+        int idB = RS.getInt("id_brigada");
+        
+        
+        
+        for(int i = 0; i < B.getEstudiantes().size(); i++){
+            String id_estudiante = B.getEstudiantes().elementAt(i).getCI();
+            stat = "update EstudianteSencillo set id_brigada = " + idB + " where CI = '" + id_estudiante + "'";
+            C.getConsulta().execute(stat);
+        }
+        
+        
     	} catch (SQLException e) {
     		C.desconectar();
 			return false;
 		}
+       
     	
     	C.desconectar();
     	return true;
@@ -136,7 +152,7 @@ public class Gestion {
     }
     
     
-    public boolean agregar_estudiante(Brigada B, DatosEstudiante DE) {
+    public boolean editar_estudiante(Brigada B, DatosEstudiante DE) {
     	
     	C.conectar();
     	
@@ -206,7 +222,7 @@ public class Gestion {
     
     public Vector<String> obtener_nombres_eventos(){
     	C.conectar();
-    	Vector<String> nombres = new Vector<String>();
+    	Vector<String> nombres = new Vector<>();
     	String stat = "select nombre_evento from nombre_evento";
     	try {
 			ResultSet RS = C.getConsulta().executeQuery(stat);
@@ -216,7 +232,6 @@ public class Gestion {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
     	C.desconectar();
     	return nombres;
@@ -228,7 +243,6 @@ public class Gestion {
     	try {
 			C.getConsulta().execute(stat);
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
     	C.desconectar();
     }
@@ -272,7 +286,7 @@ public class Gestion {
 			ResultSet RS = C.getConsulta().executeQuery(stat);
 			int idEV = RS.getInt("id_evento");
 			
-			stat = "select id_estudiante from Estudiante where CI = '" + EST.getCI() + "'";
+			stat = "select id_estudiante from EstudianteSencillo where CI = '" + EST.getCI() + "'";
 			RS = C.getConsulta().executeQuery(stat);
 			int idEST = RS.getInt("id_estudiante");
 			
@@ -296,7 +310,7 @@ public class Gestion {
     
     public Vector<Boolean> agregar_estudiantes_a_evento(Vector<Tupla<Estudiante, String>> EST, Evento EV) {
     	
-    	Vector<Boolean> Mapa = new Vector<Boolean>();
+    	Vector<Boolean> Mapa = new Vector<>();
     	
     	for(int i = 0; i < EST.size(); i++) {
     		Mapa.add(agregar_evento_a_estudiante(EV, EST.elementAt(i).getN1(), EST.elementAt(i).getN2()));
@@ -414,14 +428,6 @@ public class Gestion {
             String stat = "update EstudianteSencillo set id_brigada = 0 where CI = '" + ci + "'";
             C.getConsulta().execute(stat);
             
-            stat = "select id_estudiante Estudiante where CI = '" + ci  + "'";
-            ResultSet RS = C.getConsulta().executeQuery(stat);
-            
-            if(RS.next()){
-                stat = "update Estudiante set id_brigada = 0 where CI = '" + ci + "'";
-                C.getConsulta().execute(stat);
-            }
-            
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -493,7 +499,7 @@ public class Gestion {
                    while (rs.next()) {                    
                     String nombreEstudiante = rs.getString("nombre_estudiante");
                     String CI = rs.getString("CI");
-                    Estudiante e = new Estudiante(CI, CI);
+                    Estudiante e = new Estudiante(nombreEstudiante, CI);
                     estudiantes.add(e);
                 }
                        Brigada b = new Brigada(carreraSeleccionada, anno_annoBrigada.elementAt(i).getN1(), anno_annoBrigada.elementAt(i).getN2(), estudiantes);

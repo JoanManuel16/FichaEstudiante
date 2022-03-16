@@ -4,16 +4,18 @@
  */
 package Visuales;
 
+import clases.Estudiante;
+
 /**
  *
  * @author joanmanuel
  */
-public class Filtrar_notas extends javax.swing.JFrame {
+public class Editor_estudiante extends javax.swing.JFrame {
 
     /**
-     * Creates new form Notas_filtar
+     * Creates new form Editar_estudiante
      */
-    public Filtrar_notas() {
+    public Editor_estudiante(Estudiante E) {
         initComponents();
     }
 

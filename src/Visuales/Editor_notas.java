@@ -1,21 +1,20 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package Visuales;
 
-import clases.Estudiante;
-
 /**
  *
- * @author joanmanuel
+ * @author SchWarZer
  */
-public class Editar_estudiante extends javax.swing.JFrame {
+public class Editor_notas extends javax.swing.JFrame {
 
     /**
-     * Creates new form Editar_estudiante
+     * Creates new form Editor_notas
      */
-    public Editar_estudiante(Estudiante E) {
+    public Editor_notas() {
         initComponents();
     }
 
