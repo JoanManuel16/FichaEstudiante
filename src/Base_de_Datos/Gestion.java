@@ -356,9 +356,10 @@ public class Gestion {
             if(!RS.next()){
                 throw new SQLException();
             }
-            while(RS.next()){
+            do{
                 carreras.add(RS.getString("nombre_carrera"));
-            }
+            }while(RS.next());
+            
         } catch (SQLException ex) {
                      C.desconectar();
                     return carreras;
@@ -426,11 +427,31 @@ public class Gestion {
         }
 
     }
+    
+        public int obtener_annos_carrera(String Carr) {
+            int max_anno = 0;
+        try {
+            C.conectar();
+            
+            String stat = "select max (anno_brigada) from carrera join asignaturas_semestre on carrera.id_carrera = asignaturas_semestre.id_carrera where carrera.nombre_carrera = '" + Carr + "'";
+            
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            max_anno = RS.getInt("anno_brigada");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return max_anno;
+        }
 
     public void editar_carrera(Carrera Carr) {
-
+        
+        
 
     }
+    
+    //ERIC DE AQUI PA ARRIBA
 
     public Vector<String> getDimensiones() {
        C.conectar();

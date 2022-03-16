@@ -8,12 +8,12 @@ package Visuales;
  *
  * @author joanmanuel
  */
-public class Notas_filtar extends javax.swing.JFrame {
+public class Filtrar_notas extends javax.swing.JFrame {
 
     /**
      * Creates new form Notas_filtar
      */
-    public Notas_filtar() {
+    public Filtrar_notas() {
         initComponents();
     }
 
@@ -59,20 +59,21 @@ public class Notas_filtar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Notas_filtar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Filtrar_notas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Notas_filtar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Filtrar_notas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Notas_filtar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Filtrar_notas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Notas_filtar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Filtrar_notas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Notas_filtar().setVisible(true);
+                new Filtrar_notas().setVisible(true);
             }
         });
     }

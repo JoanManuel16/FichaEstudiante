@@ -8,7 +8,6 @@ import Base_de_Datos.Gestion;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import static utiles.Secuencias_cadenas.sonNumeros;
-import static utiles.Secuencias_cadenas.llenarComboBox;
 
 /**
  *
