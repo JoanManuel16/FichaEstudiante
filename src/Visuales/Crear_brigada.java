@@ -24,16 +24,17 @@ public class Crear_brigada extends javax.swing.JFrame {
     private Gestion G = new Gestion();
     private Vector<Estudiante> estudiantes;
 
-    public Crear_brigada() {
-        initComponents();
-
-        estudiantes = new Vector<>();
-    }
-
     public Crear_brigada(String Carr) {
         initComponents();
 
         estudiantes = new Vector<>();
+        
+        Carrera_seleccionada.setText(Carr);
+        int annos = G.obtener_annos_carrera(Carr);
+        for(int i = 1; i <= annos; i++){
+            AnnosCombo.addItem(i+"");
+        }
+        
     }
 
     /**
@@ -54,7 +55,6 @@ public class Crear_brigada extends javax.swing.JFrame {
         MenuEstudiantes = new javax.swing.JPopupMenu();
         EditarEstudiante = new javax.swing.JMenuItem();
         EliminarEstudiante = new javax.swing.JMenuItem();
-        Seleccionar_carrera = new javax.swing.JButton();
         Carrera_seleccionada = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaEst = new javax.swing.JTable();
@@ -62,6 +62,7 @@ public class Crear_brigada extends javax.swing.JFrame {
         Annos = new javax.swing.JLabel();
         Finalizar = new javax.swing.JButton();
         Agregar_estudiante = new javax.swing.JButton();
+        Carrera = new javax.swing.JLabel();
 
         nombre.setText("Nombre y Apellidos:");
 
@@ -139,13 +140,6 @@ public class Crear_brigada extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Seleccionar_carrera.setText("Seleccionar Carrera");
-        Seleccionar_carrera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Seleccionar_carreraActionPerformed(evt);
-            }
-        });
-
         TablaEst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -170,6 +164,8 @@ public class Crear_brigada extends javax.swing.JFrame {
             }
         });
 
+        Carrera.setText("Carrera:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,15 +176,17 @@ public class Crear_brigada extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Carrera_seleccionada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Seleccionar_carrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Annos)
                                 .addGap(18, 18, 18)
                                 .addComponent(AnnosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Agregar_estudiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(Agregar_estudiante, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Finalizar)))
+                        .addComponent(Finalizar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -200,8 +198,8 @@ public class Crear_brigada extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Seleccionar_carrera)
-                        .addGap(18, 18, 18)
+                        .addComponent(Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Carrera_seleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -211,17 +209,11 @@ public class Crear_brigada extends javax.swing.JFrame {
                         .addComponent(Agregar_estudiante)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Finalizar)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Seleccionar_carreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Seleccionar_carreraActionPerformed
-        Gestor_carreras GC = new Gestor_carreras(false);
-        GC.setVisible(true);
-        // this.setEnabled(false);
-    }//GEN-LAST:event_Seleccionar_carreraActionPerformed
 
     private void Agregar_estudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agregar_estudianteActionPerformed
 
@@ -323,12 +315,12 @@ public class Crear_brigada extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> AnnosCombo;
     private javax.swing.JLabel CI;
     private javax.swing.JTextField CIT;
+    private javax.swing.JLabel Carrera;
     private javax.swing.JLabel Carrera_seleccionada;
     private javax.swing.JMenuItem EditarEstudiante;
     private javax.swing.JMenuItem EliminarEstudiante;
     private javax.swing.JButton Finalizar;
     private javax.swing.JPopupMenu MenuEstudiantes;
-    private javax.swing.JButton Seleccionar_carrera;
     private javax.swing.JTable TablaEst;
     private javax.swing.JDialog agregar_estudiante;
     private javax.swing.JScrollPane jScrollPane1;
