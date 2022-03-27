@@ -20,21 +20,27 @@ import utiles.Tupla;
 
 
 //UPDATEAR los datos del estudiante solo cuando se vaya a cargar. Nunca antes.
-public class Gestion {
+public class Gestion
+{
     private final Conexion C;
     
-    public Gestion(){
+    public Gestion()
+    {
         C = new Conexion();
     }
 
-    public boolean agregar_brigada(Brigada B) {
+    //Agrega la brigada a la base de datos
+    public boolean agregar_brigada(Brigada B) 
+    {
     	
     	C.conectar();
     	
     	String stat = "select * from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
-    	try {
+    	try
+        {
 			ResultSet RS = C.getConsulta().executeQuery(stat);
-			if(RS.next()) {
+			if(RS.next())
+                        {
 				throw new SQLException();
 			}
 		
@@ -64,6 +70,7 @@ public class Gestion {
     	return true;
     	}
     
+    //Agrega la carrera a la base de datos
     public boolean agregar_carrera(Carrera Carr) {  	
     	C.conectar();
     	
@@ -474,6 +481,35 @@ public class Gestion {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
        return v;
+    }
+    
+    public Vector<Brigada> obtenerBrigadas(){
+       Vector<Brigada> V = new Vector<>();
+         C.conectar();
+        try {
+
+            String stat = "select * from brigada join carrera on brigada.id_carrera = carrera.id_carrera";
+            
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(!RS.next()){
+                throw new SQLException();
+            }
+            do{
+                
+                int anno = RS.getInt("anno");
+                int annoB = RS.getInt("ano_brigada");
+                String nombreCarrera = RS.getString("nombre_carrera");
+                V.add(new Brigada(nombreCarrera, anno, annoB, new Vector<>()));
+                
+            }while(RS.next());
+            
+        } catch (SQLException ex) {
+            C.desconectar();
+            return V;
+        }
+        
+        C.desconectar();
+        return V;
     }
 
     public Vector<Brigada> obtenerBrigadasDeUnaCarrera(String carreraSeleccionada) {

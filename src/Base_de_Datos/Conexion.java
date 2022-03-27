@@ -14,11 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class Conexion{
+public class Conexion
+{
     
 	Connection conexion;
 
-    public Statement getConsulta() {
+    public Statement getConsulta()
+    {
         return consulta;
     }
 
@@ -42,21 +44,26 @@ public class Conexion{
         
    
     }
-     public Connection conectar(){
-		try {
+     public Connection conectar()
+     {
+		try 
+                {
 	            Class.forName("org.sqlite.JDBC");
 	        }
-	        catch (ClassNotFoundException e) {
+	        catch (ClassNotFoundException e) 
+                {
 	            JOptionPane.showMessageDialog(null, e.getMessage());
 	        }	 
-			try {
+			try 
+                        {
                            
                             conexion = DriverManager.getConnection("jdbc:sqlite:"+ruta);
                             
                             consulta=conexion.createStatement();
                             
                             
-			} catch (SQLException e) {
+			} catch (SQLException e) 
+                        {
                             JOptionPane.showMessageDialog(null, e.getMessage());
                             
                             System.out.println(e.getMessage());
@@ -65,11 +72,14 @@ public class Conexion{
                         
                        
 	}
-    public void desconectar(){
+    public void desconectar()
+    {
         
-            try {
+            try 
+            {
                 conexion.close();
-            } catch (SQLException ex) {
+            } catch (SQLException ex) 
+            {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
     }

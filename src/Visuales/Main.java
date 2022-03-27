@@ -28,8 +28,8 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        CrearBrigada = new javax.swing.JMenuItem();
+        brigadasExistentes = new javax.swing.JMenuItem();
+        crearBrigada = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -41,16 +41,21 @@ public class Main extends javax.swing.JFrame {
 
         jMenu1.setText("Gestor de Brigada");
 
-        jMenuItem1.setText("Brigadas Existentes");
-        jMenu1.add(jMenuItem1);
-
-        CrearBrigada.setText("Crear Nueva Brigada");
-        CrearBrigada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CrearBrigadaActionPerformed(evt);
+        brigadasExistentes.setText("Brigadas Existentes");
+        brigadasExistentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                brigadasExistentesMouseReleased(evt);
             }
         });
-        jMenu1.add(CrearBrigada);
+        jMenu1.add(brigadasExistentes);
+
+        crearBrigada.setText("Crear Nueva Brigada");
+        crearBrigada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearBrigadaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(crearBrigada);
 
         jMenuBar1.add(jMenu1);
 
@@ -104,19 +109,25 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void CrearBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearBrigadaActionPerformed
+    private void crearBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBrigadaActionPerformed
        
         Gestor_carreras GC = new Gestor_carreras(false);
         GC.setVisible(true);
         dispose();
         
-    }//GEN-LAST:event_CrearBrigadaActionPerformed
+    }//GEN-LAST:event_crearBrigadaActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         Editor_evento cr = new Editor_evento();
                 cr.setVisible(true);
                 this.dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void brigadasExistentesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brigadasExistentesMouseReleased
+        Gestor_brigada gestorBrigada = new Gestor_brigada();
+        gestorBrigada.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_brigadasExistentesMouseReleased
 
     /**
      * @param args the command line arguments
@@ -154,12 +165,12 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem CrearBrigada;
+    private javax.swing.JMenuItem brigadasExistentes;
+    private javax.swing.JMenuItem crearBrigada;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

@@ -23,17 +23,21 @@ public class Gestor_brigada extends javax.swing.JFrame {
      */
     private Gestion g;
     private Vector<String> carreras;
-    private Vector<String> Similares;
+    private Vector<String> BrigadasCarrera;
+    private Vector<String> BrigadasAnno;
+    private Vector<String> BrigadasAnnoB;
     private boolean flag;
-    private Vector<Brigada> brigada;
+    private Vector<Brigada> Brigadas;
 
     public Gestor_brigada() {
         initComponents();
         g = new Gestion();
         carreras = g.obtener_carreras();
-        Similares = new Vector<>();
-        flag = false;
-        actualizartablaCarreras(carreras);
+        BrigadasCarrera = new Vector<>();
+        BrigadasAnno = new Vector<>();
+        BrigadasAnnoB = new Vector<>();
+        Brigadas = g.obtenerBrigadas();
+        actualizarTablaBrigadas(Brigadas);
     }
 
     /**
@@ -47,11 +51,14 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TableBrigadasExistentes = new javax.swing.JTable();
-        ButtonAceptar = new javax.swing.JButton();
+        editar = new javax.swing.JButton();
         LabelBeigadasExistentes = new javax.swing.JLabel();
-        TextBrigada = new javax.swing.JTextField();
+        carreraBrigada = new javax.swing.JTextField();
         ButtonCancelar = new javax.swing.JButton();
         ComboBoxAnnos = new javax.swing.JComboBox<>();
+        annoBrigada = new javax.swing.JLabel();
+        anno = new javax.swing.JLabel();
+        annoLabel = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,18 +75,18 @@ public class Gestor_brigada extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TableBrigadasExistentes);
 
-        ButtonAceptar.setText("Aceptar");
-        ButtonAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+        editar.setText("Editar");
+        editar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonAceptarMouseClicked(evt);
+                editarMouseClicked(evt);
             }
         });
 
         LabelBeigadasExistentes.setText("Brigadas Existentes");
 
-        TextBrigada.addKeyListener(new java.awt.event.KeyAdapter() {
+        carreraBrigada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                TextBrigadaKeyReleased(evt);
+                carreraBrigadaKeyReleased(evt);
             }
         });
 
@@ -95,28 +102,43 @@ public class Gestor_brigada extends javax.swing.JFrame {
             }
         });
 
+        annoBrigada.setText("Anno de la brigada");
+
+        anno.setText("Anno");
+
+        annoLabel.setText("jTextField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LabelBeigadasExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TextBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ComboBoxAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(119, 119, 119)
-                .addComponent(ButtonAceptar)
+                .addComponent(editar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ButtonCancelar)
                 .addGap(118, 118, 118))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(LabelBeigadasExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(annoBrigada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(ComboBoxAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(48, 48, 48)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(anno)
+                        .addGap(24, 24, 24)
+                        .addComponent(annoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(carreraBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,13 +146,20 @@ public class Gestor_brigada extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelBeigadasExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComboBoxAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(carreraBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(annoBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(anno)
+                            .addComponent(annoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonAceptar)
+                    .addComponent(editar)
                     .addComponent(ButtonCancelar))
                 .addGap(27, 27, 27))
         );
@@ -138,14 +167,14 @@ public class Gestor_brigada extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TextBrigadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextBrigadaKeyReleased
+    private void carreraBrigadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_carreraBrigadaKeyReleased
         if (sonNumeros(evt.getKeyChar())) {
             Character caracterEtrada = evt.getKeyChar();
-            String reeplazo = TextBrigada.getText().replaceAll(caracterEtrada.toString(), "");
-            TextBrigada.setText(reeplazo);
+            String reeplazo = carreraBrigada.getText().replaceAll(caracterEtrada.toString(), "");
+            carreraBrigada.setText(reeplazo);
         }
         Similares.removeAllElements();
-        String temp = TextBrigada.getText();
+        String temp = carreraBrigada.getText();
         if (temp.length() >= 3) {
 
             for (int i = 0; i < carreras.size(); i++) {
@@ -158,9 +187,9 @@ public class Gestor_brigada extends javax.swing.JFrame {
             actualizartablaCarreras(carreras);
         }
 
-    }//GEN-LAST:event_TextBrigadaKeyReleased
+    }//GEN-LAST:event_carreraBrigadaKeyReleased
 
-    private void ButtonAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAceptarMouseClicked
+    private void editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseClicked
         if (!flag) {
             flag = true;
             if (!Similares.isEmpty()) {
@@ -184,7 +213,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
             Brigada b = brigada.elementAt(ComboBoxAnnos.getSelectedIndex());
             
         }
-    }//GEN-LAST:event_ButtonAceptarMouseClicked
+    }//GEN-LAST:event_editarMouseClicked
 
     private void ComboBoxAnnosPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
         actualizarTablaBrigadas(brigada.elementAt(ComboBoxAnnos.getSelectedIndex()));
@@ -192,29 +221,20 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonAceptar;
     private javax.swing.JButton ButtonCancelar;
     private javax.swing.JComboBox<String> ComboBoxAnnos;
     private javax.swing.JLabel LabelBeigadasExistentes;
     private javax.swing.JTable TableBrigadasExistentes;
-    private javax.swing.JTextField TextBrigada;
+    private javax.swing.JLabel anno;
+    private javax.swing.JLabel annoBrigada;
+    private javax.swing.JTextField annoLabel;
+    private javax.swing.JTextField carreraBrigada;
+    private javax.swing.JButton editar;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void actualizartablaCarreras(Vector<String> carreras) {
-        DefaultTableModel df = new DefaultTableModel();
-        TableBrigadasExistentes = new JTable(df);
-        jScrollPane1.setViewportView(TableBrigadasExistentes);
-        df.addColumn("Nombre de la carrera");
 
-        Object[] ob = new Object[1];
-        for (int i = 0; i < carreras.size(); i++) {
-            ob[0] = carreras.elementAt(i);
-            df.addRow(ob);
-        }
-    }
-
-    private void actualizarTablaBrigadas(Brigada b) {
+    private void actualizarTablaBrigadas(Vector<Brigada> V) {
         DefaultTableModel df = new DefaultTableModel();
         TableBrigadasExistentes = new JTable(df);
         jScrollPane1.setViewportView(TableBrigadasExistentes);
