@@ -205,7 +205,7 @@ public class Filtrar_evento extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        //falta crear el gestor de brigada para poder seleccionar una brigada para agragr eventos directamente a los estudiantes
+       
     }//GEN-LAST:event_jButton1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

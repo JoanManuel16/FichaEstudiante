@@ -485,5 +485,57 @@ public class Gestion {
         }
         return brigasdasDeLacarrera;
     }
+
+    public void agregarEventoEstudiantePorParticipacion(String fecha, int dimension,String evento, int valorDelLogro,Vector<Estudiante> estudiantesSeleccionados) {
+       Vector<Integer> id_estudiantes = new Vector<>();
+        try {
+            C.conectar();
+            String stat="Select id_nombre_evento from nombre_evento where nombre_evento='"+evento+"'";
+            ResultSet rs = C.getConsulta().executeQuery(stat);
+            int id_nombre_evento= rs.getInt("id_nombre_evento");
+            stat ="insert into eventos values(null,"+id_nombre_evento+","+dimension+",'"+fecha+"')";
+            C.getConsulta().execute(stat);
+            stat =" SELECT * FROM eventos ORDER BY id_evento DESC LIMIT 1";
+            rs = C.getConsulta().executeQuery(stat);
+            int id_evento = rs.getInt("id_evento");
+            stat="insert into logros_evento values(null,"+id_evento+",Participacion,"+valorDelLogro+") ";
+            C.getConsulta().execute(stat);
+            stat =" SELECT * FROM logros_evento ORDER BY id_logro DESC LIMIT 1";
+            rs= C.getConsulta().executeQuery(stat);
+            int id_logro=rs.getInt("id_logro");
+            for (int i = 0; i < estudiantesSeleccionados.size(); i++) {
+                stat="slect id_estudiante from EstudianteSencillo where CI='"+estudiantesSeleccionados.elementAt(i).getCI()+"'";
+                rs=C.getConsulta().executeQuery(stat);
+                id_estudiantes.add(rs.getInt("id_estdiante"));
+            }
+            for (int i = 0; i < id_estudiantes.size(); i++) {
+                    stat ="insert into eventos_estudiante values("+id_estudiantes.elementAt(i)+","+id_evento+","+id_logro+")";
+                    C.getConsulta().execute(stat);
+            }
+            C.desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }
+
+    public Vector<String> obtenerDimensiones() {
+         Vector<String> dimensiones = new Vector<>();
+        try {
+            C.conectar();
+            String stat = " select * from dimensiones ";
+            ResultSet rs =C.getConsulta().executeQuery(stat);            
+            while (rs.next()) {
+                dimensiones.add(rs.getString("nombre_dimension"));
+            }
+            
+            C.desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dimensiones;
+    }
    
 }

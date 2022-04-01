@@ -6,7 +6,10 @@ package Visuales;
 
 import Base_de_Datos.Gestion;
 import clases.Brigada;
+import java.awt.Font;
 import java.util.Vector;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
@@ -26,13 +29,17 @@ public class Gestor_brigada extends javax.swing.JFrame {
     private Vector<String> Similares;
     private boolean flag;
     private Vector<Brigada> brigada;
-
-    public Gestor_brigada() {
+    //este int es para saber de donde vengo para saber que es lo q tengo que devolver
+    private int opcion;
+    private String evento;
+    public Gestor_brigada(int opcion,String evento) {
         initComponents();
         g = new Gestion();
+        this.evento= evento;
         carreras = g.obtener_carreras();
         Similares = new Vector<>();
         flag = false;
+        this.opcion=opcion;
         actualizartablaCarreras(carreras);
     }
 
@@ -179,10 +186,12 @@ public class Gestor_brigada extends javax.swing.JFrame {
             LabelBeigadasExistentes.setText("Alumnos de la brigada");
             actualizarTablaBrigadas(brigada.elementAt(ComboBoxAnnos.getSelectedIndex()));
         }
-        else if (flag){
+        else if (flag && opcion==0){
             //retornar la brigada seleccionada para hacer los cambios que se vayan a hacer 
             Brigada b = brigada.elementAt(ComboBoxAnnos.getSelectedIndex());
-            
+            if(!evento.equals("")){
+                    EventoEstudiante ev = new EventoEstudiante(b,evento);
+            }
         }
     }//GEN-LAST:event_ButtonAceptarMouseClicked
 
