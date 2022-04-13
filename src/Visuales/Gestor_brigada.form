@@ -135,6 +135,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonCancelarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboBoxAnnos">
       <Properties>
@@ -160,9 +163,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="annoLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
-      </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="annoLabelKeyReleased"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

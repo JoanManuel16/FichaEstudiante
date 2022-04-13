@@ -24,20 +24,24 @@ public class Gestor_brigada extends javax.swing.JFrame {
     private Gestion g;
     private Vector<String> carreras;
     private Vector<String> BrigadasCarrera;
-    private Vector<String> BrigadasAnno;
-    private Vector<String> BrigadasAnnoB;
+    private Integer BrigadasAnno;
+    private Integer BrigadasAnnoB;
     private boolean flag;
     private Vector<Brigada> Brigadas;
+    private Vector<Brigada> BrigadasSeleccionadas;
 
     public Gestor_brigada() {
         initComponents();
         g = new Gestion();
         carreras = g.obtener_carreras();
         BrigadasCarrera = new Vector<>();
-        BrigadasAnno = new Vector<>();
-        BrigadasAnnoB = new Vector<>();
         Brigadas = g.obtenerBrigadas();
+        BrigadasSeleccionadas = new Vector<>();
         actualizarTablaBrigadas(Brigadas);
+        
+        for(int i = 1; i <= 5; i++){
+            ComboBoxAnnos.addItem(i+"");
+        }
     }
 
     /**
@@ -91,6 +95,11 @@ public class Gestor_brigada extends javax.swing.JFrame {
         });
 
         ButtonCancelar.setText("Cancelar");
+        ButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCancelarActionPerformed(evt);
+            }
+        });
 
         ComboBoxAnnos.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -106,7 +115,11 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
         anno.setText("Anno");
 
-        annoLabel.setText("jTextField1");
+        annoLabel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                annoLabelKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,51 +186,62 @@ public class Gestor_brigada extends javax.swing.JFrame {
             String reeplazo = carreraBrigada.getText().replaceAll(caracterEtrada.toString(), "");
             carreraBrigada.setText(reeplazo);
         }
-        Similares.removeAllElements();
+        BrigadasCarrera.removeAllElements();
         String temp = carreraBrigada.getText();
-        if (temp.length() >= 3) {
 
             for (int i = 0; i < carreras.size(); i++) {
                 if (Secuencias_cadenas.mayor_subcadena(temp, carreras.elementAt(i))) {
-                    Similares.add(carreras.elementAt(i));
+                    BrigadasCarrera.add(carreras.elementAt(i));
                 }
             }
-            actualizartablaCarreras(Similares);
-        } else if (temp.length() < 3) {
-            actualizartablaCarreras(carreras);
-        }
+            actualizarTablaBrigadas(Brigadas, BrigadasAnno, BrigadasAnnoB, BrigadasCarrera);
+ 
 
     }//GEN-LAST:event_carreraBrigadaKeyReleased
 
     private void editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseClicked
-        if (!flag) {
-            flag = true;
-            if (!Similares.isEmpty()) {
-                String carreraSeleccionada = Similares.elementAt(TableBrigadasExistentes.getSelectedRow());
-                brigada = g.obtenerBrigadasDeUnaCarrera(carreraSeleccionada);
-            } else {
-                String carreraSeleccionada = carreras.elementAt(TableBrigadasExistentes.getSelectedRow());
-                brigada = g.obtenerBrigadasDeUnaCarrera(carreraSeleccionada);
-            }
+       
+        int fila = TableBrigadasExistentes.getSelectedRow();
+        String carr = (String)TableBrigadasExistentes.getValueAt(fila, 0);
+        int anno = (int)TableBrigadasExistentes.getValueAt(fila, 1);
+        int annoB = (int)TableBrigadasExistentes.getValueAt(fila, 2);
         
-            for (int i = 0; i < brigada.size(); i++) {
-                ComboBoxAnnos.addItem((i + 1) + "");
+        for(int i = 0; i < BrigadasSeleccionadas.size(); i++){
+            if(BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada()== annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)){
+                Editor_brigada EB = new Editor_brigada(BrigadasSeleccionadas.elementAt(i));
+                EB.setVisible(true);
+                dispose();
             }
-            ComboBoxAnnos.setSelectedIndex(0);
-            ComboBoxAnnos.setVisible(true);
-            LabelBeigadasExistentes.setText("Alumnos de la brigada");
-            actualizarTablaBrigadas(brigada.elementAt(ComboBoxAnnos.getSelectedIndex()));
         }
-        else if (flag){
-            //retornar la brigada seleccionada para hacer los cambios que se vayan a hacer 
-            Brigada b = brigada.elementAt(ComboBoxAnnos.getSelectedIndex());
-            
-        }
+        
     }//GEN-LAST:event_editarMouseClicked
 
     private void ComboBoxAnnosPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
-        actualizarTablaBrigadas(brigada.elementAt(ComboBoxAnnos.getSelectedIndex()));
+       
+        BrigadasAnnoB = Integer.parseInt((String)ComboBoxAnnos.getSelectedItem());
+        
+        actualizarTablaBrigadas(Brigadas, BrigadasAnno, BrigadasAnnoB, BrigadasCarrera);
+        
     }//GEN-LAST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
+
+    private void annoLabelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_annoLabelKeyReleased
+        
+        char X = evt.getKeyChar();
+        Secuencias_cadenas.borrarLetras(X, annoLabel);
+        
+        BrigadasAnno = Integer.parseInt(annoLabel.getText());
+        
+        if(BrigadasAnno >= 100 && BrigadasAnno < 10000){
+        actualizarTablaBrigadas(Brigadas, BrigadasAnno, BrigadasAnnoB, BrigadasCarrera);
+        }
+        
+    }//GEN-LAST:event_annoLabelKeyReleased
+
+    private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
+        Main M = new Main();
+        M.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonCancelarActionPerformed
 
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -238,13 +262,40 @@ public class Gestor_brigada extends javax.swing.JFrame {
         DefaultTableModel df = new DefaultTableModel();
         TableBrigadasExistentes = new JTable(df);
         jScrollPane1.setViewportView(TableBrigadasExistentes);
-        df.addColumn("Nombre del Estudiante");
-        df.addColumn("Carnet de Identidad");
+        df.addColumn("Carrera");
+        df.addColumn("Año");
+        df.addColumn("Año escolar");
 
-        Object[] ob = new Object[2];
-        for (int i = 0; i < b.getEstudiantes().size(); i++) {
-            ob[0] = b.getEstudiantes().elementAt(i).getNombre_estudiante();
-            ob[1] = b.getEstudiantes().elementAt(i).getCI();
+        Object[] ob = new Object[3];
+        for (int i = 0; i < V.size(); i++) {
+            ob[0] = V.elementAt(i).getCarrera();
+            ob[1] = V.elementAt(i).getAnno();
+            ob[2] = V.elementAt(i).getAnno_brigada();
+            df.addRow(ob);
+        }
+
+    }
+    
+       private void actualizarTablaBrigadas(Vector<Brigada> V, Integer BA, Integer BAB, Vector<String> BC) {
+        DefaultTableModel df = new DefaultTableModel();
+        TableBrigadasExistentes = new JTable(df);
+        jScrollPane1.setViewportView(TableBrigadasExistentes);
+        df.addColumn("Carrera");
+        df.addColumn("Año");
+        df.addColumn("Año escolar");
+        
+        BrigadasSeleccionadas = new Vector<>();
+        for(int i = 0; i < V.size(); i++){
+            if(Secuencias_cadenas.mayor_subcadena((V.elementAt(i).getAnno()+""), (BA+"")) && BAB == V.elementAt(i).getAnno_brigada() && BC.contains(V.elementAt(i).getCarrera())){
+                BrigadasSeleccionadas.add(V.elementAt(i));
+            }
+        }
+
+        Object[] ob = new Object[3];
+        for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
+            ob[0] = BrigadasSeleccionadas.elementAt(i).getCarrera();
+            ob[1] = BrigadasSeleccionadas.elementAt(i).getAnno();
+            ob[2] = BrigadasSeleccionadas.elementAt(i).getAnno_brigada();
             df.addRow(ob);
         }
 
