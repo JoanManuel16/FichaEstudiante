@@ -20,7 +20,7 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  *
  * @author joanmanuel
  */
-public class Crear_carrera extends javax.swing.JFrame {
+public class Editor_carrera extends javax.swing.JFrame {
 
     
     private String nombre_carrera;
@@ -29,7 +29,7 @@ public class Crear_carrera extends javax.swing.JFrame {
     private Base_de_Datos.Gestion  G = new Gestion();
     private boolean edicion;
     
-    public Crear_carrera(String NC) {
+    public Editor_carrera(String NC) {
         initComponents();
         nombre_carrera = NC;
         Asignaturas = new Vector<>();
@@ -51,7 +51,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         
     }
     
-    public Crear_carrera(Carrera Carr){
+    public Editor_carrera(Carrera Carr){
          initComponents();
         nombre_carrera = Carr.getNombre();
         Asignaturas = Carr.getAsignaturas();
@@ -207,7 +207,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         seleccionAsig = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         AsigXSem = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
+        AsignaturaL = new javax.swing.JLabel();
         AsignaturaNombre = new javax.swing.JTextField();
         AgregarAsig = new javax.swing.JButton();
         Finalizar = new javax.swing.JButton();
@@ -235,11 +235,8 @@ public class Crear_carrera extends javax.swing.JFrame {
         Menu_seleccion.add(Eliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Carrera.setText("Carrera:");
-        getContentPane().add(Carrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 18, 90, -1));
-        getContentPane().add(CarreraNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 161, 18));
 
         seleccionAsig.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -254,8 +251,6 @@ public class Crear_carrera extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(seleccionAsig);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 168, 282, 321));
-
         AsigXSem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -269,17 +264,13 @@ public class Crear_carrera extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(AsigXSem);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(331, 168, 296, 321));
-
-        jLabel3.setText("Asignatura:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 78, -1, -1));
+        AsignaturaL.setText("Asignatura:");
 
         AsignaturaNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 AsignaturaNombreKeyReleased(evt);
             }
         });
-        getContentPane().add(AsignaturaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 75, 180, -1));
 
         AgregarAsig.setText("Agregar Asignatura");
         AgregarAsig.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +278,6 @@ public class Crear_carrera extends javax.swing.JFrame {
                 AgregarAsigActionPerformed(evt);
             }
         });
-        getContentPane().add(AgregarAsig, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 135, -1, -1));
 
         Finalizar.setText("Finalizar");
         Finalizar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -295,23 +285,18 @@ public class Crear_carrera extends javax.swing.JFrame {
                 FinalizarMouseReleased(evt);
             }
         });
-        getContentPane().add(Finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, -1, -1));
 
         PrimerSem.setText("Primer Semestre");
-        getContentPane().add(PrimerSem, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, -1, -1));
 
         SegundoSem.setText("Segundo Semestre");
-        getContentPane().add(SegundoSem, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 136, -1, -1));
 
         Anno.setText("Anno");
-        getContentPane().add(Anno, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
         Annos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnnosActionPerformed(evt);
             }
         });
-        getContentPane().add(Annos, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
 
         Annadir_anno.setText("Annadir Anno");
         Annadir_anno.addActionListener(new java.awt.event.ActionListener() {
@@ -319,7 +304,6 @@ public class Crear_carrera extends javax.swing.JFrame {
                 Annadir_annoActionPerformed(evt);
             }
         });
-        getContentPane().add(Annadir_anno, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
 
         Eliminar_anno.setText("Eliminar Ultimo Anno");
         Eliminar_anno.addActionListener(new java.awt.event.ActionListener() {
@@ -327,7 +311,85 @@ public class Crear_carrera extends javax.swing.JFrame {
                 Eliminar_annoActionPerformed(evt);
             }
         });
-        getContentPane().add(Eliminar_anno, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(99, 99, 99)
+                .addComponent(Anno)
+                .addGap(34, 34, 34)
+                .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
+                .addComponent(Annadir_anno))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(AsignaturaL)
+                .addGap(28, 28, 28)
+                .addComponent(AsignaturaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(211, 211, 211)
+                .addComponent(Eliminar_anno))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(210, 210, 210)
+                .addComponent(PrimerSem))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(AgregarAsig)
+                .addGap(55, 55, 55)
+                .addComponent(SegundoSem)
+                .addGap(213, 213, 213)
+                .addComponent(Finalizar))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Carrera)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Anno)
+                            .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Annadir_anno))))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(AsignaturaL))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(AsignaturaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Eliminar_anno))
+                .addGap(16, 16, 16)
+                .addComponent(PrimerSem)
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AgregarAsig)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(SegundoSem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(Finalizar)))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -466,7 +528,7 @@ public class Crear_carrera extends javax.swing.JFrame {
          if(evt.getButton() == MouseEvent.BUTTON1){
             String S = (String)AsigXSem.getValueAt(AsigXSem.getSelectedRow(), AsigXSem.getSelectedColumn());
             
-            int anno = Annos.getSelectedIndex()+1;
+            int anno = Annos.getSelectedIndex();
             
             for(int i = 0; i < Asignaturas.elementAt(anno).size(); i++){
                 
@@ -477,6 +539,7 @@ public class Crear_carrera extends javax.swing.JFrame {
                 }
             }
             actualizarTablaSem(anno);
+             actualizarTablaAsig(NombreAsig);
             
             Menu_seleccion.setVisible(false);
             
@@ -535,7 +598,7 @@ public class Crear_carrera extends javax.swing.JFrame {
         }
         else{
         G.agregar_carrera(C);
-            Crear_brigada CB = new Crear_brigada(C.getNombre());
+            Editor_brigada CB = new Editor_brigada(C.getNombre());
             CB.setVisible(true);
             this.dispose();
         }
@@ -552,6 +615,7 @@ public class Crear_carrera extends javax.swing.JFrame {
     private javax.swing.JLabel Anno;
     private javax.swing.JComboBox<String> Annos;
     private javax.swing.JTable AsigXSem;
+    private javax.swing.JLabel AsignaturaL;
     private javax.swing.JTextField AsignaturaNombre;
     private javax.swing.JMenuItem Cambiar_semestre;
     private javax.swing.JLabel Carrera;
@@ -563,7 +627,6 @@ public class Crear_carrera extends javax.swing.JFrame {
     private javax.swing.JRadioButton PrimerSem;
     private javax.swing.JRadioButton SegundoSem;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable seleccionAsig;

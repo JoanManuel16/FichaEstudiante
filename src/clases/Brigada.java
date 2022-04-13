@@ -23,6 +23,8 @@ public class Brigada {
         this.anno_brigada = anno_brigada;
         this.estudiantes = estudiantes;
     }
+    
+    
 
     public String getCarrera() {
         return carrera;

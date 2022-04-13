@@ -70,7 +70,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     if(b == 0){
                     
                     Carrera Carr = G.obtener_carrera(carrera);
-                    Crear_carrera CC = new Crear_carrera(Carr);
+                    Editor_carrera CC = new Editor_carrera(Carr);
                     
                     CC.setVisible(true);
                     dispose();
@@ -82,7 +82,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     
                     if(b == 0){
                     
-                    Crear_brigada CB = new Crear_brigada(carrera);
+                    Editor_brigada CB = new Editor_brigada(carrera);
                     CB.setVisible(true);
                     dispose();
                     }
@@ -214,7 +214,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
             
                     if(x == null){
                         
-                    Crear_carrera CC = new Crear_carrera(temp);
+                    Editor_carrera CC = new Editor_carrera(temp);
                     CC.setVisible(true);
                     this.dispose();
                     }
@@ -226,7 +226,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     
              }
              else{
-                  Crear_carrera CC = new Crear_carrera(temp);
+                  Editor_carrera CC = new Editor_carrera(temp);
                     CC.setVisible(true);
                     this.dispose();
              }

@@ -23,26 +23,40 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="16" max="32767" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="570" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="LabelBeigadasExistentes" min="-2" pref="158" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="TextBrigada" min="-2" pref="264" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="ComboBoxAnnos" min="-2" pref="111" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
-              <Component id="ButtonAceptar" min="-2" max="-2" attributes="0"/>
+              <Component id="editar" min="-2" pref="79" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="ButtonCancelar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="LabelBeigadasExistentes" min="-2" pref="158" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="annoBrigada" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="ComboBoxAnnos" min="-2" pref="57" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="anno" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="annoLabel" min="-2" pref="81" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="420" max="-2" attributes="0"/>
+                  <Component id="carreraBrigada" min="-2" pref="264" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -52,14 +66,24 @@
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="LabelBeigadasExistentes" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="TextBrigada" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ComboBoxAnnos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="carreraBrigada" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="354" max="-2" attributes="0"/>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="354" max="-2" attributes="0"/>
+                  <Component id="ComboBoxAnnos" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="annoBrigada" min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="anno" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="annoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ButtonAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="editar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -89,12 +113,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="ButtonAceptar">
+    <Component class="javax.swing.JButton" name="editar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Aceptar"/>
+        <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonAceptarMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editarMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="LabelBeigadasExistentes">
@@ -102,15 +126,18 @@
         <Property name="text" type="java.lang.String" value="Brigadas Existentes"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="TextBrigada">
+    <Component class="javax.swing.JTextField" name="carreraBrigada">
       <Events>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextBrigadaKeyReleased"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="carreraBrigadaKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ButtonCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonCancelarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboBoxAnnos">
       <Properties>
@@ -124,6 +151,21 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="annoBrigada">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Anno de la brigada"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="anno">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Anno"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="annoLabel">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="annoLabelKeyReleased"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

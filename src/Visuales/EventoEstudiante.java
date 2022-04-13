@@ -390,7 +390,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
     if(!(TextFieldLogro.getText().equals("")&& TextFieldvalorDelLogro.getText().equals(""))){
-        logros.add(new Tupla<>(TextFieldLogro.getText(),TextFieldvalorDelLogro.getText()));
+        logros.add(new Tupla<>(TextFieldLogro.getText(),Integer.parseInt(TextFieldvalorDelLogro.getText())));
     }
     else{
         JOptionPane.showMessageDialog(null, "hay campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
@@ -501,7 +501,7 @@ private void actualizar_tabla(){
             public void mouseClicked(MouseEvent e){
                 int indiceLogro = PopupMenuLogros.getComponentIndex(PopupMenuLogros.getComponentAt(e.getPoint()));
                Estudiante a = brigada.getEstudiantes().elementAt(TableEstudiantes.getSelectedRow());
-               estudiantesEvento.add(new Tupla<>(a,logros.elementAt(indiceLogro)));
+               estudiantesEvento.add(new Tupla<>(a,logros.elementAt(indiceLogro)+""));
         }
               });
               

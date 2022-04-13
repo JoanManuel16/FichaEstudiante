@@ -9,17 +9,20 @@
             <Property name="text" type="java.lang.String" value="Gestor de Brigada"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="brigadasExistentes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Brigadas Existentes"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="brigadasExistentesMouseReleased"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="CrearBrigada">
+            <MenuItem class="javax.swing.JMenuItem" name="crearBrigada">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Crear Nueva Brigada"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CrearBrigadaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="crearBrigadaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

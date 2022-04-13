@@ -5,7 +5,9 @@
 package Visuales;
 
 import Base_de_Datos.Gestion;
+import clases.Brigada;
 import clases.Estudiante;
+import com.toedter.calendar.JYearChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
@@ -14,21 +16,53 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 
-public class Crear_brigada extends javax.swing.JFrame {
+/**
+ *
+ * @author joanmanuel
+ */
+public class Editor_brigada extends javax.swing.JFrame {
 
-    private Gestion G = new Gestion();
-    private Vector<Estudiante> estudiantes;
+    private final Gestion G = new Gestion();
+    private final Vector<Estudiante> estudiantes;
+    private final Brigada B;
 
-    public Crear_brigada() {
+    public Editor_brigada(String Carr) {
         initComponents();
 
+        B = null;
         estudiantes = new Vector<>();
+        actualizarTabla(estudiantes);
+        
+        Carrera_seleccionada.setText(Carr);
+        Anno_seleccionado.setText("1");
+        
+        JYearChooser YC = new JYearChooser();
+        int Anno_actual = YC.getYear();
+        for(int i = Anno_actual-5; i <= Anno_actual+5; i++){
+            Annos.addItem(i+"");
+        }
+        
+        Pasar_anno.setVisible(false);
+        
     }
-
-    public Crear_brigada(String Carr) {
+    
+    public Editor_brigada(Brigada B){
         initComponents();
-
-        estudiantes = new Vector<>();
+        
+        estudiantes = B.getEstudiantes();
+        actualizarTabla(estudiantes);
+        
+        this.B = B;
+        
+        Carrera_seleccionada.setText(B.getCarrera());
+        Anno_seleccionado.setText(B.getAnno_brigada()+"");
+        
+        for(int i = B.getAnno()-5; i <= B.getAnno()+5; i++){
+            Annos.addItem(i+"");
+        }
+        
+        
+        Pasar_anno.setVisible(true);
     }
 
     /**
@@ -49,14 +83,17 @@ public class Crear_brigada extends javax.swing.JFrame {
         MenuEstudiantes = new javax.swing.JPopupMenu();
         EditarEstudiante = new javax.swing.JMenuItem();
         EliminarEstudiante = new javax.swing.JMenuItem();
-        Seleccionar_carrera = new javax.swing.JButton();
         Carrera_seleccionada = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaEst = new javax.swing.JTable();
-        AnnosCombo = new javax.swing.JComboBox<>();
-        Annos = new javax.swing.JLabel();
+        Anno_brigada = new javax.swing.JLabel();
         Finalizar = new javax.swing.JButton();
         Agregar_estudiante = new javax.swing.JButton();
+        Carrera = new javax.swing.JLabel();
+        Anno_seleccionado = new javax.swing.JLabel();
+        Anno = new javax.swing.JLabel();
+        Annos = new javax.swing.JComboBox<>();
+        Pasar_anno = new javax.swing.JButton();
 
         nombre.setText("Nombre y Apellidos:");
 
@@ -116,7 +153,7 @@ public class Crear_brigada extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        EditarEstudiante.setText("jMenuItem1");
+        EditarEstudiante.setText("Editar Estudiante");
         EditarEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EditarEstudianteActionPerformed(evt);
@@ -124,7 +161,7 @@ public class Crear_brigada extends javax.swing.JFrame {
         });
         MenuEstudiantes.add(EditarEstudiante);
 
-        EliminarEstudiante.setText("jMenuItem2");
+        EliminarEstudiante.setText("Eliminar Estudiante");
         EliminarEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EliminarEstudianteActionPerformed(evt);
@@ -133,13 +170,6 @@ public class Crear_brigada extends javax.swing.JFrame {
         MenuEstudiantes.add(EliminarEstudiante);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        Seleccionar_carrera.setText("Seleccionar Carrera");
-        Seleccionar_carrera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Seleccionar_carreraActionPerformed(evt);
-            }
-        });
 
         TablaEst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,14 +184,30 @@ public class Crear_brigada extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TablaEst);
 
-        Annos.setText("Anno");
+        Anno_brigada.setText("Anno de brigada:");
 
         Finalizar.setText("Finalizar");
+        Finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinalizarActionPerformed(evt);
+            }
+        });
 
         Agregar_estudiante.setText("Agregar Estudiante");
         Agregar_estudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Agregar_estudianteActionPerformed(evt);
+            }
+        });
+
+        Carrera.setText("Carrera:");
+
+        Anno.setText("Anno:");
+
+        Pasar_anno.setText("Pasar de anno");
+        Pasar_anno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Pasar_annoActionPerformed(evt);
             }
         });
 
@@ -174,16 +220,28 @@ public class Crear_brigada extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Carrera_seleccionada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Seleccionar_carrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Annos)
+                            .addComponent(Carrera_seleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(Anno_brigada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(AnnosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Agregar_estudiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(Anno_seleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Finalizar)))
+                        .addComponent(Finalizar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Anno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Agregar_estudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Pasar_anno)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -195,35 +253,36 @@ public class Crear_brigada extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Seleccionar_carrera)
-                        .addGap(18, 18, 18)
+                        .addComponent(Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Carrera_seleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Anno_seleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Anno_brigada))
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(AnnosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Annos))
-                        .addGap(61, 61, 61)
+                            .addComponent(Anno)
+                            .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
                         .addComponent(Agregar_estudiante)
+                        .addGap(31, 31, 31)
+                        .addComponent(Pasar_anno)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Finalizar)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Seleccionar_carreraActionPerformed(java.awt.event.ActionEvent evt) {
-        Gestor_carreras GC = new Gestor_carreras(false);
-        GC.setVisible(true);
-        this.dispose();
-    }
-
-    private void Agregar_estudianteActionPerformed(java.awt.event.ActionEvent evt) {
+    private void Agregar_estudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agregar_estudianteActionPerformed
 
         agregar_estudiante.setVisible(true);
+        agregar_estudiante.setSize(500, 300);
+        agregar_estudiante.setLocationRelativeTo(null);
 
-
-    }
+    }//GEN-LAST:event_Agregar_estudianteActionPerformed
 
     private void nombreTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreTKeyReleased
         if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
@@ -243,9 +302,9 @@ public class Crear_brigada extends javax.swing.JFrame {
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
 
         //acordarse de la verificacion del CI conchetumadre
-        String[] nombre = nombreT.getText().split(" ");
+        String[] nombres = nombreT.getText().split(" ");
 
-        if (nombre.length < 3) {
+        if (nombres.length < 3) {
             JOptionPane.showMessageDialog(null, "Este nombre no es viable. Se necesitan al menos dos apellidos.");
             return;
         }
@@ -257,12 +316,15 @@ public class Crear_brigada extends javax.swing.JFrame {
 
             estudiantes.add(E);
             actualizarTabla(estudiantes);
+            agregar_estudiante.setVisible(false);
+            CIT.setText("");
+            nombreT.setText("");
         }
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void EditarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarEstudianteActionPerformed
 
-        Editar_estudiante EE = new Editar_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()));
+        Editor_estudiante EE = new Editor_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()));
         EE.setVisible(true);
 
     }//GEN-LAST:event_EditarEstudianteActionPerformed
@@ -275,8 +337,29 @@ public class Crear_brigada extends javax.swing.JFrame {
         G.eliminar_brigada_a_estudiante(E.getCI());
 
         actualizarTabla(estudiantes);
+        MenuEstudiantes.setVisible(false);
 
     }//GEN-LAST:event_EliminarEstudianteActionPerformed
+
+    private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
+        
+        Brigada B = new Brigada(Carrera_seleccionada.getText(), Integer.parseInt(Annos.getSelectedItem().toString()), Integer.parseInt(Anno_seleccionado.getText()), estudiantes);
+        G.agregar_brigada(B);
+        Main M = new Main();
+        M.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_FinalizarActionPerformed
+
+    private void Pasar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pasar_annoActionPerformed
+        
+        Brigada new_brigada = new Brigada(B.getCarrera(), B.getAnno()+1, B.getAnno_brigada()+1, B.getEstudiantes());
+        G.agregar_brigada(new_brigada);
+        Editor_brigada EB = new Editor_brigada(new_brigada);
+        EB.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_Pasar_annoActionPerformed
 
     private void actualizarTabla(Vector<Estudiante> V) {
         DefaultTableModel df = new DefaultTableModel();
@@ -300,10 +383,7 @@ public class Crear_brigada extends javax.swing.JFrame {
                 int columna = 0;
 
                 if (fila > -1) {
-
-                    String estudiante = (String) TablaEst.getValueAt(fila, columna);
-
-                    MenuEstudiantes.setLocation(e.getPoint());
+                    MenuEstudiantes.setLocation(e.getLocationOnScreen());
                     MenuEstudiantes.setVisible(true);
                 }
             }
@@ -314,16 +394,19 @@ public class Crear_brigada extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aceptar;
     private javax.swing.JButton Agregar_estudiante;
-    private javax.swing.JLabel Annos;
-    private javax.swing.JComboBox<String> AnnosCombo;
+    private javax.swing.JLabel Anno;
+    private javax.swing.JLabel Anno_brigada;
+    private javax.swing.JLabel Anno_seleccionado;
+    private javax.swing.JComboBox<String> Annos;
     private javax.swing.JLabel CI;
     private javax.swing.JTextField CIT;
+    private javax.swing.JLabel Carrera;
     private javax.swing.JLabel Carrera_seleccionada;
     private javax.swing.JMenuItem EditarEstudiante;
     private javax.swing.JMenuItem EliminarEstudiante;
     private javax.swing.JButton Finalizar;
     private javax.swing.JPopupMenu MenuEstudiantes;
-    private javax.swing.JButton Seleccionar_carrera;
+    private javax.swing.JButton Pasar_anno;
     private javax.swing.JTable TablaEst;
     private javax.swing.JDialog agregar_estudiante;
     private javax.swing.JScrollPane jScrollPane1;
