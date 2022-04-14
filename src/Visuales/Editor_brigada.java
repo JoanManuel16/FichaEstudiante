@@ -324,7 +324,7 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void EditarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarEstudianteActionPerformed
 
-        Editor_estudiante EE = new Editor_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()));
+        Editor_estudiante EE = new Editor_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()), Carrera_seleccionada.getText());
         EE.setVisible(true);
 
     }//GEN-LAST:event_EditarEstudianteActionPerformed

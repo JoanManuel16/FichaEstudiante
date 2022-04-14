@@ -600,5 +600,134 @@ public class Gestion
         }
         return dimensiones;
     }
+
+    public Vector<String> obtenerManifestaciones() {
+        //mir ppai has esot cojone
+        return null;
+    }
+
+    public Vector<String> obtenerZonas() {
+
+        C.conectar();
+        Vector<String> zonas = new Vector<>();
+        
+        try {
+            
+            String stat = "select zona from zona";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            while(RS.next()){
+                zonas.add(RS.getString("zona"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return zonas;
+    }
+    
+     public Vector<String> obtenerColorPiel() {
+
+        C.conectar();
+        Vector<String> color_piel = new Vector<>();
+        
+        try {
+            
+            String stat = "select color_piel from color_piel";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            while(RS.next()){
+                color_piel.add(RS.getString("color_piel"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return color_piel;
+    }
+     
+     public Vector<String> obtenerEstadoCivil() {
+
+        C.conectar();
+        Vector<String> estadoCivil = new Vector<>();
+        
+        try {
+            
+            String stat = "select estado_civil from estado_civil";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            while(RS.next()){
+                estadoCivil.add(RS.getString("estado_civil"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return estadoCivil;
+    }
+     
+      public Vector<String> obtenerReligiones() {
+
+        C.conectar();
+        Vector<String> Religiones = new Vector<>();
+        
+        try {
+            
+            String stat = "select religion from religion";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                do{
+                 Religiones.add(RS.getString("religion"));
+
+                }while(RS.next());
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return Religiones;
+    }
+
+    public void agregarReligion(String religion) {
+
+        C.conectar();
+        
+        try {
+            
+            
+            String stat = "select religion from religion where religion = '" + religion + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                throw new SQLException();
+            }
+            stat = "insert into religion values (null, '" + religion + "')";
+        } catch (SQLException ex) {
+            C.desconectar();
+        }
+        
+        C.desconectar();
+    }
+    
+    
+     public Vector<String> obtenerNivelIngles() {
+
+        C.conectar();
+        Vector<String> nivelIngles = new Vector<>();
+        
+        try {
+            
+            String stat = "select nivel_ingles from nivel_ingles";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            while(RS.next()){
+                nivelIngles.add(RS.getString("nivel_ingles"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return nivelIngles;
+    }
    
 }
