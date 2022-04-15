@@ -602,8 +602,27 @@ public class Gestion
     }
 
     public Vector<String> obtenerManifestaciones() {
-        //mir ppai has esot cojone
-        return null;
+        
+       C.conectar();
+        Vector<String> manifestaciones = new Vector<>();
+        
+        try {
+            
+            String stat = "select manifestacion from manifestacion_artistica";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                do{
+                 manifestaciones.add(RS.getString("manifestacion"));
+
+                }while(RS.next());
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return manifestaciones;
+        
     }
 
     public Vector<String> obtenerZonas() {
@@ -728,6 +747,162 @@ public class Gestion
         }
         C.desconectar();
         return nivelIngles;
+    }
+
+    public void agregarManifestacionArtistica(String temp) {
+
+         C.conectar();
+        
+        try {
+            
+            
+            String stat = "select manifestacion from manifestacion_artistica where manifestacion = '" + temp + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                throw new SQLException();
+            }
+            stat = "insert into manifestacion_artistica values (null, '" + temp + "')";
+        } catch (SQLException ex) {
+            C.desconectar();
+        }
+        
+        C.desconectar();
+
+    }
+
+    public Vector<String> obtenerDeportes() {
+
+         C.conectar();
+        Vector<String> deportes = new Vector<>();
+        
+        try {
+            
+            String stat = "select deporte from deporte";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                do{
+                 deportes.add(RS.getString("deporte"));
+
+                }while(RS.next());
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return deportes;
+    }
+
+    public void agregarDeporte(String temp) {
+
+   C.conectar();
+        
+        try {
+            
+            
+            String stat = "select deporte from deporte where deporte = '" + temp + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                throw new SQLException();
+            }
+            stat = "insert into deporte values (null, '" + temp + "')";
+        } catch (SQLException ex) {
+            C.desconectar();
+        }
+        
+        C.desconectar();
+
+    }
+
+    public Vector<String> obtenerEnfermedades() {
+
+ C.conectar();
+        Vector<String> enfermedades = new Vector<>();
+        
+        try {
+            
+            String stat = "select enfermedad from enfermedad";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                do{
+                 enfermedades.add(RS.getString("enfermedad"));
+
+                }while(RS.next());
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return enfermedades;
+    }
+
+    public void agregarEnfermedad(String temp) {
+
+        C.conectar();
+        
+        try {
+            
+            
+            String stat = "select enfermedad from enfermedad where enfermedad = '" + temp + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                throw new SQLException();
+            }
+            stat = "insert into enfermedad values (null, '" + temp + "')";
+        } catch (SQLException ex) {
+            C.desconectar();
+        }
+        
+        C.desconectar();
+
+        
+    }
+    
+    
+    public Vector<String> obtenerMedicamentos() {
+
+ C.conectar();
+        Vector<String> medicamentos = new Vector<>();
+        
+        try {
+            
+            String stat = "select medicamento from medicamento";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                do{
+                 medicamentos.add(RS.getString("medicamento"));
+
+                }while(RS.next());
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return medicamentos;
+    }
+
+    public void agregarMedicamento(String temp) {
+
+        C.conectar();
+        
+        try {
+            
+            
+            String stat = "select medicamento from medicamento where medicamento = '" + temp + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                throw new SQLException();
+            }
+            stat = "insert into medicamento values (null, '" + temp + "')";
+        } catch (SQLException ex) {
+            C.desconectar();
+        }
+        
+        C.desconectar();
+
+        
     }
    
 }

@@ -17,7 +17,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
-import static utiles.Secuencias_cadenas.sonNumeros;
 
 /**
  *
@@ -27,15 +26,35 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     private Vector<String> manifestacionesArtisticas;
     private Vector<JRadioButton> radioButtonManifestaciones;
+    private Vector<String> deportes;
+    private Vector<JRadioButton> radioButtonDeportes;
+    private Vector<String> enfermedades;
+    private Vector<JRadioButton> radioButtonEnfermedades;
+    private Vector<String> medicamentos;
+    private Vector<JRadioButton> radioButtonMedicamentos;
+    
     private Gestion g = new Gestion();
     private Carrera carr;
     private Vector<String> religiones;
     
     public Editor_estudiante(Estudiante E, String carrera) {
         initComponents();
-        radioButtonManifestaciones= new Vector<>();
+        
+        radioButtonManifestaciones = new Vector<>();
         manifestacionesArtisticas = g.obtenerManifestaciones();
         actualizarTablaManifestaciones(manifestacionesArtisticas);
+        
+        radioButtonDeportes = new Vector<>();
+        deportes = g.obtenerDeportes();
+        actualizarTablaDeportes(deportes);
+        
+        radioButtonEnfermedades = new Vector<>();
+        enfermedades = g.obtenerEnfermedades();
+        actualizarTablaEnfermedades(enfermedades);
+        
+        radioButtonMedicamentos = new Vector<>();
+        medicamentos = g.obtenerMedicamentos();
+        actualizarTablaMedicamentos(medicamentos);
         
         this.carr = g.obtener_carrera(carrera);
         
@@ -150,19 +169,19 @@ public class Editor_estudiante extends javax.swing.JFrame {
         manifestacionTexto = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TablaManifestaciones1 = new javax.swing.JTable();
-        buttonAgrgar1 = new javax.swing.JButton();
-        agregarText1 = new javax.swing.JTextField();
+        TablaDeportes = new javax.swing.JTable();
+        agregarDeporte = new javax.swing.JButton();
+        deporteTexto = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        TablaManifestaciones5 = new javax.swing.JTable();
-        buttonAgrgar5 = new javax.swing.JButton();
-        agregarText5 = new javax.swing.JTextField();
+        TablaEnfermedades = new javax.swing.JTable();
+        agregarEnfermedad = new javax.swing.JButton();
+        enfermedadTexto = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        TablaManifestaciones4 = new javax.swing.JTable();
-        buttonAgrgar4 = new javax.swing.JButton();
-        agregarText4 = new javax.swing.JTextField();
+        TablaMedicamentos = new javax.swing.JTable();
+        agregarMedicamento = new javax.swing.JButton();
+        medicamentoTexto = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -303,16 +322,15 @@ public class Editor_estudiante extends javax.swing.JFrame {
                     .addComponent(carnet)
                     .addComponent(carnetTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(carrera)
-                    .addComponent(carreraT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(carreraT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(carrera))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(masculino)
                     .addComponent(sexo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(femenino)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
@@ -512,7 +530,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                             .addComponent(email)
                             .addComponent(emailT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(becado)
                             .addComponent(becadoBooton)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -620,7 +638,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         panelPestanas.addTab("tab3", jPanel3);
 
-        TablaManifestaciones1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaDeportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -631,12 +649,18 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(TablaManifestaciones1);
+        jScrollPane2.setViewportView(TablaDeportes);
 
-        buttonAgrgar1.setText("Añadir");
-        buttonAgrgar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        agregarDeporte.setText("Añadir");
+        agregarDeporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonAgrgar1MouseClicked(evt);
+                agregarDeporteMouseClicked(evt);
+            }
+        });
+
+        deporteTexto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                deporteTextoKeyReleased(evt);
             }
         });
 
@@ -649,9 +673,9 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(buttonAgrgar1)
+                        .addComponent(agregarDeporte)
                         .addGap(18, 18, 18)
-                        .addComponent(agregarText1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deporteTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 339, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -662,14 +686,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAgrgar1)
-                    .addComponent(agregarText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(agregarDeporte)
+                    .addComponent(deporteTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
 
         panelPestanas.addTab("tab4", jPanel4);
 
-        TablaManifestaciones5.setModel(new javax.swing.table.DefaultTableModel(
+        TablaEnfermedades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -680,12 +704,18 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane6.setViewportView(TablaManifestaciones5);
+        jScrollPane6.setViewportView(TablaEnfermedades);
 
-        buttonAgrgar5.setText("Añadir");
-        buttonAgrgar5.addMouseListener(new java.awt.event.MouseAdapter() {
+        agregarEnfermedad.setText("Añadir");
+        agregarEnfermedad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonAgrgar5MouseClicked(evt);
+                agregarEnfermedadMouseClicked(evt);
+            }
+        });
+
+        enfermedadTexto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                enfermedadTextoKeyReleased(evt);
             }
         });
 
@@ -698,9 +728,9 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(buttonAgrgar5)
+                        .addComponent(agregarEnfermedad)
                         .addGap(18, 18, 18)
-                        .addComponent(agregarText5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(enfermedadTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 339, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -711,14 +741,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAgrgar5)
-                    .addComponent(agregarText5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(agregarEnfermedad)
+                    .addComponent(enfermedadTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
 
         panelPestanas.addTab("tab5", jPanel5);
 
-        TablaManifestaciones4.setModel(new javax.swing.table.DefaultTableModel(
+        TablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -729,12 +759,18 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane5.setViewportView(TablaManifestaciones4);
+        jScrollPane5.setViewportView(TablaMedicamentos);
 
-        buttonAgrgar4.setText("Añadir");
-        buttonAgrgar4.addMouseListener(new java.awt.event.MouseAdapter() {
+        agregarMedicamento.setText("Añadir");
+        agregarMedicamento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonAgrgar4MouseClicked(evt);
+                agregarMedicamentoMouseClicked(evt);
+            }
+        });
+
+        medicamentoTexto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                medicamentoTextoKeyReleased(evt);
             }
         });
 
@@ -747,9 +783,9 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(buttonAgrgar4)
+                        .addComponent(agregarMedicamento)
                         .addGap(18, 18, 18)
-                        .addComponent(agregarText4, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(medicamentoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 339, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -760,8 +796,8 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAgrgar4)
-                    .addComponent(agregarText4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(agregarMedicamento)
+                    .addComponent(medicamentoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
 
@@ -849,8 +885,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(18, 18, 18)
-                            .addComponent(jCheckBox8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jCheckBox8))
                         .addGroup(jPanel7Layout.createSequentialGroup()
                             .addComponent(jCheckBox1)
                             .addGap(18, 18, 18)
@@ -1077,21 +1112,165 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     private void agregarManifestacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManifestacionMouseClicked
 
-           
+           if(manifestacionTexto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo esta vacio");
+        }
+        
+         String temp = manifestacionTexto.getText();
+        Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < manifestacionesArtisticas.size(); i++){
+                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, manifestacionesArtisticas.elementAt(i))>=75.00){
+                     Similares.add(manifestacionesArtisticas.elementAt(i));
+                 }
+             }
+             
+             if(!Similares.isEmpty()){
+             
+             String[] S = new String[Similares.size()];
+             Similares.copyInto(S);
+             
+                    String  x =(String) JOptionPane.showInputDialog(null, "Estas manifestaciones artisticas son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+            
+                    if(x == null){
+                        manifestacionesArtisticas.add(temp);
+                        g.agregarManifestacionArtistica(temp);
+                        actualizarTablaManifestaciones(manifestacionesArtisticas);
+                    }
+                    else{
+                        Vector<String> V = new Vector<>();
+                        V.add(x);
+                        actualizarTablaManifestaciones(V);
+                    }
+             }
+             else{
+                  manifestacionesArtisticas.add(temp);
+                  g.agregarManifestacionArtistica(temp);
+                  actualizarTablaManifestaciones(manifestacionesArtisticas);
+             }
         
     }//GEN-LAST:event_agregarManifestacionMouseClicked
 
-    private void buttonAgrgar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAgrgar1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonAgrgar1MouseClicked
+    private void agregarDeporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarDeporteMouseClicked
+        
+          if(deporteTexto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo esta vacio");
+        }
+        
+         String temp = deporteTexto.getText();
+        Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < deportes.size(); i++){
+                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, deportes.elementAt(i))>=75.00){
+                     Similares.add(deportes.elementAt(i));
+                 }
+             }
+             
+             if(!Similares.isEmpty()){
+             
+             String[] S = new String[Similares.size()];
+             Similares.copyInto(S);
+             
+                    String  x =(String) JOptionPane.showInputDialog(null, "Estos deportes son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+            
+                    if(x == null){
+                        deportes.add(temp);
+                        g.agregarDeporte(temp);
+                        actualizarTablaDeportes(deportes);
+                    }
+                    else{
+                        Vector<String> V = new Vector<>();
+                        V.add(x);
+                        actualizarTablaDeportes(V);
+                    }
+             }
+             else{
+                  deportes.add(temp);
+                  g.agregarDeporte(temp);
+                  actualizarTablaDeportes(deportes);
+             }
+        
+    }//GEN-LAST:event_agregarDeporteMouseClicked
 
-    private void buttonAgrgar4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAgrgar4MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonAgrgar4MouseClicked
+    private void agregarMedicamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMedicamentoMouseClicked
+        
+        if(medicamentoTexto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo esta vacio");
+        }
+        
+         String temp = medicamentoTexto.getText();
+        Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < medicamentos.size(); i++){
+                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, medicamentos.elementAt(i))>=75.00){
+                     Similares.add(medicamentos.elementAt(i));
+                 }
+             }
+             
+             if(!Similares.isEmpty()){
+             
+             String[] S = new String[Similares.size()];
+             Similares.copyInto(S);
+             
+                    String  x =(String) JOptionPane.showInputDialog(null, "Estos medicamentos son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+            
+                    if(x == null){
+                        medicamentos.add(temp);
+                        g.agregarMedicamento(temp);
+                        actualizarTablaMedicamentos(medicamentos);
+                    }
+                    else{
+                        Vector<String> V = new Vector<>();
+                        V.add(x);
+                        actualizarTablaMedicamentos(V);
+                    }
+             }
+             else{
+                        medicamentos.add(temp);
+                        g.agregarMedicamento(temp);
+                        actualizarTablaMedicamentos(medicamentos);
+             }
+        
+        
+    }//GEN-LAST:event_agregarMedicamentoMouseClicked
 
-    private void buttonAgrgar5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAgrgar5MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonAgrgar5MouseClicked
+    private void agregarEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarEnfermedadMouseClicked
+        
+          if(enfermedadTexto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El campo esta vacio");
+        }
+        
+         String temp = enfermedadTexto.getText();
+        Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < enfermedades.size(); i++){
+                 if(Secuencias_cadenas.LongestCommonSubsequence(temp, enfermedades.elementAt(i))>=75.00){
+                     Similares.add(enfermedades.elementAt(i));
+                 }
+             }
+             
+             if(!Similares.isEmpty()){
+             
+             String[] S = new String[Similares.size()];
+             Similares.copyInto(S);
+             
+                    String  x =(String) JOptionPane.showInputDialog(null, "Estas enfermedades son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+            
+                    if(x == null){
+                        enfermedades.add(temp);
+                        g.agregarEnfermedad(temp);
+                        actualizarTablaEnfermedades(enfermedades);
+                    }
+                    else{
+                        Vector<String> V = new Vector<>();
+                        V.add(x);
+                        actualizarTablaEnfermedades(V);
+                    }
+             }
+             else{
+                   enfermedades.add(temp);
+                   g.agregarEnfermedad(temp);
+                   actualizarTablaEnfermedades(enfermedades);
+             }
+        
+        
+    }//GEN-LAST:event_agregarEnfermedadMouseClicked
 
     private void nombreEstudianteTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreEstudianteTKeyReleased
        
@@ -1197,8 +1376,8 @@ public class Editor_estudiante extends javax.swing.JFrame {
          if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
 
             Character caracterEtrada = evt.getKeyChar();
-            String reeplazo = nombreEstudianteT.getText().replaceAll(caracterEtrada.toString(), "");
-            nombreEstudianteT.setText(reeplazo);
+            String reeplazo = manifestacionTexto.getText().replaceAll(caracterEtrada.toString(), "");
+            manifestacionTexto.setText(reeplazo);
         }
          
           String temp = manifestacionTexto.getText();
@@ -1217,24 +1396,96 @@ public class Editor_estudiante extends javax.swing.JFrame {
         
     }//GEN-LAST:event_manifestacionTextoKeyReleased
 
+    private void deporteTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_deporteTextoKeyReleased
+        
+          if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
+
+            Character caracterEtrada = evt.getKeyChar();
+            String reeplazo = deporteTexto.getText().replaceAll(caracterEtrada.toString(), "");
+            deporteTexto.setText(reeplazo);
+        }
+         
+          String temp = deporteTexto.getText();
+         if(temp.length()>=3){
+             Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < deportes.size(); i++){
+                 if(Secuencias_cadenas.mayor_subcadena(temp, deportes.elementAt(i))){
+                     Similares.add(deportes.elementAt(i));
+                 }
+             }
+             actualizarTablaDeportes(Similares);
+         }
+         else if(temp.length()<3){
+             actualizarTablaDeportes(deportes);
+         }
+        
+    }//GEN-LAST:event_deporteTextoKeyReleased
+
+    private void enfermedadTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_enfermedadTextoKeyReleased
+        
+         if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
+
+            Character caracterEtrada = evt.getKeyChar();
+            String reeplazo = enfermedadTexto.getText().replaceAll(caracterEtrada.toString(), "");
+            enfermedadTexto.setText(reeplazo);
+        }
+         
+          String temp = enfermedadTexto.getText();
+         if(temp.length()>=3){
+             Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < enfermedades.size(); i++){
+                 if(Secuencias_cadenas.mayor_subcadena(temp, enfermedades.elementAt(i))){
+                     Similares.add(enfermedades.elementAt(i));
+                 }
+             }
+             actualizarTablaEnfermedades(Similares);
+         }
+         else if(temp.length()<3){
+             actualizarTablaEnfermedades(enfermedades);
+         }
+        
+    }//GEN-LAST:event_enfermedadTextoKeyReleased
+
+    private void medicamentoTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_medicamentoTextoKeyReleased
+        
+        if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
+
+            Character caracterEtrada = evt.getKeyChar();
+            String reeplazo = medicamentoTexto.getText().replaceAll(caracterEtrada.toString(), "");
+            medicamentoTexto.setText(reeplazo);
+        }
+         
+          String temp = medicamentoTexto.getText();
+         if(temp.length()>=3){
+             Vector<String> Similares = new Vector<>();
+             for(int i = 0; i < medicamentos.size(); i++){
+                 if(Secuencias_cadenas.mayor_subcadena(temp, medicamentos.elementAt(i))){
+                     Similares.add(medicamentos.elementAt(i));
+                 }
+             }
+             actualizarTablaMedicamentos(Similares);
+         }
+         else if(temp.length()<3){
+             actualizarTablaMedicamentos(medicamentos);
+         }
+        
+    }//GEN-LAST:event_medicamentoTextoKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaDeportes;
+    private javax.swing.JTable TablaEnfermedades;
     private javax.swing.JTable TablaManifestaciones;
-    private javax.swing.JTable TablaManifestaciones1;
-    private javax.swing.JTable TablaManifestaciones4;
-    private javax.swing.JTable TablaManifestaciones5;
+    private javax.swing.JTable TablaMedicamentos;
+    private javax.swing.JButton agregarDeporte;
+    private javax.swing.JButton agregarEnfermedad;
     private javax.swing.JButton agregarManifestacion;
-    private javax.swing.JTextField agregarText1;
-    private javax.swing.JTextField agregarText4;
-    private javax.swing.JTextField agregarText5;
+    private javax.swing.JButton agregarMedicamento;
     private javax.swing.JButton annadirReligion;
     private javax.swing.JRadioButton bebidasAl;
     private javax.swing.JLabel bebidasAlc;
     private javax.swing.JLabel becado;
     private javax.swing.JRadioButton becadoBooton;
-    private javax.swing.JButton buttonAgrgar1;
-    private javax.swing.JButton buttonAgrgar4;
-    private javax.swing.JButton buttonAgrgar5;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel carnet;
@@ -1244,12 +1495,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> colorDePielComboBox;
     private javax.swing.JLabel colorPiel;
     private javax.swing.JLabel datosMoviles;
+    private javax.swing.JTextField deporteTexto;
     private javax.swing.JLabel direccionParticular;
     private javax.swing.JTextField direccionParticularT;
     private javax.swing.JLabel edad;
     private javax.swing.JTextField edadT;
     private javax.swing.JLabel email;
     private javax.swing.JTextField emailT;
+    private javax.swing.JTextField enfermedadTexto;
     private javax.swing.JLabel estadoCivil;
     private javax.swing.JComboBox<String> estadoCivilComboBox;
     private javax.swing.JRadioButton femenino;
@@ -1315,6 +1568,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField manifestacionTexto;
     private javax.swing.JRadioButton masculino;
+    private javax.swing.JTextField medicamentoTexto;
     private javax.swing.JLabel militante;
     private javax.swing.JRadioButton militanteComoboBox;
     private javax.swing.JRadioButton movileDataBooton;
@@ -1364,5 +1618,91 @@ public class Editor_estudiante extends javax.swing.JFrame {
        TablaManifestaciones.getColumn("Seleccion").setCellEditor(
         new RadioButtonEditor(new JCheckBox()));
        jScrollPane1.setViewportView(TablaManifestaciones);
+    }
+
+    private void actualizarTablaDeportes(Vector<String> deportes) {
+
+        DefaultTableModel d = new DefaultTableModel();
+         Object[] OBJ = new Object[2];
+          d.addColumn("Deporte");
+           d.addColumn("Seleccion");
+          
+        for(int i = 0; i < deportes.size(); i++){
+            OBJ[0] = deportes.elementAt(i);
+            radioButtonDeportes.add(new JRadioButton("", false));
+            OBJ[1] = radioButtonDeportes.lastElement();
+            d.addRow(OBJ);
+        }
+        
+        
+       TablaDeportes = new JTable(d);
+       
+       TablaDeportes.setFont(new Font("arial", Font.BOLD, 14));
+       TablaDeportes.setRowHeight(30);
+       TablaDeportes.setShowGrid(true);
+       
+       TablaDeportes.getColumn("Seleccion").setCellRenderer(
+        new RadioButtonRenderer());
+       TablaDeportes.getColumn("Seleccion").setCellEditor(
+        new RadioButtonEditor(new JCheckBox()));
+       jScrollPane1.setViewportView(TablaDeportes);
+        
+    }
+
+    private void actualizarTablaEnfermedades(Vector<String> enfermedades) {
+        
+        DefaultTableModel d = new DefaultTableModel();
+         Object[] OBJ = new Object[2];
+          d.addColumn("Enfermedad");
+           d.addColumn("Seleccion");
+          
+        for(int i = 0; i < enfermedades.size(); i++){
+            OBJ[0] = enfermedades.elementAt(i);
+            radioButtonEnfermedades.add(new JRadioButton("", false));
+            OBJ[1] = radioButtonEnfermedades.lastElement();
+            d.addRow(OBJ);
+        }
+        
+        
+       TablaEnfermedades = new JTable(d);
+       
+       TablaEnfermedades.setFont(new Font("arial", Font.BOLD, 14));
+       TablaEnfermedades.setRowHeight(30);
+       TablaEnfermedades.setShowGrid(true);
+       
+       TablaEnfermedades.getColumn("Seleccion").setCellRenderer(
+        new RadioButtonRenderer());
+       TablaEnfermedades.getColumn("Seleccion").setCellEditor(
+        new RadioButtonEditor(new JCheckBox()));
+       jScrollPane1.setViewportView(TablaEnfermedades);  
+    }
+
+    private void actualizarTablaMedicamentos(Vector<String> medicamentos) {
+
+         DefaultTableModel d = new DefaultTableModel();
+         Object[] OBJ = new Object[2];
+          d.addColumn("Medicamento");
+           d.addColumn("Seleccion");
+          
+        for(int i = 0; i < medicamentos.size(); i++){
+            OBJ[0] = medicamentos.elementAt(i);
+            radioButtonMedicamentos.add(new JRadioButton("", false));
+            OBJ[1] = radioButtonMedicamentos.lastElement();
+            d.addRow(OBJ);
+        }
+        
+        
+       TablaMedicamentos = new JTable(d);
+       
+       TablaMedicamentos.setFont(new Font("arial", Font.BOLD, 14));
+       TablaMedicamentos.setRowHeight(30);
+       TablaMedicamentos.setShowGrid(true);
+       
+       TablaMedicamentos.getColumn("Seleccion").setCellRenderer(
+        new RadioButtonRenderer());
+       TablaMedicamentos.getColumn("Seleccion").setCellEditor(
+        new RadioButtonEditor(new JCheckBox()));
+       jScrollPane1.setViewportView(TablaMedicamentos);  
+
     }
 }

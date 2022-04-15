@@ -125,9 +125,9 @@
                           <Component id="carnetTexto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="carrera" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="carreraT" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="carrera" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -136,7 +136,6 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="femenino" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -384,7 +383,7 @@
                                   <Component id="emailT" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="becado" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="becadoBooton" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -734,9 +733,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="buttonAgrgar1" min="-2" max="-2" attributes="0"/>
+                              <Component id="agregarDeporte" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="agregarText1" min="-2" pref="201" max="-2" attributes="0"/>
+                              <Component id="deporteTexto" min="-2" pref="201" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="339" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -751,8 +750,8 @@
                       <Component id="jScrollPane2" min="-2" pref="341" max="-2" attributes="0"/>
                       <EmptySpace pref="60" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buttonAgrgar1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="agregarText1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="agregarDeporte" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="deporteTexto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
@@ -767,7 +766,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="TablaManifestaciones1">
+                <Component class="javax.swing.JTable" name="TablaDeportes">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="4">
@@ -781,15 +780,18 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="buttonAgrgar1">
+            <Component class="javax.swing.JButton" name="agregarDeporte">
               <Properties>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonAgrgar1MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="agregarDeporteMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="agregarText1">
+            <Component class="javax.swing.JTextField" name="deporteTexto">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="deporteTextoKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -810,9 +812,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="buttonAgrgar5" min="-2" max="-2" attributes="0"/>
+                              <Component id="agregarEnfermedad" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="agregarText5" min="-2" pref="201" max="-2" attributes="0"/>
+                              <Component id="enfermedadTexto" min="-2" pref="201" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="339" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -827,8 +829,8 @@
                       <Component id="jScrollPane6" min="-2" pref="341" max="-2" attributes="0"/>
                       <EmptySpace pref="60" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buttonAgrgar5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="agregarText5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="agregarEnfermedad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="enfermedadTexto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
@@ -843,7 +845,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="TablaManifestaciones5">
+                <Component class="javax.swing.JTable" name="TablaEnfermedades">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="4">
@@ -857,15 +859,18 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="buttonAgrgar5">
+            <Component class="javax.swing.JButton" name="agregarEnfermedad">
               <Properties>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonAgrgar5MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="agregarEnfermedadMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="agregarText5">
+            <Component class="javax.swing.JTextField" name="enfermedadTexto">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="enfermedadTextoKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -886,9 +891,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="buttonAgrgar4" min="-2" max="-2" attributes="0"/>
+                              <Component id="agregarMedicamento" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="agregarText4" min="-2" pref="201" max="-2" attributes="0"/>
+                              <Component id="medicamentoTexto" min="-2" pref="201" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="339" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -903,8 +908,8 @@
                       <Component id="jScrollPane5" min="-2" pref="341" max="-2" attributes="0"/>
                       <EmptySpace pref="60" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buttonAgrgar4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="agregarText4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="agregarMedicamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="medicamentoTexto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
@@ -919,7 +924,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="TablaManifestaciones4">
+                <Component class="javax.swing.JTable" name="TablaMedicamentos">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="4">
@@ -933,15 +938,18 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="buttonAgrgar4">
+            <Component class="javax.swing.JButton" name="agregarMedicamento">
               <Properties>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonAgrgar4MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="agregarMedicamentoMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="agregarText4">
+            <Component class="javax.swing.JTextField" name="medicamentoTexto">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="medicamentoTextoKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -994,7 +1002,6 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jCheckBox8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
