@@ -4,25 +4,18 @@
  */
 package clases;
 
-import java.util.Vector;
-
 public class Estudiante {
     
     protected final String nombre_estudiante;
     protected final String CI;
     protected boolean activo;
-    protected Vector<Nota> notas;
     
     public Estudiante(String nombre, String CI){
         this.nombre_estudiante = nombre;
         this.CI = CI;
         activo = true;
-        notas = new Vector<Nota>();
     }
-    
-    public Vector<Nota> getNotas(){
-    	return notas;
-    }
+
 
     public String getNombre_estudiante() {
         return nombre_estudiante;
@@ -39,11 +32,6 @@ public class Estudiante {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-
-    public void setNotas(Vector<Nota> notas) {
-        this.notas = notas;
-    }
-    
     
     
     

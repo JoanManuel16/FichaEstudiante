@@ -5,9 +5,6 @@
 package Visuales;
 
 import Base_de_Datos.Gestion;
-import clases.Carrera;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;

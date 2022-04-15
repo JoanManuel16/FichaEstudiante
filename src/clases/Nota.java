@@ -2,22 +2,22 @@ package clases;
 
 public class Nota {
 
-	private int asignatura;
+	private int idAsignatura;
 	private int nota;
 	private int lugar_examen_premio;
 	
 	public Nota(int A, int N, int L) {
-		asignatura = A;
+		idAsignatura = A;
 		nota = N;
 		lugar_examen_premio = L;
 	}
 
 	public int getAsignatura() {
-		return asignatura;
+		return idAsignatura;
 	}
 
 	public void setAsignatura(int asignatura) {
-		this.asignatura = asignatura;
+		this.idAsignatura = asignatura;
 	}
 
 	public int getNota() {

@@ -14,6 +14,7 @@ import clases.Carrera;
 import clases.DatosEstudiante;
 import clases.Estudiante;
 import clases.Evento;
+import clases.Nota;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utiles.Tupla;
@@ -124,7 +125,7 @@ public class Gestion
     }
     
     
-    public boolean agregar_estudiante(Estudiante E){
+    public boolean agregar_estudiante(Estudiante E, String Carrera){
          C.conectar();
             
             String stat = "select * from EstudianteSencillo where CI = '" + E.getCI() + "'";
@@ -147,6 +148,21 @@ public class Gestion
             
             stat = "insert into EstudianteSencillo values(null, '" + E.getNombre_estudiante() + "', '" + E.getCI() + "', 0)";
             C.getConsulta().execute(stat);
+            
+            stat = "select id_estudiante from EstudianteSencillo where CI = '" + E.getCI() + "'";
+            RS = C.getConsulta().executeQuery(stat);
+            int idE = RS.getInt("id_estudiante");
+            
+            stat = "select id_asignatura from asignaturas_semestre join carrera on asignaturas_semestre.id_carrera = carrera.id_carrera where carrera.id_carrera = (select id_carrera from carrera where nombre_carrera = '" + Carrera + "')";
+           
+            RS = C.getConsulta().executeQuery(stat);
+            while(RS.next()){
+            
+                int idA = RS.getInt("id_asignatura");
+                String execute = "insert into notas_estudiante values(" + idE + ", " + idA + ", 0, 0)";
+                C.getConsulta().execute(execute);
+                
+            }
             
         } catch (SQLException ex) {
             
@@ -903,6 +919,75 @@ public class Gestion
         C.desconectar();
 
         
+    }
+
+    public Vector<String> obtenerConvivencia() {
+
+        C.conectar();
+        Vector<String> convivencia = new Vector<>();
+        
+        try {
+            
+            String stat = "select relaciones from relaciones_convivencia";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            while(RS.next()){
+                convivencia.add(RS.getString("relaciones"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return convivencia;
+        
+    }
+
+    public Vector<Nota> obtenerNotas(Carrera carr, Estudiante E,int anno_brugada) {
+
+             C.conectar();
+             Vector<Nota> notas = new Vector<>();
+        
+        try {
+       
+            
+            String stat = "select id_estudiante from EstudianteSencillo where CI = '" + E.getCI() + "'";
+            
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            
+            int idE = RS.getInt("id_estudiante");
+            
+             stat = "select id_asignatura from asignaturas_semestre join carrera on asignaturas_semestre.id_carrera = carrera.id_carrera where carrera.id_carrera = (select id_carrera from carrera where nombre_carrera = '" + carr + "') and anno_brigada="+anno_brugada;
+           
+            RS = C.getConsulta().executeQuery(stat);
+            while(RS.next()){
+                
+                int idA = RS.getInt("id_asignatura");
+                notas.add(new Nota(idA, 0, 0));
+            
+            }
+            
+            for(int i = 0; i < notas.size(); i++){
+                stat = "select nota_asignatura, nota_examen_premio from notas_estudiante where id_asignatura = " + notas.elementAt(i).getAsignatura() + " and id_estudiante = " + idE;
+                RS = C.getConsulta().executeQuery(stat);
+                
+                int notaAsig = RS.getInt("nota_asignatura");
+                int notaPremio = RS.getInt("nota_examen_premio");
+                
+                notas.elementAt(i).setLugar_examen_premio(notaPremio);
+                notas.elementAt(i).setNota(notaAsig);
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        C.desconectar();
+        return notas;
+    }
+
+    public Tupla obtenerAsignatura() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }

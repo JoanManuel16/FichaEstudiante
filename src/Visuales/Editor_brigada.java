@@ -311,7 +311,7 @@ public class Editor_brigada extends javax.swing.JFrame {
 
         Estudiante E = new Estudiante(nombreT.getText(), CIT.getText());
 
-        boolean flag = G.agregar_estudiante(E);
+        boolean flag = G.agregar_estudiante(E, Carrera_seleccionada.getText());
         if (flag) {
 
             estudiantes.add(E);
