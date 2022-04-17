@@ -159,7 +159,8 @@ public class Gestion
             while(RS.next()){
             
                 int idA = RS.getInt("id_asignatura");
-                String execute = "insert into notas_estudiante values(" + idE + ", " + idA + ", 0, 0)";
+                String NA = RS.getString("nombre_asignatura");
+                String execute = "insert into notas_estudiante values(" + idE + ", " + idA + ", 0, 0, '" + NA +"')";
                 C.getConsulta().execute(execute);
                 
             }
@@ -956,18 +957,19 @@ public class Gestion
             
             int idE = RS.getInt("id_estudiante");
             
-             stat = "select id_asignatura from asignaturas_semestre join carrera on asignaturas_semestre.id_carrera = carrera.id_carrera where carrera.id_carrera = (select id_carrera from carrera where nombre_carrera = '" + carr + "') and anno_brigada="+anno_brugada;
+             stat = "select id_asignatura, nombre_asignatura from asignaturas_semestre join carrera on asignaturas_semestre.id_carrera = carrera.id_carrera where carrera.id_carrera = (select id_carrera from carrera where nombre_carrera = '" + carr + "') and anno_brigada="+anno_brugada;
            
             RS = C.getConsulta().executeQuery(stat);
             while(RS.next()){
                 
                 int idA = RS.getInt("id_asignatura");
-                notas.add(new Nota(idA, 0, 0));
+                String NA = RS.getString("nombre_asignatura");
+                notas.add(new Nota(idA, 0, 0, NA));
             
             }
             
             for(int i = 0; i < notas.size(); i++){
-                stat = "select nota_asignatura, nota_examen_premio from notas_estudiante where id_asignatura = " + notas.elementAt(i).getAsignatura() + " and id_estudiante = " + idE;
+                stat = "select nota_asignatura, nota_examen_premio from notas_estudiante where id_asignatura = " + notas.elementAt(i).getIdAsignatura() + " and id_estudiante = " + idE;
                 RS = C.getConsulta().executeQuery(stat);
                 
                 int notaAsig = RS.getInt("nota_asignatura");
@@ -986,8 +988,56 @@ public class Gestion
         return notas;
     }
 
-    public Tupla obtenerAsignatura() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean esPrimerSemestre(int idAsignatura) {
+        C.conectar();
+        
+        try {
+            
+            String stat = "select semestre from asignaturas_semestre where id_asignatura = " + idAsignatura;
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.getInt("semestre") == 1){
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    
+    public boolean esSegundoSemestre(int idAsignatura) {
+        C.conectar();
+        
+        try {
+            
+            String stat = "select semestre from asignaturas_semestre where id_asignatura = " + idAsignatura;
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.getInt("semestre") == 2){
+                C.desconectar();
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return false;
+    }
+
+    public void actualizarNota(Nota nota, Estudiante E) {
+        
+        try {
+            C.conectar();
+            
+            String stat = "update notas_estudiante put nota_asignatura = " + nota.getNota() + " where id_asignatura = " + nota.getIdAsignatura() + " and id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + E.getCI() + "')";
+            
+            boolean RS = C.getConsulta().execute(stat);
+            C.desconectar();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
 }

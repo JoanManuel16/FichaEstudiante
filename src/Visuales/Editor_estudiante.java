@@ -111,9 +111,11 @@ public class Editor_estudiante extends javax.swing.JFrame {
               }
          
          
-        notas = g.obtenerNotas(carr, E,AnnoComboBox.getSelectedIndex()+1); 
+        notas = g.obtenerNotas(carr, E,AnnoComboBox.getSelectedIndex()+1);
+        
+        actualizarTablaNotas(notas);
               
-    }
+                }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,13 +128,8 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        PopupMenuEdicionNotas = new javax.swing.JPopupMenu();
-        MenuItemEdicionNotas = new javax.swing.JMenuItem();
-        jDialog1 = new javax.swing.JDialog();
-        jLabel2 = new javax.swing.JLabel();
-        notaRepmplazoT = new javax.swing.JTextField();
-        ButtonAceptar = new javax.swing.JButton();
-        ButtonCancelar = new javax.swing.JButton();
+        menuNotas = new javax.swing.JPopupMenu();
+        editarNota = new javax.swing.JMenuItem();
         panelPestanas = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         nombreEstudiante = new javax.swing.JLabel();
@@ -255,71 +252,13 @@ public class Editor_estudiante extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        MenuItemEdicionNotas.setText("jMenuItem1");
-        MenuItemEdicionNotas.addMouseListener(new java.awt.event.MouseAdapter() {
+        editarNota.setText("jMenuItem1");
+        editarNota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuItemEdicionNotasMouseClicked(evt);
+                editarNotaMouseClicked(evt);
             }
         });
-        PopupMenuEdicionNotas.add(MenuItemEdicionNotas);
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Inserte la nota obtenida");
-
-        notaRepmplazoT.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                notaRepmplazoTKeyReleased(evt);
-            }
-        });
-
-        ButtonAceptar.setText("Aceptar");
-        ButtonAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonAceptarMouseClicked(evt);
-            }
-        });
-
-        ButtonCancelar.setText("Cancelar");
-        ButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonCancelarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
-                        .addComponent(ButtonAceptar)
-                        .addGap(50, 50, 50)
-                        .addComponent(ButtonCancelar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
-                        .addComponent(notaRepmplazoT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77))
-                    .addGroup(jDialog1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel2)
-                        .addGap(11, 11, 11)))
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(notaRepmplazoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonAceptar)
-                    .addComponent(ButtonCancelar))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
+        menuNotas.add(editarNota);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1621,40 +1560,37 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_ingresoHogarTKeyReleased
 
     private void AnnoComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_AnnoComboBoxPopupMenuWillBecomeInvisible
+       
         notas = g.obtenerNotas(carr, E, AnnoComboBox.getSelectedIndex()+1);
-        actulizarTablaNotas(notas);
+        actualizarTablaNotas(notas);
+        
     }//GEN-LAST:event_AnnoComboBoxPopupMenuWillBecomeInvisible
 
-    private void notaRepmplazoTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_notaRepmplazoTKeyReleased
-        if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
-
-            Character caracterEtrada = evt.getKeyChar();
-            String reeplazo = notaRepmplazoT.getText().replaceAll(caracterEtrada.toString(), "");
-            notaRepmplazoT.setText(reeplazo);
-        }
-    }//GEN-LAST:event_notaRepmplazoTKeyReleased
-
-    private void ButtonAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonAceptarMouseClicked
-       int notaRempalzo = Integer.parseInt(notaRepmplazoT.getText());
-       notas.elementAt(tablaNotas.getSelectedRow()).setNota(notaRempalzo);
-    }//GEN-LAST:event_ButtonAceptarMouseClicked
-
-    private void ButtonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonCancelarMouseClicked
-        jDialog1.dispose();
-    }//GEN-LAST:event_ButtonCancelarMouseClicked
-
-    private void MenuItemEdicionNotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuItemEdicionNotasMouseClicked
-        jDialog1.setVisible(true);
-    }//GEN-LAST:event_MenuItemEdicionNotasMouseClicked
+    private void editarNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarNotaMouseClicked
+      
+        String posiblesNotas[] = {"0", "2", "3", "4", "5"};
+        String x =(String) JOptionPane.showInputDialog(null, "Seleccione la nota del estudiante", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , posiblesNotas , posiblesNotas[0]);
+        
+        if(x != null){
+                 int nota = Integer.parseInt(x);
+                 
+                 String asignatura = (String)tablaNotas.getValueAt(tablaNotas.getSelectedRow(), 0);
+                 
+                 for(int i = 0; i < notas.size(); i++){
+                     if(notas.elementAt(i).getNombreAsignatura().equals(asignatura)){
+                         notas.elementAt(i).setNota(nota);
+                         g.actualizarNota(notas.elementAt(i), E);
+                         actualizarTablaNotas(notas);
+                         break;
+                     }
+                 }
+             }
+    }//GEN-LAST:event_editarNotaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Anno;
     private javax.swing.JComboBox<String> AnnoComboBox;
-    private javax.swing.JButton ButtonAceptar;
-    private javax.swing.JButton ButtonCancelar;
-    private javax.swing.JMenuItem MenuItemEdicionNotas;
-    private javax.swing.JPopupMenu PopupMenuEdicionNotas;
     private javax.swing.JTable TablaDeportes;
     private javax.swing.JTable TablaEnfermedades;
     private javax.swing.JTable TablaManifestaciones;
@@ -1693,6 +1629,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JTextField direccionParticularT;
     private javax.swing.JLabel edad;
     private javax.swing.JTextField edadT;
+    private javax.swing.JMenuItem editarNota;
     private javax.swing.JLabel electronicos;
     private javax.swing.JLabel email;
     private javax.swing.JTextField emailT;
@@ -1714,9 +1651,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JRadioButton hijosBooton;
     private javax.swing.JLabel ingresoHogar;
     private javax.swing.JTextField ingresoHogarT;
-    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -1741,6 +1676,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JTextField manifestacionTexto;
     private javax.swing.JRadioButton masculino;
     private javax.swing.JTextField medicamentoTexto;
+    private javax.swing.JPopupMenu menuNotas;
     private javax.swing.JLabel militante;
     private javax.swing.JRadioButton militanteComoboBox;
     private javax.swing.JCheckBox movil;
@@ -1749,7 +1685,6 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JLabel nivelIngles;
     private javax.swing.JLabel nombreEstudiante;
     private javax.swing.JTextField nombreEstudianteT;
-    private javax.swing.JTextField notaRepmplazoT;
     private javax.swing.JCheckBox otrosFamiliares;
     private javax.swing.JCheckBox padre;
     private javax.swing.JLabel padresDivorciados;
@@ -1894,19 +1829,34 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     }
 
-    private void actulizarTablaNotas(Vector<Nota> notas) {
+    private void actualizarTablaNotas(Vector<Nota> notas) {
      
     DefaultTableModel d = new DefaultTableModel();
          Object[] OBJ = new Object[3];
-          d.addColumn("Nombre de la asignatura");
+          d.addColumn("Asignatura");
         
            d.addColumn("Nota");
+           
+           OBJ[0] = "Primer Semestre";
+           d.addRow(OBJ);
           
         for(int i = 0; i < notas.size(); i++){
-            Tupla <String,Integer>t = g.obtenerAsignatura();
-            OBJ[0] = t.getN1();
-            OBJ[1] = t.getN2();
+            if(g.esPrimerSemestre(notas.elementAt(i).getIdAsignatura())){
+            OBJ[0] = notas.elementAt(i).getNombreAsignatura();
+            OBJ[1] = notas.elementAt(i).getNota();
             d.addRow(OBJ);
+            }
+        }
+        
+            OBJ[0] = "Segundo Semestre";
+            d.addRow(OBJ);
+        
+        for(int i = 0; i < notas.size(); i++){
+            if(g.esSegundoSemestre(notas.elementAt(i).getIdAsignatura())){
+            OBJ[0] = notas.elementAt(i).getNombreAsignatura();
+            OBJ[1] = notas.elementAt(i).getNota();
+            d.addRow(OBJ);
+            }
         }
         
         
@@ -1921,12 +1871,17 @@ public class Editor_estudiante extends javax.swing.JFrame {
             
             
             if(fila > -1){
-                PopupMenuEdicionNotas.setLocation(e.getPoint());
-                PopupMenuEdicionNotas.setVisible(true);
+                String asig = (String)tablaNotas.getValueAt(fila, 0);
+                if(!(asig.equals("Primer Semestre") || asig.equals("Segundo Semestre"))){
+               
+                    menuNotas.setLocation(e.getPoint());
+                    menuNotas.setVisible(true);
+                }
             }
         }
         });
        
        jScrollPane1.setViewportView(tablaNotas);
     }
+
 }
