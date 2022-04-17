@@ -177,7 +177,18 @@ public class Gestion
     
     
     public boolean editar_estudiante(Brigada B, DatosEstudiante DE) {
-    	
+    	int becado=0;
+        int militante=0;
+        int hijos=0;
+        int bebidas=0;
+        int fumador=0;
+        int [] familiares = new int [10];
+        int [] electronics = new int [4];
+        int feliz =0;
+        int gusto_estudio=0;
+        int gusto_carrera=0;
+        Vector<Integer> deportes = new Vector<>();
+        Vector<Integer> enfermedades = new Vector<>();
     	C.conectar();
     	
     	String stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() +" and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
@@ -191,11 +202,50 @@ public class Gestion
 			if(RS.next()) {
 				throw new SQLException();
 			}
-			
+			if(DE.isBecado()){
+                        becado=1;
+                        }
+                        if(DE.isMilitante()){
+                            militante=1;
+                        }
+                        if(DE.isHijos()){
+                            hijos=1;
+                        }
+                        if(DE.isBebidas_alcoholicas()){
+                        bebidas=1;
+                        }
+                        if(DE.isFumador()){
+                            fumador=1;
+                        }
+                        if(DE.isFeliz()){
+                            feliz=1;
+                        }
+                        if(DE.isGusta_carrera()){
+                            gusto_carrera=1;
+                        }
+                        if(DE.isGusta_estudio()){
+                            gusto_estudio=1;
+                        }
+                        for (int i = 0; i < DE.getConvivencia().length; i++) {
+                                if(DE.getConvivencia()[i] == true){
+                                    familiares[i]=1;
+                                }
+                                else {
+                                    familiares[i]=0;
+                                }
+            }
+                        for (int i = 0; i < DE.getElectronicos().length; i++) {
+                            if(DE.getElectronicos()[i]==true){
+                                electronics[i]=1;
+                            }
+                            else {
+                                electronics [i]=0;
+                            }
+            }
 			stat = "insert into Estudiante values(null, '" + DE.getNombre_estudiante() + "', '" + DE.getCI() + "', " + DE.getTelefono_particular() + ", " + DE.getTelefono_fijo() + ", " + DE.isDatos_moviles() + ", '" + DE.getEmail() + "', "
-					+ "'"+ DE.getSexo() + "', " + DE.getEdad() + ", " + DE.isBecado() + ", (select id_color_piel from color_piel where color_piel = '" + DE.getColor_de_piel() + "'), " + DE.isMilitante() + ", " +  
-					"(select id_estado_civil from estado_civil where estado_civil = '" + DE.getEstado_civil() + "'), " + DE.isHijos() + ", '" + DE.getDireccion_particular() + "', (select id_zona from zona where zona = '" + DE.getZona() + 
-					"'), (select id_religion from religion where religion = '" + DE.getReligion() + "'), " + DE.isBebidas_alcoholicas() + ", "  + DE.isFumador() + ", " + DE.getParticipacion_brigada() + ", " + idB + 
+					+ "'"+ DE.getSexo() + "', " + DE.getEdad() + ", " + becado + ", (select id_color_piel from color_piel where color_piel = '" + DE.getColor_de_piel() + "'), " + militante + ", " +  
+					"(select id_estado_civil from estado_civil where estado_civil = '" + DE.getEstado_civil() + "'), " + hijos+ ", '" + DE.getDireccion_particular() + "', (select id_zona from zona where zona = '" + DE.getZona() + 
+					"'), (select id_religion from religion where religion = '" + DE.getReligion() + "'), " + bebidas + ", "  + fumador + ", " + DE.getParticipacion_brigada() + ", " + idB + 
 					", (select id_nivel_ingles from nivel_ingles where nivel_ingles = '" + DE.getNivel_ingles() + "'), " + DE.isActivo() + ")";
 			C.getConsulta().execute(stat);
 			stat = "select id_estudiante from Estudiante where CI = '" + DE.getCI() + "'";
@@ -207,21 +257,31 @@ public class Gestion
 				C.getConsulta().execute(stat);
 			}
 			
-			stat = "insert into convivencia values(" + idE + ", " + DE.getConvivencia()[0] + ", " + DE.getConvivencia()[1] + ", " + DE.getConvivencia()[2] + ", " + DE.getConvivencia()[3] + ", " + DE.getConvivencia()[4] + 
-					", " + DE.getConvivencia()[5] + ", " + DE.getConvivencia()[6] + ", " + DE.getConvivencia()[7] + ", " + DE.getConvivencia()[8] + ", " + DE.getConvivencia()[9] + ", " + DE.getTotal_familiares() + ", " + DE.getIngreso_total() + 
+			stat = "insert into convivencia values(" + idE + ", " + familiares[0] + ", " + familiares[1] + ", " + familiares[2] + ", " + familiares[3] + ", " + familiares[4] + 
+					", " + familiares[5] + ", " + familiares[6] + ", " + familiares[7] + ", " + familiares[8] + ", " + familiares[9] + ", " + DE.getTotal_familiares() + ", " + DE.getIngreso_total() + 
 					", (select id_relaciones from relaciones convivencia where relaciones = '" + DE.getRelaciones() + "') )";
 			C.getConsulta().execute(stat);
-			
-			for(int i = 0; i < DE.getDeportes().size(); i++) {
-				stat = "insert into deporte_estudiante values(" + idE + ", " + DE.getDeportes().elementAt(i) + ")";
+			         for (int i = 0; i < DE.getDeportes().size(); i++) {
+                                     stat = "slect id_deporte from deporte where deporte = '"+DE.getDeportes().elementAt(1)+"'";
+                                     RS=C.getConsulta().executeQuery(stat);
+                                     deportes.add(RS.getInt("id_deporte"));
+                                     
+            }
+			for(int i = 0; i < deportes.size(); i++) {
+				stat = "insert into deporte_estudiante values(" + idE + ", " + deportes.elementAt(i) + ")";
 				C.getConsulta().execute(stat);
 			}
 			
 			stat = "insert into Electronics values(null, " + idE + ", " + DE.getElectronicos()[0] + ", " + DE.getElectronicos()[1] + ", " + DE.getElectronicos()[2] + ", " + DE.getElectronicos()[3] + ")";
 			C.getConsulta().execute(stat);
 			
-			for(int i = 0; i < DE.getEnfermedades().size(); i++) {
-				stat = "insert into enfermedades_estudiante values(" + idE + ", " + DE.getEnfermedades().elementAt(i) + ")";
+                        for (int i = 0; i < DE.getEnfermedades().size(); i++) {
+                            stat= "slect id_enfermedad from enfermedad where enfermedad = '"+DE.getEnfermedades().elementAt(i)+"'";
+                            RS= C.getConsulta().executeQuery(stat);
+                            enfermedades.add(RS.getInt("id_enfermedad"));
+                        }
+			for(int i = 0; i < enfermedades.size(); i++) {
+				stat = "insert into enfermedades_estudiante values(" + idE + ", " + enfermedades.elementAt(i) + ")";
 				C.getConsulta().execute(stat);
 			}
 			
@@ -231,9 +291,9 @@ public class Gestion
 			}
 			
 			stat = "insert into psiquis_estudiante values(" + idE + ", '" + DE.getDeseos_futuros() + "', '" + DE.getActividades_tiempo_libre() + "', '" + DE.getProyectos_vida() + "', '"
-					 + DE.getRasgos_habitos() + "', "  + DE.isFeliz() + ", " + DE.isGusta_estudio() + ", " + DE.isGusta_carrera() + ")";
+					 + DE.getRasgos_habitos() + "', "  + feliz + ", " + gusto_estudio + ", " + gusto_carrera + ")";
 			
-			
+			C.getConsulta().execute(stat);
 		} catch (SQLException e) {
 			C.desconectar();
 			return false;

@@ -237,6 +237,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Finalizar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finalizarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="carrera">
               <Properties>
@@ -244,412 +247,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="carreraT">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="jPanel2">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Otros datos">
-                <Property name="tabTitle" type="java.lang.String" value="Otros datos"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="direccionParticularT" max="32767" attributes="0"/>
-                                  <Component id="direccionParticular" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="telefonoFijo" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="telefonoFijoT" min="-2" pref="171" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="email" min="-2" max="-2" attributes="0"/>
-                                              <Component id="datosMoviles" min="-2" max="-2" attributes="0"/>
-                                              <Component id="becado" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="colorPiel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="militante" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="estadoCivil" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="movileDataBooton" min="-2" max="-2" attributes="0"/>
-                                              <Component id="emailT" alignment="0" min="-2" pref="171" max="-2" attributes="0"/>
-                                              <Component id="becadoBooton" min="-2" max="-2" attributes="0"/>
-                                              <Component id="colorDePielComboBox" min="-2" max="-2" attributes="0"/>
-                                              <Component id="militanteComoboBox" min="-2" max="-2" attributes="0"/>
-                                              <Component id="estadoCivilComboBox" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="telefonoParticular" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="telefonoParticularT" min="-2" pref="171" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="89" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="hijos" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="hijosBooton" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="religion" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="religionComboBox" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="nivelIngles" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="nivelDeInglesComboBox" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="participacionBrigada" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="participacionBrigadaRegular" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="participacionBrigadaBien" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="participaicoBrigadaMal" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="religionTexto" min="-2" pref="130" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="annadirReligion" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="bebidasAlc" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="bebidasAl" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="fumador" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="fumadorBooton" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="hijos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="telefonoParticularT" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hijosBooton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="telefonoParticular" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="telefonoFijo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="religion" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="telefonoFijoT" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="religionComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="movileDataBooton" min="-2" max="-2" attributes="0"/>
-                                  <Component id="datosMoviles" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="emailT" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="becado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="becadoBooton" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="religionTexto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="annadirReligion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="bebidasAlc" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="bebidasAl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="fumador" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fumadorBooton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="colorPiel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="colorDePielComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="militante" min="-2" max="-2" attributes="0"/>
-                                  <Component id="militanteComoboBox" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="estadoCivil" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="estadoCivilComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="participacionBrigada" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Component id="participacionBrigadaBien" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="nivelIngles" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="nivelDeInglesComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="participacionBrigadaRegular" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="participaicoBrigadaMal" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="62" max="32767" attributes="0"/>
-                      <Component id="direccionParticular" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="direccionParticularT" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="telefonoParticular">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Particular"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="telefonoFijo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Fijo"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="datosMoviles">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Datos M&#xf3;viles"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="email">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Email"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="becado">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Becado"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="colorPiel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Color de Piel"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="militante">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Militante"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="estadoCivil">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Estado Civil"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="hijos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Hijos"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="direccionParticular">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Direcci&#xf3;n Particular"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="religion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Religi&#xf3;n"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="bebidasAlc">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Bebidas Alcoh&#xf3;licas"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="fumador">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Fumador"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="participacionBrigada">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Participaci&#xf3;n en la Brigada"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="nivelIngles">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nivel Ingl&#xe9;s"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="telefonoParticularT">
-              <Events>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="telefonoParticularTKeyReleased"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="telefonoFijoT">
-              <Events>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="telefonoFijoTKeyReleased"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="emailT">
-              <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="ejemplo@dominio.ext"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="movileDataBooton">
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="becadoBooton">
-            </Component>
-            <Component class="javax.swing.JComboBox" name="colorDePielComboBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="militanteComoboBox">
-            </Component>
-            <Component class="javax.swing.JComboBox" name="estadoCivilComboBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value=" "/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="direccionParticularT">
-              <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="nombre de calle, numero de casa, % calle 1 y calle 2, reparto, municipio, provincia, pais"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="hijosBooton">
-            </Component>
-            <Component class="javax.swing.JComboBox" name="religionComboBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="religionComboBoxActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="religionTexto">
-              <Events>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="religionTextoKeyReleased"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="bebidasAl">
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="fumadorBooton">
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="participacionBrigadaBien">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Buena"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="participacionBrigadaRegular">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Regular"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="participaicoBrigadaMal">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Mala"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="nivelDeInglesComboBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JButton" name="annadirReligion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annadirReligionActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1554,6 +1151,412 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Esto est&#xe1; en reparaci&#xf3;n"/>
               </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel2">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Otros datos">
+                <Property name="tabTitle" type="java.lang.String" value="Otros datos"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="direccionParticularT" max="32767" attributes="0"/>
+                                  <Component id="direccionParticular" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="telefonoFijo" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="telefonoFijoT" min="-2" pref="171" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="email" min="-2" max="-2" attributes="0"/>
+                                              <Component id="datosMoviles" min="-2" max="-2" attributes="0"/>
+                                              <Component id="becado" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="colorPiel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="militante" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="estadoCivil" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="movileDataBooton" min="-2" max="-2" attributes="0"/>
+                                              <Component id="emailT" alignment="0" min="-2" pref="171" max="-2" attributes="0"/>
+                                              <Component id="becadoBooton" min="-2" max="-2" attributes="0"/>
+                                              <Component id="colorDePielComboBox" min="-2" max="-2" attributes="0"/>
+                                              <Component id="militanteRadioB" min="-2" max="-2" attributes="0"/>
+                                              <Component id="estadoCivilComboBox" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="telefonoParticular" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="telefonoParticularT" min="-2" pref="171" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="89" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="hijos" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="hijosBooton" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="religion" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="religionComboBox" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="nivelIngles" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="nivelDeInglesComboBox" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="participacionBrigada" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="participacionBrigadaRegular" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="participacionBrigadaBien" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="participaicoBrigadaMal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="religionTexto" min="-2" pref="130" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="annadirReligion" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <Component id="bebidasAlc" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="bebidasAl" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <Component id="fumador" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="fumadorBooton" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="hijos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="telefonoParticularT" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hijosBooton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="telefonoParticular" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="telefonoFijo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="religion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="telefonoFijoT" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="religionComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="movileDataBooton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="datosMoviles" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="emailT" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="becado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="becadoBooton" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="religionTexto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="annadirReligion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="bebidasAlc" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="bebidasAl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="fumador" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fumadorBooton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="colorPiel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="colorDePielComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="militante" min="-2" max="-2" attributes="0"/>
+                                  <Component id="militanteRadioB" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="estadoCivil" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="estadoCivilComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="participacionBrigada" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                  <Component id="participacionBrigadaBien" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nivelIngles" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nivelDeInglesComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="participacionBrigadaRegular" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="participaicoBrigadaMal" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="62" max="32767" attributes="0"/>
+                      <Component id="direccionParticular" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="direccionParticularT" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="telefonoParticular">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Particular"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="telefonoFijo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Fijo"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="datosMoviles">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Datos M&#xf3;viles"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="email">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Email"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="becado">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Becado"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="colorPiel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Color de Piel"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="militante">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Militante"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="estadoCivil">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Estado Civil"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="hijos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Hijos"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="direccionParticular">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Direcci&#xf3;n Particular"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="religion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Religi&#xf3;n"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="bebidasAlc">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Bebidas Alcoh&#xf3;licas"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="fumador">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fumador"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="participacionBrigada">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Participaci&#xf3;n en la Brigada"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="nivelIngles">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nivel Ingl&#xe9;s"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="telefonoParticularT">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="telefonoParticularTKeyReleased"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="telefonoFijoT">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="telefonoFijoTKeyReleased"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="emailT">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="ejemplo@dominio.ext"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="movileDataBooton">
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="becadoBooton">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="colorDePielComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="militanteRadioB">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="estadoCivilComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="1">
+                    <StringItem index="0" value=" "/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="direccionParticularT">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="nombre de calle, numero de casa, % calle 1 y calle 2, reparto, municipio, provincia, pais"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="hijosBooton">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="religionComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="religionComboBoxActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="religionTexto">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="religionTextoKeyReleased"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="bebidasAl">
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="fumadorBooton">
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="participacionBrigadaBien">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buena"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="participacionBrigadaRegular">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Regular"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="participaicoBrigadaMal">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mala"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="nivelDeInglesComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="annadirReligion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annadirReligionActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
