@@ -14,27 +14,27 @@ public class DatosEstudiante extends Estudiante{
 	private String sexo;
 	private int edad;
 	private boolean becado;
-	private String color_de_piel;
+	private int color_de_piel;
 	private boolean militante;
-	private String estado_civil;
+	private int estado_civil;
 	private boolean hijos;
 	private String direccion_particular;
-	private String zona;
-	private String religion; // Preguntar como se organiza esto de las religiones, si solo se ponen las mas importantes, o todas
+	private int zona;
+	private String religion; 
 	private boolean bebidas_alcoholicas;
 	private boolean fumador;
 	private int participacion_brigada;
-	private Vector<Integer> manifestaciones_artisticas;
+	private Vector<String> manifestaciones_artisticas;
 	private boolean[] convivencia;
 	private int total_familiares;
 	private int ingreso_total;
-	private String relaciones;
-	private Vector<Integer> deportes; //preguntar lo mismo de arriba
+	private int relaciones;
+	private Vector<String> deportes; 
 	private boolean[] electronicos;
-	private Vector<Integer> enfermedades;
+	private Vector<String> enfermedades;
 	private boolean activo;
 	private Vector<Tupla<Integer, Integer>> eventos;
-	private Vector<Integer> medicamentos;
+	private Vector<String> medicamentos;
 	private String deseos_futuros;
 	private String actividades_tiempo_libre;
 	private String proyectos_vida;
@@ -42,16 +42,16 @@ public class DatosEstudiante extends Estudiante{
 	private boolean feliz;
 	private boolean gusta_carrera;
 	private boolean gusta_estudio;
-	private String nivel_ingles;
+	private int nivel_ingles;
 	public DatosEstudiante(String nombre, String CI, int telefono_particular, int telefono_fijo, boolean datos_moviles,
-			String email, String sexo, int edad, boolean becado, String color_de_piel, boolean militante,
-			String estado_civil, boolean hijos, String direccion_particular, String zona, String religion,
+			String email, String sexo, int edad, boolean becado, int color_de_piel, boolean militante,
+			int estado_civil, boolean hijos, String direccion_particular, int zona, String religion,
 			boolean bebidas_alcoholicas, boolean fumador, int participacion_brigada,
-			Vector<Integer> manifestaciones_artisticas, boolean[] convivencia, int total_familiares, int ingreso_total,
-			String relaciones, Vector<Integer> deportes, boolean[] electronicos, Vector<Integer> enfermedades,
-			boolean activo, Vector<Tupla<Integer, Integer>> eventos, Vector<Integer> medicamentos,
+			Vector<String> manifestaciones_artisticas, boolean[] convivencia, int total_familiares, int ingreso_total,
+			int relaciones, Vector<String> deportes, boolean[] electronicos, Vector<String> enfermedades,
+			boolean activo, Vector<Tupla<Integer, Integer>> eventos, Vector<String> medicamentos,
 			String deseos_futuros, String actividades_tiempo_libre, String proyectos_vida, String rasgos_habitos,
-			boolean feliz, boolean gusta_carrera, boolean gusta_estudio, String nivel_ingles) {
+			boolean feliz, boolean gusta_carrera, boolean gusta_estudio, int nivel_ingles) {
 		super(nombre, CI);
 		this.telefono_particular = telefono_particular;
 		this.telefono_fijo = telefono_fijo;
@@ -112,13 +112,13 @@ public class DatosEstudiante extends Estudiante{
 	public boolean isBecado() {
 		return becado;
 	}
-	public String getColor_de_piel() {
+	public int getColor_de_piel() {
 		return color_de_piel;
 	}
 	public boolean isMilitante() {
 		return militante;
 	}
-	public String getEstado_civil() {
+	public int getEstado_civil() {
 		return estado_civil;
 	}
 	public boolean isHijos() {
@@ -139,7 +139,7 @@ public class DatosEstudiante extends Estudiante{
 	public int getParticipacion_brigada() {
 		return participacion_brigada;
 	}
-	public Vector<Integer> getManifestaciones_artisticas() {
+	public Vector<String> getManifestaciones_artisticas() {
 		return manifestaciones_artisticas;
 	}
 	public boolean[] getConvivencia() {
@@ -151,16 +151,16 @@ public class DatosEstudiante extends Estudiante{
 	public int getIngreso_total() {
 		return ingreso_total;
 	}
-	public String getRelaciones() {
+	public int getRelaciones() {
 		return relaciones;
 	}
-	public Vector<Integer> getDeportes() {
+	public Vector<String> getDeportes() {
 		return deportes;
 	}
 	public boolean[] getElectronicos() {
 		return electronicos;
 	}
-	public Vector<Integer> getEnfermedades() {
+	public Vector<String> getEnfermedades() {
 		return enfermedades;
 	}
 	public boolean isActivo() {
@@ -169,7 +169,7 @@ public class DatosEstudiante extends Estudiante{
 	public Vector<Tupla<Integer, Integer>> getEventos() {
 		return eventos;
 	}
-	public Vector<Integer> getMedicamentos() {
+	public Vector<String> getMedicamentos() {
 		return medicamentos;
 	}
 	public String getDeseos_futuros() {
@@ -193,16 +193,16 @@ public class DatosEstudiante extends Estudiante{
 	public boolean isGusta_estudio() {
 		return gusta_estudio;
 	}
-	public String getZona() {
+	public int getZona() {
 		return zona;
 	}
-	public void setZona(String zona) {
+	public void setZona(int zona) {
 		this.zona = zona;
 	}
-	public String getNivel_ingles() {
+	public int getNivel_ingles() {
 		return nivel_ingles;
 	}
-	public void setNivel_ingles(String nivel_ingles) {
+	public void setNivel_ingles(int nivel_ingles) {
 		this.nivel_ingles = nivel_ingles;
 	}
 	
