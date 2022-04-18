@@ -60,10 +60,13 @@
                 <Property name="text" type="java.lang.String" value="Filtrar por Notas"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+            <MenuItem class="javax.swing.JMenuItem" name="ICI">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar Notas"/>
+                <Property name="text" type="java.lang.String" value="ICI"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ICIActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

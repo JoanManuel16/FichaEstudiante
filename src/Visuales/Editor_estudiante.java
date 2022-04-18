@@ -5,6 +5,7 @@
 package Visuales;
 
 import Base_de_Datos.Gestion;
+import clases.Brigada;
 import clases.Carrera;
 import clases.Estudiante;
 import clases.Nota;
@@ -43,7 +44,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private Carrera carr;
     private Vector<String> religiones;
     private Estudiante E;
-    public Editor_estudiante(Estudiante E, String carrera) {
+    public Editor_estudiante(Estudiante E, String carrera, Brigada B) {
         initComponents();
         this.E=E;
         radioButtonManifestaciones = new Vector<>();

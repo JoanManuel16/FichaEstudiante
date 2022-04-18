@@ -35,7 +35,7 @@ public class Main extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        ICI = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,8 +84,13 @@ public class Main extends javax.swing.JFrame {
         jMenuItem6.setText("Filtrar por Notas");
         jMenu3.add(jMenuItem6);
 
-        jMenuItem5.setText("Agregar Notas");
-        jMenu3.add(jMenuItem5);
+        ICI.setText("ICI");
+        ICI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ICIActionPerformed(evt);
+            }
+        });
+        jMenu3.add(ICI);
 
         jMenuBar1.add(jMenu3);
 
@@ -124,10 +129,19 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void brigadasExistentesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brigadasExistentesMouseReleased
-        Gestor_brigada gestorBrigada = new Gestor_brigada();
+        Gestor_brigada gestorBrigada = new Gestor_brigada(1);
         gestorBrigada.setVisible(true);
         dispose();
     }//GEN-LAST:event_brigadasExistentesMouseReleased
+
+    private void ICIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ICIActionPerformed
+        
+        Gestor_brigada GB = new Gestor_brigada(2);
+        GB.setVisible(true);
+        this.dispose();
+        
+        
+    }//GEN-LAST:event_ICIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,6 +179,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ICI;
     private javax.swing.JMenuItem brigadasExistentes;
     private javax.swing.JMenuItem crearBrigada;
     private javax.swing.JMenu jMenu1;
@@ -173,7 +188,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }

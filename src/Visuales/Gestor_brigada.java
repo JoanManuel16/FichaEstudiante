@@ -29,17 +29,19 @@ public class Gestor_brigada extends javax.swing.JFrame {
     private Vector<String> BrigadasCarrera;
     private Integer BrigadasAnno;
     private Integer BrigadasAnnoB;
-    private boolean flag;
-
+    private int opcion;
+    
     private Vector<Brigada> Brigadas;
     
 
     private Vector<Brigada> BrigadasSeleccionadas;
 
-    public Gestor_brigada() {
+    public Gestor_brigada(int opcion) {
 
         initComponents();
         g = new Gestion();
+        
+        this.opcion = opcion;
    
         carreras = g.obtener_carreras();
 
@@ -50,6 +52,13 @@ public class Gestor_brigada extends javax.swing.JFrame {
         
         for(int i = 1; i <= 5; i++){
             ComboBoxAnnos.addItem(i+"");
+        }
+        
+        if(opcion == 1){
+            editar.setText("Editar");
+        }
+        else if(opcion == 2){
+            editar.setText("Seleccionar");
         }
 
     }
@@ -216,12 +225,23 @@ public class Gestor_brigada extends javax.swing.JFrame {
         int anno = (int)TableBrigadasExistentes.getValueAt(fila, 1);
         int annoB = (int)TableBrigadasExistentes.getValueAt(fila, 2);
         
+        if(opcion == 1){
         for(int i = 0; i < BrigadasSeleccionadas.size(); i++){
             if(BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada()== annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)){
                 Editor_brigada EB = new Editor_brigada(BrigadasSeleccionadas.elementAt(i));
                 EB.setVisible(true);
                 dispose();
             }
+        }
+        }
+        else if(opcion == 2){
+            for(int i = 0; i < BrigadasSeleccionadas.size(); i++){
+            if(BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada()== annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)){
+                ICI ici = new ICI(BrigadasSeleccionadas.elementAt(i));
+                ici.setVisible(true);
+                dispose();
+            }
+        }
         }
 
                                             
