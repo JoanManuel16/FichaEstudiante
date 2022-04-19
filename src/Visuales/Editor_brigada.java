@@ -31,9 +31,9 @@ public class Editor_brigada extends javax.swing.JFrame {
     private final Gestion G = new Gestion();
     private final Vector<Estudiante> estudiantes;
     private final Brigada B;
-    private Vector<Tupla<Integer,Integer>> eventosBrigada;
-    private Vector<Tupla<Integer,Integer>> eventos;
-    private Vector<Tupla<Integer,Integer>> eventosEliminados;
+    private Vector<Tupla<Integer,String>> eventosBrigada;
+    private Vector<Tupla<Integer,String>> eventos;
+    private Vector<Tupla<Integer,String>> eventosEliminados;
     private Vector<JRadioButton> radioButtonEventos;
      
 

@@ -360,7 +360,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
             if(cont==estudiantesEvento.size()){
                 llenarCombBox(ComboBoxDimension1);
                 jDialog1.setVisible(true);
-                Evento e = new Evento(evento,dimension, fecha, logros);
+                Evento e = new Evento(evento,dimension, fecha);
                 g.agregar_estudiantes_a_evento(estudiantesEvento, e);
             }
         }

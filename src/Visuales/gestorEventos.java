@@ -5,6 +5,9 @@
 package Visuales;
 
 import Base_de_Datos.Gestion;
+import clases.Evento;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -16,18 +19,25 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  *
  * @author joanmanuel
  */
-public class Filtrar_evento extends javax.swing.JFrame {
+public class gestorEventos extends javax.swing.JFrame {
 
     /**
      * Creates new form Filtrar_evento
      */
     private Vector<String>NombreEventos;
     private Gestion g;
-    public Filtrar_evento() {
+    
+    public gestorEventos() {
         initComponents();
         g= new Gestion();
         NombreEventos=g.obtener_nombres_eventos();
         actualizarTabla(NombreEventos);
+        
+        Vector<String> dimensiones = g.obtenerDimensiones();
+        
+        for(int i = 0; i < dimensiones.size();i++){
+            dimensionesComboBox.addItem(dimensiones.elementAt(i));
+    }
     }
 
     /**
@@ -41,11 +51,14 @@ public class Filtrar_evento extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TableEventos = new javax.swing.JTable();
-        LabelNombreEvento = new javax.swing.JLabel();
+        nombreEvento = new javax.swing.JLabel();
         TextNombreEvento = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        aceptar = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
+        nuevoEvento = new javax.swing.JButton();
+        dimensionesComboBox = new javax.swing.JComboBox<>();
+        dimensionesL = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,7 +75,7 @@ public class Filtrar_evento extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TableEventos);
 
-        LabelNombreEvento.setText("Nombre del evento");
+        nombreEvento.setText("Nombre del evento");
 
         TextNombreEvento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -70,66 +83,83 @@ public class Filtrar_evento extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Aceptar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        aceptar.setText("Aceptar");
+        aceptar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                aceptarMouseClicked(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        cancelar.setText("Cancelar");
+        cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                cancelarMouseClicked(evt);
             }
         });
 
-        jButton3.setText("Nuevo Evento");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        nuevoEvento.setText("Nuevo Evento");
+        nuevoEvento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                nuevoEventoMouseClicked(evt);
             }
         });
+
+        dimensionesL.setText("Dimensiones");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(LabelNombreEvento))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(aceptar)
+                            .addComponent(nombreEvento))
                         .addGap(18, 18, 18)
-                        .addComponent(TextNombreEvento))
+                        .addComponent(TextNombreEvento)
+                        .addGap(69, 69, 69))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
-                .addGap(69, 69, 69))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nuevoEvento)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(cancelar)
+                                .addGap(41, 41, 41)
+                                .addComponent(dimensionesL)
+                                .addGap(25, 25, 25)
+                                .addComponent(dimensionesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(169, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LabelNombreEvento)
+                    .addComponent(nombreEvento)
                     .addComponent(TextNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                    .addComponent(aceptar)
+                    .addComponent(cancelar)
+                    .addComponent(nuevoEvento)
+                    .addComponent(dimensionesL)
+                    .addComponent(dimensionesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 21, Short.MAX_VALUE))
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -158,7 +188,7 @@ public class Filtrar_evento extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_TextNombreEventoKeyReleased
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void nuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoEventoMouseClicked
        
          if(TextNombreEvento.getText().equals("")){
             JOptionPane.showMessageDialog(null, "El nombre del Evetno esta vacio", "Error", JOptionPane.ERROR_MESSAGE);
@@ -181,6 +211,7 @@ public class Filtrar_evento extends javax.swing.JFrame {
             
                     if(x == null){
                         g.agregar_nombre_evento(temp);
+                        NombreEventos.add(temp);
                         JOptionPane.showMessageDialog(null, "Evento: "+temp+"agregado satisfactoriamente", "Mensaje del sistema",JOptionPane.QUESTION_MESSAGE);
                     }
                     
@@ -191,28 +222,61 @@ public class Filtrar_evento extends javax.swing.JFrame {
 
              }
              else{
-                 Editor_evento cr = new Editor_evento();
-                 cr.setVisible(true);
-                 this.dispose();
+                 g.agregar_nombre_evento(temp);
+                 JOptionPane.showMessageDialog(null, "Evento: "+temp+"agregado satisfactoriamente", "Mensaje del sistema",JOptionPane.QUESTION_MESSAGE);
+                 NombreEventos.add(temp);
+                 
+                 
+                  Vector<String> V = new Vector<String>();
+                    V.add(temp);
+                    
+                   actualizarTabla(V);
              }
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_nuevoEventoMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
         this.dispose();
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_cancelarMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void aceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarMouseClicked
        
-    }//GEN-LAST:event_jButton1MouseClicked
+        if(TableEventos.getSelectedColumn() > -1){
+            String nombreEvento = (String)TableEventos.getValueAt(TableEventos.getSelectedRow(), TableEventos.getSelectedColumn());
+            int dimension = dimensionesComboBox.getSelectedIndex()+1;
+            Date d = jCalendar1.getDate();
+            SimpleDateFormat dt = new SimpleDateFormat("YYY");
+            int anno = Integer.parseInt(dt.format(d).toUpperCase());
+            if(!g.existeEventoFecha(anno, nombreEvento)){
+                dt = new SimpleDateFormat("MM-dd-YYY");
+                String fecha = dt.format(d).toUpperCase();
+                Evento evento = new Evento(nombreEvento, dimension, fecha);
+                g.agregar_evento(evento);
+                
+                TextNombreEvento.setText("");
+                actualizarTabla(NombreEventos);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Este evento ya existe en el anno indicado");
+            }
+      
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No hay evento seleccionado");
+        }
+        
+    }//GEN-LAST:event_aceptarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LabelNombreEvento;
     private javax.swing.JTable TableEventos;
     private javax.swing.JTextField TextNombreEvento;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton aceptar;
+    private javax.swing.JButton cancelar;
+    private javax.swing.JComboBox<String> dimensionesComboBox;
+    private javax.swing.JLabel dimensionesL;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nombreEvento;
+    private javax.swing.JButton nuevoEvento;
     // End of variables declaration//GEN-END:variables
 
     private void actualizarTabla(Vector<String> v) {

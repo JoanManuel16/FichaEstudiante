@@ -9,13 +9,11 @@ public class Evento {
 	private String nombre;
 	private int dimension;
 	private String anno;
-	private Vector<Tupla<String, Integer>> logros;
 	
-	public Evento(String nombre, int dimension, String anno, Vector<Tupla<String, Integer>> logros) {
+	public Evento(String nombre, int dimension, String anno) {
 		this.nombre = nombre;
 		this.dimension = dimension;
 		this.anno = anno;
-		this.logros = logros;
 	}
 
 	public String getNombre() {
@@ -40,14 +38,6 @@ public class Evento {
 
 	public void setAnno(String anno) {
 		this.anno = anno;
-	}
-
-	public Vector<Tupla<String, Integer>> getLogros() {
-		return logros;
-	}
-
-	public void setLogros(Vector<Tupla<String, Integer>> logros) {
-		this.logros = logros;
 	}
 	
 	

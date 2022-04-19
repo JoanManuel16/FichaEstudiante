@@ -245,6 +245,7 @@ public class ICI extends javax.swing.JFrame {
             }
             OBJ[2] = ICIi;
             d.addRow(OBJ);
+            //agregar mi a a la tabla
         }
         
     }

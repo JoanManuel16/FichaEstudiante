@@ -15,6 +15,11 @@ import clases.DatosEstudiante;
 import clases.Estudiante;
 import clases.Evento;
 import clases.Nota;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utiles.Tupla;
@@ -153,20 +158,21 @@ public class Gestion
             RS = C.getConsulta().executeQuery(stat);
             int idE = RS.getInt("id_estudiante");
             
-            stat = "select id_asignatura from asignaturas_semestre join carrera on asignaturas_semestre.id_carrera = carrera.id_carrera where carrera.id_carrera = (select id_carrera from carrera where nombre_carrera = '" + Carrera + "')";
+            String stat2 = "select asignaturas_semestre.id_asignatura, asignaturas.nombre_asignatura from asignaturas_semestre join carrera join asignaturas on asignaturas_semestre.id_carrera = carrera.id_carrera and asignaturas.id_asignatura = asignaturas_semestre.id_asignatura where carrera.id_carrera = (select id_carrera from carrera where nombre_carrera = '" + Carrera + "')";
            
-            RS = C.getConsulta().executeQuery(stat);
-            while(RS.next()){
+            RS = C.getConsulta().executeQuery(stat2);
+            //Crear un vector y hacer el ciclo debajo
+            do{
             
                 int idA = RS.getInt("id_asignatura");
                 String NA = RS.getString("nombre_asignatura");
                 String execute = "insert into notas_estudiante values(" + idE + ", " + idA + ", 0, 0, '" + NA +"')";
                 C.getConsulta().execute(execute);
                 
-            }
+            }while(RS.next());
             
         } catch (SQLException ex) {
-            
+            System.err.println(ex);
             C.desconectar();
             return false;
         }
@@ -334,24 +340,10 @@ public class Gestion
     public boolean agregar_evento(Evento E) {
     	C.conectar();
     	
-    	String stat = "select * from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and anno_evento = " + E.getAnno() + ")";
-    	try {
-			ResultSet RS = C.getConsulta().executeQuery(stat);
+            try{
 			
-			if(RS.next()) {
-				throw new SQLException();
-			}
-			
-			stat = "insert into eventos values(null, (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "'), " + E.getDimension() + ", " + E.getAnno() + ")";
+			String stat = "insert into eventos values(null, (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "'), " + E.getDimension() + ", '" + E.getAnno() + "')";
 			C.getConsulta().execute(stat);
-			
-			stat = "select * from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and anno_evento = " + E.getAnno() + ")";
-			RS = C.getConsulta().executeQuery(stat);
-			int idE = RS.getInt("id_evento");
-			
-			for(int i = 0; i < E.getLogros().size(); i++) {
-				stat = "insert into logros_evento values(null, " + idE + ", '" + E.getLogros().elementAt(i).getN1() + "', " + E.getLogros().elementAt(i).getN2() + ")";
-			}
 			
 		} catch (SQLException e) {
 			C.desconectar();
@@ -665,7 +657,7 @@ public class Gestion
          Vector<String> dimensiones = new Vector<>();
         try {
             C.conectar();
-            String stat = " select * from dimensiones ";
+            String stat = "select * from dimensiones";
             ResultSet rs =C.getConsulta().executeQuery(stat);            
             while (rs.next()) {
                 dimensiones.add(rs.getString("nombre_dimension"));
@@ -1100,11 +1092,11 @@ public class Gestion
         }
     }
 
-    public Vector<Tupla<Integer, Integer>> obtenerEventos() {
+    public Vector<Tupla<Integer, String>> obtenerEventos() {
         
                     C.conectar();
 
-                    Vector<Tupla<Integer, Integer>> eventos = new Vector<>();
+                    Vector<Tupla<Integer, String>> eventos = new Vector<>();
         try {
             
             String stat = "select * from eventos";
@@ -1112,7 +1104,7 @@ public class Gestion
             
             if(RS.next()){
                 do{
-                    eventos.add(new Tupla<Integer,Integer>(RS.getInt("id_evento"), RS.getInt("anno_evento")));
+                    eventos.add(new Tupla<Integer,String>(RS.getInt("id_evento"), RS.getString("fecha_evento")));
                     
                 }while(RS.next());
             }
@@ -1123,10 +1115,10 @@ public class Gestion
         return eventos;
     }
 
-    public Vector<Tupla<Integer, Integer>> obtenerEventosBrigada(Brigada B) {
+    public Vector<Tupla<Integer, String>> obtenerEventosBrigada(Brigada B) {
         
         C.conectar();
-        Vector<Tupla<Integer, Integer>> eventos = new Vector<>();
+        Vector<Tupla<Integer, String>> eventos = new Vector<>();
         
         try {
             
@@ -1140,7 +1132,7 @@ public class Gestion
             
             if(RS.next()){
                 do{
-                    eventos.add(new Tupla<Integer,Integer>(RS.getInt("eventos.id_evento"), RS.getInt("eventos.anno_evento")));
+                    eventos.add(new Tupla<Integer,String>(RS.getInt("eventos.id_evento"), RS.getString("eventos.fecha_evento")));
                     
                 }while(RS.next());
             }
@@ -1168,7 +1160,7 @@ public class Gestion
         return nombreEvento;
     }
 
-    public void actualizarEventosBrigada(Brigada B, Vector<Tupla<Integer, Integer>> eventosBrigada, Vector<Tupla<Integer, Integer>> eventosEliminados) {
+    public void actualizarEventosBrigada(Brigada B, Vector<Tupla<Integer, String>> eventosBrigada, Vector<Tupla<Integer, String>> eventosEliminados) {
         
         C.conectar();
 
@@ -1259,6 +1251,34 @@ public class Gestion
         }
         C.desconectar();
         return sol;
+    }
+
+    public boolean existeEventoFecha(int anno, String nombreEvento) {
+
+            C.conectar();
+        try {
+            
+            String stat = "select * from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + nombreEvento + "')";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            
+            
+            if(RS.next()){
+                do{
+            String fecha = RS.getString("fecha_evento");
+                int nuevoAnno = Integer.parseInt(fecha.substring(fecha.length()-4));
+
+                if(anno == nuevoAnno){
+                    C.desconectar();
+                    return true;
+                }
+                }while(RS.next());
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return false;
     }
    
 }
