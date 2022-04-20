@@ -45,6 +45,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private Carrera carr;
     private Vector<String> religiones;
     private Estudiante E;
+    private DatosEstudiante datosEstudiante;
 
     public Editor_estudiante(Estudiante E, String carrera,Brigada b) {
         initComponents();
@@ -121,7 +122,142 @@ public class Editor_estudiante extends javax.swing.JFrame {
         actualizarTablaNotas(notas);
               
                 }
-    
+   public Editor_estudiante(Estudiante E, String carrera,Brigada b,DatosEstudiante d) {
+  this.E=E;
+        this.b= b;
+        datosEstudiante = d;
+       if(d.getSexo().equals("masculino")){
+       masculino.setSelected(true);
+       }
+       else{
+           femenino.setSelected(true);
+       }
+        radioButtonManifestaciones = new Vector<>();
+        manifestacionesArtisticas = g.obtenerManifestaciones();
+        actualizarTablaManifestaciones(manifestacionesArtisticas);
+        for (int i = 0; i < d.getManifestaciones_artisticas().size(); i++) {
+           if(manifestacionesArtisticas.elementAt(i).equals(d.getManifestaciones_artisticas().elementAt(i))){
+           radioButtonManifestaciones.elementAt(i).setSelected(true);
+           }
+       }
+        radioButtonDeportes = new Vector<>();
+        deportes = g.obtenerDeportes();
+        actualizarTablaDeportes(deportes);
+        for (int i = 0; i < d.getDeportes().size(); i++) {
+           if(deportes.elementAt(i).equals(d.getDeportes().elementAt(i))){
+           radioButtonDeportes.elementAt(i).setSelected(true);
+           }
+       }
+        radioButtonEnfermedades = new Vector<>();
+        enfermedades = g.obtenerEnfermedades();
+        actualizarTablaEnfermedades(enfermedades);
+        for (int i = 0; i < d.getEnfermedades().size(); i++) {
+           if(enfermedades.elementAt(i).equals(d.getEnfermedades().elementAt(i))){
+           radioButtonEnfermedades.elementAt(i).setSelected(true);
+           }
+       }
+        radioButtonMedicamentos = new Vector<>();
+        medicamentos = g.obtenerMedicamentos();
+        actualizarTablaMedicamentos(medicamentos);
+        for (int i = 0; i < d.getMedicamentos().size(); i++) {
+           if(medicamentos.elementAt(i).equals(d.getMedicamentos().elementAt(i))){
+           radioButtonMedicamentos.elementAt(i).setSelected(true);
+           }
+       }
+        this.carr = g.obtener_carrera(carrera);
+        
+        nombreEstudianteT.setText(E.getNombre_estudiante());
+        carnetTexto.setText(E.getCI());
+        carreraT.setText(carr.getNombre());
+        carreraT.setEditable(false);
+        
+        buttonGroup1.add(masculino);
+        buttonGroup1.add(femenino);
+        
+        Vector<String> zonas = g.obtenerZonas();
+      
+        
+              for(int i = 0; i < zonas.size(); i++){
+                  if(zonas.elementAt(i).equals(zonaT)){}
+                  zonaOpciones.addItem(zonas.elementAt(i));
+              }
+                zonaOpciones.setSelectedIndex(d.getZona()-1);
+        Vector<String> colorPieles = g.obtenerColorPiel();
+        for(int i = 0; i < colorPieles.size(); i++){
+                  colorDePielComboBox.addItem(colorPieles.elementAt(i));
+              }
+        colorDePielComboBox.setSelectedIndex(d.getColor_de_piel()-1);
+        Vector<String> estCivil = g.obtenerEstadoCivil();
+        for(int i = 0; i < estCivil.size(); i++){
+                  estadoCivilComboBox.addItem(estCivil.elementAt(i));
+              }
+         estadoCivilComboBox.setSelectedIndex(d.getEstado_civil()-1);
+         religiones.add("Nueva Religión");
+         religiones.addAll(g.obtenerReligiones());
+        for(int i = 0; i < religiones.size(); i++){
+                  religionComboBox.addItem(religiones.elementAt(i));
+              }
+        religionComboBox.setSelectedItem(d.getReligion());
+        religionTexto.setVisible(false);
+        annadirReligion.setVisible(false);
+        
+        buttonGroup2.add(participacionBrigadaBien);
+        buttonGroup2.add(participacionBrigadaRegular);
+        buttonGroup2.add(participaicoBrigadaMal);
+        switch (d.getParticipacion_brigada()) {
+            case 1 -> participacionBrigadaBien.setSelected(true);
+            case 2 -> participacionBrigadaRegular.setSelected(true);
+            default -> participaicoBrigadaMal.setSelected(true);
+        }
+        
+        Vector<String> nivIng = g.obtenerNivelIngles();
+        for(int i = 0; i < nivIng.size(); i++){
+                  nivelDeInglesComboBox.addItem(nivIng.elementAt(i));
+        }
+        nivelDeInglesComboBox.setSelectedIndex(d.getNivel_ingles());
+        
+        Vector<String> convivencia = g.obtenerConvivencia();
+         for(int i = 0; i < convivencia.size(); i++){
+                  relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
+              }
+         relacionesConvivenciaComboBox.setSelectedIndex(d.getRelaciones());
+         
+        notas = g.obtenerNotas(carr, E,AnnoComboBox.getSelectedIndex()+1);
+        
+        actualizarTablaNotas(notas);
+         edadT.setText(d.getEdad() + "");
+         deseosFuturosT.setText(d.getDeseos_futuros());
+         actividadesTiempoLibreT.setText(d.getActividades_tiempo_libre());
+         proyectosVidaT.setText(d.getProyectos_vida());
+         rasgosHabitosT.setText(d.getRasgos_habitos());
+         telefonoFijoT.setText(d.getTelefono_fijo()+"");
+         telefonoParticularT.setText(d.getTelefono_particular()+"");
+         becadoBooton.setSelected(d.isBecado());
+         movileDataBooton.setSelected(d.isDatos_moviles());
+         hijosBooton.setSelected(d.isHijos());
+         bebidasAl.setSelected(d.isBebidas_alcoholicas());
+         fumadorBooton.setSelected(d.isFumador());
+         direccionParticularT.setText(d.getDireccion_particular());
+         totalFamiliaresT.setText(d.getTotal_familiares()+"");
+         ingresoHogarT.setText(d.getIngreso_total()+"");
+         felicidadOpcion.setSelected(d.isFeliz());
+         estudioOpcion.setSelected(d.isGusta_estudio());
+         carreraOpcion.setSelected(d.isGusta_carrera());
+        boolean [] convivenciaArray = d.getConvivencia();
+        padre.setSelected(convivenciaArray[0]);
+        madre.setSelected(convivenciaArray[1]);
+        hermanas.setSelected(convivenciaArray[2]);
+        hermanos.setSelected(convivenciaArray[3]);
+        abueloP.setSelected(convivenciaArray[4]);
+        abueloM.setSelected(convivenciaArray[5]);
+        abuelaP.setSelected(convivenciaArray[6]);
+        abuelaM.setSelected(convivenciaArray[7]);
+        otrosFamiliares.setSelected(convivenciaArray[8]);
+        //como sacar los padrea divorciados
+        padresDivorciadosOpcion.setSelected(false);
+        
+         
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
