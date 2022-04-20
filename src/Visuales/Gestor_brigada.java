@@ -6,10 +6,8 @@ package Visuales;
 
 import Base_de_Datos.Gestion;
 import clases.Brigada;
-import java.awt.Font;
+import com.toedter.calendar.demo.BirthdayEvaluator;
 import java.util.Vector;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
@@ -30,9 +28,8 @@ public class Gestor_brigada extends javax.swing.JFrame {
     private Integer BrigadasAnno;
     private Integer BrigadasAnnoB;
     private int opcion;
-    
+
     private Vector<Brigada> Brigadas;
-    
 
     private Vector<Brigada> BrigadasSeleccionadas;
 
@@ -40,24 +37,24 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
         initComponents();
         g = new Gestion();
-        
+        BrigadasAnno = 0;
+        BrigadasAnnoB = 0;
         this.opcion = opcion;
-   
+
         carreras = g.obtener_carreras();
 
         BrigadasCarrera = new Vector<>();
         Brigadas = g.obtenerBrigadas();
         BrigadasSeleccionadas = new Vector<>();
         actualizarTablaBrigadas(Brigadas);
-        
-        for(int i = 1; i <= 5; i++){
-            ComboBoxAnnos.addItem(i+"");
+
+        for (int i = 1; i <= 5; i++) {
+            ComboBoxAnnos.addItem(i + "");
         }
-        
-        if(opcion == 1){
+
+        if (opcion == 1) {
             editar.setText("Editar");
-        }
-        else if(opcion == 2){
+        } else if (opcion == 2) {
             editar.setText("Seleccionar");
         }
 
@@ -120,6 +117,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
             }
         });
 
+        ComboBoxAnnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none" }));
         ComboBoxAnnos.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -205,68 +203,96 @@ public class Gestor_brigada extends javax.swing.JFrame {
             String reeplazo = carreraBrigada.getText().replaceAll(caracterEtrada.toString(), "");
             carreraBrigada.setText(reeplazo);
         }
+        if(carreraBrigada.getText().equals("")){
+            actualizarTablaBrigadas(Brigadas);
+            return;
+        }
         BrigadasCarrera.removeAllElements();
         String temp = carreraBrigada.getText();
 
-            for (int i = 0; i < carreras.size(); i++) {
-                if (Secuencias_cadenas.mayor_subcadena(temp, carreras.elementAt(i))) {
-                    BrigadasCarrera.add(carreras.elementAt(i));
-                }
+        for (int i = 0; i < carreras.size(); i++) {
+            if (Secuencias_cadenas.mayor_subcadena(temp, carreras.elementAt(i))) {
+                BrigadasCarrera.add(carreras.elementAt(i));
             }
-            actualizarTablaBrigadas(Brigadas, BrigadasAnno, BrigadasAnnoB, BrigadasCarrera);
- 
+        }
+        actualizarTablaBrigadas(Brigadas, BrigadasAnno, BrigadasAnnoB, BrigadasCarrera);
+
 
     }//GEN-LAST:event_carreraBrigadaKeyReleased
 
-    private void editarMouseClicked(java.awt.event.MouseEvent evt) {                                    
-       
+    private void editarMouseClicked(java.awt.event.MouseEvent evt) {
+
         int fila = TableBrigadasExistentes.getSelectedRow();
-        String carr = (String)TableBrigadasExistentes.getValueAt(fila, 0);
-        int anno = (int)TableBrigadasExistentes.getValueAt(fila, 1);
-        int annoB = (int)TableBrigadasExistentes.getValueAt(fila, 2);
-        
-        if(opcion == 1){
-        for(int i = 0; i < BrigadasSeleccionadas.size(); i++){
-            if(BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada()== annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)){
-                Editor_brigada EB = new Editor_brigada(BrigadasSeleccionadas.elementAt(i));
-                EB.setVisible(true);
-                dispose();
+        String carr = (String) TableBrigadasExistentes.getValueAt(fila, 0);
+        int anno = (int) TableBrigadasExistentes.getValueAt(fila, 1);
+        int annoB = (int) TableBrigadasExistentes.getValueAt(fila, 2);
+
+        if (opcion == 1) {
+            if (BrigadasSeleccionadas.isEmpty()) {
+                for (int i = 0; i < Brigadas.size(); i++) {
+                    if (Brigadas.elementAt(i).getAnno() == anno && Brigadas.elementAt(i).getAnno_brigada() == annoB && Brigadas.elementAt(i).getCarrera().equals(carr)) {
+                        Editor_brigada EB = new Editor_brigada(Brigadas.elementAt(i));
+                        EB.setVisible(true);
+                        dispose();
+                    }
+                }
             }
-        }
-        }
-        else if(opcion == 2){
-            for(int i = 0; i < BrigadasSeleccionadas.size(); i++){
-            if(BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada()== annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)){
-                ICI ici = new ICI(BrigadasSeleccionadas.elementAt(i));
-                ici.setVisible(true);
-                dispose();
+            for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
+                if (BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada() == annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)) {
+                    Editor_brigada EB = new Editor_brigada(BrigadasSeleccionadas.elementAt(i));
+                    EB.setVisible(true);
+                    dispose();
+                }
             }
-        }
+        } else if (opcion == 2) {
+            if (BrigadasSeleccionadas.isEmpty()) {
+                for (int i = 0; i < Brigadas.size(); i++) {
+                    if (Brigadas.elementAt(i).getAnno() == anno && Brigadas.elementAt(i).getAnno_brigada() == annoB && Brigadas.elementAt(i).getCarrera().equals(carr)) {
+                        ICI ici = new ICI(Brigadas.elementAt(i));
+                        ici.setVisible(true);
+                        dispose();
+                    }
+                }
+            }
+            for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
+                if (BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada() == annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)) {
+                    ICI ici = new ICI(BrigadasSeleccionadas.elementAt(i));
+                    ici.setVisible(true);
+                    dispose();
+                }
+            }
         }
 
-                                            
-        
-    }                                   
+    }
 
     private void ComboBoxAnnosPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
-       
-        BrigadasAnnoB = Integer.parseInt((String)ComboBoxAnnos.getSelectedItem());
-        
+        String seleccion = (String) ComboBoxAnnos.getSelectedItem();
+        if (seleccion.equals("none")) {
+            BrigadasAnnoB=0;
+            actualizarTablaBrigadas(Brigadas);
+            return;
+        }
+        BrigadasAnnoB = Integer.parseInt((String) ComboBoxAnnos.getSelectedItem());
+
         actualizarTablaBrigadas(Brigadas, BrigadasAnno, BrigadasAnnoB, BrigadasCarrera);
-        
+
     }//GEN-LAST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
 
     private void annoLabelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_annoLabelKeyReleased
-        
+
         char X = evt.getKeyChar();
         Secuencias_cadenas.borrarLetras(X, annoLabel);
-        
-        BrigadasAnno = Integer.parseInt(annoLabel.getText());
-        
-        if(BrigadasAnno >= 100 && BrigadasAnno < 10000){
-        actualizarTablaBrigadas(Brigadas, BrigadasAnno, BrigadasAnnoB, BrigadasCarrera);
+        if (annoLabel.getText().equals("")) {
+            BrigadasAnno=0;
+            actualizarTablaBrigadas(Brigadas);
+            return;
         }
-        
+        BrigadasAnno = Integer.parseInt(annoLabel.getText());
+
+        if (BrigadasAnno >= 100 && BrigadasAnno < 10000) {
+            actualizarTablaBrigadas(Brigadas, BrigadasAnno, BrigadasAnnoB, BrigadasCarrera);
+        }
+
     }//GEN-LAST:event_annoLabelKeyReleased
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
@@ -275,7 +301,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_ButtonCancelarActionPerformed
 
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCancelar;
     private javax.swing.JComboBox<String> ComboBoxAnnos;
@@ -288,7 +314,6 @@ public class Gestor_brigada extends javax.swing.JFrame {
     private javax.swing.JButton editar;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
 
     private void actualizarTablaBrigadas(Vector<Brigada> V) {
         DefaultTableModel df = new DefaultTableModel();
@@ -307,22 +332,60 @@ public class Gestor_brigada extends javax.swing.JFrame {
         }
 
     }
-    
-       private void actualizarTablaBrigadas(Vector<Brigada> V, Integer BA, Integer BAB, Vector<String> BC) {
+
+    private void actualizarTablaBrigadas(Vector<Brigada> V, Integer BA, Integer BAB, Vector<String> BC) {
         DefaultTableModel df = new DefaultTableModel();
         TableBrigadasExistentes = new JTable(df);
         jScrollPane1.setViewportView(TableBrigadasExistentes);
         df.addColumn("Carrera");
         df.addColumn("Año");
         df.addColumn("Año escolar");
-        
+
         BrigadasSeleccionadas = new Vector<>();
-        for(int i = 0; i < V.size(); i++){
-            if(Secuencias_cadenas.mayor_subcadena((V.elementAt(i).getAnno()+""), (BA+"")) && BAB == V.elementAt(i).getAnno_brigada() && BC.contains(V.elementAt(i).getCarrera())){
-                BrigadasSeleccionadas.add(V.elementAt(i));
+        if (BA != 0 && BAB == 0 && BC.isEmpty()) {
+            for (int i = 0; i < V.size(); i++) {
+                if (Secuencias_cadenas.mayor_subcadena((V.elementAt(i).getAnno() + ""), (BA + ""))) {
+                    BrigadasSeleccionadas.add(V.elementAt(i));
+                }
+            }
+        } else if (BA != 0 && BAB != 0 && BC.isEmpty()) {
+            for (int i = 0; i < V.size(); i++) {
+                if (Secuencias_cadenas.mayor_subcadena((V.elementAt(i).getAnno() + ""), (BA + "")) && BAB == V.elementAt(i).getAnno_brigada()) {
+                    BrigadasSeleccionadas.add(V.elementAt(i));
+                }
+            }
+        } else if (BA != 0 && BAB == 0 && !BC.isEmpty()) {
+            for (int i = 0; i < V.size(); i++) {
+                if (Secuencias_cadenas.mayor_subcadena((V.elementAt(i).getAnno() + ""), (BA + "")) && BC.contains(V.elementAt(i).getCarrera())) {
+                    BrigadasSeleccionadas.add(V.elementAt(i));
+                }
+            }
+        } else if (BA == 0 && BAB != 0 && BC.isEmpty()) {
+            for (int i = 0; i < V.size(); i++) {
+                if (BAB == V.elementAt(i).getAnno_brigada()) {
+                    BrigadasSeleccionadas.add(V.elementAt(i));
+                }
+            }
+        } else if (BA == 0 && BAB != 0 && !BC.isEmpty()) {
+            for (int i = 0; i < V.size(); i++) {
+                if (BAB == V.elementAt(i).getAnno_brigada() && BC.contains(V.elementAt(i).getCarrera())) {
+                    BrigadasSeleccionadas.add(V.elementAt(i));
+                }
+            }
+
+        } else if (BA == 0 && BAB == 0 && !BC.isEmpty()) {
+            for (int i = 0; i < V.size(); i++) {
+                if (BC.contains(V.elementAt(i).getCarrera())) {
+                    BrigadasSeleccionadas.add(V.elementAt(i));
+                }
+            }
+        } else {
+            for (int i = 0; i < V.size(); i++) {
+                if (Secuencias_cadenas.mayor_subcadena((V.elementAt(i).getAnno() + ""), (BA + "")) && BAB == V.elementAt(i).getAnno_brigada() && BC.contains(V.elementAt(i).getCarrera())) {
+                    BrigadasSeleccionadas.add(V.elementAt(i));
+                }
             }
         }
-
         Object[] ob = new Object[3];
         for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
             ob[0] = BrigadasSeleccionadas.elementAt(i).getCarrera();
