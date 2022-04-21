@@ -13,6 +13,7 @@ import com.toedter.calendar.JYearChooser;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Stack;
 import java.util.Vector;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -33,14 +34,16 @@ public class Editor_brigada extends javax.swing.JFrame {
     private final Brigada B;
     private Vector<Tupla<Integer,String>> eventosBrigada;
     private Vector<Tupla<Integer,String>> eventos;
-    private Vector<Tupla<Integer,String>> eventosEliminados;
-    private Vector<JRadioButton> radioButtonEventos;
+    private Vector<Tupla<Integer,String>> eventosEliminados = new Vector<>();
+    private Vector<JRadioButton> radioButtonEventos = new Vector<>();
+    private boolean actualizacion;
      
 
     public Editor_brigada(String Carr) {
         initComponents();
 
         B = null;
+        actualizacion = false;
         estudiantes = new Vector<>();
         actualizarTabla(estudiantes);
         
@@ -64,6 +67,7 @@ public class Editor_brigada extends javax.swing.JFrame {
     public Editor_brigada(Brigada B){
         initComponents();
         
+        actualizacion = true;
         estudiantes = B.getEstudiantes();
         actualizarTabla(estudiantes);
         
@@ -82,6 +86,9 @@ public class Editor_brigada extends javax.swing.JFrame {
         Pasar_anno.setVisible(true);
         
         EditarEstudiante.setVisible(true);
+        
+        Annos.setEnabled(false);
+        Annos.setSelectedItem(B.getAnno());
     }
 
     /**
@@ -411,8 +418,6 @@ public class Editor_brigada extends javax.swing.JFrame {
         Estudiante E = estudiantes.elementAt(TablaEst.getSelectedRow());
         estudiantes.remove(E);
         
-        G.eliminar_brigada_a_estudiante(E.getCI());
-
         actualizarTabla(estudiantes);
         MenuEstudiantes.setVisible(false);
 
@@ -420,8 +425,13 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
         
-        Brigada B = new Brigada(Carrera_seleccionada.getText(), Integer.parseInt(Annos.getSelectedItem().toString()), Integer.parseInt(Anno_seleccionado.getText()), estudiantes);
-        G.agregar_brigada(B);
+        Brigada B = new Brigada(Carrera_seleccionada.getText(), this.B.getAnno(), this.B.getAnno_brigada(), estudiantes);
+        if(!actualizacion){
+            G.agregar_brigada(B);
+        }
+        else{
+            G.actualizarBrigada(B);
+        }
         G.actualizarEventosBrigada(B, eventosBrigada, eventosEliminados);
         Main M = new Main();
         M.setVisible(true);
@@ -517,7 +527,7 @@ public class Editor_brigada extends javax.swing.JFrame {
          private void actualizarTablaEventos() {
 
          DefaultTableModel d = new DefaultTableModel();
-         Object[] OBJ = new Object[2];
+         Object[] OBJ = new Object[3];
           d.addColumn("Evento");
           d.addColumn("Año");
           d.addColumn("Seleccion");
