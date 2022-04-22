@@ -32,6 +32,7 @@ public class Main extends javax.swing.JFrame {
         crearBrigada = new javax.swing.JMenuItem();
         eventos = new javax.swing.JMenu();
         gestorEventos = new javax.swing.JMenuItem();
+        annadirEstudiantesEvento = new javax.swing.JMenuItem();
         notas = new javax.swing.JMenu();
         filtrarNotas = new javax.swing.JMenuItem();
         ICI = new javax.swing.JMenuItem();
@@ -67,6 +68,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
         eventos.add(gestorEventos);
+
+        annadirEstudiantesEvento.setText("Añadir Estudiantes a un evento");
+        annadirEstudiantesEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annadirEstudiantesEventoActionPerformed(evt);
+            }
+        });
+        eventos.add(annadirEstudiantesEvento);
 
         jMenuBar1.add(eventos);
 
@@ -130,6 +139,14 @@ public class Main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ICIActionPerformed
 
+    private void annadirEstudiantesEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annadirEstudiantesEventoActionPerformed
+        
+        Gestor_brigada GB = new Gestor_brigada(3);
+        GB.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_annadirEstudiantesEventoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -167,6 +184,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ICI;
+    private javax.swing.JMenuItem annadirEstudiantesEvento;
     private javax.swing.JMenuItem brigadasExistentes;
     private javax.swing.JMenuItem crearBrigada;
     private javax.swing.JMenu eventos;

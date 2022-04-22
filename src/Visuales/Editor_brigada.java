@@ -80,7 +80,7 @@ public class Editor_brigada extends javax.swing.JFrame {
             Annos.addItem(i+"");
         }
         
-        eventosBrigada = G.obtenerEventosBrigada(B);
+        eventosBrigada = G.obtenerBrigadaEventos(B);
         eventos = G.obtenerEventos();
         
         Pasar_anno.setVisible(true);
@@ -236,7 +236,7 @@ public class Editor_brigada extends javax.swing.JFrame {
             .addGroup(agregarEventoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(aceptar)
                 .addContainerGap())
         );

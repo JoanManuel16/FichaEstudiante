@@ -6,7 +6,6 @@ package Visuales;
 
 import Base_de_Datos.Gestion;
 import clases.Brigada;
-import com.toedter.calendar.demo.BirthdayEvaluator;
 import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -54,7 +53,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
         if (opcion == 1) {
             editar.setText("Editar");
-        } else if (opcion == 2) {
+        } else{
             editar.setText("Seleccionar");
         }
 
@@ -262,6 +261,24 @@ public class Gestor_brigada extends javax.swing.JFrame {
                 }
             }
         }
+        else{
+            if (BrigadasSeleccionadas.isEmpty()) {
+                for (int i = 0; i < Brigadas.size(); i++) {
+                    if (Brigadas.elementAt(i).getAnno() == anno && Brigadas.elementAt(i).getAnno_brigada() == annoB && Brigadas.elementAt(i).getCarrera().equals(carr)) {
+                        EventoEstudiante EE = new EventoEstudiante(Brigadas.elementAt(i));
+                        EE.setVisible(true);
+                        dispose();
+                    }
+                }
+            }
+            for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
+                if (BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada() == annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)) {
+                    EventoEstudiante EE = new EventoEstudiante(BrigadasSeleccionadas.elementAt(i));
+                        EE.setVisible(true);
+                        dispose();
+                }
+            }
+        }
 
     }
 
@@ -296,6 +313,11 @@ public class Gestor_brigada extends javax.swing.JFrame {
     }//GEN-LAST:event_annoLabelKeyReleased
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
+        
+        if(opcion == 4){
+            
+        }
+        
         Main M = new Main();
         M.setVisible(true);
         dispose();
