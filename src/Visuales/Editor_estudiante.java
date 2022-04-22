@@ -46,7 +46,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private Vector<String> religiones;
     private Estudiante E;
     private DatosEstudiante datosEstudiante;
-
+    private boolean flag =false;
     public Editor_estudiante(Estudiante E, String carrera,Brigada b) {
         initComponents();
         this.E=E;
@@ -178,7 +178,6 @@ public class Editor_estudiante extends javax.swing.JFrame {
       
         
               for(int i = 0; i < zonas.size(); i++){
-                  if(zonas.elementAt(i).equals(zonaT)){}
                   zonaOpciones.addItem(zonas.elementAt(i));
               }
                 zonaOpciones.setSelectedIndex(d.getZona()-1);
@@ -1755,7 +1754,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
         boolean [] electronic = {computadora.isSelected(),laptop.isSelected(),movil.isSelected(),tablet.isSelected()};
         boolean [] familiares = {padre.isSelected(),madre.isSelected(),hermanas.isSelected(),hermanos.isSelected(),abueloP.isSelected(),abueloM.isSelected(),abuelaP.isSelected(),abuelaM.isSelected(),otrosFamiliares.isSelected()};
         DatosEstudiante e = new DatosEstudiante(E.getNombre_estudiante(), E.getCI(),Integer.parseInt(telefonoParticularT.getText()),Integer.parseInt(telefonoFijoT.getText()),movileDataBooton.isSelected(), emailT.getText(), sexo, Integer.parseInt(edadT.getText()), becadoBooton.isSelected(), colorDePielComboBox.getSelectedIndex()+1, militanteRadioB.isSelected(), estadoCivilComboBox.getSelectedIndex()+1, hijosBooton.isSelected(), direccionParticularT.getText(), zonaOpciones.getSelectedIndex()+1, religiones.elementAt(religionComboBox.getSelectedIndex()), bebidasAl.isSelected(), fumadorBooton.isSelected(), participacion, manifestacionesArtisticas, familiares, Integer.parseInt(totalFamiliaresT.getText()), Integer.parseInt(ingresoHogarT.getText()), relacionesConvivenciaComboBox.getSelectedIndex()+1, deportes,electronic, enfermedades, true, new Vector<>(), medicamentos, deseosFuturosT.getText(), actividadesTiempoLibreT.getText(), proyectosVidaT.getText(), rasgosHabitosT.getText(), felicidadOpcion.isSelected(),estudioOpcion.isSelected() , carreraOpcion.isSelected(), nivelDeInglesComboBox.getSelectedIndex()+1);
+        if (flag) {
+            g.actualizarEstudiante(e,b);
+        }
+        else{
         g.editar_estudiante(b, e);
+        }
     }//GEN-LAST:event_finalizarActionPerformed
 
 
