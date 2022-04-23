@@ -51,10 +51,11 @@ public class Editor_estudiante extends javax.swing.JFrame {
         initComponents();
         this.E=E;
         this.b= b;
+        religiones= new Vector<>();
         masculino.setSelected(true);
         radioButtonManifestaciones = new Vector<>();
         manifestacionesArtisticas = g.obtenerManifestaciones();
-        actualizarTablaManifestaciones(manifestacionesArtisticas);
+        
         
         radioButtonDeportes = new Vector<>();
         deportes = g.obtenerDeportes();
@@ -77,7 +78,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         
         buttonGroup1.add(masculino);
         buttonGroup1.add(femenino);
-        
+        actualizarTablaManifestaciones(manifestacionesArtisticas);
         Vector<String> zonas = g.obtenerZonas();
               for(int i = 0; i < zonas.size(); i++){
                   zonaOpciones.addItem(zonas.elementAt(i));
@@ -116,7 +117,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                   relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
               }
          
-         
+         //hay un error aqui en obtener las notas
         notas = g.obtenerNotas(carr, E,AnnoComboBox.getSelectedIndex()+1);
         
         actualizarTablaNotas(notas);
@@ -1733,12 +1734,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_editarNotaMouseClicked
 
     private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
-        if(nombreEstudianteT.getText().equals("") || carnetTexto.getText().equals("") || carreraT.getText().equals("") || edad.getText().equals("") || direccionParticularT.equals("") || totalFamiliaresT.equals("") ){
+        if(nombreEstudianteT.getText().equals("") || carnetTexto.getText().equals("") || carreraT.getText().equals("") || edadT.getText().equals("") || direccionParticularT.equals("")){
             JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String sexo= "";
-        int participacion=3;
+        int participacion=0;
         if(masculino.isSelected()){
             sexo = "masculino";
         }
@@ -1751,9 +1752,32 @@ public class Editor_estudiante extends javax.swing.JFrame {
         else if(participacionBrigadaRegular.isSelected()){
             participacion = 2;
         }
+        else if (participaicoBrigadaMal.isSelected()){
+            participacion=3;
+        }
+        int telefonoParticular=0;
+        if(!telefonoParticularT.getText().equals("")){
+            telefonoParticular = Integer.parseInt(telefonoParticularT.getText());
+        }
+        int telefonoFijo=0;
+        if(!telefonoFijoT.getText().equals("")){
+        telefonoFijo=Integer.parseInt(telefonoFijoT.getText());
+        }
+        String religion="";
+        if(!religiones.isEmpty()){
+        religion =religiones.elementAt(religionComboBox.getSelectedIndex());
+        }
+        int totalFamiliares=0;
+        if(!totalFamiliaresT.getText().equals("")){
+        totalFamiliares=Integer.parseInt(totalFamiliaresT.getText());
+        }
+        int ingresosTotales=0;
+        if(!ingresoHogarT.getText().equals("")){
+        ingresosTotales=Integer.parseInt(ingresoHogarT.getText());
+        }
         boolean [] electronic = {computadora.isSelected(),laptop.isSelected(),movil.isSelected(),tablet.isSelected()};
         boolean [] familiares = {padre.isSelected(),madre.isSelected(),hermanas.isSelected(),hermanos.isSelected(),abueloP.isSelected(),abueloM.isSelected(),abuelaP.isSelected(),abuelaM.isSelected(),otrosFamiliares.isSelected()};
-        DatosEstudiante e = new DatosEstudiante(E.getNombre_estudiante(), E.getCI(),Integer.parseInt(telefonoParticularT.getText()),Integer.parseInt(telefonoFijoT.getText()),movileDataBooton.isSelected(), emailT.getText(), sexo, Integer.parseInt(edadT.getText()), becadoBooton.isSelected(), colorDePielComboBox.getSelectedIndex()+1, militanteRadioB.isSelected(), estadoCivilComboBox.getSelectedIndex()+1, hijosBooton.isSelected(), direccionParticularT.getText(), zonaOpciones.getSelectedIndex()+1, religiones.elementAt(religionComboBox.getSelectedIndex()), bebidasAl.isSelected(), fumadorBooton.isSelected(), participacion, manifestacionesArtisticas, familiares, Integer.parseInt(totalFamiliaresT.getText()), Integer.parseInt(ingresoHogarT.getText()), relacionesConvivenciaComboBox.getSelectedIndex()+1, deportes,electronic, enfermedades, true, new Vector<>(), medicamentos, deseosFuturosT.getText(), actividadesTiempoLibreT.getText(), proyectosVidaT.getText(), rasgosHabitosT.getText(), felicidadOpcion.isSelected(),estudioOpcion.isSelected() , carreraOpcion.isSelected(), nivelDeInglesComboBox.getSelectedIndex()+1);
+        DatosEstudiante e = new DatosEstudiante(E.getNombre_estudiante(), E.getCI(),telefonoParticular,telefonoFijo,movileDataBooton.isSelected(), emailT.getText(), sexo, Integer.parseInt(edadT.getText()), becadoBooton.isSelected(), colorDePielComboBox.getSelectedIndex()+1, militanteRadioB.isSelected(), estadoCivilComboBox.getSelectedIndex()+1, hijosBooton.isSelected(), direccionParticularT.getText(), zonaOpciones.getSelectedIndex()+1,religion, bebidasAl.isSelected(), fumadorBooton.isSelected(), participacion, manifestacionesArtisticas, familiares, totalFamiliares,ingresosTotales, relacionesConvivenciaComboBox.getSelectedIndex()+1, deportes,electronic, enfermedades, true, new Vector<>(), medicamentos, deseosFuturosT.getText(), actividadesTiempoLibreT.getText(), proyectosVidaT.getText(), rasgosHabitosT.getText(), felicidadOpcion.isSelected(),estudioOpcion.isSelected() , carreraOpcion.isSelected(), nivelDeInglesComboBox.getSelectedIndex()+1);
         if (flag) {
             g.actualizarEstudiante(e,b);
         }
