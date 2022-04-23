@@ -42,12 +42,14 @@ public class EventoEstudiante extends javax.swing.JFrame {
     private String fecha;
     private int dimension;
     
-    private Vector<Evento> eventos;
+    private Vector<Evento> eventosBrigada;
     
     private Evento eventoSeleccionado;
     
     
     public EventoEstudiante(Brigada b) {
+       initComponents();
+        
         this.brigada=b;
         RadioButtonVector= new Vector<>();
         g = new Gestion();
@@ -55,13 +57,16 @@ public class EventoEstudiante extends javax.swing.JFrame {
         
         estudiantesEvento= new Vector<>();
         
-        eventos = g.obtenerEventosBrigada(brigada);
+        this.eventosBrigada = g.obtenerEventosBrigada(brigada);
         eventoSeleccionado = null;
-        actualizarTablaEventos();
         
+        JOptionPane.showMessageDialog(null, "Escoja un evento");
+
         escogerEvento.setVisible(true);
-        escogerEvento.setSize(600, 400);
-        escogerEvento.setLocationRelativeTo(null);       
+        escogerEvento.setSize(800, 600);
+        escogerEvento.setLocationRelativeTo(null);
+        
+        actualizarTablaEventos();
         
     }
 
@@ -257,7 +262,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(eventoActual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(eventoActualInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(eventoActualInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -299,9 +304,9 @@ public class EventoEstudiante extends javax.swing.JFrame {
 
     private void aceptarLogroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarLogroMouseClicked
     if(!(nombreLogroTexto.getText().equals("")&& valorLogroTexto.getText().equals(""))){
-        logros.add(new Tupla<>(nombreLogroTexto.getText(),Integer.parseInt(valorLogroTexto.getText())));
-        g.agregarLogro(logros.lastElement(), eventoSeleccionado);
-        DialogLogroEventos.setVisible(false);
+        g.agregarLogro(new Tupla<>(nombreLogroTexto.getText(), Integer.parseInt(valorLogroTexto.getText())), eventoSeleccionado);
+        logros = g.obtenerLogrosEvento(eventoSeleccionado);
+        DialogLogroEventos.dispose();
     }
     else{
         JOptionPane.showMessageDialog(null, "hay campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
@@ -309,11 +314,11 @@ public class EventoEstudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_aceptarLogroMouseClicked
 
     private void seleccionarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarEventoActionPerformed
-        
+                
         escogerEvento.setVisible(true);
-        escogerEvento.setSize(600, 400);
+        escogerEvento.setSize(800, 600);
         escogerEvento.setLocationRelativeTo(null);
-        
+                        
     }//GEN-LAST:event_seleccionarEventoActionPerformed
 
     private void agregarLogrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarLogrosActionPerformed
@@ -374,14 +379,15 @@ public class EventoEstudiante extends javax.swing.JFrame {
 
 private void actualizar_tabla(Evento E){
     DefaultTableModel d = new DefaultTableModel();
-         Object[] OBJ = new Object[3];
+         Object[] OBJ = new Object[4];
           d.addColumn("Estudiante");
           d.addColumn("CI");
           d.addColumn("Logro");
           d.addColumn("Seleccion");
           
           Vector<Estudiante> estudiantesBrigada = brigada.getEstudiantes();
-        
+          RadioButtonVector = new Vector<>();
+          
           for(int i = 0; i < estudiantesBrigada.size(); i++){
             OBJ[0] = estudiantesBrigada.elementAt(i).getNombre_estudiante();
             OBJ[1] = estudiantesBrigada.elementAt(i).getCI();
@@ -425,10 +431,11 @@ private void actualizar_tabla(Evento E){
                if(!logros.isEmpty()){
                llenarPopMenu();
                PopupMenuLogros.setVisible(true);
-               PopupMenuLogros.setLocation(e.getPoint());
+               PopupMenuLogros.setLocation(e.getLocationOnScreen());
                }
                else{
                    JOptionPane.showMessageDialog(null, "Este evento aun no tiene logros");
+                   RadioButtonVector.elementAt(fila).setSelected(false);
                }
             }
             }
@@ -442,6 +449,7 @@ private void actualizar_tabla(Evento E){
 
     
      private void llenarPopMenu() {
+         PopupMenuLogros.removeAll();
           for (int i = 0; i < logros.size(); i++) {
               String logro = logros.elementAt(i).getN1();
               JMenuItem jm = new JMenuItem(logro);
@@ -450,9 +458,21 @@ private void actualizar_tabla(Evento E){
             public void mouseClicked(MouseEvent e){
                 
                int indiceLogro = PopupMenuLogros.getComponentIndex(PopupMenuLogros.getComponentAt(e.getPoint()));
+               for(int i = 0; i < PopupMenuLogros.getSubElements().length; i++){
+                   int tamano = PopupMenuLogros.getSubElements()[i].getComponent().getLocationOnScreen().y + PopupMenuLogros.getSubElements()[i].getComponent().getHeight();
+                   int inicio = PopupMenuLogros.getSubElements()[i].getComponent().getLocationOnScreen().y;
+                   if(e.getYOnScreen() <= tamano && e.getYOnScreen()>= inicio){
+                       indiceLogro = i;
+                   }
+               }
+               
                Estudiante a = brigada.getEstudiantes().elementAt(TableEstudiantes.getSelectedRow());
                
                PopupMenuLogros.setVisible(false);
+               if(indiceLogro < 0){
+                   JOptionPane.showMessageDialog(null, "Ha ocurrido un error");
+                   return;
+               }
                g.agregar_evento_a_estudiante(eventoSeleccionado, a, logros.elementAt(indiceLogro));
                actualizar_tabla(eventoSeleccionado);
             }
@@ -470,21 +490,28 @@ private void actualizar_tabla(Evento E){
           d.addColumn("Dimension");
           d.addColumn("Anno");
           
-        for(int i = 0; i < eventos.size(); i++){
-            OBJ[0] = eventos.elementAt(i).getNombre();
-            OBJ[1] = eventos.elementAt(i).getDimension();
-            OBJ[2] = eventos.elementAt(i).getAnno();
+        for(int i = 0; i < eventosBrigada.size(); i++){
+            OBJ[0] = eventosBrigada.elementAt(i).getNombre();
+            OBJ[1] = eventosBrigada.elementAt(i).getDimension();
+            OBJ[2] = eventosBrigada.elementAt(i).getAnno();
             d.addRow(OBJ);
         }
 
+        tablaEventos = new JTable(d);
        
+        tablaEventos.setFont(new Font("arial", Font.BOLD, 14));
+        tablaEventos.setRowHeight(30);
+        tablaEventos.setShowGrid(true);
+        
+        jScrollPane2.setViewportView(tablaEventos);
+        
         tablaEventos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int fila = tablaEventos.rowAtPoint(e.getPoint());
 
                 if (fila > -1) {
-                    eventoSeleccionado = eventos.elementAt(fila);
+                    eventoSeleccionado = eventosBrigada.elementAt(fila);
                     
                     eventoActualInfo.setText(eventoSeleccionado.getNombre() + " / " + eventoSeleccionado.getDimension()  + " / " + eventoSeleccionado.getAnno());
                     actualizar_tabla(eventoSeleccionado);

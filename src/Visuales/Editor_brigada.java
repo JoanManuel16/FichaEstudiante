@@ -200,6 +200,12 @@ public class Editor_brigada extends javax.swing.JFrame {
         });
         MenuEstudiantes.add(EliminarEstudiante);
 
+        agregarEvento.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                agregarEventoWindowOpened(evt);
+            }
+        });
+
         tablaEventos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -466,6 +472,10 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     }//GEN-LAST:event_aceptarActionPerformed
 
+    private void agregarEventoWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_agregarEventoWindowOpened
+
+    }//GEN-LAST:event_agregarEventoWindowOpened
+
     private void actualizarTabla(Vector<Estudiante> V) {
         DefaultTableModel df = new DefaultTableModel();
         TablaEst = new JTable(df);
@@ -531,7 +541,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         d.addColumn("Evento");
         d.addColumn("Año");
         d.addColumn("Seleccion");
-
+        radioButtonEventos = new Vector<>();
         for (int i = 0; i < eventos.size(); i++) {
             OBJ[0] = G.obtenerNombreEvento(eventos.elementAt(i).getN1());
             radioButtonEventos.add(new JRadioButton("", false));
@@ -553,7 +563,7 @@ public class Editor_brigada extends javax.swing.JFrame {
                 new RadioButtonRenderer());
         tablaEventos.getColumn("Seleccion").setCellEditor(
                 new RadioButtonEditor(new JCheckBox()));
-        jScrollPane1.setViewportView(tablaEventos);
+        jScrollPane2.setViewportView(tablaEventos);
 
         tablaEventos.addMouseListener(new MouseAdapter() {
             @Override

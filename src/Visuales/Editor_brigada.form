@@ -104,6 +104,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="agregarEvento">
+      <Events>
+        <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="agregarEventoWindowOpened"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

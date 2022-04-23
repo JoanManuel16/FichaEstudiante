@@ -404,7 +404,7 @@ public class Gestion
     
     public boolean agregar_evento_a_estudiante(Evento E, Estudiante EST, Tupla<String, Integer> logro) {
     	C.conectar();
-    	String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and anno_evento = " + E.getAnno() + ")";
+    	String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and fecha_evento = '" + E.getAnno() + "'";
     	
     	try {
 			ResultSet RS = C.getConsulta().executeQuery(stat);
@@ -420,7 +420,7 @@ public class Gestion
 				throw new SQLException();
 			}
 			
-			stat = "insert into eventos_estudiante values(" + idEST + ", " + idEV + ", (select id_logro from logros_evento where id_evento = " + idEV + " and logro_evento = '" + logro.getN1() + "))";
+			stat = "insert into eventos_estudiante values(" + idEST + ", " + idEV + ", (select id_logro from logros_evento where id_evento = " + idEV + " and logro_evento = '" + logro.getN1() + "'))";
 			C.getConsulta().execute(stat);
 			
 		} catch (SQLException e) {
@@ -1199,7 +1199,7 @@ public class Gestion
             
             if(RS.next()){
                 do{
-                    eventos.add(new Tupla<>(RS.getInt("id_evento"), RS.getString("fecha_evento")));
+                    eventos.add(new Tupla<>(RS.getInt("id_evento:1"), RS.getString("fecha_evento")));
                     
                 }while(RS.next());
             }
@@ -1355,18 +1355,18 @@ public class Gestion
 
         try {
             
-            String stat = "select * from eventos_estudiante where id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "' and id_evento = (select id_evento from eventos where id_dimension = " + E.getDimension() + " and fecha_evento = '" + E.getAnno() + "' and id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "'))";
+            String stat = "select * from eventos_estudiante where id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "' and id_evento = (select id_evento from eventos where id_dimension = " + E.getDimension() + " and fecha_evento = '" + E.getAnno() + "' and id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "')))";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             
             if(RS.next()){
-                
+                C.desconectar();
                 return true;
                 
             }
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        C.desconectar();
         return false;
     }
 
@@ -1378,7 +1378,7 @@ public class Gestion
         
         try {
             
-            String stat = "select * from eventos_estudiante where id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "' and id_evento = (select id_evento from eventos where id_dimension = " + E.getDimension() + " and fecha_evento = '" + E.getAnno() + "' and id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "'))";
+            String stat = "select * from eventos_estudiante where id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "' and id_evento = (select id_evento from eventos where id_dimension = " + E.getDimension() + " and fecha_evento = '" + E.getAnno() + "' and id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "')))";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             
             int idL = RS.getInt("id_logro");
@@ -1459,7 +1459,7 @@ public class Gestion
     public void eliminarEstudianteEvento(Estudiante est, Evento eventoSeleccionado) {
             
         C.conectar();
-    	String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + eventoSeleccionado.getNombre() + "') and anno_evento = " + eventoSeleccionado.getAnno() + ")";
+    	String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + eventoSeleccionado.getNombre() + "') and fecha_evento = '" + eventoSeleccionado.getAnno() + "'";
     	
     	try {
 			ResultSet RS = C.getConsulta().executeQuery(stat);
@@ -1496,7 +1496,7 @@ public class Gestion
             C.desconectar();
             return false;
         }
-
+        C.desconectar();
         return false;
     }
 
