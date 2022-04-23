@@ -22,7 +22,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
-import utiles.Tupla;
 
 /**
  *
