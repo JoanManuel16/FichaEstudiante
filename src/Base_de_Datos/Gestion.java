@@ -232,6 +232,7 @@ public class Gestion {
         int gusto_carrera = 0;
         Vector<Integer> deportes = new Vector<>();
         Vector<Integer> enfermedades = new Vector<>();
+        
         C.conectar();
 
         String stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
@@ -289,10 +290,16 @@ public class Gestion {
                     electronics[i] = 0;
                 }
             }
+            int id_religion=0;
+            if(!DE.getReligion().equals("")){
+            stat = "select id_religion from religion where religion = '" + DE.getReligion()+"'";
+           RS = C.getConsulta().executeQuery(stat);
+           id_religion=RS.getInt("id_religion");
+            }
             stat = "insert into Estudiante values(null, '" + DE.getNombre_estudiante() + "', '" + DE.getCI() + "', " + DE.getTelefono_particular() + ", " + DE.getTelefono_fijo() + ", " + datosMoviles + ", '" + DE.getEmail() + "', "
                     + "'" + DE.getSexo() + "', " + DE.getEdad() + ", " + becado + ", " + DE.getColor_de_piel() + ", " + militante + ", "
                     + +DE.getEstado_civil() + ", " + hijos + ", '" + DE.getDireccion_particular() + "'," + DE.getZona()
-                    + ", (select id_religion from religion where religion = '" + DE.getReligion() + "'), " + bebidas + ", " + fumador + ", " + DE.getParticipacion_brigada() + ", " + idB
+                    + ","+id_religion+ ", " + bebidas + ", " + fumador + ", " + DE.getParticipacion_brigada() + ", " + idB
                     + "," + DE.getNivel_ingles() + ", " + activo + ")";
             C.getConsulta().execute(stat);
             stat = "select id_estudiante from Estudiante where CI = '" + DE.getCI() + "'";
@@ -312,7 +319,7 @@ public class Gestion {
             C.getConsulta().execute(stat);
             if(!DE.getDeportes().isEmpty()){
                 for (int i = 0; i < DE.getDeportes().size(); i++) {
-                stat = "slect id_deporte from deporte where deporte = '" + DE.getDeportes().elementAt(1) + "'";
+                stat = "select id_deporte from deporte where deporte = '" + DE.getDeportes().elementAt(i) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 deportes.add(RS.getInt("id_deporte"));
 
@@ -355,6 +362,7 @@ public class Gestion {
 
             C.getConsulta().execute(stat);
         } catch (SQLException e) {
+            System.err.println(e);
             C.desconectar();
             return false;
         }
@@ -826,6 +834,7 @@ public class Gestion {
                 throw new SQLException();
             }
             stat = "insert into religion values (null, '" + religion + "')";
+            C.getConsulta().execute(stat);
         } catch (SQLException ex) {
             C.desconectar();
         }
@@ -865,6 +874,7 @@ public class Gestion {
                 throw new SQLException();
             }
             stat = "insert into manifestacion_artistica values (null, '" + temp + "')";
+            C.getConsulta().execute(stat);
         } catch (SQLException ex) {
             C.desconectar();
         }
@@ -901,13 +911,17 @@ public class Gestion {
         C.conectar();
 
         try {
-
+            
+            if(temp.equals("")){
+            throw new SQLException();
+            }
             String stat = "select deporte from deporte where deporte = '" + temp + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             if (RS.next()) {
                 throw new SQLException();
             }
             stat = "insert into deporte values (null, '" + temp + "')";
+            C.getConsulta().execute(stat);
         } catch (SQLException ex) {
             C.desconectar();
         }
@@ -951,6 +965,7 @@ public class Gestion {
                 throw new SQLException();
             }
             stat = "insert into enfermedad values (null, '" + temp + "')";
+            C.getConsulta().execute(stat);
         } catch (SQLException ex) {
             C.desconectar();
         }
