@@ -116,12 +116,20 @@ public class Editor_estudiante extends javax.swing.JFrame {
                   relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
               }
          
-         //hay un error aqui en obtener las notas
+    
+         for(int i = 0; i < carr.getAsignaturas().size(); i++){
+             
+             AnnoComboBox.addItem((i+1)+"");
+         }
+         
+         
         notas = g.obtenerNotas(carr, E,AnnoComboBox.getSelectedIndex()+1);
         
         actualizarTablaNotas(notas);
               
                 }
+    
+    
    public Editor_estudiante(Estudiante E, String carrera,Brigada b,DatosEstudiante d) {
   this.E=E;
         this.b= b;
@@ -392,7 +400,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         nivelDeInglesComboBox = new javax.swing.JComboBox<>();
         annadirReligion = new javax.swing.JButton();
 
-        editarNota.setText("jMenuItem1");
+        editarNota.setText("Editar Nota Seleccionada");
         editarNota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editarNotaMouseClicked(evt);
@@ -2030,7 +2038,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void actualizarTablaNotas(Vector<Nota> notas) {
      
     DefaultTableModel d = new DefaultTableModel();
-         Object[] OBJ = new Object[3];
+         Object[] OBJ = new Object[2];
           d.addColumn("Asignatura");
         
            d.addColumn("Nota");
@@ -2039,7 +2047,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
            d.addRow(OBJ);
           
         for(int i = 0; i < notas.size(); i++){
-            if(g.esPrimerSemestre(notas.elementAt(i).getIdAsignatura())){
+            if(g.esPrimerSemestre(notas.elementAt(i).getIdAsignatura(),carr.getNombre())){
             OBJ[0] = notas.elementAt(i).getNombreAsignatura();
             OBJ[1] = notas.elementAt(i).getNota();
             d.addRow(OBJ);
@@ -2047,10 +2055,11 @@ public class Editor_estudiante extends javax.swing.JFrame {
         }
         
             OBJ[0] = "Segundo Semestre";
+            OBJ[1] = "";
             d.addRow(OBJ);
         
         for(int i = 0; i < notas.size(); i++){
-            if(g.esSegundoSemestre(notas.elementAt(i).getIdAsignatura())){
+            if(g.esSegundoSemestre(notas.elementAt(i).getIdAsignatura(),carr.getNombre())){
             OBJ[0] = notas.elementAt(i).getNombreAsignatura();
             OBJ[1] = notas.elementAt(i).getNota();
             d.addRow(OBJ);
@@ -2079,7 +2088,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         }
         });
        
-       jScrollPane1.setViewportView(tablaNotas);
+       jScrollPane9.setViewportView(tablaNotas);
     }
 
 }

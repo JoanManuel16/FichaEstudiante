@@ -14,7 +14,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="editarNota">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Editar Nota Seleccionada"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editarNotaMouseClicked"/>

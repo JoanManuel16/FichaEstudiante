@@ -9,6 +9,7 @@ import Base_de_Datos.Gestion;
 import clases.Brigada;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
@@ -28,7 +29,7 @@ public class ICI extends javax.swing.JFrame {
         
         actividadesExtraL.setText(m+"");
         
-        actualizarTablaICI();
+        //actualizarTablaICI();
         
     }
 
@@ -149,7 +150,7 @@ public class ICI extends javax.swing.JFrame {
                     
         }
         else{
-        double M = (Integer.parseInt(actividadesExtraL.getText())*100)/(Integer.parseInt(PAT.getText()));
+        double M = (double)(Integer.parseInt(actividadesExtraL.getText())*100)/((double)(Integer.parseInt(PAT.getText())));
         relacionL.setText(M+"");
         }
         
@@ -172,13 +173,13 @@ public class ICI extends javax.swing.JFrame {
     private void actualizarTablaICI() {
         
          DefaultTableModel d = new DefaultTableModel();
-         Object[] OBJ = new Object[2];
+         Object[] OBJ = new Object[3];
           d.addColumn("Estudiante");
            d.addColumn("Promedio");
            d.addColumn("ICI");
           
            int m = Integer.parseInt(actividadesExtraL.getText());
-           double M = Integer.parseInt(relacionL.getText());
+           double M = Double.parseDouble(relacionL.getText());
            
            
         for(int i = 0; i < brigada.getEstudiantes().size(); i++){
@@ -189,8 +190,10 @@ public class ICI extends javax.swing.JFrame {
             BigDecimal mi = new BigDecimal(miTemp);
             BigDecimal Mi = new BigDecimal(0.0);
             BigDecimal ICIi = new BigDecimal(0.0);
-            
-            if(promedioi >= 2 && promedioi < 3){
+            if(promedioi == 0.0){
+                Mi = new BigDecimal(0);
+            }
+            else if(promedioi >= 2 && promedioi < 3){
                 BigDecimal primer_elemento = new BigDecimal(((64*m)/25));
                 BigDecimal segundoElemento = new BigDecimal(Math.pow(1.25, promedioi));
                 BigDecimal tercer_elemento = new BigDecimal(4*m);
@@ -207,11 +210,17 @@ public class ICI extends javax.swing.JFrame {
                 Mi = Mi.subtract(cuartoElemento);
             }
             else if(promedioi < 4){
-                BigDecimal primer_elemento = new BigDecimal((new BigInteger("140737488355328").multiply(new BigInteger((M-m)+""))).divide(new BigInteger("2638147582215219")));
                 BigDecimal segundoElemento = new BigDecimal(Math.pow(2, promedioi));
+                BigDecimal X = new BigDecimal("140737488355328.0");
+                BigDecimal q = new BigDecimal(M);
+                BigDecimal e = new BigDecimal(m);
+                BigDecimal Z = X.multiply(q.subtract(e));
+                
+                BigDecimal W = new BigDecimal("2638147582215219.0");
+                BigDecimal primerElemento = Z.divide(W, 10, RoundingMode.HALF_EVEN);
                 BigDecimal tercerElemento = new BigDecimal(new BigInteger("7141747209585715").multiply(new BigInteger(m+"")).divide(new BigInteger("5276295164430438")));
                 BigDecimal cuartoElemento = new BigDecimal(new BigInteger("1865452045155277").multiply(new BigInteger(M+"")).divide(new BigInteger("5276295164430438")));
-                Mi = primer_elemento.multiply(segundoElemento);
+                Mi = primerElemento.multiply(segundoElemento);
                 Mi = Mi.add(tercerElemento);
                 Mi = Mi.subtract(cuartoElemento);
             }
@@ -233,8 +242,10 @@ public class ICI extends javax.swing.JFrame {
                 Mi = Mi.add(tercerElemento);
                 Mi = Mi.add(cuartoElemento);
             }
-            
-            if(promedioi >= 3 && promedioi <= 5){
+            if(promedioi == 0.0){
+                ICIi = new BigDecimal(0);
+            }
+            else if(promedioi >= 3 && promedioi <= 5){
             ICIi = mi.add(Mi);
             ICIi = ICIi.divide(new BigDecimal(m+M));
             ICIi = ICIi.multiply(new BigDecimal(100));
