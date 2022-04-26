@@ -414,6 +414,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         if (G.existeDatosEstudiante(estudiantes.elementAt(TablaEst.getSelectedRow()).getCI())) {
             DatosEstudiante de = G.obtenerDatosEsttudiante(estudiantes.elementAt(TablaEst.getSelectedRow()));
             Editor_estudiante EE = new Editor_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()), Carrera_seleccionada.getText(), B, de);
+            EE.setVisible(true);
         } else {
             Editor_estudiante EE = new Editor_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()), Carrera_seleccionada.getText(), B);
             EE.setVisible(true);

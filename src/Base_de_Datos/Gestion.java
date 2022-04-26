@@ -307,8 +307,14 @@ public class Gestion {
             int idE = RS.getInt("id_estudiante");
 
             if (!DE.getManifestaciones_artisticas().isEmpty()) {
+                Vector<Integer> maifestaciones = new Vector<>();
                 for (int i = 0; i < DE.getManifestaciones_artisticas().size(); i++) {
-                    stat = "insert into artes_estudiante values(" + idE + ", '" + DE.getManifestaciones_artisticas().elementAt(i) + "')";
+                    stat = "select id_manifestacion from manifestacion_artistica where manifestacion = '"+DE.getManifestaciones_artisticas().elementAt(i)+"'";
+                    RS=C.getConsulta().executeQuery(stat);
+                    maifestaciones.add(RS.getInt(1));
+                }
+                for (int i = 0; i < maifestaciones.size(); i++) {
+                    stat = "insert into artes_estudiante values(" + idE + ", '" + maifestaciones.elementAt(i) + "')";
                     C.getConsulta().execute(stat);
                 }
             }
@@ -335,7 +341,7 @@ public class Gestion {
 
             if(!DE.getEnfermedades().isEmpty()){
             for (int i = 0; i < DE.getEnfermedades().size(); i++) {
-                stat = "slect id_enfermedad from enfermedad where enfermedad = '" + DE.getEnfermedades().elementAt(i) + "'";
+                stat = "select id_enfermedad from enfermedad where enfermedad = '" + DE.getEnfermedades().elementAt(i) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 enfermedades.add(RS.getInt("id_enfermedad"));
             }
@@ -347,7 +353,7 @@ public class Gestion {
             Vector<Integer>medicamnetos= new Vector<>();
             if(!DE.getMedicamentos().isEmpty()){
                 for (int i = 0; i < DE.getMedicamentos().size(); i++) {
-                    stat = "slect id_medicamento from medicamento where medicamento = '"+DE.getMedicamentos().elementAt(i)+"'";
+                    stat = "select id_medicamento from medicamento where medicamento = '"+DE.getMedicamentos().elementAt(i)+"'";
                     RS= C.getConsulta().executeQuery(stat);
                     medicamnetos.add(RS.getInt("id_medicamento"));
                 }
@@ -646,7 +652,7 @@ public class Gestion {
                 Id_brigadas.add(rs.getInt("id_brigada"));
             }
             for (int i = 0; i < Id_brigadas.size(); i++) {
-                stat = "slect * from estudiante where id_brigada=" + Id_brigadas.elementAt(i);
+                stat = "select * from estudiante where id_brigada=" + Id_brigadas.elementAt(i);
                 rs = C.getConsulta().executeQuery(stat);
                 while (rs.next()) {
                     String nombreEstudiante = rs.getString("nombre_estudiante");
@@ -683,7 +689,7 @@ public class Gestion {
             rs = C.getConsulta().executeQuery(stat);
             int id_logro = rs.getInt("id_logro");
             for (int i = 0; i < estudiantesSeleccionados.size(); i++) {
-                stat = "slect id_estudiante from EstudianteSencillo where CI='" + estudiantesSeleccionados.elementAt(i).getCI() + "'";
+                stat = "select id_estudiante from EstudianteSencillo where CI='" + estudiantesSeleccionados.elementAt(i).getCI() + "'";
                 rs = C.getConsulta().executeQuery(stat);
                 id_estudiantes.add(rs.getInt("id_estdiante"));
             }
@@ -1009,6 +1015,7 @@ public class Gestion {
                 throw new SQLException();
             }
             stat = "insert into medicamento values (null, '" + temp + "')";
+            C.getConsulta().execute(stat);
         } catch (SQLException ex) {
             C.desconectar();
         }
@@ -1517,7 +1524,7 @@ public class Gestion {
     public boolean existeDatosEstudiante(String CI) {
         C.conectar();
         try {
-            String stat = "slect id_estudiante from Estudiante where CI = '" + CI + "'";
+            String stat = "select id_estudiante from Estudiante where CI = '" + CI + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             if (RS.next()) {
                 C.desconectar();
@@ -1550,7 +1557,7 @@ public class Gestion {
         boolean fumador = false;//ok
         int participacion_brigada = 0;//ok
         Vector<String> manifestaciones_artisticas = new Vector<>();//ok
-        boolean[] convivencia = new boolean[8];//ok
+        boolean[] convivencia = new boolean[10];//ok
         int total_familiares = 0;//ok
         int ingreso_total = 0;//ok
         int relaciones = 0;//ok
@@ -1594,18 +1601,23 @@ public class Gestion {
             fumador = RS.getBoolean("fumador");
             participacion_brigada = RS.getInt("participacion_brigada");
             nivel_ingles = RS.getInt("id_nivel_ingles");
-            stat = "select religion from religion where id_religion =" + IDreligion;
+            religion="";
+           if(IDreligion!=0){
+            stat = "select religion from religion where id_religion = " + IDreligion;
             RS = C.getConsulta().executeQuery(stat);
-            religion = RS.getString("religion");
-            stat = "select id_manifestacion from artes_estudiante where id_estudiante =" + id_estudiante;
-            RS = C.getConsulta().executeQuery(stat);
+             religion = RS.getString("religion");
+           }
+            
+           
+           String  stat2 = "select id_manifestacion from artes_estudiante where id_estudiante =" + id_estudiante;
+            RS = C.getConsulta().executeQuery(stat2);
             Vector<Integer> IDmanifestacionesArtisticas = new Vector<>();
             while (RS.next()) {
                 IDmanifestacionesArtisticas.add(RS.getInt("id_manifestacion"));
             }
             for (int i = 0; i < IDmanifestacionesArtisticas.size(); i++) {
-                stat = "select manifestacion from manifestacion_artistica where id_manifestacion =" + IDmanifestacionesArtisticas.elementAt(i);
-                RS = C.getConsulta().executeQuery(stat);
+               String  stat3 = "select manifestacion from manifestacion_artistica where id_manifestacion =" + IDmanifestacionesArtisticas.elementAt(i);
+                RS = C.getConsulta().executeQuery(stat3);
                 manifestaciones_artisticas.add(RS.getString("manifestacion"));
             }
             stat = "select * from convivencia where id_estudiante=" + id_estudiante;
@@ -1615,10 +1627,11 @@ public class Gestion {
             convivencia[2] = RS.getBoolean("hermana(s)");
             convivencia[3] = RS.getBoolean("hermano(s)");
             convivencia[4] = RS.getBoolean("abuelo paterno");
-            convivencia[4] = RS.getBoolean("abuelo materno");
-            convivencia[5] = RS.getBoolean("abuela paterna");
-            convivencia[6] = RS.getBoolean("abuela materna");
-            convivencia[7] = RS.getBoolean("otros familiares");
+            convivencia[5] = RS.getBoolean("abuelo materno");
+            convivencia[6] = RS.getBoolean("abuela paterna");
+            convivencia[7] = RS.getBoolean("abuela materna");
+            convivencia[8] = RS.getBoolean("otros familiares");
+          
             total_familiares = RS.getInt("total_familiares");
             ingreso_total = RS.getInt("ingreso_hogar");
             relaciones = RS.getInt("id_relaciones");
@@ -1629,7 +1642,7 @@ public class Gestion {
                 IDdeportes.add(RS.getInt("id_deporte"));
             }
             for (int i = 0; i < IDdeportes.size(); i++) {
-                stat = "selcet deporte from deporte where id_deporte = " + IDdeportes.elementAt(i);
+                stat = "select deporte from deporte where id_deporte = " + IDdeportes.elementAt(i);
                 RS = C.getConsulta().executeQuery(stat);
                 deportes.add(RS.getString("deporte"));
             }
@@ -1661,19 +1674,20 @@ public class Gestion {
                 RS = C.getConsulta().executeQuery(stat);
                 medicamentos.add(RS.getString("medicamento"));
             }
-            stat = "slect * from psiquis_estudiante where id_estudiante = " + id_estudiante;
+            stat = "select * from psiquis_estudiante where id_estudiante = " + id_estudiante;
             RS = C.getConsulta().executeQuery(stat);
             deseos_futuros = RS.getString("deseos_futuros");
             actividades_tiempo_libre = RS.getString("actividades_tiempo_libre");
-            proyectos_vida = RS.getString("proyectos_vida");
-            rasgos_habitos = RS.getString("rasgos_habitos");
+            proyectos_vida = RS.getString("proyectos_de_vida");
+            rasgos_habitos = RS.getString("rasgos_y_habitos");
             feliz = RS.getBoolean("felicidad");
-            gusta_estudio = RS.getBoolean("gusta_estudio");
-            gusta_carrera = RS.getBoolean("gusta_carrera");
+            gusta_estudio = RS.getBoolean("gusto_por_estudio");
+            gusta_carrera = RS.getBoolean("gusto_por_carrera");
 
-            return null;
+          
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+            C.desconectar();
         }
         DatosEstudiante dt = new DatosEstudiante(email, sexo, telefono_particular, telefono_fijo, datos_moviles, email, sexo, edad, becado, color_de_piel, militante, estado_civil, hijos, direccion_particular, zona, religion, bebidas_alcoholicas, fumador, participacion_brigada, manifestaciones_artisticas, convivencia, total_familiares, ingreso_total, relaciones, deportes, electronicos, enfermedades, activo, eventos, medicamentos, deseos_futuros, actividades_tiempo_libre, proyectos_vida, rasgos_habitos, feliz, gusta_carrera, gusta_estudio, nivel_ingles);
 
@@ -1761,7 +1775,7 @@ public class Gestion {
             stat = "update  convivencia set padre=" + familiares[0] + ", madre= " + familiares[1] + ", hermana(s)=" + familiares[2] + ", hermano(s)=" + familiares[3] + ", abuelo paterno = " + familiares[4] + ", abuelo materno = " + familiares[5] + ", abuela paterna = " + familiares[6] + ", abuela materna = " + familiares[7] + ",otros familiares = " + familiares[8] + ", padres_divorciados = " + familiares[9] + ", total_familiares = " + e.getTotal_familiares() + ", ingreso_hogar = " + e.getIngreso_total() + ", id_relaciones = (select id_relaciones from relaciones convivencia where relaciones = '" + e.getRelaciones() + "') where id_estudiante=" + idE;
             C.getConsulta().execute(stat);
             for (int i = 0; i < e.getDeportes().size(); i++) {
-                stat = "slect id_deporte from deporte where deporte = '" + e.getDeportes().elementAt(1) + "'";
+                stat = "select id_deporte from deporte where deporte = '" + e.getDeportes().elementAt(1) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 deportes.add(RS.getInt("id_deporte"));
             }
@@ -1774,7 +1788,7 @@ public class Gestion {
             C.getConsulta().execute(stat);
 
             for (int i = 0; i < e.getEnfermedades().size(); i++) {
-                stat = "slect id_enfermedad from enfermedad where enfermedad = '" + e.getEnfermedades().elementAt(i) + "'";
+                stat = "select id_enfermedad from enfermedad where enfermedad = '" + e.getEnfermedades().elementAt(i) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 enfermedades.add(RS.getInt("id_enfermedad"));
             }
