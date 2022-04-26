@@ -59,8 +59,9 @@ public class Editor_brigada extends javax.swing.JFrame {
         eventos = G.obtenerEventos();
 
         Pasar_anno.setVisible(false);
-
         EditarEstudiante.setVisible(false);
+        agregarEventos.setVisible(false);
+        
     }
 
     public Editor_brigada(Brigada B) {
@@ -384,6 +385,7 @@ public class Editor_brigada extends javax.swing.JFrame {
     private void CITKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CITKeyReleased
 
         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), CIT);
+        
 
     }//GEN-LAST:event_CITKeyReleased
 
@@ -394,6 +396,11 @@ public class Editor_brigada extends javax.swing.JFrame {
 
         if (nombres.length < 3) {
             JOptionPane.showMessageDialog(null, "Este nombre no es viable. Se necesitan al menos dos apellidos.");
+            return;
+        }
+        
+        if(!Secuencias_cadenas.carnetIdentidadCorrecto(CIT.getText())){
+            JOptionPane.showMessageDialog(null, "El carnet de identidad es incorrecto");
             return;
         }
 
@@ -407,6 +414,9 @@ public class Editor_brigada extends javax.swing.JFrame {
             agregar_estudiante.setVisible(false);
             CIT.setText("");
             nombreT.setText("");
+        }
+        if(actualizacion){
+            G.agregarEstudianteBrigada(E, B);
         }
     }//GEN-LAST:event_AceptarActionPerformed
 
@@ -433,16 +443,26 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
 
-        Brigada B = new Brigada(Carrera_seleccionada.getText(), this.B.getAnno(), this.B.getAnno_brigada(), estudiantes);
+        Brigada brigada = null;
         if (!actualizacion) {
-            G.agregar_brigada(B);
+            brigada = new Brigada(Carrera_seleccionada.getText(), Integer.parseInt((String)Annos.getSelectedItem()), Integer.parseInt(Anno_seleccionado.getText()), estudiantes);
+            G.agregar_brigada(brigada);
         } else {
-            G.actualizarBrigada(B);
+            brigada = new Brigada(Carrera_seleccionada.getText(), B.getAnno(), B.getAnno_brigada(), estudiantes);
+            G.actualizarBrigada(brigada);
         }
-        G.actualizarEventosBrigada(B, eventosBrigada, eventosEliminados);
+        
+        if(actualizacion){
+        G.actualizarEventosBrigada(brigada, eventosBrigada, eventosEliminados);
         Main M = new Main();
         M.setVisible(true);
         dispose();
+        }
+        else{
+            Editor_brigada EB = new Editor_brigada(brigada);
+            EB.setVisible(true);
+            dispose();
+        }
 
     }//GEN-LAST:event_FinalizarActionPerformed
 
@@ -495,7 +515,6 @@ public class Editor_brigada extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int fila = TablaEst.rowAtPoint(e.getPoint());
-                int columna = 0;
 
                 if (fila > -1) {
                     MenuEstudiantes.setLocation(e.getLocationOnScreen());
@@ -547,9 +566,12 @@ public class Editor_brigada extends javax.swing.JFrame {
             radioButtonEventos.add(new JRadioButton("", false));
             OBJ[1] = eventos.elementAt(i).getN2();
             OBJ[2] = radioButtonEventos.lastElement();
-            if (eventosBrigada.contains(eventos.elementAt(i))) {
-                radioButtonEventos.lastElement().setSelected(true);
-            }
+           for(int j = 0; j < eventosBrigada.size(); j++){
+               if(eventosBrigada.elementAt(j).getN1().equals(eventos.elementAt(i).getN1()) && eventosBrigada.elementAt(j).getN2().equals(eventos.elementAt(i).getN2())){
+                   radioButtonEventos.lastElement().setSelected(true);
+                   break;
+               }
+           }
             d.addRow(OBJ);
         }
 

@@ -1,9 +1,10 @@
 package utiles;
 
+import com.toedter.calendar.JCalendar;
 import java.awt.event.KeyEvent;
-import java.util.Iterator;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 public class Secuencias_cadenas {
@@ -108,4 +109,56 @@ public class Secuencias_cadenas {
         }
 
     }
+     
+     public static boolean carnetIdentidadCorrecto(String CIT){
+         
+         if(CIT.length() != 11){
+             return false;
+         }
+         String anno = CIT.substring(0, 2);
+         String mes = CIT.substring(2, 4);
+         String dia = CIT.substring(4, 6);
+         String siglo = CIT.substring(6, 7);
+         int sigloN = Integer.parseInt(siglo);
+         if(sigloN >= 5 && sigloN <= 7){
+             anno = "20" + anno;
+         }
+         else{
+             anno = "19" + anno;
+         }
+         
+         int annoActual = Calendar.getInstance().get(1);
+         int diferencia = annoActual - Integer.parseInt(anno);
+         if(diferencia <= 16){
+             return false;
+         }
+         
+         int mesN = Integer.parseInt(mes);
+         int diaN = Integer.parseInt(dia);
+         if(diaN <= 0){
+             return false;
+         }
+         if(mesN <= 0 || mesN > 12){
+             return false;
+         }
+         else{
+             if(mesN == 2){
+                 if(diaN > 28){
+                     return false;
+                 }
+             }
+             else if(mesN == 4 || mesN == 6 || mesN == 9 || mesN == 11){
+                 if(diaN > 30){
+                     return false;
+                 }
+             }
+             else{
+                 if(diaN > 31){
+                     return false;
+                 }
+             }
+         }
+         
+         return true;
+     }
 }

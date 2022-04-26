@@ -15,11 +15,6 @@ import clases.DatosEstudiante;
 import clases.Estudiante;
 import clases.Evento;
 import clases.Nota;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utiles.Tupla;
@@ -564,6 +559,59 @@ public class Gestion {
 
     public void editar_carrera(Carrera Carr) {
 
+        C.conectar();
+        try {
+            
+            String stat = "select * from carrera join asignaturas_semestre join asignaturas on carrera.id_carrera = asignaturas_semestre.id_carrera and asignaturas_semestre.id_asignatura = asignaturas.id_asignatura where carrera.nombre_carrera = '" + Carr.getNombre() + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            int idC = RS.getInt(1);
+            
+            boolean[][] mapa = new boolean[5][20];
+            
+            Vector<Tupla<Integer, Tupla<Integer, Integer>>> asignaturasBorrar = new Vector<>();
+            
+            do{
+                
+                String nombreA = RS.getString(8);
+                int idA = RS.getInt(4);
+                int annoB = RS.getInt(5);
+                int semestre = RS.getInt(6);
+                boolean flag = false;
+                if(annoB <= Carr.getAsignaturas().size()){
+                for(int i = 0; i < Carr.getAsignaturas().elementAt(annoB-1).size(); i++){
+                    if(Carr.getAsignaturas().elementAt(annoB-1).elementAt(i).getN1() == semestre && Carr.getAsignaturas().elementAt(annoB-1).elementAt(i).getN2().equals(nombreA)){
+                        mapa[annoB-1][i] = true;
+                        flag = true;
+                        break;
+                    }
+                }
+                }
+                if(!flag){
+                    asignaturasBorrar.add(new Tupla<>(idA, new Tupla<>(annoB, semestre)));
+                }
+                
+                
+            }while(RS.next());
+            
+            for(int i = 0; i < Carr.getAsignaturas().size(); i++){
+                for(int j = 0; j < Carr.getAsignaturas().elementAt(i).size(); j++){
+                    if(!mapa[i][j]){
+                        stat = "insert into asignaturas_semestre values(" + idC + ",  (select id_asignatura from asignaturas where nombre_asignatura = '" + Carr.getAsignaturas().elementAt(i).elementAt(j).getN2() + "'), " + (i+1) + ", " + Carr.getAsignaturas().elementAt(i).elementAt(j).getN1() + ")";
+                        C.getConsulta().execute(stat);
+                    }
+                }
+            }
+            
+            for(int i = 0; i < asignaturasBorrar.size(); i++){
+                stat = "delete from asignaturas_semestre where id_carrera = " + idC + " and id_asignatura = " + asignaturasBorrar.elementAt(i).getN1() + " and anno_brigada = " + asignaturasBorrar.elementAt(i).getN2().getN1() + " and semestre = " + asignaturasBorrar.elementAt(i).getN2().getN2();
+                C.getConsulta().execute(stat);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        C.desconectar();
     }
 
     //ERIC DE AQUI PA ARRIBA
@@ -1147,7 +1195,7 @@ public class Gestion {
 
             if (RS.next()) {
                 do {
-                    eventos.add(new Tupla<Integer, String>(RS.getInt("id_evento"), RS.getString("fecha_evento")));
+                    eventos.add(new Tupla<>(RS.getInt("id_evento"), RS.getString("fecha_evento")));
 
                 } while (RS.next());
             }
@@ -1797,6 +1845,28 @@ public class Gestion {
         } catch (SQLException ex) {
             C.desconectar();
 
+        }
+        C.desconectar();
+    }
+
+    public void agregarEstudianteBrigada(Estudiante E, Brigada B) {
+
+        C.conectar();
+        
+        try {
+            String stat = "select id_estudiante from EstudianteSencillo where CI = '" + E.getCI() + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            int idE = RS.getInt("id_estudiante");
+            
+            stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
+            RS = C.getConsulta().executeQuery(stat);
+            int idB = RS.getInt("id_brigada");
+            
+            stat = "update EstudianteSencillo set id_brigada = " + idB + " where id_estudiante = " + idE;
+            C.getConsulta().execute(stat);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
         C.desconectar();
     }

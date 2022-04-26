@@ -35,6 +35,9 @@ public class Gestor_carreras extends javax.swing.JFrame {
             Finalizar.setVisible(false);
         }
         
+        this.setLocationRelativeTo(null);
+        this.setTitle("Gestor de carreras");
+        
         
     }
     
@@ -111,7 +114,8 @@ public class Gestor_carreras extends javax.swing.JFrame {
         Habilitar = new javax.swing.JRadioButton();
         Finalizar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         Nombre_carrera.setText("Carrera:");
 

@@ -19,7 +19,7 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  *
  * @author joanmanuel
  */
-public class gestorEventos extends javax.swing.JFrame {
+public class GestorEventos extends javax.swing.JFrame {
 
     /**
      * Creates new form Filtrar_evento
@@ -27,7 +27,7 @@ public class gestorEventos extends javax.swing.JFrame {
     private Vector<String>NombreEventos;
     private Gestion g;
     
-    public gestorEventos() {
+    public GestorEventos() {
         initComponents();
         g= new Gestion();
         NombreEventos=g.obtener_nombres_eventos();

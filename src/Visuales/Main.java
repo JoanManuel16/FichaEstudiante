@@ -15,6 +15,9 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+        this.setTitle("Ventana principal");
     }
 
     /**
@@ -26,6 +29,7 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         gestorBrigadas = new javax.swing.JMenu();
         brigadasExistentes = new javax.swing.JMenuItem();
@@ -38,6 +42,11 @@ public class Main extends javax.swing.JFrame {
         ICI = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        jLabel1.setFont(new java.awt.Font("Arial", 3, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Gestor de fichas de estudiantes");
 
         gestorBrigadas.setText("Gestor de Brigada");
 
@@ -100,11 +109,14 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 363, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,7 +131,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_crearBrigadaActionPerformed
 
     private void gestorEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorEventosActionPerformed
-        gestorEventos cr = new gestorEventos();
+        GestorEventos cr = new GestorEventos();
                 cr.setVisible(true);
                 this.dispose();
     }//GEN-LAST:event_gestorEventosActionPerformed
@@ -191,6 +203,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem filtrarNotas;
     private javax.swing.JMenu gestorBrigadas;
     private javax.swing.JMenuItem gestorEventos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu notas;
     // End of variables declaration//GEN-END:variables

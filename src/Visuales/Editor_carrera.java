@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import utiles.Tupla;
 import clases.Carrera;
+import java.awt.Point;
 import static utiles.Secuencias_cadenas.sonNumeros;
 
 /**
@@ -49,6 +50,8 @@ public class Editor_carrera extends javax.swing.JFrame {
       edicion = false;
         
         
+      this.setLocationRelativeTo(null);
+      this.setTitle("Editor de carrera: " + NC);
     }
     
     public Editor_carrera(Carrera Carr){
@@ -75,6 +78,9 @@ public class Editor_carrera extends javax.swing.JFrame {
       buttonGroup1.add(SegundoSem);
       PrimerSem.setSelected(true);
       edicion = true;
+      
+      this.setLocationRelativeTo(null);
+      this.setTitle("Editor de carrera: " + Carr.getNombre());
     }
     
     
@@ -173,14 +179,13 @@ public class Editor_carrera extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e){
             int fila = AsigXSem.rowAtPoint(e.getPoint());
-            int columna = AsigXSem.columnAtPoint(e.getPoint());
             
             if(fila > -1){
                 
-                String asig = (String)AsigXSem.getValueAt(fila, columna);
+                String asig = (String)AsigXSem.getValueAt(fila, 0);
                 if(!(asig.equals("Primer Semestre") || asig.equals("Segundo Semestre"))){
                
-                    Menu_seleccion.setLocation(e.getPoint());
+                    Menu_seleccion.setLocation(e.getXOnScreen(), e.getYOnScreen());
                     Menu_seleccion.setVisible(true);
                 }
                
@@ -234,7 +239,13 @@ public class Editor_carrera extends javax.swing.JFrame {
         });
         Menu_seleccion.add(Eliminar);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         Carrera.setText("Carrera:");
 
@@ -337,20 +348,19 @@ public class Editor_carrera extends javax.swing.JFrame {
                 .addGap(211, 211, 211)
                 .addComponent(Eliminar_anno))
             .addGroup(layout.createSequentialGroup()
-                .addGap(210, 210, 210)
-                .addComponent(PrimerSem))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(AgregarAsig)
-                .addGap(55, 55, 55)
-                .addComponent(SegundoSem)
-                .addGap(213, 213, 213)
-                .addComponent(Finalizar))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(AgregarAsig)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PrimerSem)
+                    .addComponent(SegundoSem))
+                .addGap(226, 226, 226)
+                .addComponent(Finalizar))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,13 +384,12 @@ public class Editor_carrera extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(AsignaturaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(Eliminar_anno))
-                .addGap(16, 16, 16)
+                .addGap(17, 17, 17)
                 .addComponent(PrimerSem)
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AgregarAsig)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(AgregarAsig)
                         .addComponent(SegundoSem))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
@@ -493,6 +502,8 @@ public class Editor_carrera extends javax.swing.JFrame {
                         V.add(temp);
                         actualizarTablaAsig(V);
              }
+             
+             AsignaturaNombre.setText("");
                     
     }//GEN-LAST:event_AgregarAsigActionPerformed
 
@@ -604,6 +615,10 @@ public class Editor_carrera extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_FinalizarMouseReleased
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        Menu_seleccion.setVisible(false);
+    }//GEN-LAST:event_formMouseClicked
 
     
     
