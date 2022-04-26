@@ -2,4 +2,4 @@
 /nbproject/private/
 /build/
 /dist/
-/FichaEstudianteDB.db
+*.db
