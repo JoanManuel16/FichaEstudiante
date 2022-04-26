@@ -7,10 +7,8 @@ package Visuales;
 
 import Base_de_Datos.Gestion;
 import clases.Brigada;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 
@@ -29,7 +27,7 @@ public class ICI extends javax.swing.JFrame {
         
         actividadesExtraL.setText(m+"");
         
-        //actualizarTablaICI();
+        actualizarTablaICI();
         
     }
 
@@ -173,91 +171,40 @@ public class ICI extends javax.swing.JFrame {
     private void actualizarTablaICI() {
         
          DefaultTableModel d = new DefaultTableModel();
-         Object[] OBJ = new Object[3];
+         Object[] OBJ = new Object[4];
           d.addColumn("Estudiante");
            d.addColumn("Promedio");
+           d.addColumn("Valor cuantitativo de las actividades extracurriculares");
            d.addColumn("ICI");
           
-           int m = Integer.parseInt(actividadesExtraL.getText());
-           double M = Double.parseDouble(relacionL.getText());
-           
-           
-        for(int i = 0; i < brigada.getEstudiantes().size(); i++){
+            int m = Integer.parseInt(actividadesExtraL.getText());
+            double M = 0.0;
+            if(!relacionL.getText().equals("")){
+           M = Double.parseDouble(relacionL.getText());
+           for(int i = 0; i < brigada.getEstudiantes().size(); i++){
             OBJ[0] = brigada.getEstudiantes().elementAt(i).getNombre_estudiante();
             double promedioi = g.obtenerPromedio(brigada.getEstudiantes().elementAt(i));
             OBJ[1] = promedioi;
             int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
-            BigDecimal mi = new BigDecimal(miTemp);
-            BigDecimal Mi = new BigDecimal(0.0);
-            BigDecimal ICIi = new BigDecimal(0.0);
-            if(promedioi == 0.0){
-                Mi = new BigDecimal(0);
-            }
-            else if(promedioi >= 2 && promedioi < 3){
-                BigDecimal primer_elemento = new BigDecimal(((64*m)/25));
-                BigDecimal segundoElemento = new BigDecimal(Math.pow(1.25, promedioi));
-                BigDecimal tercer_elemento = new BigDecimal(4*m);
-                Mi = primer_elemento.multiply(segundoElemento);
-                Mi = Mi.subtract(tercer_elemento);
-            }
-            else if(promedioi < 3.5){
-                BigDecimal primer_elemento = new BigDecimal((new BigInteger("2251799813685248").multiply(new BigInteger((M-m)+""))).divide(new BigInteger("6832086203604989")));
-                BigDecimal segundoElemento = new BigDecimal(Math.pow(1.5, promedioi));
-                BigDecimal tercerElemento = new BigDecimal(new BigInteger("194369165990474").multiply(new BigInteger(m+"")).divide(new BigInteger("92014629004781")));
-                BigDecimal cuartoElemento = new BigDecimal(new BigInteger("1125899906842624").multiply(new BigInteger(M+"")).divide(new BigInteger("1012160919052591")));
-                Mi = primer_elemento.multiply(segundoElemento);
-                Mi = Mi.add(tercerElemento);
-                Mi = Mi.subtract(cuartoElemento);
-            }
-            else if(promedioi < 4){
-                BigDecimal segundoElemento = new BigDecimal(Math.pow(2, promedioi));
-                BigDecimal X = new BigDecimal("140737488355328.0");
-                BigDecimal q = new BigDecimal(M);
-                BigDecimal e = new BigDecimal(m);
-                BigDecimal Z = X.multiply(q.subtract(e));
-                
-                BigDecimal W = new BigDecimal("2638147582215219.0");
-                BigDecimal primerElemento = Z.divide(W, 10, RoundingMode.HALF_EVEN);
-                BigDecimal tercerElemento = new BigDecimal(new BigInteger("7141747209585715").multiply(new BigInteger(m+"")).divide(new BigInteger("5276295164430438")));
-                BigDecimal cuartoElemento = new BigDecimal(new BigInteger("1865452045155277").multiply(new BigInteger(M+"")).divide(new BigInteger("5276295164430438")));
-                Mi = primerElemento.multiply(segundoElemento);
-                Mi = Mi.add(tercerElemento);
-                Mi = Mi.subtract(cuartoElemento);
-            }
-            else if(promedioi < 4.5){
-                BigDecimal primer_elemento = new BigDecimal((new BigInteger("17592186044416").multiply(new BigInteger((M-m)+""))).divide(new BigInteger("1597422252574269")));
-                BigDecimal segundoElemento = new BigDecimal(Math.pow(2.5, promedioi));
-                BigDecimal tercerElemento = new BigDecimal(new BigInteger("223032717854269").multiply(new BigInteger(M+"")).divide(new BigInteger("3194844505148538")));
-                BigDecimal cuartoElemento = new BigDecimal(new BigInteger("2971811787294269").multiply(new BigInteger(m+"")).divide(new BigInteger("3194844505148538")));
-                Mi = primer_elemento.multiply(segundoElemento);
-                Mi = Mi.add(tercerElemento);
-                Mi = Mi.add(cuartoElemento);
-            }
-            else if(promedioi < 5){
-                BigDecimal primer_elemento = new BigDecimal((new BigInteger("17592186044416").multiply(new BigInteger((M-m)+""))).divide(new BigInteger("7227143380549369")));
-                BigDecimal segundoElemento = new BigDecimal(Math.pow(3, promedioi));
-                BigDecimal tercerElemento = new BigDecimal(new BigInteger("388772631671609").multiply(new BigInteger(M+"")).divide(new BigInteger("951722585092921")));
-                BigDecimal cuartoElemento = new BigDecimal(new BigInteger("562949953421312").multiply(new BigInteger(m+"")).divide(new BigInteger("951722585092921")));
-                Mi = primer_elemento.multiply(segundoElemento);
-                Mi = Mi.add(tercerElemento);
-                Mi = Mi.add(cuartoElemento);
-            }
-            if(promedioi == 0.0){
-                ICIi = new BigDecimal(0);
-            }
-            else if(promedioi >= 3 && promedioi <= 5){
-            ICIi = mi.add(Mi);
-            ICIi = ICIi.divide(new BigDecimal(m+M));
-            ICIi = ICIi.multiply(new BigDecimal(100));
+            OBJ[2] = miTemp;
+            OBJ[3] = utiles.ICI.ICI(m, M, promedioi, miTemp);
+            d.addRow(OBJ);
+        }
             }
             else{
-            ICIi = mi.add(Mi);
-            ICIi = ICIi.divide(new BigDecimal(2*m));
-            }
-            OBJ[2] = ICIi;
+            for(int i = 0; i < brigada.getEstudiantes().size(); i++){
+            OBJ[0] = brigada.getEstudiantes().elementAt(i).getNombre_estudiante();
+            double promedioi = g.obtenerPromedio(brigada.getEstudiantes().elementAt(i));
+            OBJ[1] = promedioi;
+            int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
+            OBJ[2] = miTemp;
+            OBJ[3] = "No definido";
             d.addRow(OBJ);
-            //agregar mi a a la tabla
+            }
         }
+        
+        tablaICI = new JTable(d);
+        jScrollPane1.setViewportView(tablaICI);
         
     }
 }
