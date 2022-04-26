@@ -14,7 +14,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="editarNota">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Editar Nota Seleccionada"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editarNotaMouseClicked"/>
@@ -619,11 +619,6 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="gustaCarrera" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="carreraOpcion" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="ingresoHogar" min="-2" max="-2" attributes="0"/>
@@ -631,19 +626,26 @@
                                       <Component id="ingresoHogarT" min="-2" pref="58" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="felicidad" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="felicidadOpcion" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="gustaEstudiar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="estudioOpcion" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="padresDivorciados" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="padresDivorciadosOpcion" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="gustaCarrera" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="carreraOpcion" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="gustaEstudiar" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="estudioOpcion" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="felicidad" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="felicidadOpcion" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
@@ -673,75 +675,77 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="convivencia" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="padre" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="madre" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hermanos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hermanas" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="otrosFamiliares" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="abueloP" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="abueloM" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="abuelaP" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="abuelaM" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="totalFamiliares" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="totalFamiliaresT" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="padresDivorciados" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="padresDivorciadosOpcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="electronicos" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="tablet" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="movil" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="padre" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="madre" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hermanos" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hermanas" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="otrosFamiliares" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="abueloP" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="abueloM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="abuelaP" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="abuelaM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="totalFamiliares" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="totalFamiliaresT" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="padresDivorciados" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="padresDivorciadosOpcion" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="computadora" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="laptop" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="ingresoHogar" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ingresoHogarT" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="relacionesConvivencia" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="relacionesConvivenciaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="felicidadOpcion" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="felicidad" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="electronicos" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="tablet" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="movil" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="computadora" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="laptop" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="ingresoHogar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="ingresoHogarT" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="relacionesConvivencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="relacionesConvivenciaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="felicidadOpcion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="felicidad" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="gustaEstudiar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="gustaCarrera" min="-2" max="-2" attributes="0"/>
-                                  <Component id="carreraOpcion" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                           <Component id="estudioOpcion" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="gustaCarrera" min="-2" max="-2" attributes="0"/>
+                          <Component id="carreraOpcion" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="64" max="32767" attributes="0"/>
                   </Group>
@@ -1510,7 +1514,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="religionComboBoxActionPerformed"/>
+                <EventHandler event="popupMenuWillBecomeInvisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="religionComboBoxPopupMenuWillBecomeInvisible"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

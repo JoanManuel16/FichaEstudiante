@@ -14,7 +14,6 @@ import com.toedter.calendar.JYearChooser;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Stack;
 import java.util.Vector;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -419,6 +418,7 @@ public class Editor_brigada extends javax.swing.JFrame {
             Editor_estudiante EE = new Editor_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()), Carrera_seleccionada.getText(), B);
             EE.setVisible(true);
         }
+        MenuEstudiantes.setVisible(false);
     }//GEN-LAST:event_EditarEstudianteActionPerformed
 
     private void EliminarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarEstudianteActionPerformed
