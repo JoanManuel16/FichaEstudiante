@@ -28,7 +28,7 @@ import utiles.Secuencias_cadenas;
  * @author joanmanuel
  */
 public class Editor_estudiante extends javax.swing.JFrame {
-    
+
     private Vector<String> manifestacionesArtisticas;
     private Vector<JRadioButton> radioButtonManifestaciones;
     private Vector<String> deportes;
@@ -49,39 +49,39 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private Estudiante E;
     private DatosEstudiante datosEstudiante;
     private boolean flag = false;
-    
+
     public Editor_estudiante(Estudiante E, String carrera, Brigada b) {
         initComponents();
         this.E = E;
         this.b = b;
         deportesDB = new Vector<>();
         religiones = new Vector<>();
-        enfermedadesDB= new Vector<>();
-        medicamentosDB= new Vector<>();
+        enfermedadesDB = new Vector<>();
+        medicamentosDB = new Vector<>();
         masculino.setSelected(true);
         radioButtonManifestaciones = new Vector<>();
         manifestacionesArtisticas = g.obtenerManifestaciones();
         manifestaciones = new Vector<>();
-        
+
         radioButtonDeportes = new Vector<>();
         deportes = g.obtenerDeportes();
         actualizarTablaDeportes(deportes);
-        
+
         radioButtonEnfermedades = new Vector<>();
         enfermedades = g.obtenerEnfermedades();
         actualizarTablaEnfermedades(enfermedades);
-        
+
         radioButtonMedicamentos = new Vector<>();
         medicamentos = g.obtenerMedicamentos();
         actualizarTablaMedicamentos(medicamentos);
-        
+
         this.carr = g.obtener_carrera(carrera);
-        
+
         nombreEstudianteT.setText(E.getNombre_estudiante());
         carnetTexto.setText(E.getCI());
         carreraT.setText(carr.getNombre());
         carreraT.setEditable(false);
-        
+
         buttonGroup1.add(masculino);
         buttonGroup1.add(femenino);
         actualizarTablaManifestaciones(manifestacionesArtisticas);
@@ -89,17 +89,17 @@ public class Editor_estudiante extends javax.swing.JFrame {
         for (int i = 0; i < zonas.size(); i++) {
             zonaOpciones.addItem(zonas.elementAt(i));
         }
-        
+
         Vector<String> colorPieles = g.obtenerColorPiel();
         for (int i = 0; i < colorPieles.size(); i++) {
             colorDePielComboBox.addItem(colorPieles.elementAt(i));
         }
-        
+
         Vector<String> estCivil = g.obtenerEstadoCivil();
         for (int i = 0; i < estCivil.size(); i++) {
             estadoCivilComboBox.addItem(estCivil.elementAt(i));
         }
-        
+
         religiones.add("Nueva Religión");
         religiones.addAll(g.obtenerReligiones());
         for (int i = 0; i < religiones.size(); i++) {
@@ -107,33 +107,35 @@ public class Editor_estudiante extends javax.swing.JFrame {
         }
         religionTexto.setVisible(false);
         annadirReligion.setVisible(false);
-        
+
         buttonGroup2.add(participacionBrigadaBien);
         buttonGroup2.add(participacionBrigadaRegular);
         buttonGroup2.add(participaicoBrigadaMal);
-        
+
         Vector<String> nivIng = g.obtenerNivelIngles();
         for (int i = 0; i < nivIng.size(); i++) {
             nivelDeInglesComboBox.addItem(nivIng.elementAt(i));
         }
-        
+
         Vector<String> convivencia = g.obtenerConvivencia();
         for (int i = 0; i < convivencia.size(); i++) {
             relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
         }
-        
+
         for (int i = 0; i < carr.getAsignaturas().size(); i++) {
-            
+
             AnnoComboBox.addItem((i + 1) + "");
         }
-        
+
         notas = g.obtenerNotas(carr, E, AnnoComboBox.getSelectedIndex() + 1);
-        
+
         actualizarTablaNotas(notas);
-        
+
     }
-    
+
     public Editor_estudiante(Estudiante E, String carrera, Brigada b, DatosEstudiante d) {
+        initComponents();
+        flag = true;
         this.E = E;
         this.b = b;
         datosEstudiante = d;
@@ -145,47 +147,27 @@ public class Editor_estudiante extends javax.swing.JFrame {
         radioButtonManifestaciones = new Vector<>();
         manifestacionesArtisticas = g.obtenerManifestaciones();
         actualizarTablaManifestaciones(manifestacionesArtisticas);
-        for (int i = 0; i < d.getManifestaciones_artisticas().size(); i++) {
-            if (manifestacionesArtisticas.elementAt(i).equals(d.getManifestaciones_artisticas().elementAt(i))) {
-                radioButtonManifestaciones.elementAt(i).setSelected(true);
-            }
-        }
         radioButtonDeportes = new Vector<>();
         deportes = g.obtenerDeportes();
         actualizarTablaDeportes(deportes);
-        for (int i = 0; i < d.getDeportes().size(); i++) {
-            if (deportes.elementAt(i).equals(d.getDeportes().elementAt(i))) {
-                radioButtonDeportes.elementAt(i).setSelected(true);
-            }
-        }
         radioButtonEnfermedades = new Vector<>();
         enfermedades = g.obtenerEnfermedades();
         actualizarTablaEnfermedades(enfermedades);
-        for (int i = 0; i < d.getEnfermedades().size(); i++) {
-            if (enfermedades.elementAt(i).equals(d.getEnfermedades().elementAt(i))) {
-                radioButtonEnfermedades.elementAt(i).setSelected(true);
-            }
-        }
         radioButtonMedicamentos = new Vector<>();
         medicamentos = g.obtenerMedicamentos();
         actualizarTablaMedicamentos(medicamentos);
-        for (int i = 0; i < d.getMedicamentos().size(); i++) {
-            if (medicamentos.elementAt(i).equals(d.getMedicamentos().elementAt(i))) {
-                radioButtonMedicamentos.elementAt(i).setSelected(true);
-            }
-        }
         this.carr = g.obtener_carrera(carrera);
-        
+
         nombreEstudianteT.setText(E.getNombre_estudiante());
         carnetTexto.setText(E.getCI());
         carreraT.setText(carr.getNombre());
         carreraT.setEditable(false);
-        
+
         buttonGroup1.add(masculino);
         buttonGroup1.add(femenino);
-        
+
         Vector<String> zonas = g.obtenerZonas();
-        
+
         for (int i = 0; i < zonas.size(); i++) {
             zonaOpciones.addItem(zonas.elementAt(i));
         }
@@ -200,15 +182,21 @@ public class Editor_estudiante extends javax.swing.JFrame {
             estadoCivilComboBox.addItem(estCivil.elementAt(i));
         }
         estadoCivilComboBox.setSelectedIndex(d.getEstado_civil() - 1);
+        religiones = new Vector<>();
         religiones.add("Nueva Religión");
         religiones.addAll(g.obtenerReligiones());
         for (int i = 0; i < religiones.size(); i++) {
             religionComboBox.addItem(religiones.elementAt(i));
         }
-        religionComboBox.setSelectedItem(d.getReligion());
+        if (d.getReligion().equals("")) {
+            religionComboBox.setSelectedIndex(0);
+        } else {
+            religionComboBox.setSelectedItem(d.getReligion());
+        }
+
         religionTexto.setVisible(false);
         annadirReligion.setVisible(false);
-        
+
         buttonGroup2.add(participacionBrigadaBien);
         buttonGroup2.add(participacionBrigadaRegular);
         buttonGroup2.add(participaicoBrigadaMal);
@@ -217,24 +205,26 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 participacionBrigadaBien.setSelected(true);
             case 2 ->
                 participacionBrigadaRegular.setSelected(true);
-            default ->
+            case 3 ->
                 participaicoBrigadaMal.setSelected(true);
         }
-        
+
         Vector<String> nivIng = g.obtenerNivelIngles();
         for (int i = 0; i < nivIng.size(); i++) {
             nivelDeInglesComboBox.addItem(nivIng.elementAt(i));
         }
         nivelDeInglesComboBox.setSelectedIndex(d.getNivel_ingles());
-        
+
         Vector<String> convivencia = g.obtenerConvivencia();
         for (int i = 0; i < convivencia.size(); i++) {
             relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
         }
         relacionesConvivenciaComboBox.setSelectedIndex(d.getRelaciones());
-        
+        for (int i = 0; i < carr.getAsignaturas().size(); i++) {
+            AnnoComboBox.addItem((i + 1) + "");
+        }
         notas = g.obtenerNotas(carr, E, AnnoComboBox.getSelectedIndex() + 1);
-        
+
         actualizarTablaNotas(notas);
         edadT.setText(d.getEdad() + "");
         deseosFuturosT.setText(d.getDeseos_futuros());
@@ -264,9 +254,8 @@ public class Editor_estudiante extends javax.swing.JFrame {
         abuelaP.setSelected(convivenciaArray[6]);
         abuelaM.setSelected(convivenciaArray[7]);
         otrosFamiliares.setSelected(convivenciaArray[8]);
-        //como sacar los padrea divorciados
         padresDivorciadosOpcion.setSelected(false);
-        
+
     }
 
     /**
@@ -467,7 +456,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                             .addComponent(finalizar)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nombreEstudiante, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                    .addComponent(nombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 111, Short.MAX_VALUE)
                                     .addComponent(carnet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1022,6 +1011,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         panelPestanas.addTab("Información del estudiante", jPanel8);
 
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel9MouseClicked(evt);
+            }
+        });
+
         AnnoComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -1350,12 +1345,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarManifestacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManifestacionMouseClicked
-        
+
         if (manifestacionTexto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo esta vacio");
             return;
         }
-        
+
         String temp = manifestacionTexto.getText();
         Vector<String> Similares = new Vector<>();
         for (int i = 0; i < manifestacionesArtisticas.size(); i++) {
@@ -1363,14 +1358,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 Similares.add(manifestacionesArtisticas.elementAt(i));
             }
         }
-        
+
         if (!Similares.isEmpty()) {
-            
+
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
-            
+
             String x = (String) JOptionPane.showInputDialog(null, "Estas manifestaciones artisticas son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-            
+
             if (x == null) {
                 manifestacionesArtisticas.add(temp);
                 g.agregarManifestacionArtistica(temp);
@@ -1390,12 +1385,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarManifestacionMouseClicked
 
     private void agregarDeporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarDeporteMouseClicked
-        
+
         if (deporteTexto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo esta vacio");
             return;
         }
-        
+
         String temp = deporteTexto.getText();
         Vector<String> Similares = new Vector<>();
         for (int i = 0; i < deportes.size(); i++) {
@@ -1403,14 +1398,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 Similares.add(deportes.elementAt(i));
             }
         }
-        
+
         if (!Similares.isEmpty()) {
-            
+
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
-            
+
             String x = (String) JOptionPane.showInputDialog(null, "Estos deportes son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-            
+
             if (x == null) {
                 deportes.add(temp);
                 g.agregarDeporte(temp);
@@ -1430,12 +1425,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarDeporteMouseClicked
 
     private void agregarMedicamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMedicamentoMouseClicked
-        
+
         if (medicamentoTexto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo esta vacio");
             return;
         }
-        
+
         String temp = medicamentoTexto.getText();
         Vector<String> Similares = new Vector<>();
         for (int i = 0; i < medicamentos.size(); i++) {
@@ -1443,14 +1438,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 Similares.add(medicamentos.elementAt(i));
             }
         }
-        
+
         if (!Similares.isEmpty()) {
-            
+
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
-            
+
             String x = (String) JOptionPane.showInputDialog(null, "Estos medicamentos son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-            
+
             if (x == null) {
                 medicamentos.add(temp);
                 g.agregarMedicamento(temp);
@@ -1470,12 +1465,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarMedicamentoMouseClicked
 
     private void agregarEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarEnfermedadMouseClicked
-        
+
         if (enfermedadTexto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo esta vacio");
             return;
         }
-        
+
         String temp = enfermedadTexto.getText();
         Vector<String> Similares = new Vector<>();
         for (int i = 0; i < enfermedades.size(); i++) {
@@ -1483,14 +1478,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 Similares.add(enfermedades.elementAt(i));
             }
         }
-        
+
         if (!Similares.isEmpty()) {
-            
+
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
-            
+
             String x = (String) JOptionPane.showInputDialog(null, "Estas enfermedades son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-            
+
             if (x == null) {
                 enfermedades.add(temp);
                 g.agregarEnfermedad(temp);
@@ -1510,45 +1505,45 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarEnfermedadMouseClicked
 
     private void nombreEstudianteTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreEstudianteTKeyReleased
-        
+
         if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
-            
+
             Character caracterEtrada = evt.getKeyChar();
             String reeplazo = nombreEstudianteT.getText().replaceAll(caracterEtrada.toString(), "");
             nombreEstudianteT.setText(reeplazo);
         }
-        
+
 
     }//GEN-LAST:event_nombreEstudianteTKeyReleased
 
     private void carnetTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_carnetTextoKeyReleased
-        
+
         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), carnetTexto);
 
     }//GEN-LAST:event_carnetTextoKeyReleased
 
     private void edadTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edadTKeyReleased
-        
+
         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), edadT);
 
     }//GEN-LAST:event_edadTKeyReleased
 
     private void telefonoParticularTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoParticularTKeyReleased
-        
+
         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), telefonoParticularT);
 
     }//GEN-LAST:event_telefonoParticularTKeyReleased
 
     private void telefonoFijoTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoFijoTKeyReleased
-        
+
         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), telefonoFijoT);
 
     }//GEN-LAST:event_telefonoFijoTKeyReleased
 
     private void religionTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_religionTextoKeyReleased
-        
+
         if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
-            
+
             Character caracterEtrada = evt.getKeyChar();
             String reeplazo = nombreEstudianteT.getText().replaceAll(caracterEtrada.toString(), "");
             nombreEstudianteT.setText(reeplazo);
@@ -1557,12 +1552,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_religionTextoKeyReleased
 
     private void annadirReligionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annadirReligionActionPerformed
-        
+
         if (religionTexto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo esta vacio");
             return;
         }
-        
+
         String temp = religionTexto.getText();
         Vector<String> Similares = new Vector<>();
         for (int i = 0; i < religiones.size(); i++) {
@@ -1570,14 +1565,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 Similares.add(religiones.elementAt(i));
             }
         }
-        
+
         if (!Similares.isEmpty()) {
-            
+
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
-            
+
             String x = (String) JOptionPane.showInputDialog(null, "Estas religiones son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-            
+
             if (x == null) {
                 religiones.add(temp);
                 g.agregarReligion(temp);
@@ -1598,14 +1593,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_annadirReligionActionPerformed
 
     private void manifestacionTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_manifestacionTextoKeyReleased
-        
+
         if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
-            
+
             Character caracterEtrada = evt.getKeyChar();
             String reeplazo = manifestacionTexto.getText().replaceAll(caracterEtrada.toString(), "");
             manifestacionTexto.setText(reeplazo);
         }
-        
+
         String temp = manifestacionTexto.getText();
         if (temp.length() >= 3) {
             Vector<String> Similares = new Vector<>();
@@ -1622,14 +1617,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_manifestacionTextoKeyReleased
 
     private void deporteTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_deporteTextoKeyReleased
-        
+
         if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
-            
+
             Character caracterEtrada = evt.getKeyChar();
             String reeplazo = deporteTexto.getText().replaceAll(caracterEtrada.toString(), "");
             deporteTexto.setText(reeplazo);
         }
-        
+
         String temp = deporteTexto.getText();
         if (temp.length() >= 3) {
             Vector<String> Similares = new Vector<>();
@@ -1646,14 +1641,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_deporteTextoKeyReleased
 
     private void enfermedadTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_enfermedadTextoKeyReleased
-        
+
         if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
-            
+
             Character caracterEtrada = evt.getKeyChar();
             String reeplazo = enfermedadTexto.getText().replaceAll(caracterEtrada.toString(), "");
             enfermedadTexto.setText(reeplazo);
         }
-        
+
         String temp = enfermedadTexto.getText();
         if (temp.length() >= 3) {
             Vector<String> Similares = new Vector<>();
@@ -1670,14 +1665,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_enfermedadTextoKeyReleased
 
     private void medicamentoTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_medicamentoTextoKeyReleased
-        
+
         if (Secuencias_cadenas.sonNumeros(evt.getKeyChar())) {
-            
+
             Character caracterEtrada = evt.getKeyChar();
             String reeplazo = medicamentoTexto.getText().replaceAll(caracterEtrada.toString(), "");
             medicamentoTexto.setText(reeplazo);
         }
-        
+
         String temp = medicamentoTexto.getText();
         if (temp.length() >= 3) {
             Vector<String> Similares = new Vector<>();
@@ -1694,34 +1689,34 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_medicamentoTextoKeyReleased
 
     private void totalFamiliaresTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalFamiliaresTKeyReleased
-        
+
         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), totalFamiliaresT);
 
     }//GEN-LAST:event_totalFamiliaresTKeyReleased
 
     private void ingresoHogarTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ingresoHogarTKeyReleased
-        
+
         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), ingresoHogarT);
 
     }//GEN-LAST:event_ingresoHogarTKeyReleased
 
     private void AnnoComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_AnnoComboBoxPopupMenuWillBecomeInvisible
-        
+
         notas = g.obtenerNotas(carr, E, AnnoComboBox.getSelectedIndex() + 1);
         actualizarTablaNotas(notas);
 
     }//GEN-LAST:event_AnnoComboBoxPopupMenuWillBecomeInvisible
 
     private void editarNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarNotaMouseClicked
-        
+
         String posiblesNotas[] = {"0", "2", "3", "4", "5"};
         String x = (String) JOptionPane.showInputDialog(null, "Seleccione la nota del estudiante", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, posiblesNotas, posiblesNotas[0]);
-        
+
         if (x != null) {
             int nota = Integer.parseInt(x);
-            
+
             String asignatura = (String) tablaNotas.getValueAt(tablaNotas.getSelectedRow(), 0);
-            
+
             for (int i = 0; i < notas.size(); i++) {
                 if (notas.elementAt(i).getNombreAsignatura().equals(asignatura)) {
                     notas.elementAt(i).setNota(nota);
@@ -1772,7 +1767,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         if (!ingresoHogarT.getText().equals("")) {
             ingresosTotales = Integer.parseInt(ingresoHogarT.getText());
         }
-        
+
         boolean[] electronic = {computadora.isSelected(), laptop.isSelected(), movil.isSelected(), tablet.isSelected()};
         boolean[] familiares = {padre.isSelected(), madre.isSelected(), hermanas.isSelected(), hermanos.isSelected(), abueloP.isSelected(), abueloM.isSelected(), abuelaP.isSelected(), abuelaM.isSelected(), otrosFamiliares.isSelected()};
         DatosEstudiante e = new DatosEstudiante(E.getNombre_estudiante(), E.getCI(), telefonoParticular, telefonoFijo, movileDataBooton.isSelected(), emailT.getText(), sexo, Integer.parseInt(edadT.getText()), becadoBooton.isSelected(), colorDePielComboBox.getSelectedIndex() + 1, militanteRadioB.isSelected(), estadoCivilComboBox.getSelectedIndex() + 1, hijosBooton.isSelected(), direccionParticularT.getText(), zonaOpciones.getSelectedIndex() + 1, religion, bebidasAl.isSelected(), fumadorBooton.isSelected(), participacion, manifestaciones, familiares, totalFamiliares, ingresosTotales, relacionesConvivenciaComboBox.getSelectedIndex() + 1, deportesDB, electronic, enfermedades, true, new Vector<>(), medicamentos, deseosFuturosT.getText(), actividadesTiempoLibreT.getText(), proyectosVidaT.getText(), rasgosHabitosT.getText(), felicidadOpcion.isSelected(), estudioOpcion.isSelected(), carreraOpcion.isSelected(), nivelDeInglesComboBox.getSelectedIndex() + 1);
@@ -1781,22 +1776,26 @@ public class Editor_estudiante extends javax.swing.JFrame {
         } else {
             g.editar_estudiante(b, e);
         }
-        
+
         this.dispose();
-        
+
     }//GEN-LAST:event_finalizarActionPerformed
 
     private void religionComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_religionComboBoxPopupMenuWillBecomeInvisible
-         if ((religionComboBox.getSelectedItem() + "").equals("Nueva Religión")) {
+        if ((religionComboBox.getSelectedItem() + "").equals("Nueva Religión")) {
             religionTexto.setVisible(true);
             annadirReligion.setVisible(true);
-            
-        }
-         else {
-         religionTexto.setVisible(false);
+
+        } else {
+            religionTexto.setVisible(false);
             annadirReligion.setVisible(false);
-         }
+        }
     }//GEN-LAST:event_religionComboBoxPopupMenuWillBecomeInvisible
+
+    private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
+        if (menuNotas.isVisible()) {
+            menuNotas.setVisible(false);
+        }    }//GEN-LAST:event_jPanel9MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1932,25 +1931,34 @@ public class Editor_estudiante extends javax.swing.JFrame {
         Object[] OBJ = new Object[2];
         d.addColumn("Nombre de la Manifestacion");
         d.addColumn("Seleccion");
-        
+        boolean bandera = false;
         for (int i = 0; i < manifestacionesArtisticas.size(); i++) {
+            if (flag) {
+                for (int j = 0; j < datosEstudiante.getManifestaciones_artisticas().size(); j++) {
+                    if (manifestacionesArtisticas.elementAt(i).equals(datosEstudiante.getManifestaciones_artisticas().elementAt(j))) {
+                        bandera = true;
+                        break;
+                    }
+                }
+            }
             OBJ[0] = manifestacionesArtisticas.elementAt(i);
-            radioButtonManifestaciones.add(new JRadioButton("", false));
+            radioButtonManifestaciones.add(new JRadioButton("", bandera));
             OBJ[1] = radioButtonManifestaciones.lastElement();
             d.addRow(OBJ);
+            bandera = false;
         }
-        
+
         TablaManifestaciones = new JTable(d);
-        
+
         TablaManifestaciones.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+
                 int fila = TablaManifestaciones.rowAtPoint(e.getPoint());
                 if (fila > -1) {
                     if (radioButtonManifestaciones.elementAt(fila).isSelected()) {
                         manifestaciones.add(manifestacionesArtisticas.elementAt(fila));
-                        
+
                     } else {
                         if (manifestaciones.contains(manifestacionesArtisticas.elementAt(fila))) {
                             manifestaciones.remove(fila);
@@ -1959,43 +1967,52 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         TablaManifestaciones.setFont(new Font("arial", Font.BOLD, 14));
         TablaManifestaciones.setRowHeight(30);
         TablaManifestaciones.setShowGrid(true);
-        
+
         TablaManifestaciones.getColumn("Seleccion").setCellRenderer(
                 new RadioButtonRenderer());
         TablaManifestaciones.getColumn("Seleccion").setCellEditor(
                 new RadioButtonEditor(new JCheckBox()));
         jScrollPane1.setViewportView(TablaManifestaciones);
     }
-    
+
     private void actualizarTablaDeportes(Vector<String> deporte) {
-        
+
         DefaultTableModel d = new DefaultTableModel();
         Object[] OBJ = new Object[2];
         d.addColumn("Deporte");
         d.addColumn("Seleccion");
-        
+        boolean bandera = false;
         for (int i = 0; i < deporte.size(); i++) {
+            if (flag) {
+                for (int j = 0; j < datosEstudiante.getDeportes().size(); j++) {
+                    if (deporte.elementAt(i).equals(datosEstudiante.getDeportes().elementAt(j))) {
+                        bandera = true;
+                        break;
+                    }
+                }
+            }
             OBJ[0] = deporte.elementAt(i);
-            radioButtonDeportes.add(new JRadioButton("", false));
+            radioButtonDeportes.add(new JRadioButton("", bandera));
             OBJ[1] = radioButtonDeportes.lastElement();
             d.addRow(OBJ);
+            bandera = false;
         }
-        
+
         TablaDeportes = new JTable(d);
-        
+
         TablaDeportes.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+
                 int fila = TablaDeportes.rowAtPoint(e.getPoint());
                 if (fila > -1) {
                     if (radioButtonDeportes.elementAt(fila).isSelected()) {
                         deportesDB.add(deportes.elementAt(fila));
-                        
+
                     } else {
                         if (deportesDB.contains(deportes.elementAt(fila))) {
                             deportesDB.remove(fila);
@@ -2004,43 +2021,52 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         TablaDeportes.setFont(new Font("arial", Font.BOLD, 14));
         TablaDeportes.setRowHeight(30);
         TablaDeportes.setShowGrid(true);
-        
+
         TablaDeportes.getColumn("Seleccion").setCellRenderer(
                 new RadioButtonRenderer());
         TablaDeportes.getColumn("Seleccion").setCellEditor(
                 new RadioButtonEditor(new JCheckBox()));
         jScrollPane2.setViewportView(TablaDeportes);
-        
+
     }
-    
+
     private void actualizarTablaEnfermedades(Vector<String> enfermedade) {
-        
+
         DefaultTableModel d = new DefaultTableModel();
         Object[] OBJ = new Object[2];
         d.addColumn("Enfermedad");
         d.addColumn("Seleccion");
-        
+        boolean bandera = false;
         for (int i = 0; i < enfermedade.size(); i++) {
+            if (flag) {
+                for (int j = 0; j < datosEstudiante.getEnfermedades().size(); j++) {
+                    if (enfermedade.elementAt(i).equals(datosEstudiante.getEnfermedades().elementAt(j))) {
+                        bandera = true;
+                        break;
+                    }
+                }
+            }
             OBJ[0] = enfermedade.elementAt(i);
-            radioButtonEnfermedades.add(new JRadioButton("", false));
+            radioButtonEnfermedades.add(new JRadioButton("", bandera));
             OBJ[1] = radioButtonEnfermedades.lastElement();
             d.addRow(OBJ);
+            bandera = false;
         }
-        
+
         TablaEnfermedades = new JTable(d);
-         TablaEnfermedades.addMouseListener(new MouseAdapter() {
+        TablaEnfermedades.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+
                 int fila = TablaEnfermedades.rowAtPoint(e.getPoint());
                 if (fila > -1) {
                     if (radioButtonEnfermedades.elementAt(fila).isSelected()) {
                         enfermedadesDB.add(enfermedades.elementAt(fila));
-                        
+
                     } else {
                         if (enfermedadesDB.contains(enfermedades.elementAt(fila))) {
                             enfermedadesDB.remove(fila);
@@ -2052,38 +2078,47 @@ public class Editor_estudiante extends javax.swing.JFrame {
         TablaEnfermedades.setFont(new Font("arial", Font.BOLD, 14));
         TablaEnfermedades.setRowHeight(30);
         TablaEnfermedades.setShowGrid(true);
-        
+
         TablaEnfermedades.getColumn("Seleccion").setCellRenderer(
                 new RadioButtonRenderer());
         TablaEnfermedades.getColumn("Seleccion").setCellEditor(
                 new RadioButtonEditor(new JCheckBox()));
-        jScrollPane1.setViewportView(TablaEnfermedades);
+        jScrollPane6.setViewportView(TablaEnfermedades);
     }
-    
+
     private void actualizarTablaMedicamentos(Vector<String> medicamento) {
-        
+
         DefaultTableModel d = new DefaultTableModel();
         Object[] OBJ = new Object[2];
         d.addColumn("Medicamento");
         d.addColumn("Seleccion");
-        
+        boolean bandera = false;
         for (int i = 0; i < medicamento.size(); i++) {
+            if (flag) {
+                for (int j = 0; j < datosEstudiante.getMedicamentos().size(); j++) {
+                    if (medicamento.elementAt(i).equals(datosEstudiante.getMedicamentos().elementAt(j))) {
+                        bandera = true;
+                        break;
+                    }
+                }
+            }
             OBJ[0] = medicamento.elementAt(i);
-            radioButtonMedicamentos.add(new JRadioButton("", false));
+            radioButtonMedicamentos.add(new JRadioButton("", bandera));
             OBJ[1] = radioButtonMedicamentos.lastElement();
             d.addRow(OBJ);
+            bandera = false;
         }
-        
+
         TablaMedicamentos = new JTable(d);
-         TablaDeportes.addMouseListener(new MouseAdapter() {
+        TablaDeportes.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+
                 int fila = TablaMedicamentos.rowAtPoint(e.getPoint());
                 if (fila > -1) {
                     if (radioButtonMedicamentos.elementAt(fila).isSelected()) {
                         medicamentosDB.add(medicamentos.elementAt(fila));
-                        
+
                     } else {
                         if (medicamentosDB.contains(medicamentos.elementAt(fila))) {
                             medicamentosDB.remove(fila);
@@ -2092,30 +2127,30 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         TablaMedicamentos.setFont(new Font("arial", Font.BOLD, 14));
         TablaMedicamentos.setRowHeight(30);
         TablaMedicamentos.setShowGrid(true);
-        
+
         TablaMedicamentos.getColumn("Seleccion").setCellRenderer(
                 new RadioButtonRenderer());
         TablaMedicamentos.getColumn("Seleccion").setCellEditor(
                 new RadioButtonEditor(new JCheckBox()));
         jScrollPane5.setViewportView(TablaMedicamentos);
-        
+
     }
-    
+
     private void actualizarTablaNotas(Vector<Nota> notas) {
-        
+
         DefaultTableModel d = new DefaultTableModel();
         Object[] OBJ = new Object[2];
         d.addColumn("Asignatura");
-        
+
         d.addColumn("Nota");
-        
+
         OBJ[0] = "Primer Semestre";
         d.addRow(OBJ);
-        
+
         for (int i = 0; i < notas.size(); i++) {
             if (g.esPrimerSemestre(notas.elementAt(i).getIdAsignatura(), carr.getNombre())) {
                 OBJ[0] = notas.elementAt(i).getNombreAsignatura();
@@ -2123,11 +2158,11 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 d.addRow(OBJ);
             }
         }
-        
+
         OBJ[0] = "Segundo Semestre";
         OBJ[1] = "";
         d.addRow(OBJ);
-        
+
         for (int i = 0; i < notas.size(); i++) {
             if (g.esSegundoSemestre(notas.elementAt(i).getIdAsignatura(), carr.getNombre())) {
                 OBJ[0] = notas.elementAt(i).getNombreAsignatura();
@@ -2135,26 +2170,26 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 d.addRow(OBJ);
             }
         }
-        
+
         tablaNotas = new JTable(d);
-        
+
         tablaNotas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int fila = tablaNotas.rowAtPoint(e.getPoint());
-                
+
                 if (fila > -1) {
                     String asig = (String) tablaNotas.getValueAt(fila, 0);
                     if (!(asig.equals("Primer Semestre") || asig.equals("Segundo Semestre"))) {
-                        
-                        menuNotas.setLocation(e.getPoint());
+
+                        menuNotas.setLocation(e.getXOnScreen(), e.getYOnScreen());
                         menuNotas.setVisible(true);
                     }
                 }
             }
         });
-        
+
         jScrollPane9.setViewportView(tablaNotas);
     }
-    
+
 }

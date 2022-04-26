@@ -10,6 +10,8 @@ import clases.Brigada;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import utiles.Secuencias_cadenas;
 
 
@@ -170,7 +172,23 @@ public class ICI extends javax.swing.JFrame {
 
     private void actualizarTablaICI() {
         
-         DefaultTableModel d = new DefaultTableModel();
+         DefaultTableModel d = new DefaultTableModel(){
+			@Override
+			public Class getColumnClass(int columna) {
+                            switch (columna) {
+                                case 1 -> {
+                                    return Double.class;
+                                }
+                                case 2 -> {
+                                    return Double.class;
+                                }
+                                case 3 -> {
+                                    return Double.class;
+                                }
+                            }
+				return String.class;
+			}
+		};
          Object[] OBJ = new Object[4];
           d.addColumn("Estudiante");
            d.addColumn("Promedio");
@@ -198,12 +216,13 @@ public class ICI extends javax.swing.JFrame {
             OBJ[1] = promedioi;
             int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
             OBJ[2] = miTemp;
-            OBJ[3] = "No definido";
+            OBJ[3] = 0;
             d.addRow(OBJ);
             }
         }
-        
+       TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(d);
         tablaICI = new JTable(d);
+        tablaICI.setRowSorter(modeloOrdenado);
         jScrollPane1.setViewportView(tablaICI);
         
     }
