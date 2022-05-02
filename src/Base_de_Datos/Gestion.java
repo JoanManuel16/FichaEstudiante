@@ -1145,12 +1145,14 @@ public class Gestion {
             String stat = "select semestre from asignaturas_semestre where id_asignatura = " + idAsignatura +" and id_carrera = (select id_carrera from carrera where nombre_carrera ='"+NombreCarrera+"')";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             if (RS.getInt("semestre") == 1) {
+                C.desconectar();
                 return true;
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        C.desconectar();
         return false;
     }
 
@@ -1174,15 +1176,13 @@ public class Gestion {
     }
 
     public void actualizarNota(Nota nota, Estudiante E) {
-    C.conectar();
+         C.conectar();
         try {
             
 
             String stat = "update notas_estudiante set nota_asignatura = " + nota.getNota() + " where id_asignatura = " + nota.getIdAsignatura() + " and id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + E.getCI() + "')";
 
             boolean RS = C.getConsulta().execute(stat);
-            C.desconectar();
-
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
