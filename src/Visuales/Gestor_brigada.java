@@ -38,6 +38,9 @@ public class Gestor_brigada extends javax.swing.JFrame {
         g = new Gestion();
         BrigadasAnno = 0;
         BrigadasAnnoB = 0;
+        setTitle("Gestor de Brigada");
+        setResizable(false);
+        setLocationRelativeTo(null);
         this.opcion = opcion;
 
         carreras = g.obtener_carreras();

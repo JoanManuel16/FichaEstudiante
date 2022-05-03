@@ -54,6 +54,9 @@ public class Editor_estudiante extends javax.swing.JFrame {
         initComponents();
         this.E = E;
         this.b = b;
+        setTitle("Editando los datos del estudinate " + E.getNombre_estudiante());
+        setResizable(false);
+        setLocationRelativeTo(null);
         deportesDB = new Vector<>();
         religiones = new Vector<>();
         enfermedadesDB = new Vector<>();
@@ -138,6 +141,9 @@ public class Editor_estudiante extends javax.swing.JFrame {
         flag = true;
         this.E = E;
         this.b = b;
+        setTitle("Editando los datos del estudinate " + E.getNombre_estudiante());
+        setResizable(false);
+        setLocationRelativeTo(null);
         datosEstudiante = d;
         if (d.getSexo().equals("masculino")) {
             masculino.setSelected(true);
@@ -1721,6 +1727,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 if (notas.elementAt(i).getNombreAsignatura().equals(asignatura)) {
                     notas.elementAt(i).setNota(nota);
                     g.actualizarNota(notas.elementAt(i), E);
+
                     actualizarTablaNotas(notas);
                     break;
                 }

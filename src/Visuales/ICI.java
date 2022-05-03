@@ -7,6 +7,13 @@ package Visuales;
 
 import Base_de_Datos.Gestion;
 import clases.Brigada;
+import clases.Estudiante;
+import clases.GenerarReporteICI;
+import com.itextpdf.text.DocumentException;
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -14,23 +21,24 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import utiles.Secuencias_cadenas;
 
-
 public class ICI extends javax.swing.JFrame {
 
     Brigada brigada;
     Gestion g = new Gestion();
-    
+
     public ICI(Brigada brigada) {
         initComponents();
-        
+        setTitle("Gestor del ICI de la brigada seleccionada");
+        setResizable(false);
+        setLocationRelativeTo(null);
         this.brigada = brigada;
-        
+        ButtonReporte.setVisible(false);
         int m = g.obtenerSumaValoresEventos(brigada);
-        
-        actividadesExtraL.setText(m+"");
-        
+
+        actividadesExtraL.setText(m + "");
+
         actualizarTablaICI();
-        
+
     }
 
     /**
@@ -51,8 +59,14 @@ public class ICI extends javax.swing.JFrame {
         actividadesExtraL = new javax.swing.JLabel();
         relacion = new javax.swing.JLabel();
         relacionL = new javax.swing.JLabel();
+        ButtonReporte = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         tablaICI.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,6 +100,13 @@ public class ICI extends javax.swing.JFrame {
 
         relacion.setText("Relacion academico-extracurricular");
 
+        ButtonReporte.setText("Reporte");
+        ButtonReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonReporteMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,7 +128,8 @@ public class ICI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(PA)
                                 .addGap(18, 18, 18)
-                                .addComponent(PAT, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(PAT, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ButtonReporte))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -129,7 +151,9 @@ public class ICI extends javax.swing.JFrame {
                             .addComponent(PA)
                             .addComponent(PAT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
-                        .addComponent(aceptar))
+                        .addComponent(aceptar)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonReporte))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -138,27 +162,46 @@ public class ICI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PATKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PATKeyReleased
-        
-         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), PAT);
-        
+        if (PAT.getText().equals("")) {
+            ButtonReporte.setVisible(false);
+        }
+        Secuencias_cadenas.borrarLetras(evt.getKeyChar(), PAT);
+
     }//GEN-LAST:event_PATKeyReleased
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        
-        if(PAT.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "error so com");
-                    
+
+        if (PAT.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "El campo PA no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            double M = (double) (Integer.parseInt(actividadesExtraL.getText()) * 100) / ((double) (Integer.parseInt(PAT.getText())));
+            relacionL.setText(M + "");
         }
-        else{
-        double M = (double)(Integer.parseInt(actividadesExtraL.getText())*100)/((double)(Integer.parseInt(PAT.getText())));
-        relacionL.setText(M+"");
-        }
-        
+        ButtonReporte.setVisible(true);
         actualizarTablaICI();
     }//GEN-LAST:event_aceptarActionPerformed
 
+    private void ButtonReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteMouseClicked
+        try {
+            Queue estudiantesOrdenados = organizarEstudiantes();
+            GenerarReporteICI ICI = new GenerarReporteICI(Double.parseDouble(relacionL.getText()), Integer.parseInt(actividadesExtraL.getText()), Integer.parseInt(PAT.getText()), brigada, estudiantesOrdenados);
+            if (ICI.generarReporte()) {
+                JOptionPane.showMessageDialog(null, "Reporte creado exitosamente en el escritorio", "Mensaje del sistema", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (DocumentException ex) {
+            Logger.getLogger(ICI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ButtonReporteMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Main m = new Main();
+        m.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonReporte;
     private javax.swing.JLabel PA;
     private javax.swing.JTextField PAT;
     private javax.swing.JButton aceptar;
@@ -171,59 +214,73 @@ public class ICI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void actualizarTablaICI() {
-        
-         DefaultTableModel d = new DefaultTableModel(){
-			@Override
-			public Class getColumnClass(int columna) {
-                            switch (columna) {
-                                case 1 -> {
-                                    return Double.class;
-                                }
-                                case 2 -> {
-                                    return Double.class;
-                                }
-                                case 3 -> {
-                                    return Double.class;
-                                }
-                            }
-				return String.class;
-			}
-		};
-         Object[] OBJ = new Object[4];
-          d.addColumn("Estudiante");
-           d.addColumn("Promedio");
-           d.addColumn("Valor cuantitativo de las actividades extracurriculares");
-           d.addColumn("ICI");
-          
-            int m = Integer.parseInt(actividadesExtraL.getText());
-            double M = 0.0;
-            if(!relacionL.getText().equals("")){
-           M = Double.parseDouble(relacionL.getText());
-           for(int i = 0; i < brigada.getEstudiantes().size(); i++){
-            OBJ[0] = brigada.getEstudiantes().elementAt(i).getNombre_estudiante();
-            double promedioi = g.obtenerPromedio(brigada.getEstudiantes().elementAt(i));
-            OBJ[1] = promedioi;
-            int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
-            OBJ[2] = miTemp;
-            OBJ[3] = utiles.ICI.ICI(m, M, promedioi, miTemp);
-            d.addRow(OBJ);
-        }
+
+        DefaultTableModel d = new DefaultTableModel() {
+            @Override
+            public Class getColumnClass(int columna) {
+                switch (columna) {
+                    case 1 -> {
+                        return Double.class;
+                    }
+                    case 2 -> {
+                        return Double.class;
+                    }
+                    case 3 -> {
+                        return Double.class;
+                    }
+                }
+                return String.class;
             }
-            else{
-            for(int i = 0; i < brigada.getEstudiantes().size(); i++){
-            OBJ[0] = brigada.getEstudiantes().elementAt(i).getNombre_estudiante();
-            double promedioi = g.obtenerPromedio(brigada.getEstudiantes().elementAt(i));
-            OBJ[1] = promedioi;
-            int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
-            OBJ[2] = miTemp;
-            OBJ[3] = 0;
-            d.addRow(OBJ);
+        };
+        Object[] OBJ = new Object[4];
+        d.addColumn("Estudiante");
+        d.addColumn("Promedio");
+        d.addColumn("Valor cuantitativo de las actividades extracurriculares");
+        d.addColumn("ICI");
+
+        int m = Integer.parseInt(actividadesExtraL.getText());
+        double M = 0.0;
+        if (!relacionL.getText().equals("")) {
+            M = Double.parseDouble(relacionL.getText());
+            for (int i = 0; i < brigada.getEstudiantes().size(); i++) {
+                OBJ[0] = brigada.getEstudiantes().elementAt(i).getNombre_estudiante();
+                double promedioi = g.obtenerPromedio(brigada.getEstudiantes().elementAt(i));
+                OBJ[1] = promedioi;
+                int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
+                OBJ[2] = miTemp;
+                OBJ[3] = utiles.ICI.ICI(m, M, promedioi, miTemp);
+                d.addRow(OBJ);
+            }
+        } else {
+            for (int i = 0; i < brigada.getEstudiantes().size(); i++) {
+                OBJ[0] = brigada.getEstudiantes().elementAt(i).getNombre_estudiante();
+                double promedioi = g.obtenerPromedio(brigada.getEstudiantes().elementAt(i));
+                OBJ[1] = promedioi;
+                int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
+                OBJ[2] = miTemp;
+                OBJ[3] = 0;
+                d.addRow(OBJ);
             }
         }
-       TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(d);
+        TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(d);
         tablaICI = new JTable(d);
         tablaICI.setRowSorter(modeloOrdenado);
         jScrollPane1.setViewportView(tablaICI);
-        
+
+    }
+
+    private Queue organizarEstudiantes() {
+        Queue<Estudiante> estudinatesOrdenados = new ArrayDeque<>();
+
+        for (int i = 0; i < tablaICI.getRowCount(); i++) {
+            String nombre = (String) tablaICI.getValueAt(i, 0);
+            for (int j = 0; j < brigada.getEstudiantes().size(); j++) {
+                if (nombre.equals(brigada.getEstudiantes().elementAt(j).getNombre_estudiante())) {
+                    estudinatesOrdenados.add(brigada.getEstudiantes().elementAt(j));
+                    break;
+                }
+            }
+        }
+        return estudinatesOrdenados;
     }
 }
