@@ -38,6 +38,8 @@ public class GestorEventos extends javax.swing.JFrame {
         for(int i = 0; i < dimensiones.size();i++){
             dimensionesComboBox.addItem(dimensiones.elementAt(i));
     }
+        this.setLocationRelativeTo(null);
+        this.setTitle("Gestor de Eventos");
     }
 
     /**
@@ -60,7 +62,12 @@ public class GestorEventos extends javax.swing.JFrame {
         dimensionesL = new javax.swing.JLabel();
         jCalendar1 = new com.toedter.calendar.JCalendar();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         TableEventos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -254,6 +261,7 @@ public class GestorEventos extends javax.swing.JFrame {
                 
                 TextNombreEvento.setText("");
                 actualizarTabla(NombreEventos);
+                JOptionPane.showMessageDialog(null, "Se ha agregado el evento con exito");
             }
             else{
                 JOptionPane.showMessageDialog(null, "Este evento ya existe en el anno indicado");
@@ -265,6 +273,12 @@ public class GestorEventos extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_aceptarMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       
+        Main M = new Main();
+        M.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TableEventos;

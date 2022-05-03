@@ -114,10 +114,20 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jScrollPane2" min="-2" pref="394" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="dimensionComboBox" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="dimension" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="112" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                       <Component id="aceptar" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="531" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="48" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -125,8 +135,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane2" min="-2" pref="421" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="dimension" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="dimensionComboBox" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace type="separate" max="32767" attributes="0"/>
                   <Component id="aceptar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -162,6 +179,24 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aceptarActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="dimension">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dimensi&#xf3;n"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="dimensionComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dimensionComboBoxActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

@@ -37,6 +37,7 @@ public class Editor_brigada extends javax.swing.JFrame {
     private Vector<Tupla<Integer, String>> eventosEliminados = new Vector<>();
     private Vector<JRadioButton> radioButtonEventos = new Vector<>();
     private boolean actualizacion;
+    private Vector<String> dimensiones = new Vector<>();
 
     public Editor_brigada(String Carr) {
         initComponents();
@@ -76,19 +77,21 @@ public class Editor_brigada extends javax.swing.JFrame {
         Carrera_seleccionada.setText(B.getCarrera());
         Anno_seleccionado.setText(B.getAnno_brigada() + "");
 
-        for (int i = B.getAnno() - 5; i <= B.getAnno() + 5; i++) {
-            Annos.addItem(i + "");
-        }
 
         eventosBrigada = G.obtenerBrigadaEventos(B);
-        eventos = G.obtenerEventos();
+        eventos = G.obtenerEventosAnno(B.getAnno());
 
         Pasar_anno.setVisible(true);
 
         EditarEstudiante.setVisible(true);
 
         Annos.setEnabled(false);
-        Annos.setSelectedItem(B.getAnno());
+        Annos.addItem(B.getAnno()+"");
+        
+        dimensiones = G.obtenerDimensiones();
+        for(int i = 0; i < dimensiones.size(); i++){
+           dimensionComboBox.addItem(dimensiones.elementAt(i));
+        }
     }
 
     /**
@@ -113,6 +116,8 @@ public class Editor_brigada extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaEventos = new javax.swing.JTable();
         aceptar = new javax.swing.JButton();
+        dimension = new javax.swing.JLabel();
+        dimensionComboBox = new javax.swing.JComboBox<>();
         Carrera_seleccionada = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaEst = new javax.swing.JTable();
@@ -226,6 +231,14 @@ public class Editor_brigada extends javax.swing.JFrame {
             }
         });
 
+        dimension.setText("Dimensión");
+
+        dimensionComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dimensionComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout agregarEventoLayout = new javax.swing.GroupLayout(agregarEvento.getContentPane());
         agregarEvento.getContentPane().setLayout(agregarEventoLayout);
         agregarEventoLayout.setHorizontalGroup(
@@ -233,16 +246,28 @@ public class Editor_brigada extends javax.swing.JFrame {
             .addGroup(agregarEventoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(agregarEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(aceptar)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                    .addGroup(agregarEventoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(agregarEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dimensionComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(agregarEventoLayout.createSequentialGroup()
+                                .addComponent(dimension)
+                                .addGap(0, 112, Short.MAX_VALUE))))
+                    .addComponent(aceptar))
+                .addContainerGap())
         );
         agregarEventoLayout.setVerticalGroup(
             agregarEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(agregarEventoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(agregarEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(agregarEventoLayout.createSequentialGroup()
+                        .addComponent(dimension)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dimensionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(aceptar)
                 .addContainerGap())
         );
@@ -483,7 +508,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         agregarEvento.setSize(800, 600);
         agregarEvento.setLocationRelativeTo(null);
 
-        actualizarTablaEventos();
+        actualizarTablaEventos((String)dimensionComboBox.getSelectedItem());
 
     }//GEN-LAST:event_agregarEventosActionPerformed
 
@@ -496,6 +521,12 @@ public class Editor_brigada extends javax.swing.JFrame {
     private void agregarEventoWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_agregarEventoWindowOpened
 
     }//GEN-LAST:event_agregarEventoWindowOpened
+
+    private void dimensionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dimensionComboBoxActionPerformed
+        
+        actualizarTablaEventos((String)dimensionComboBox.getSelectedItem());
+        
+    }//GEN-LAST:event_dimensionComboBoxActionPerformed
 
     private void actualizarTabla(Vector<Estudiante> V) {
         DefaultTableModel df = new DefaultTableModel();
@@ -547,6 +578,8 @@ public class Editor_brigada extends javax.swing.JFrame {
     private javax.swing.JDialog agregarEvento;
     private javax.swing.JButton agregarEventos;
     private javax.swing.JDialog agregar_estudiante;
+    private javax.swing.JLabel dimension;
+    private javax.swing.JComboBox<String> dimensionComboBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel nombre;
@@ -554,7 +587,7 @@ public class Editor_brigada extends javax.swing.JFrame {
     private javax.swing.JTable tablaEventos;
     // End of variables declaration//GEN-END:variables
 
-    private void actualizarTablaEventos() {
+    private void actualizarTablaEventos(String dimension) {
 
         DefaultTableModel d = new DefaultTableModel();
         Object[] OBJ = new Object[3];
@@ -563,6 +596,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         d.addColumn("Seleccion");
         radioButtonEventos = new Vector<>();
         for (int i = 0; i < eventos.size(); i++) {
+            if(Integer.parseInt(eventos.elementAt(i).getN2().substring(eventos.elementAt(i).getN2().length()-4)) == B.getAnno() && G.obtenerDimensionEvento(eventos.elementAt(i), dimension)){
             OBJ[0] = G.obtenerNombreEvento(eventos.elementAt(i).getN1());
             radioButtonEventos.add(new JRadioButton("", false));
             OBJ[1] = eventos.elementAt(i).getN2();
@@ -574,6 +608,7 @@ public class Editor_brigada extends javax.swing.JFrame {
                }
            }
             d.addRow(OBJ);
+            }
         }
 
         tablaEventos = new JTable(d);
@@ -592,20 +627,27 @@ public class Editor_brigada extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int fila = tablaEventos.rowAtPoint(e.getPoint());
-                int columna = 3;
 
                 if (fila > -1) {
 
+                    int pos = 0;
+
+                    for(int i = 0; i < eventos.size(); i++){
+                        if(G.obtenerNombreEvento(eventos.elementAt(i).getN1()).equals(tablaEventos.getValueAt(fila, 0)) && eventos.elementAt(i).getN2().equals(tablaEventos.getValueAt(fila, 1))){
+                            pos = i;
+                            break;
+                        }
+                    }
                     if (radioButtonEventos.elementAt(fila).isSelected()) {
-                        eventosBrigada.add(eventos.elementAt(fila));
-                        if (eventosEliminados.contains(eventos.elementAt(fila))) {
-                            eventosEliminados.remove(eventos.elementAt(fila));
+                        eventosBrigada.add(eventos.elementAt(pos));
+                        if (eventosEliminados.contains(eventos.elementAt(pos))) {
+                            eventosEliminados.remove(eventos.elementAt(pos));
                         }
 
                     } else {
-                        eventosEliminados.add(eventos.elementAt(fila));
-                        if (eventosBrigada.contains(eventos.elementAt(fila))) {
-                            eventosBrigada.remove(eventos.elementAt(fila));
+                        eventosEliminados.add(eventos.elementAt(pos));
+                        if (eventosBrigada.contains(eventos.elementAt(pos))) {
+                            eventosBrigada.remove(eventos.elementAt(pos));
                         }
                     }
 

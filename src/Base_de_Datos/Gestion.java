@@ -1257,7 +1257,7 @@ public class Gestion {
 
             if (RS.next()) {
                 do {
-                    eventos.add(new Tupla<>(RS.getInt(3), RS.getString("fecha_evento")));
+                    eventos.add(new Tupla<>(RS.getInt(4), RS.getString("fecha_evento")));
 
                 } while (RS.next());
 
@@ -1275,14 +1275,14 @@ public class Gestion {
         try {
             C.conectar();
 
-            String stat = "select nombre_evento.nombre_evento from eventos join nombre_evento on nombre_evento.id_nombre_evento = eventos.id_nombre_evento where eventos.id_evento = " + id;
+            String stat = "select nombre_evento.nombre_evento from eventos join nombre_evento on nombre_evento.id_nombre_evento = eventos.id_nombre_evento where eventos.id_nombre_evento = " + id;
             ResultSet RS = C.getConsulta().executeQuery(stat);
             nombreEvento = RS.getString("nombre_evento");
-            C.desconectar();
+
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        C.desconectar();
         return nombreEvento;
     }
 
@@ -1294,21 +1294,33 @@ public class Gestion {
             String stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
             ResultSet RS = C.getConsulta().executeQuery(stat);
             int idB = RS.getInt("id_brigada");
+            
+            
 
             for (int i = 0; i < eventosBrigada.size(); i++) {
-                stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + eventosBrigada.elementAt(i).getN1();
+               
+                 stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_nombre_evento = " + eventosBrigada.elementAt(i).getN1();
+                 RS = C.getConsulta().executeQuery(stat);
+                 int idE = RS.getInt("id_evento");
+                
+                stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
                 RS = C.getConsulta().executeQuery(stat);
                 if (!RS.next()) {
-                    stat = "insert into eventos_brigada values(" + idB + ", " + eventosBrigada.elementAt(i).getN1() + ")";
+                    stat = "insert into eventos_brigada values(" + idB + ", " + idE + ")";
                     C.getConsulta().execute(stat);
                 }
             }
 
             for (int i = 0; i < eventosEliminados.size(); i++) {
-                stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + eventosEliminados.elementAt(i).getN1();
+                
+                stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_nombre_evento = " + eventosBrigada.elementAt(i).getN1();
+                 RS = C.getConsulta().executeQuery(stat);
+                 int idE = RS.getInt("id_evento");
+                 
+                stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
                 RS = C.getConsulta().executeQuery(stat);
                 if (RS.next()) {
-                    stat = "delete from eventos_brigada where id_brigada = " + idB + " and id_evento = " + eventosEliminados.elementAt(i).getN1();
+                    stat = "delete from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
                     C.getConsulta().execute(stat);
                 }
             }
@@ -1883,5 +1895,51 @@ public class Gestion {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
         C.desconectar();
+    }
+
+    public boolean obtenerDimensionEvento(Tupla<Integer, String> evento, String dimension) {
+        
+        C.conectar();
+        try {
+            String stat = "select nombre_dimension from eventos join dimensiones join nombre_evento on dimensiones.id_dimension = eventos.id_dimension and eventos.id_nombre_evento = nombre_evento.id_nombre_evento where eventos.id_nombre_evento = " + evento.getN1() + " and eventos.fecha_evento = '" + evento.getN2() + "'";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            String nombreDimension = RS.getString("nombre_dimension");
+            if(dimension.equals(nombreDimension)){
+                C.desconectar();
+                RS.close();
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+
+        return false;
+    }
+
+    public Vector<Tupla<Integer, String>> obtenerEventosAnno(int anno) {
+
+         C.conectar();
+        Vector<Tupla<Integer, String>> eventos = new Vector<>();
+
+        try {
+
+            String stat = "select * from eventos where fecha_evento like '%" + anno + "%'";
+
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+
+            if (RS.next()) {
+                do {
+                    eventos.add(new Tupla<>(RS.getInt(2), RS.getString("fecha_evento")));
+
+                } while (RS.next());
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return eventos;
+        
     }
 }
