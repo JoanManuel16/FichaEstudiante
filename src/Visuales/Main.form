@@ -34,7 +34,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="gestorEventos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Crear evento"/>
+                <Property name="text" type="java.lang.String" value="Gestor de eventos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gestorEventosActionPerformed"/>

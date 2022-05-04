@@ -20,8 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import utiles.Secuencias_cadenas;
-import static utiles.Secuencias_cadenas.sonNumeros;
 import utiles.Tupla;
 
 /**
@@ -39,8 +37,6 @@ public class EventoEstudiante extends javax.swing.JFrame {
     private Vector<Tupla<Estudiante, String>> estudiantesEvento;
     private Vector<Tupla<String, Integer>> logros;
     private Vector<JMenuItem> logrosPopMenu;
-    private String fecha;
-    private int dimension;
     
     private Vector<Evento> eventosBrigada;
     
@@ -49,6 +45,9 @@ public class EventoEstudiante extends javax.swing.JFrame {
     
     public EventoEstudiante(Brigada b) {
        initComponents();
+       
+       this.setLocationRelativeTo(null);
+       this.setTitle("Gestor de participacion en eventos");
         
         this.brigada=b;
         RadioButtonVector= new Vector<>();
@@ -79,13 +78,6 @@ public class EventoEstudiante extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        DialogLogroEventos = new javax.swing.JDialog();
-        nombreLogro = new javax.swing.JLabel();
-        nombreLogroTexto = new javax.swing.JTextField();
-        valorLogro = new javax.swing.JLabel();
-        valorLogroTexto = new javax.swing.JTextField();
-        aceptarLogro = new javax.swing.JButton();
-        cancelarLogro = new javax.swing.JButton();
         PopupMenuLogros = new javax.swing.JPopupMenu();
         escogerEvento = new javax.swing.JDialog();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -94,82 +86,9 @@ public class EventoEstudiante extends javax.swing.JFrame {
         TableEstudiantes = new javax.swing.JTable();
         LabelInformacion = new javax.swing.JLabel();
         ButtonAceptarFrame = new javax.swing.JButton();
-        agregarLogros = new javax.swing.JButton();
         eventoActual = new javax.swing.JLabel();
         eventoActualInfo = new javax.swing.JLabel();
         seleccionarEvento = new javax.swing.JButton();
-
-        nombreLogro.setText("Logro del Evento");
-
-        nombreLogroTexto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                nombreLogroTextoKeyReleased(evt);
-            }
-        });
-
-        valorLogro.setText("Valor del Logro");
-
-        valorLogroTexto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                valorLogroTextoKeyReleased(evt);
-            }
-        });
-
-        aceptarLogro.setText("Aceptar");
-        aceptarLogro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                aceptarLogroMouseClicked(evt);
-            }
-        });
-
-        cancelarLogro.setText("Cancelar");
-        cancelarLogro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarLogroActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout DialogLogroEventosLayout = new javax.swing.GroupLayout(DialogLogroEventos.getContentPane());
-        DialogLogroEventos.getContentPane().setLayout(DialogLogroEventosLayout);
-        DialogLogroEventosLayout.setHorizontalGroup(
-            DialogLogroEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DialogLogroEventosLayout.createSequentialGroup()
-                .addGroup(DialogLogroEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(DialogLogroEventosLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(DialogLogroEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(DialogLogroEventosLayout.createSequentialGroup()
-                                .addComponent(valorLogro)
-                                .addGap(18, 18, 18)
-                                .addComponent(valorLogroTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(DialogLogroEventosLayout.createSequentialGroup()
-                                .addComponent(nombreLogro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nombreLogroTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(DialogLogroEventosLayout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(aceptarLogro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelarLogro)))
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-        DialogLogroEventosLayout.setVerticalGroup(
-            DialogLogroEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DialogLogroEventosLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(DialogLogroEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreLogro)
-                    .addComponent(nombreLogroTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(DialogLogroEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valorLogro)
-                    .addComponent(valorLogroTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(DialogLogroEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aceptarLogro)
-                    .addComponent(cancelarLogro))
-                .addGap(18, 18, 18))
-        );
 
         tablaEventos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -227,13 +146,6 @@ public class EventoEstudiante extends javax.swing.JFrame {
             }
         });
 
-        agregarLogros.setText("Agregar Logros");
-        agregarLogros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarLogrosActionPerformed(evt);
-            }
-        });
-
         eventoActual.setText("Evento:");
 
         seleccionarEvento.setText("Seleccionar Evento");
@@ -255,10 +167,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(seleccionarEvento)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(agregarLogros))
+                            .addComponent(seleccionarEvento)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(eventoActual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -281,9 +190,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
                     .addComponent(eventoActual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(eventoActualInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seleccionarEvento)
-                    .addComponent(agregarLogros))
+                .addComponent(seleccionarEvento)
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -302,17 +209,6 @@ public class EventoEstudiante extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ButtonAceptarFrameMouseClicked
 
-    private void aceptarLogroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarLogroMouseClicked
-    if(!(nombreLogroTexto.getText().equals("")&& valorLogroTexto.getText().equals(""))){
-        g.agregarLogro(new Tupla<>(nombreLogroTexto.getText(), Integer.parseInt(valorLogroTexto.getText())), eventoSeleccionado);
-        logros = g.obtenerLogrosEvento(eventoSeleccionado);
-        DialogLogroEventos.dispose();
-    }
-    else{
-        JOptionPane.showMessageDialog(null, "hay campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    }//GEN-LAST:event_aceptarLogroMouseClicked
-
     private void seleccionarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarEventoActionPerformed
                 
         escogerEvento.setVisible(true);
@@ -321,60 +217,22 @@ public class EventoEstudiante extends javax.swing.JFrame {
                         
     }//GEN-LAST:event_seleccionarEventoActionPerformed
 
-    private void agregarLogrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarLogrosActionPerformed
-       
-        DialogLogroEventos.setVisible(true);
-        DialogLogroEventos.setSize(600, 400);
-        DialogLogroEventos.setLocationRelativeTo(null);
-        
-    }//GEN-LAST:event_agregarLogrosActionPerformed
-
-    private void nombreLogroTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreLogroTextoKeyReleased
-        
-        if(sonNumeros(evt.getKeyChar())){
-            Character caracterEtrada = evt.getKeyChar();
-            String reeplazo = nombreLogroTexto.getText().replaceAll(caracterEtrada.toString(),"");
-            nombreLogroTexto.setText(reeplazo);
-        }
-        
-    }//GEN-LAST:event_nombreLogroTextoKeyReleased
-
-    private void valorLogroTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorLogroTextoKeyReleased
-        
-        Secuencias_cadenas.borrarLetras(evt.getKeyChar(), valorLogroTexto);
-        
-    }//GEN-LAST:event_valorLogroTextoKeyReleased
-
-    private void cancelarLogroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarLogroActionPerformed
-  
-        DialogLogroEventos.dispose();
-        
-    }//GEN-LAST:event_cancelarLogroActionPerformed
-
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAceptarFrame;
-    private javax.swing.JDialog DialogLogroEventos;
     private javax.swing.JLabel LabelInformacion;
     private javax.swing.JPopupMenu PopupMenuLogros;
     private javax.swing.JTable TableEstudiantes;
-    private javax.swing.JButton aceptarLogro;
-    private javax.swing.JButton agregarLogros;
-    private javax.swing.JButton cancelarLogro;
     private javax.swing.JDialog escogerEvento;
     private javax.swing.JLabel eventoActual;
     private javax.swing.JLabel eventoActualInfo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel nombreLogro;
-    private javax.swing.JTextField nombreLogroTexto;
     private javax.swing.JButton seleccionarEvento;
     private javax.swing.JTable tablaEventos;
-    private javax.swing.JLabel valorLogro;
-    private javax.swing.JTextField valorLogroTexto;
     // End of variables declaration//GEN-END:variables
 
 private void actualizar_tabla(Evento E){

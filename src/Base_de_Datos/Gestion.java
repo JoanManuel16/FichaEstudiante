@@ -1275,7 +1275,7 @@ public class Gestion {
         try {
             C.conectar();
 
-            String stat = "select nombre_evento.nombre_evento from eventos join nombre_evento on nombre_evento.id_nombre_evento = eventos.id_nombre_evento where eventos.id_nombre_evento = " + id;
+            String stat = "select nombre_evento.nombre_evento from eventos join nombre_evento on nombre_evento.id_nombre_evento = eventos.id_nombre_evento where eventos.id_evento = " + id;
             ResultSet RS = C.getConsulta().executeQuery(stat);
             nombreEvento = RS.getString("nombre_evento");
 
@@ -1941,5 +1941,65 @@ public class Gestion {
         C.desconectar();
         return eventos;
         
+    }
+
+    public Object obtenerDimensionEvento(Integer eventoID) {
+
+        C.conectar();
+        String res = "";
+        try {
+            String stat = "select nombre_dimension from eventos join dimensiones on eventos.id_dimension = dimensiones.id_dimension where eventos.id_evento = " + eventoID;
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            res = RS.getString("nombre_dimension");
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.desconectar();
+        return res;
+    }
+
+    public Evento obtenerEvento(Integer eventoID) {
+        
+        C.conectar();
+        Evento E = null;
+        try {
+            String stat = "select * from eventos join dimensiones join nombre_evento on eventos.id_nombre_evento = nombre_evento.id_nombre_evento and eventos.id_dimension = dimensiones.id_dimension where id_evento = " + eventoID;
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            String fechaEvento = RS.getString(4);
+            int dimensionEvento = RS.getInt(3);
+            String nombreEvento = RS.getString(8);
+            E = new Evento(nombreEvento, dimensionEvento, fechaEvento);
+        } catch (SQLException e) {
+            
+        }
+        C.desconectar();
+        return E;
+    }
+
+    public void eliminarLogro(Tupla<String, Integer> logro, Evento E) {
+        
+        C.conectar();
+        
+        try {
+            
+            String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and fecha_evento = '" + E.getAnno() + "'";            
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            int idE = RS.getInt("id_evento");
+            
+            stat = "select id_logro from logros_evento where id_evento = " + idE + " and logro_evento = '" + logro.getN1() + "'";
+            RS = C.getConsulta().executeQuery(stat);
+            int idL = RS.getInt("id_logro");
+            
+            stat = "delete from logros_evento where id_logro = " + idL;
+            C.getConsulta().execute(stat);
+            
+            stat = "delete from eventos_estudiante where id_logro = " + idL;
+            C.getConsulta().execute(stat);
+            
+        } catch (SQLException e) {
+            
+        }
+
+        C.desconectar();
     }
 }

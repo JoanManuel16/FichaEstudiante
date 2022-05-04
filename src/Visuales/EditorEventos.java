@@ -19,7 +19,7 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  *
  * @author joanmanuel
  */
-public class GestorEventos extends javax.swing.JFrame {
+public class EditorEventos extends javax.swing.JFrame {
 
     /**
      * Creates new form Filtrar_evento
@@ -27,7 +27,7 @@ public class GestorEventos extends javax.swing.JFrame {
     private Vector<String>NombreEventos;
     private Gestion g;
     
-    public GestorEventos() {
+    public EditorEventos() {
         initComponents();
         g= new Gestion();
         NombreEventos=g.obtener_nombres_eventos();
@@ -39,7 +39,7 @@ public class GestorEventos extends javax.swing.JFrame {
             dimensionesComboBox.addItem(dimensiones.elementAt(i));
     }
         this.setLocationRelativeTo(null);
-        this.setTitle("Gestor de Eventos");
+        this.setTitle("Editor de Evento");
     }
 
     /**
@@ -134,17 +134,17 @@ public class GestorEventos extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(50, 50, 50)
                                 .addComponent(cancelar)
                                 .addGap(41, 41, 41)
                                 .addComponent(dimensionesL)
                                 .addGap(25, 25, 25)
                                 .addComponent(dimensionesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(169, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())))))
+                                .addGap(47, 169, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,12 +197,11 @@ public class GestorEventos extends javax.swing.JFrame {
 
     private void nuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoEventoMouseClicked
        
-         if(TextNombreEvento.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "El nombre del Evetno esta vacio", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-        }
-        
-        String temp = TextNombreEvento.getText();
+           String temp = JOptionPane.showInputDialog(null, "Introduzca el nombre del evento");
+           if(temp == null || temp.equals("")){
+               return;
+           }
+
         Vector<String> Similares = new Vector<>();
              for(int i = 0; i < NombreEventos.size(); i++){
                  if(Secuencias_cadenas.LongestCommonSubsequence(temp, NombreEventos.elementAt(i))>=75.00){
@@ -242,6 +241,8 @@ public class GestorEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_nuevoEventoMouseClicked
 
     private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
+        Gestor_Eventos GE = new Gestor_Eventos();
+        GE.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelarMouseClicked
 
@@ -275,7 +276,7 @@ public class GestorEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_aceptarMouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-       
+    
         Main M = new Main();
         M.setVisible(true);
     }//GEN-LAST:event_formWindowClosing

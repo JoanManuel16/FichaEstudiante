@@ -70,7 +70,7 @@ public class Main extends javax.swing.JFrame {
 
         eventos.setText("Eventos");
 
-        gestorEventos.setText("Crear evento");
+        gestorEventos.setText("Gestor de eventos");
         gestorEventos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gestorEventosActionPerformed(evt);
@@ -131,8 +131,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_crearBrigadaActionPerformed
 
     private void gestorEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorEventosActionPerformed
-        GestorEventos cr = new GestorEventos();
-                cr.setVisible(true);
+       
+        Gestor_Eventos GE = new Gestor_Eventos();
+        GE.setVisible(true);
                 this.dispose();
     }//GEN-LAST:event_gestorEventosActionPerformed
 
