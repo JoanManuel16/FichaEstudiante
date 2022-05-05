@@ -170,11 +170,18 @@ public class ICI extends javax.swing.JFrame {
     }//GEN-LAST:event_PATKeyReleased
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-
+        
         if (PAT.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo PA no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+            PAT.setText("");
+            ButtonReporte.setVisible(false);
             return;
-        } else {
+        } 
+        if(Integer.parseInt(PAT.getText()) <= 0 ||Integer.parseInt(PAT.getText()) >=100 ){
+            JOptionPane.showMessageDialog(null, "El PA debe ser mayor que 0 y menor que 100", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        else  {
             double M = (double) (Integer.parseInt(actividadesExtraL.getText()) * 100) / ((double) (Integer.parseInt(PAT.getText())));
             relacionL.setText(M + "");
         }

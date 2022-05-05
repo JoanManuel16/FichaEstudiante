@@ -17,6 +17,7 @@ import clases.Evento;
 import clases.Nota;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import utiles.Tupla;
 
 //UPDATEAR los datos del estudiante solo cuando se vaya a cargar. Nunca antes.
@@ -1363,6 +1364,9 @@ public class Gestion {
 
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "La brigada Seleccionanda no tiene eventos para obtener sus puntos ", "Error", JOptionPane.ERROR_MESSAGE);
+            C.desconectar();
+            return 0;
         }
 
         C.desconectar();

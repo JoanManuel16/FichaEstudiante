@@ -12,13 +12,9 @@ import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
-import javax.print.attribute.standard.JobStateReason;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import utiles.RadioButtonEditor;
-import utiles.RadioButtonRenderer;
 import utiles.Secuencias_cadenas;
 import static utiles.Secuencias_cadenas.sonNumeros;
 import utiles.Tupla;
@@ -50,6 +46,9 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         eventosSeleccionados = new Vector<>();
         eventosAnno = 0;
         eventosDimension = "";
+        setTitle("Getion de eventos");
+        setLocationRelativeTo(null);
+        setResizable(false);
         
         Vector<String> dimensiones = G.obtenerDimensiones();
         for(int i = 0; i < dimensiones.size(); i++){
@@ -173,6 +172,11 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         eventosMenu.add(EliminarEvento);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -315,8 +319,8 @@ public class Gestor_Eventos extends javax.swing.JFrame {
        
         EditorEventos EE = new EditorEventos();
         EE.setVisible(true);
-        dispose();
-        
+        eventosMenu.setVisible(false);
+        dispose();      
     }//GEN-LAST:event_nuevoEventoActionPerformed
 
     private void dimensionEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dimensionEventoActionPerformed
@@ -335,9 +339,11 @@ public class Gestor_Eventos extends javax.swing.JFrame {
        
         eventosMenu.setVisible(false);
         logrosSeleccion.setVisible(true);
-        logrosSeleccion.setLocationRelativeTo(null);
-        logrosSeleccion.setSize(800, 800);
+        
+        logrosSeleccion.setLocation(this.getLocationOnScreen());
+        logrosSeleccion.setSize(624, 473);
         eventoTemp = G.obtenerEvento(eventosSeleccionados.elementAt(tablaEventos.getSelectedRow()).getN1());
+        logrosSeleccion.setTitle("Editor de logros del evento "+ eventoTemp.getNombre() +" del anno "+eventoTemp.getAnno().substring(eventoTemp.getAnno().length()-4));
         actualizarTablaLogros(eventoTemp);
         
     }//GEN-LAST:event_editarLogrosActionPerformed
@@ -375,13 +381,17 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             try {
                 
             int valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Escriba el valor"));
-        if(valor != 0){
+        if(valor < 0){
+            JOptionPane.showMessageDialog(null, "El numero debe ser mayor que 0 ", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+            if(valor != 0){
             Tupla<String, Integer> logro = new Tupla<>((String)tablaLogros.getValueAt(fila, 0), valor);
             G.agregarLogro(logro, eventoTemp);
             actualizarTablaLogros(eventoTemp);
         }
                     } catch (HeadlessException | NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Debe escribir un numero");
+                        JOptionPane.showMessageDialog(null, "Debe escribir un numero", "Error", JOptionPane.ERROR_MESSAGE);
             }
             
         }
@@ -399,7 +409,12 @@ public class Gestor_Eventos extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         Main M = new Main();
         M.setVisible(true);
+        
     }//GEN-LAST:event_formWindowClosing
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        eventosMenu.setVisible(false);
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -433,9 +448,13 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         d.addColumn("Dimension");
         
         eventosSeleccionados = new Vector<>();
-        if(eventosAnno == 0 && eventosDimension.equals("") && eventosNombre.isEmpty()){
+        if(eventosNombre.isEmpty()&& !nombreEventoT.getText().equals("")){
+            System.err.println("tu amma es pelua");
+        }
+        else if(eventosAnno == 0 && eventosDimension.equals("") && eventosNombre.isEmpty()){
             eventosSeleccionados = eventos;
         }
+        
         else if(eventosAnno != 0 && eventosDimension.equals("") && eventosNombre.isEmpty()){
             for(int i = 0; i < eventos.size(); i++){
                 if(eventosAnno == Integer.parseInt(eventos.elementAt(i).getN2().substring(eventos.elementAt(i).getN2().length()-4))){
@@ -507,9 +526,8 @@ public class Gestor_Eventos extends javax.swing.JFrame {
                 int fila = tablaEventos.rowAtPoint(e.getPoint());
 
                 if (fila > -1) {
-
                    eventosMenu.setVisible(true);
-                   eventosMenu.setLocation(e.getPoint());
+                   eventosMenu.setLocation(e.getXOnScreen(),e.getYOnScreen());
 
                 }
             }
