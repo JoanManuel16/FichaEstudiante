@@ -407,7 +407,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
         });
         menuNotas.add(editarNota);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         nombreEstudiante.setText("Nombre del Estudiante");
 
@@ -462,7 +467,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                             .addComponent(finalizar)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 111, Short.MAX_VALUE)
+                                    .addComponent(nombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                                     .addComponent(carnet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1804,6 +1809,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
             menuNotas.setVisible(false);
         }    }//GEN-LAST:event_jPanel9MouseClicked
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Editor_brigada ed = new Editor_brigada(b);
+        ed.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Anno;
@@ -1934,7 +1945,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void actualizarTablaManifestaciones(Vector<String> manifestacionesArtisticas) {
-        DefaultTableModel d = new DefaultTableModel();
+        DefaultTableModel d = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column==1;
+            }
+        ;
+        };
         Object[] OBJ = new Object[2];
         d.addColumn("Nombre de la Manifestacion");
         d.addColumn("Seleccion");
@@ -1988,7 +2006,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     private void actualizarTablaDeportes(Vector<String> deporte) {
 
-        DefaultTableModel d = new DefaultTableModel();
+        DefaultTableModel d = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column==1;
+            }
+        ;
+        };
         Object[] OBJ = new Object[2];
         d.addColumn("Deporte");
         d.addColumn("Seleccion");
@@ -2043,7 +2068,13 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     private void actualizarTablaEnfermedades(Vector<String> enfermedade) {
 
-        DefaultTableModel d = new DefaultTableModel();
+        DefaultTableModel d = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column==1;
+            }
+        ;
+        };
         Object[] OBJ = new Object[2];
         d.addColumn("Enfermedad");
         d.addColumn("Seleccion");
@@ -2095,7 +2126,13 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     private void actualizarTablaMedicamentos(Vector<String> medicamento) {
 
-        DefaultTableModel d = new DefaultTableModel();
+        DefaultTableModel d = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column==1;
+            }
+        ;
+        };
         Object[] OBJ = new Object[2];
         d.addColumn("Medicamento");
         d.addColumn("Seleccion");
@@ -2149,7 +2186,13 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     private void actualizarTablaNotas(Vector<Nota> notas) {
 
-        DefaultTableModel d = new DefaultTableModel();
+        DefaultTableModel d = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        ;
+        };
         Object[] OBJ = new Object[2];
         d.addColumn("Asignatura");
 

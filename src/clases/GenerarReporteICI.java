@@ -14,10 +14,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Queue;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +36,6 @@ public class GenerarReporteICI {
         this.PA=PA;
         this.e=e;
         g = new Gestion();
-//        utiles.ICI.ICI(m, M, promedioi, miTemp);
     }
 
     public boolean generarReporte() throws DocumentException {
@@ -58,7 +55,7 @@ public class GenerarReporteICI {
             tabla1.setHorizontalAlignment(Paragraph.ALIGN_JUSTIFIED);
             tabla1.addCell("Estudiante");
             tabla1.addCell("Promedio");
-            tabla1.addCell("Valor de las actividades extracurricularesValor de las actividades extracurriculares");
+            tabla1.addCell("Valor de las actividades extracurriculares");
             tabla1.addCell("ICI");
             
              do {

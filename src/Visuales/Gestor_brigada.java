@@ -19,16 +19,13 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  */
 public class Gestor_brigada extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Gestor_brigada
-     */
     private Gestion g;
     private Vector<String> carreras;
     private Vector<String> BrigadasCarrera;
     private Integer BrigadasAnno;
     private Integer BrigadasAnnoB;
     private int opcion;
-
+    private boolean openMain;
     private Vector<Brigada> Brigadas;
 
     private Vector<Brigada> BrigadasSeleccionadas;
@@ -43,7 +40,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         this.opcion = opcion;
-
+        openMain = true;
         carreras = g.obtener_carreras();
 
         BrigadasCarrera = new Vector<>();
@@ -57,7 +54,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
         if (opcion == 1) {
             editar.setText("Editar");
-        } else{
+        } else {
             editar.setText("Seleccionar");
         }
 
@@ -85,6 +82,11 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         TableBrigadasExistentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -204,7 +206,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
             String reeplazo = carreraBrigada.getText().replaceAll(caracterEtrada.toString(), "");
             carreraBrigada.setText(reeplazo);
         }
-        if(carreraBrigada.getText().equals("")){
+        if (carreraBrigada.getText().equals("")) {
             actualizarTablaBrigadas(Brigadas);
             return;
         }
@@ -235,13 +237,16 @@ public class Gestor_brigada extends javax.swing.JFrame {
                         if (Brigadas.elementAt(i).getAnno() == anno && Brigadas.elementAt(i).getAnno_brigada() == annoB && Brigadas.elementAt(i).getCarrera().equals(carr)) {
                             Editor_brigada EB = new Editor_brigada(Brigadas.elementAt(i));
                             EB.setVisible(true);
+                            openMain = false;
                             dispose();
                         }
                     }
-                }   for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
+                }
+                for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
                     if (BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada() == annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)) {
                         Editor_brigada EB = new Editor_brigada(BrigadasSeleccionadas.elementAt(i));
                         EB.setVisible(true);
+                        openMain = false;
                         dispose();
                     }
                 }
@@ -250,23 +255,26 @@ public class Gestor_brigada extends javax.swing.JFrame {
                 if (BrigadasSeleccionadas.isEmpty()) {
                     for (int i = 0; i < Brigadas.size(); i++) {
                         if (Brigadas.elementAt(i).getAnno() == anno && Brigadas.elementAt(i).getAnno_brigada() == annoB && Brigadas.elementAt(i).getCarrera().equals(carr)) {
-                             int m = g.obtenerSumaValoresEventos(Brigadas.elementAt(i));
-                             if(m==0){
-                             return;
-                             }
+                            int m = g.obtenerSumaValoresEventos(Brigadas.elementAt(i));
+                            if (m == 0) {
+                                return;
+                            }
                             ICI ici = new ICI(Brigadas.elementAt(i));
                             ici.setVisible(true);
+                            openMain = false;
                             dispose();
                         }
                     }
-                }   for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
+                }
+                for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
                     if (BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada() == annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)) {
                         int m = g.obtenerSumaValoresEventos(Brigadas.elementAt(i));
-                        if(m==0){
-                             return;
-                             }
+                        if (m == 0) {
+                            return;
+                        }
                         ICI ici = new ICI(BrigadasSeleccionadas.elementAt(i));
                         ici.setVisible(true);
+                        openMain = false;
                         dispose();
                     }
                 }
@@ -280,13 +288,15 @@ public class Gestor_brigada extends javax.swing.JFrame {
                             dispose();
                         }
                     }
-                }   for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
+                }
+                for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
                     if (BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada() == annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)) {
                         EventoEstudiante EE = new EventoEstudiante(BrigadasSeleccionadas.elementAt(i));
                         EE.setVisible(true);
                         dispose();
                     }
                 }
+                openMain = false;
             }
         }
 
@@ -295,7 +305,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
     private void ComboBoxAnnosPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
         String seleccion = (String) ComboBoxAnnos.getSelectedItem();
         if (seleccion.equals("none")) {
-            BrigadasAnnoB=0;
+            BrigadasAnnoB = 0;
             actualizarTablaBrigadas(Brigadas);
             return;
         }
@@ -310,7 +320,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
         char X = evt.getKeyChar();
         Secuencias_cadenas.borrarLetras(X, annoLabel);
         if (annoLabel.getText().equals("")) {
-            BrigadasAnno=0;
+            BrigadasAnno = 0;
             actualizarTablaBrigadas(Brigadas);
             return;
         }
@@ -323,15 +333,22 @@ public class Gestor_brigada extends javax.swing.JFrame {
     }//GEN-LAST:event_annoLabelKeyReleased
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
-        
-        if(opcion == 4){
-            
+
+        if (opcion == 4) {
+
         }
-        
+
         Main M = new Main();
         M.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonCancelarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if (openMain) {
+            Main m = new Main();
+            m.setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -348,8 +365,16 @@ public class Gestor_brigada extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void actualizarTablaBrigadas(Vector<Brigada> V) {
-        DefaultTableModel df = new DefaultTableModel();
+        DefaultTableModel df = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        ;
+        };
         TableBrigadasExistentes = new JTable(df);
+
+        DefaultTableModel d = new DefaultTableModel();
         jScrollPane1.setViewportView(TableBrigadasExistentes);
         df.addColumn("Carrera");
         df.addColumn("Año");
@@ -366,7 +391,13 @@ public class Gestor_brigada extends javax.swing.JFrame {
     }
 
     private void actualizarTablaBrigadas(Vector<Brigada> V, Integer BA, Integer BAB, Vector<String> BC) {
-        DefaultTableModel df = new DefaultTableModel();
+        DefaultTableModel df = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        ;
+        };
         TableBrigadasExistentes = new JTable(df);
         jScrollPane1.setViewportView(TableBrigadasExistentes);
         df.addColumn("Carrera");

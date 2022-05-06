@@ -407,9 +407,10 @@ public class Gestor_Eventos extends javax.swing.JFrame {
     }//GEN-LAST:event_finalizarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       eventosMenu.setVisible(false);
         Main M = new Main();
         M.setVisible(true);
-        
+        dispose();
     }//GEN-LAST:event_formWindowClosing
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -441,7 +442,12 @@ public class Gestor_Eventos extends javax.swing.JFrame {
 
      private void actualizarTablaEventos() {
 
-        DefaultTableModel d = new DefaultTableModel();
+        DefaultTableModel d = new DefaultTableModel(){
+            @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;         
+             };
+        };
         Object[] OBJ = new Object[3];
         d.addColumn("Evento");
         d.addColumn("Año");

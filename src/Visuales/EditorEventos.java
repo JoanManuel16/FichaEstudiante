@@ -23,9 +23,7 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  */
 public class EditorEventos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Filtrar_evento
-     */
+   
     private Vector<String> NombreEventos;
     private Gestion g;
 
@@ -317,7 +315,12 @@ public class EditorEventos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void actualizarTabla(Vector<String> v) {
-        DefaultTableModel df = new DefaultTableModel();
+        DefaultTableModel df = new DefaultTableModel(){
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;         
+             };
+        };
         TableEventos = new JTable(df);
         jScrollPane1.setViewportView(TableEventos);
         TableEventos.addMouseListener(new MouseAdapter() {

@@ -238,6 +238,11 @@ public class ICI extends javax.swing.JFrame {
                 }
                 return String.class;
             }
+            
+            @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;         
+             };
         };
         Object[] OBJ = new Object[4];
         d.addColumn("Estudiante");

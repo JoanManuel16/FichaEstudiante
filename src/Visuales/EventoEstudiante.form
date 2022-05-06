@@ -9,6 +9,9 @@
       </Layout>
     </Container>
     <Container class="javax.swing.JDialog" name="escogerEvento">
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="escogerEventoWindowClosing"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

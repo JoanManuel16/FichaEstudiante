@@ -29,16 +29,14 @@ public class Conexion
         URL url;
 
 
-    /**
-     * Constructor for objects of class Conexion
-     */
+   
     public Conexion()
     {
         
         
         
        
- ruta = System.getProperty("user.dir")+"\\FichaEstudianteDB.db";    
+ ruta = System.getProperty("user.dir")+System.getProperty("file.separator")+"FichaEstudianteDB.db";    
     ///RUTA PARA EL JAR SI NO NO CORRE
  //  ruta = "..\\FichaEstudianteDB.db";
         
