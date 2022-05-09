@@ -44,7 +44,12 @@ public class Gestor_carreras extends javax.swing.JFrame {
     
     private void actualizarTabla(Vector<String> V){
         
-        DefaultTableModel df= new DefaultTableModel();
+        DefaultTableModel df= new DefaultTableModel(){
+        @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;         
+             };
+        };
             Tabla_carreras= new JTable(df);
             jScrollPane1.setViewportView(Tabla_carreras);
             df.addColumn("Nombre de la carrera");
@@ -116,6 +121,11 @@ public class Gestor_carreras extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         Nombre_carrera.setText("Carrera:");
 
@@ -261,12 +271,14 @@ public class Gestor_carreras extends javax.swing.JFrame {
     }//GEN-LAST:event_Texto_carreraKeyReleased
 
     private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
-        
-        Main M = new Main();
-        M.setVisible(true);
         dispose();
-        
     }//GEN-LAST:event_FinalizarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Main m = new Main();
+        m.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

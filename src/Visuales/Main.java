@@ -4,6 +4,9 @@
  */
 package Visuales;
 
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+
 /**
  *
  * @author joanmanuel
@@ -15,7 +18,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
         this.setTitle("Ventana principal");
     }
@@ -91,6 +94,11 @@ public class Main extends javax.swing.JFrame {
         notas.setText("Notas");
 
         filtrarNotas.setText("Filtrar por Notas");
+        filtrarNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtrarNotasActionPerformed(evt);
+            }
+        });
         notas.add(filtrarNotas);
 
         ICI.setText("ICI");
@@ -123,18 +131,18 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void crearBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBrigadaActionPerformed
-       
+
         Gestor_carreras GC = new Gestor_carreras(false);
         GC.setVisible(true);
         dispose();
-        
+
     }//GEN-LAST:event_crearBrigadaActionPerformed
 
     private void gestorEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorEventosActionPerformed
-       
+
         Gestor_Eventos GE = new Gestor_Eventos();
         GE.setVisible(true);
-                this.dispose();
+        this.dispose();
     }//GEN-LAST:event_gestorEventosActionPerformed
 
     private void brigadasExistentesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brigadasExistentesMouseReleased
@@ -144,21 +152,25 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_brigadasExistentesMouseReleased
 
     private void ICIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ICIActionPerformed
-        
+
         Gestor_brigada GB = new Gestor_brigada(2);
         GB.setVisible(true);
         this.dispose();
-        
-        
+
+
     }//GEN-LAST:event_ICIActionPerformed
 
     private void annadirEstudiantesEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annadirEstudiantesEventoActionPerformed
-        
+
         Gestor_brigada GB = new Gestor_brigada(3);
         GB.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_annadirEstudiantesEventoActionPerformed
+
+    private void filtrarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarNotasActionPerformed
+        JOptionPane.showMessageDialog(null, "Not implemented yet still in testing", "INFO", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_filtrarNotasActionPerformed
 
     /**
      * @param args the command line arguments

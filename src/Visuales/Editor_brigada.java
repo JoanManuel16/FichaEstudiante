@@ -38,10 +38,10 @@ public class Editor_brigada extends javax.swing.JFrame {
     private Vector<JRadioButton> radioButtonEventos = new Vector<>();
     private boolean actualizacion;
     private Vector<String> dimensiones = new Vector<>();
-
+    private boolean openMain;
     public Editor_brigada(String Carr) {
         initComponents();
-
+        openMain=true;
         B = null;
         actualizacion = false;
         estudiantes = new Vector<>();
@@ -69,7 +69,7 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     public Editor_brigada(Brigada B) {
         initComponents();
-
+         openMain=true;
         actualizacion = true;
         estudiantes = B.getEstudiantes();
         actualizarTabla(estudiantes);
@@ -276,7 +276,17 @@ public class Editor_brigada extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         TablaEst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -357,7 +367,7 @@ public class Editor_brigada extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(agregarEventos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Agregar_estudiante, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))))
+                            .addComponent(Agregar_estudiante, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -420,7 +430,6 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
 
-      
         String[] nombres = nombreT.getText().split(" ");
 
         if (nombres.length < 3) {
@@ -457,9 +466,13 @@ public class Editor_brigada extends javax.swing.JFrame {
             DatosEstudiante de = G.obtenerDatosEsttudiante(estudiantes.elementAt(TablaEst.getSelectedRow()));
             Editor_estudiante EE = new Editor_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()), Carrera_seleccionada.getText(), B, de);
             EE.setVisible(true);
+            openMain=false;
+            this.dispose();
         } else {
             Editor_estudiante EE = new Editor_estudiante(estudiantes.elementAt(TablaEst.getSelectedRow()), Carrera_seleccionada.getText(), B);
             EE.setVisible(true);
+            openMain=false;
+            this.dispose();
         }
         MenuEstudiantes.setVisible(false);
     }//GEN-LAST:event_EditarEstudianteActionPerformed
@@ -538,8 +551,26 @@ public class Editor_brigada extends javax.swing.JFrame {
         
     }//GEN-LAST:event_dimensionComboBoxActionPerformed
 
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        MenuEstudiantes.setVisible(false);
+    }//GEN-LAST:event_formMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+         MenuEstudiantes.setVisible(false);
+         if(openMain){
+         Main m = new Main();
+         m.setVisible(true);
+         this.dispose();
+         }
+    }//GEN-LAST:event_formWindowClosed
+
     private void actualizarTabla(Vector<Estudiante> V) {
-        DefaultTableModel df = new DefaultTableModel();
+        DefaultTableModel df = new DefaultTableModel(){
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;         
+             };
+        };
         TablaEst = new JTable(df);
         jScrollPane1.setViewportView(TablaEst);
         df.addColumn("Nombre del estudiante");
@@ -599,7 +630,13 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void actualizarTablaEventos(String dimension) {
 
-        DefaultTableModel d = new DefaultTableModel();
+        DefaultTableModel d = new DefaultTableModel(){
+        
+         @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            };
+        };
         Object[] OBJ = new Object[3];
         d.addColumn("Evento");
         d.addColumn("Año");

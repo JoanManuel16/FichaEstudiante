@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import utiles.Tupla;
 import clases.Carrera;
-import java.awt.Point;
 import static utiles.Secuencias_cadenas.sonNumeros;
 
 /**
@@ -85,7 +84,12 @@ public class Editor_carrera extends javax.swing.JFrame {
     
     
     private void actualizarTablaAsig(Vector<String> V) {
-            DefaultTableModel df= new DefaultTableModel();
+            DefaultTableModel df= new DefaultTableModel(){
+             @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+            };
             seleccionAsig= new JTable(df);
             jScrollPane1.setViewportView(seleccionAsig);
             df.addColumn("Nombre de la asignatura");
@@ -133,7 +137,12 @@ public class Editor_carrera extends javax.swing.JFrame {
     }
     
     public void actualizarTablaSem(int anno){
-          DefaultTableModel df= new DefaultTableModel();
+          DefaultTableModel df= new DefaultTableModel(){
+           @Override
+            public boolean isCellEditable(int row, int column) {
+                return column==1;
+            }
+          };
             AsigXSem = new JTable(df);
             jScrollPane2.setViewportView(AsigXSem);
             df.addColumn("Nombre de la asignatura");

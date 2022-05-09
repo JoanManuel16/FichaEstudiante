@@ -1371,6 +1371,9 @@ public class Gestion {
 
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "La brigada Seleccionanda no tiene eventos para obtener sus puntos ", "Error", JOptionPane.ERROR_MESSAGE);
+            C.desconectar();
+            return 0;
         }
 
         C.desconectar();
