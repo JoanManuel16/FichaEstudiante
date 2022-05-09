@@ -17,6 +17,7 @@ import clases.Evento;
 import clases.Nota;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import utiles.Tupla;
 
 //UPDATEAR los datos del estudiante solo cuando se vaya a cargar. Nunca antes.
@@ -186,24 +187,23 @@ public class Gestion {
             String stat2 = "select asignaturas_semestre.id_asignatura, asignaturas.nombre_asignatura from asignaturas_semestre join carrera join asignaturas on asignaturas_semestre.id_carrera = carrera.id_carrera and asignaturas.id_asignatura = asignaturas_semestre.id_asignatura where carrera.id_carrera = (select id_carrera from carrera where nombre_carrera = '" + Carrera + "')";
 
             RS = C.getConsulta().executeQuery(stat2);
-            
+
             Vector<Tupla<Integer, String>> V = new Vector<>();
-            
+
             do {
-            int idA = RS.getInt("id_asignatura");
-            String NA = RS.getString("nombre_asignatura");
-            V.add(new Tupla<>(idA, NA));
-            
+                int idA = RS.getInt("id_asignatura");
+                String NA = RS.getString("nombre_asignatura");
+                V.add(new Tupla<>(idA, NA));
+
             } while (RS.next());
-            
-                for(int i = 0; i < V.size(); i++){
+
+            for (int i = 0; i < V.size(); i++) {
                 //A veces pone la asignatura doble
-                    String execute = "insert into notas_estudiante values(" + idE + ", " + V.elementAt(i).getN1() + ", 0, 0, '" + V.elementAt(i).getN2() + "')";
+                String execute = "insert into notas_estudiante values(" + idE + ", " + V.elementAt(i).getN1() + ", 0, 0, '" + V.elementAt(i).getN2() + "')";
                 C.getConsulta().execute(execute);
-                }
+            }
 
         } catch (SQLException ex) {
-            System.err.println(ex);
             C.desconectar();
             return false;
         }
@@ -212,7 +212,7 @@ public class Gestion {
         return true;
     }
 
-    public boolean editar_estudiante(Brigada B, DatosEstudiante DE) {
+    public boolean editar_estudiante(Brigada B, DatosEstudiante DE, String CIViejo) {
         int becado = 0;
         int militante = 0;
         int hijos = 0;
@@ -225,9 +225,10 @@ public class Gestion {
         int feliz = 0;
         int gusto_estudio = 0;
         int gusto_carrera = 0;
+        int padresDivorciados = 0;
         Vector<Integer> deportes = new Vector<>();
         Vector<Integer> enfermedades = new Vector<>();
-        
+
         C.conectar();
 
         String stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
@@ -271,6 +272,9 @@ public class Gestion {
             if (DE.isActivo()) {
                 activo = 1;
             }
+            if (DE.isPadres_divorciados()) {
+                padresDivorciados = 1;
+            }
             for (int i = 0; i < DE.getConvivencia().length; i++) {
                 if (DE.getConvivencia()[i] == true) {
                     familiares[i] = 1;
@@ -285,16 +289,16 @@ public class Gestion {
                     electronics[i] = 0;
                 }
             }
-            int id_religion=0;
-            if(!DE.getReligion().equals("")){
-            stat = "select id_religion from religion where religion = '" + DE.getReligion()+"'";
-           RS = C.getConsulta().executeQuery(stat);
-           id_religion=RS.getInt("id_religion");
+            int id_religion = 0;
+            if (!DE.getReligion().equals("")) {
+                stat = "select id_religion from religion where religion = '" + DE.getReligion() + "'";
+                RS = C.getConsulta().executeQuery(stat);
+                id_religion = RS.getInt("id_religion");
             }
-            stat = "insert into Estudiante values(null, '" + DE.getNombre_estudiante() + "', '" + DE.getCI() + "', " + DE.getTelefono_particular() + ", " + DE.getTelefono_fijo() + ", " + datosMoviles + ", '" + DE.getEmail() + "', "
+            stat = "insert into Estudiante values(null, '" + DE.getNombre_estudiante() + "', '" + DE.getCI() + "', '" + DE.getTelefono_particular() + "', '" + DE.getTelefono_fijo() + "', " + datosMoviles + ", '" + DE.getEmail() + "', "
                     + "'" + DE.getSexo() + "', " + DE.getEdad() + ", " + becado + ", " + DE.getColor_de_piel() + ", " + militante + ", "
                     + +DE.getEstado_civil() + ", " + hijos + ", '" + DE.getDireccion_particular() + "'," + DE.getZona()
-                    + ","+id_religion+ ", " + bebidas + ", " + fumador + ", " + DE.getParticipacion_brigada() + ", " + idB
+                    + "," + id_religion + ", " + bebidas + ", " + fumador + ", " + DE.getParticipacion_brigada() + ", " + idB
                     + "," + DE.getNivel_ingles() + ", " + activo + ")";
             C.getConsulta().execute(stat);
             stat = "select id_estudiante from Estudiante where CI = '" + DE.getCI() + "'";
@@ -304,8 +308,8 @@ public class Gestion {
             if (!DE.getManifestaciones_artisticas().isEmpty()) {
                 Vector<Integer> maifestaciones = new Vector<>();
                 for (int i = 0; i < DE.getManifestaciones_artisticas().size(); i++) {
-                    stat = "select id_manifestacion from manifestacion_artistica where manifestacion = '"+DE.getManifestaciones_artisticas().elementAt(i)+"'";
-                    RS=C.getConsulta().executeQuery(stat);
+                    stat = "select id_manifestacion from manifestacion_artistica where manifestacion = '" + DE.getManifestaciones_artisticas().elementAt(i) + "'";
+                    RS = C.getConsulta().executeQuery(stat);
                     maifestaciones.add(RS.getInt(1));
                 }
                 for (int i = 0; i < maifestaciones.size(); i++) {
@@ -318,50 +322,54 @@ public class Gestion {
                     + ", " + familiares[5] + ", " + familiares[6] + ", " + familiares[7] + ", " + familiares[8] + ", " + familiares[9] + ", " + DE.getTotal_familiares() + ", " + DE.getIngreso_total()
                     + "," + DE.getRelaciones() + " )";
             C.getConsulta().execute(stat);
-            if(!DE.getDeportes().isEmpty()){
+            if (!DE.getDeportes().isEmpty()) {
                 for (int i = 0; i < DE.getDeportes().size(); i++) {
-                stat = "select id_deporte from deporte where deporte = '" + DE.getDeportes().elementAt(i) + "'";
-                RS = C.getConsulta().executeQuery(stat);
-                deportes.add(RS.getInt("id_deporte"));
+                    stat = "select id_deporte from deporte where deporte = '" + DE.getDeportes().elementAt(i) + "'";
+                    RS = C.getConsulta().executeQuery(stat);
+                    deportes.add(RS.getInt("id_deporte"));
 
-            }
-            for (int i = 0; i < deportes.size(); i++) {
-                stat = "insert into deporte_estudiante values(" + idE + ", " + deportes.elementAt(i) + ")";
-                C.getConsulta().execute(stat);
-            }
+                }
+                for (int i = 0; i < deportes.size(); i++) {
+                    stat = "insert into deporte_estudiante values(" + idE + ", " + deportes.elementAt(i) + ")";
+                    C.getConsulta().execute(stat);
+                }
             }
 
             stat = "insert into Electronics values(null, " + idE + ", " + electronics[0] + ", " + electronics[1] + ", " + electronics[2] + ", " + electronics[3] + ")";
             C.getConsulta().execute(stat);
 
-            if(!DE.getEnfermedades().isEmpty()){
-            for (int i = 0; i < DE.getEnfermedades().size(); i++) {
-                stat = "select id_enfermedad from enfermedad where enfermedad = '" + DE.getEnfermedades().elementAt(i) + "'";
-                RS = C.getConsulta().executeQuery(stat);
-                enfermedades.add(RS.getInt("id_enfermedad"));
+            if (!DE.getEnfermedades().isEmpty()) {
+                for (int i = 0; i < DE.getEnfermedades().size(); i++) {
+                    stat = "select id_enfermedad from enfermedad where enfermedad = '" + DE.getEnfermedades().elementAt(i) + "'";
+                    RS = C.getConsulta().executeQuery(stat);
+                    enfermedades.add(RS.getInt("id_enfermedad"));
+                }
+                for (int i = 0; i < enfermedades.size(); i++) {
+                    stat = "insert into enfermedades_estudiante values(" + idE + ", " + enfermedades.elementAt(i) + ")";
+                    C.getConsulta().execute(stat);
+                }
             }
-            for (int i = 0; i < enfermedades.size(); i++) {
-                stat = "insert into enfermedades_estudiante values(" + idE + ", " + enfermedades.elementAt(i) + ")";
-                C.getConsulta().execute(stat);
-            }
-            }
-            Vector<Integer>medicamnetos= new Vector<>();
-            if(!DE.getMedicamentos().isEmpty()){
+            Vector<Integer> medicamnetos = new Vector<>();
+            if (!DE.getMedicamentos().isEmpty()) {
                 for (int i = 0; i < DE.getMedicamentos().size(); i++) {
-                    stat = "select id_medicamento from medicamento where medicamento = '"+DE.getMedicamentos().elementAt(i)+"'";
-                    RS= C.getConsulta().executeQuery(stat);
+                    stat = "select id_medicamento from medicamento where medicamento = '" + DE.getMedicamentos().elementAt(i) + "'";
+                    RS = C.getConsulta().executeQuery(stat);
                     medicamnetos.add(RS.getInt("id_medicamento"));
                 }
-            for (int i = 0; i < medicamnetos.size(); i++) {
-                stat = "insert into medicamentos_estudiante values(" + idE + ", " + medicamnetos.elementAt(i) + ")";
-                C.getConsulta().execute(stat);
-            }
+                for (int i = 0; i < medicamnetos.size(); i++) {
+                    stat = "insert into medicamentos_estudiante values(" + idE + ", " + medicamnetos.elementAt(i) + ")";
+                    C.getConsulta().execute(stat);
+                }
             }
 
             stat = "insert into psiquis_estudiante values(" + idE + ", '" + DE.getDeseos_futuros() + "', '" + DE.getActividades_tiempo_libre() + "', '" + DE.getProyectos_vida() + "', '"
                     + DE.getRasgos_habitos() + "', " + feliz + ", " + gusto_estudio + ", " + gusto_carrera + ")";
 
             C.getConsulta().execute(stat);
+
+            stat = "update EstudianteSencillo set nombre_estudiante = '" + DE.getNombre_estudiante() + "', CI = '" + DE.getCI() + "' where CI = '" + CIViejo + "'";
+            C.getConsulta().execute(stat);
+
         } catch (SQLException e) {
             System.err.println(e);
             C.desconectar();
@@ -417,32 +425,32 @@ public class Gestion {
     }
 
     public boolean agregar_evento_a_estudiante(Evento E, Estudiante EST, Tupla<String, Integer> logro) {
-    	C.conectar();
-    	String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and fecha_evento = '" + E.getAnno() + "'";
-    	
-    	try {
-			ResultSet RS = C.getConsulta().executeQuery(stat);
-			int idEV = RS.getInt("id_evento");
-			
-			stat = "select id_estudiante from EstudianteSencillo where CI = '" + EST.getCI() + "'";
-			RS = C.getConsulta().executeQuery(stat);
-			int idEST = RS.getInt("id_estudiante");
-			
-			stat = "select * from eventos_estudiante where id_evento = " + idEV + " and id_estudiante = " + idEST;
-			RS = C.getConsulta().executeQuery(stat);
-			if(RS.next()) {
-				throw new SQLException();
-			}
-			
-			stat = "insert into eventos_estudiante values(" + idEST + ", " + idEV + ", (select id_logro from logros_evento where id_evento = " + idEV + " and logro_evento = '" + logro.getN1() + "'))";
-			C.getConsulta().execute(stat);
-			
-		} catch (SQLException e) {
-			C.desconectar();
-			return false;		
-			}
-    	C.desconectar();
-    	return true;
+        C.conectar();
+        String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and fecha_evento = '" + E.getAnno() + "'";
+
+        try {
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            int idEV = RS.getInt("id_evento");
+
+            stat = "select id_estudiante from EstudianteSencillo where CI = '" + EST.getCI() + "'";
+            RS = C.getConsulta().executeQuery(stat);
+            int idEST = RS.getInt("id_estudiante");
+
+            stat = "select * from eventos_estudiante where id_evento = " + idEV + " and id_estudiante = " + idEST;
+            RS = C.getConsulta().executeQuery(stat);
+            if (RS.next()) {
+                throw new SQLException();
+            }
+
+            stat = "insert into eventos_estudiante values(" + idEST + ", " + idEV + ", (select id_logro from logros_evento where id_evento = " + idEV + " and logro_evento = '" + logro.getN1() + "'))";
+            C.getConsulta().execute(stat);
+
+        } catch (SQLException e) {
+            C.desconectar();
+            return false;
+        }
+        C.desconectar();
+        return true;
 
     }
 
@@ -567,60 +575,59 @@ public class Gestion {
 
         C.conectar();
         try {
-            
+
             String stat = "select * from carrera join asignaturas_semestre join asignaturas on carrera.id_carrera = asignaturas_semestre.id_carrera and asignaturas_semestre.id_asignatura = asignaturas.id_asignatura where carrera.nombre_carrera = '" + Carr.getNombre() + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             int idC = RS.getInt(1);
-            
+
             boolean[][] mapa = new boolean[5][20];
-            
+
             Vector<Tupla<Integer, Tupla<Integer, Integer>>> asignaturasBorrar = new Vector<>();
-            
-            do{
-                
+
+            do {
+
                 String nombreA = RS.getString(8);
                 int idA = RS.getInt(4);
                 int annoB = RS.getInt(5);
                 int semestre = RS.getInt(6);
                 boolean flag = false;
-                if(annoB <= Carr.getAsignaturas().size()){
-                for(int i = 0; i < Carr.getAsignaturas().elementAt(annoB-1).size(); i++){
-                    if(Carr.getAsignaturas().elementAt(annoB-1).elementAt(i).getN1() == semestre && Carr.getAsignaturas().elementAt(annoB-1).elementAt(i).getN2().equals(nombreA)){
-                        mapa[annoB-1][i] = true;
-                        flag = true;
-                        break;
+                if (annoB <= Carr.getAsignaturas().size()) {
+                    for (int i = 0; i < Carr.getAsignaturas().elementAt(annoB - 1).size(); i++) {
+                        if (Carr.getAsignaturas().elementAt(annoB - 1).elementAt(i).getN1() == semestre && Carr.getAsignaturas().elementAt(annoB - 1).elementAt(i).getN2().equals(nombreA)) {
+                            mapa[annoB - 1][i] = true;
+                            flag = true;
+                            break;
+                        }
                     }
                 }
-                }
-                if(!flag){
+                if (!flag) {
                     asignaturasBorrar.add(new Tupla<>(idA, new Tupla<>(annoB, semestre)));
                 }
-                
-                
-            }while(RS.next());
-            
-            for(int i = 0; i < Carr.getAsignaturas().size(); i++){
-                for(int j = 0; j < Carr.getAsignaturas().elementAt(i).size(); j++){
-                    if(!mapa[i][j]){
-                        stat = "insert into asignaturas_semestre values(" + idC + ",  (select id_asignatura from asignaturas where nombre_asignatura = '" + Carr.getAsignaturas().elementAt(i).elementAt(j).getN2() + "'), " + (i+1) + ", " + Carr.getAsignaturas().elementAt(i).elementAt(j).getN1() + ")";
+
+            } while (RS.next());
+
+            for (int i = 0; i < Carr.getAsignaturas().size(); i++) {
+                for (int j = 0; j < Carr.getAsignaturas().elementAt(i).size(); j++) {
+                    if (!mapa[i][j]) {
+                        stat = "insert into asignaturas_semestre values(" + idC + ",  (select id_asignatura from asignaturas where nombre_asignatura = '" + Carr.getAsignaturas().elementAt(i).elementAt(j).getN2() + "'), " + (i + 1) + ", " + Carr.getAsignaturas().elementAt(i).elementAt(j).getN1() + ")";
                         C.getConsulta().execute(stat);
                     }
                 }
             }
-            
-            for(int i = 0; i < asignaturasBorrar.size(); i++){
+
+            for (int i = 0; i < asignaturasBorrar.size(); i++) {
                 stat = "delete from asignaturas_semestre where id_carrera = " + idC + " and id_asignatura = " + asignaturasBorrar.elementAt(i).getN1() + " and anno_brigada = " + asignaturasBorrar.elementAt(i).getN2().getN1() + " and semestre = " + asignaturasBorrar.elementAt(i).getN2().getN2();
                 C.getConsulta().execute(stat);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         C.desconectar();
     }
 
-    //ERIC DE AQUI PA ARRIBA
+    
     public Vector<String> getDimensiones() {
         C.conectar();
         Vector<String> v = new Vector<>();
@@ -630,11 +637,12 @@ public class Gestion {
             while (rs.next()) {
                 v.add(rs.getString("nombre_dimension"));
             }
-            C.desconectar();
+
         } catch (SQLException ex) {
             C.desconectar();
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        C.desconectar();
         return v;
     }
 
@@ -683,13 +691,14 @@ public class Gestion {
     }
 
     public Vector<Brigada> obtenerBrigadasDeUnaCarrera(String carreraSeleccionada) {
-        //No estoy seguro si sacar las notas aqui tambien no lo creo necesario
+       
+        C.conectar();
         Vector<Brigada> brigasdasDeLacarrera = new Vector<>();
         Vector<Tupla<Integer, Integer>> anno_annoBrigada = new Vector<>();
         Vector<Integer> Id_brigadas = new Vector<>();
         Vector<Estudiante> estudiantes = new Vector<>();
         try {
-            C.conectar();
+
             String stat = "select id_carrera from carrera where nombre_carrera= '" + carreraSeleccionada + "'";
             ResultSet rs = C.getConsulta().executeQuery(stat);
             int id_carrera = rs.getInt("id_carrera");
@@ -711,18 +720,20 @@ public class Gestion {
                 Brigada b = new Brigada(carreraSeleccionada, anno_annoBrigada.elementAt(i).getN1(), anno_annoBrigada.elementAt(i).getN2(), estudiantes);
                 brigasdasDeLacarrera.add(b);
             }
-            C.desconectar();
+
         } catch (SQLException ex) {
             C.desconectar();
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        C.desconectar();
         return brigasdasDeLacarrera;
     }
 
     public void agregarEventoEstudiantePorParticipacion(String fecha, int dimension, String evento, int valorDelLogro, Vector<Estudiante> estudiantesSeleccionados) {
+        C.conectar();
         Vector<Integer> id_estudiantes = new Vector<>();
+
         try {
-            C.conectar();
             String stat = "Select id_nombre_evento from nombre_evento where nombre_evento='" + evento + "'";
             ResultSet rs = C.getConsulta().executeQuery(stat);
             int id_nombre_evento = rs.getInt("id_nombre_evento");
@@ -745,11 +756,11 @@ public class Gestion {
                 stat = "insert into eventos_estudiante values(" + id_estudiantes.elementAt(i) + "," + id_evento + "," + id_logro + ")";
                 C.getConsulta().execute(stat);
             }
-            C.desconectar();
+
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        C.desconectar();
     }
 
     public Vector<String> obtenerDimensiones() {
@@ -965,9 +976,9 @@ public class Gestion {
         C.conectar();
 
         try {
-            
-            if(temp.equals("")){
-            throw new SQLException();
+
+            if (temp.equals("")) {
+                throw new SQLException();
             }
             String stat = "select deporte from deporte where deporte = '" + temp + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
@@ -1109,13 +1120,13 @@ public class Gestion {
             stat = "select * from asignaturas_semestre join carrera join asignaturas on asignaturas_semestre.id_carrera = carrera.id_carrera and asignaturas.id_asignatura = asignaturas_semestre.id_asignatura where carrera.id_carrera = (select id_carrera from carrera where nombre_carrera = '" + carr.getNombre() + "') and anno_brigada = " + anno_brugada;
 
             RS = C.getConsulta().executeQuery(stat);
-            if(RS.next()) {
+            if (RS.next()) {
 
-                do{
-                int idA = RS.getInt(2);
-                String NA = RS.getString("nombre_asignatura");
-                notas.add(new Nota(idA, 0, 0, NA));
-                }while(RS.next());
+                do {
+                    int idA = RS.getInt(2);
+                    String NA = RS.getString("nombre_asignatura");
+                    notas.add(new Nota(idA, 0, 0, NA));
+                } while (RS.next());
             }
 
             for (int i = 0; i < notas.size(); i++) {
@@ -1137,12 +1148,12 @@ public class Gestion {
         return notas;
     }
 
-    public boolean esPrimerSemestre(int idAsignatura,String NombreCarrera ) {
+    public boolean esPrimerSemestre(int idAsignatura, String NombreCarrera) {
         C.conectar();
 
         try {
 
-            String stat = "select semestre from asignaturas_semestre where id_asignatura = " + idAsignatura +" and id_carrera = (select id_carrera from carrera where nombre_carrera ='"+NombreCarrera+"')";
+            String stat = "select semestre from asignaturas_semestre where id_asignatura = " + idAsignatura + " and id_carrera = (select id_carrera from carrera where nombre_carrera ='" + NombreCarrera + "')";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             if (RS.getInt("semestre") == 1) {
                 C.desconectar();
@@ -1156,12 +1167,12 @@ public class Gestion {
         return false;
     }
 
-    public boolean esSegundoSemestre(int idAsignatura,String nombreCarrera) {
+    public boolean esSegundoSemestre(int idAsignatura, String nombreCarrera) {
         C.conectar();
 
         try {
 
-            String stat = "select semestre from asignaturas_semestre where id_asignatura = " + idAsignatura +" and id_carrera = (select id_carrera from carrera where nombre_carrera ='"+nombreCarrera+"')";
+            String stat = "select semestre from asignaturas_semestre where id_asignatura = " + idAsignatura + " and id_carrera = (select id_carrera from carrera where nombre_carrera ='" + nombreCarrera + "')";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             if (RS.getInt("semestre") == 2) {
                 C.desconectar();
@@ -1176,9 +1187,8 @@ public class Gestion {
     }
 
     public void actualizarNota(Nota nota, Estudiante E) {
-         C.conectar();
+        C.conectar();
         try {
-            
 
             String stat = "update notas_estudiante set nota_asignatura = " + nota.getNota() + " where id_asignatura = " + nota.getIdAsignatura() + " and id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + E.getCI() + "')";
 
@@ -1186,7 +1196,7 @@ public class Gestion {
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         C.desconectar();
     }
 
@@ -1257,7 +1267,7 @@ public class Gestion {
 
             if (RS.next()) {
                 do {
-                    eventos.add(new Tupla<>(RS.getInt(4), RS.getString("fecha_evento")));
+                    eventos.add(new Tupla<>(RS.getInt(2), RS.getString("fecha_evento")));
 
                 } while (RS.next());
 
@@ -1294,15 +1304,13 @@ public class Gestion {
             String stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
             ResultSet RS = C.getConsulta().executeQuery(stat);
             int idB = RS.getInt("id_brigada");
-            
-            
 
             for (int i = 0; i < eventosBrigada.size(); i++) {
-               
-                 stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_nombre_evento = " + eventosBrigada.elementAt(i).getN1();
-                 RS = C.getConsulta().executeQuery(stat);
-                 int idE = RS.getInt("id_evento");
-                
+
+                stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_nombre_evento = " + eventosBrigada.elementAt(i).getN1();
+                RS = C.getConsulta().executeQuery(stat);
+                int idE = RS.getInt("id_evento");
+
                 stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
                 RS = C.getConsulta().executeQuery(stat);
                 if (!RS.next()) {
@@ -1312,11 +1320,11 @@ public class Gestion {
             }
 
             for (int i = 0; i < eventosEliminados.size(); i++) {
-                
+
                 stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_nombre_evento = " + eventosBrigada.elementAt(i).getN1();
-                 RS = C.getConsulta().executeQuery(stat);
-                 int idE = RS.getInt("id_evento");
-                 
+                RS = C.getConsulta().executeQuery(stat);
+                int idE = RS.getInt("id_evento");
+
                 stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
                 RS = C.getConsulta().executeQuery(stat);
                 if (RS.next()) {
@@ -1343,22 +1351,22 @@ public class Gestion {
             ResultSet RS = C.getConsulta().executeQuery(stat);
             int idB = RS.getInt("id_brigada");
 
-            stat = "select * from eventos_brigada join eventos on eventos_brigada.id_evento = eventos.id_evento where eventos_brigada.id_brigada = " + idB; 
+            stat = "select * from eventos_brigada join eventos on eventos_brigada.id_evento = eventos.id_evento where eventos_brigada.id_brigada = " + idB;
             RS = C.getConsulta().executeQuery(stat);
             Vector<Integer> eventosID = new Vector<>();
-            do{
-                
+            do {
+
                 eventosID.add(RS.getInt(2));
-                
-            }while(RS.next());
-            
+
+            } while (RS.next());
+
             int sum = 0;
-            for(int i = 0; i < eventosID.size(); i++){
+            for (int i = 0; i < eventosID.size(); i++) {
                 stat = "select max(valor_logro) from logros_evento where id_evento = " + eventosID.elementAt(i);
                 RS = C.getConsulta().executeQuery(stat);
                 sum += RS.getInt(1);
             }
-            
+
             sol = sum;
 
         } catch (SQLException ex) {
@@ -1382,10 +1390,9 @@ public class Gestion {
             RS = C.getConsulta().executeQuery(stat);
             int cantidad = RS.getInt(1);
 
-            if(cantidad != 0){
-            promedio = (double)suma / (double)cantidad;
-            }
-            else{
+            if (cantidad != 0) {
+                promedio = (double) suma / (double) cantidad;
+            } else {
                 promedio = 0.0;
             }
         } catch (SQLException ex) {
@@ -1403,11 +1410,11 @@ public class Gestion {
             String stat2 = "select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat2);
             int idE = RS.getInt(1);
-            
+
             String stat = "select sum (logros_evento.valor_logro) from logros_evento join eventos_estudiante on logros_evento.id_logro = eventos_estudiante.id_logro where eventos_estudiante.id_estudiante = " + idE;
             RS = C.getConsulta().executeQuery(stat);
             sol = RS.getInt(1);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1447,11 +1454,10 @@ public class Gestion {
 
         try {
 
-            
             String stat = "select * from eventos_estudiante where id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "' and id_evento = (select id_evento from eventos where id_dimension = " + E.getDimension() + " and fecha_evento = '" + E.getAnno() + "' and id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "')))";
             ResultSet RS = C.getConsulta().executeQuery(stat);
-            
-            if(RS.next()){
+
+            if (RS.next()) {
                 C.desconectar();
 
                 return true;
@@ -1474,7 +1480,6 @@ public class Gestion {
 
         try {
 
-            
             String stat = "select * from eventos_estudiante where id_estudiante = (select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "' and id_evento = (select id_evento from eventos where id_dimension = " + E.getDimension() + " and fecha_evento = '" + E.getAnno() + "' and id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "')))";
 
             ResultSet RS = C.getConsulta().executeQuery(stat);
@@ -1555,29 +1560,28 @@ public class Gestion {
     public void eliminarEstudianteEvento(Estudiante est, Evento eventoSeleccionado) {
 
         C.conectar();
-    	String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + eventoSeleccionado.getNombre() + "') and fecha_evento = '" + eventoSeleccionado.getAnno() + "'";
-    	
-    	try {
-			ResultSet RS = C.getConsulta().executeQuery(stat);
-			int idEV = RS.getInt("id_evento");
-			
-			stat = "select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "'";
-			RS = C.getConsulta().executeQuery(stat);
-			int idEST = RS.getInt("id_estudiante");
-			
-			stat = "select * from eventos_estudiante where id_evento = " + idEV + " and id_estudiante = " + idEST;
-			RS = C.getConsulta().executeQuery(stat);
-			if(RS.next()) {
-                            
-                            stat = "delete from eventos_estudiante where id_evento = " + idEV + " and id_estudiante = " + idEST;
-                            C.getConsulta().execute(stat);
-                        }
-			
-			
-		} catch (SQLException e) {
-			C.desconectar();
-			}
-    	C.desconectar();
+        String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + eventoSeleccionado.getNombre() + "') and fecha_evento = '" + eventoSeleccionado.getAnno() + "'";
+
+        try {
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            int idEV = RS.getInt("id_evento");
+
+            stat = "select id_estudiante from EstudianteSencillo where CI = '" + est.getCI() + "'";
+            RS = C.getConsulta().executeQuery(stat);
+            int idEST = RS.getInt("id_estudiante");
+
+            stat = "select * from eventos_estudiante where id_evento = " + idEV + " and id_estudiante = " + idEST;
+            RS = C.getConsulta().executeQuery(stat);
+            if (RS.next()) {
+
+                stat = "delete from eventos_estudiante where id_evento = " + idEV + " and id_estudiante = " + idEST;
+                C.getConsulta().execute(stat);
+            }
+
+        } catch (SQLException e) {
+            C.desconectar();
+        }
+        C.desconectar();
 
     }
 
@@ -1599,8 +1603,8 @@ public class Gestion {
     }
 
     public DatosEstudiante obtenerDatosEsttudiante(Estudiante estudiante) {
-        int telefono_particular = 0;//ok
-        int telefono_fijo = 0;//ok
+        String telefono_particular = "";//ok
+        String telefono_fijo = "";//ok
         boolean datos_moviles = false;//ok
         String email = "";//ok
         String sexo = "";//ok
@@ -1617,7 +1621,7 @@ public class Gestion {
         boolean fumador = false;//ok
         int participacion_brigada = 0;//ok
         Vector<String> manifestaciones_artisticas = new Vector<>();//ok
-        boolean[] convivencia = new boolean[10];//ok
+        boolean[] convivencia = new boolean[11];//ok
         int total_familiares = 0;//ok
         int ingreso_total = 0;//ok
         int relaciones = 0;//ok
@@ -1636,15 +1640,18 @@ public class Gestion {
         boolean gusta_estudio = false;//ok
         int nivel_ingles = 0;//ok
         int id_estudiante = 0;//ok
-
+        boolean padresDivorciados = false;
+            
+        C.conectar();
+        
         try {
 
-            C.conectar();
+
             String stat = "select * from Estudiante where CI ='" + estudiante.getCI() + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             id_estudiante = RS.getInt("id_estudiante");
-            telefono_fijo = RS.getInt("telefono_fijo");
-            telefono_particular = RS.getInt("telefono_particular");
+            telefono_fijo = RS.getString("telefono_fijo");
+            telefono_particular = RS.getString("telefono_particular");
             datos_moviles = RS.getBoolean("datos_moviles");
             email = RS.getString("email");
             sexo = RS.getString("sexo");
@@ -1661,22 +1668,21 @@ public class Gestion {
             fumador = RS.getBoolean("fumador");
             participacion_brigada = RS.getInt("participacion_brigada");
             nivel_ingles = RS.getInt("id_nivel_ingles");
-            religion="";
-           if(IDreligion!=0){
-            stat = "select religion from religion where id_religion = " + IDreligion;
-            RS = C.getConsulta().executeQuery(stat);
-             religion = RS.getString("religion");
-           }
-            
-           
-           String  stat2 = "select id_manifestacion from artes_estudiante where id_estudiante =" + id_estudiante;
+            religion = "";
+            if (IDreligion != 0) {
+                stat = "select religion from religion where id_religion = " + IDreligion;
+                RS = C.getConsulta().executeQuery(stat);
+                religion = RS.getString("religion");
+            }
+
+            String stat2 = "select id_manifestacion from artes_estudiante where id_estudiante =" + id_estudiante;
             RS = C.getConsulta().executeQuery(stat2);
             Vector<Integer> IDmanifestacionesArtisticas = new Vector<>();
             while (RS.next()) {
                 IDmanifestacionesArtisticas.add(RS.getInt("id_manifestacion"));
             }
             for (int i = 0; i < IDmanifestacionesArtisticas.size(); i++) {
-               String  stat3 = "select manifestacion from manifestacion_artistica where id_manifestacion =" + IDmanifestacionesArtisticas.elementAt(i);
+                String stat3 = "select manifestacion from manifestacion_artistica where id_manifestacion =" + IDmanifestacionesArtisticas.elementAt(i);
                 RS = C.getConsulta().executeQuery(stat3);
                 manifestaciones_artisticas.add(RS.getString("manifestacion"));
             }
@@ -1691,7 +1697,8 @@ public class Gestion {
             convivencia[6] = RS.getBoolean("abuela paterna");
             convivencia[7] = RS.getBoolean("abuela materna");
             convivencia[8] = RS.getBoolean("otros familiares");
-          
+            convivencia[9] = RS.getBoolean("padres_divorciados");
+
             total_familiares = RS.getInt("total_familiares");
             ingreso_total = RS.getInt("ingreso_hogar");
             relaciones = RS.getInt("id_relaciones");
@@ -1744,31 +1751,35 @@ public class Gestion {
             gusta_estudio = RS.getBoolean("gusto_por_estudio");
             gusta_carrera = RS.getBoolean("gusto_por_carrera");
 
-          
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
             C.desconectar();
         }
+        C.desconectar();
+        
         DatosEstudiante dt = new DatosEstudiante(email, sexo, telefono_particular, telefono_fijo, datos_moviles, email, sexo, edad, becado, color_de_piel, militante, estado_civil, hijos, direccion_particular, zona, religion, bebidas_alcoholicas, fumador, participacion_brigada, manifestaciones_artisticas, convivencia, total_familiares, ingreso_total, relaciones, deportes, electronicos, enfermedades, activo, eventos, medicamentos, deseos_futuros, actividades_tiempo_libre, proyectos_vida, rasgos_habitos, feliz, gusta_carrera, gusta_estudio, nivel_ingles);
-
         return dt;
     }
 
-    public void actualizarEstudiante(DatosEstudiante e, Brigada b) {
+    public void actualizarEstudiante(DatosEstudiante e, Brigada b, String CIViejo) {
+
         int becado = 0;
         int militante = 0;
         int hijos = 0;
         int bebidas = 0;
         int fumador = 0;
+        int datosMoviles = 0;
         int[] familiares = new int[10];
         int[] electronics = new int[4];
         int feliz = 0;
         int gusto_estudio = 0;
         int gusto_carrera = 0;
+        int activo = 0;
         Vector<Integer> deportes = new Vector<>();
         Vector<Integer> enfermedades = new Vector<>();
         Vector<Integer> manifestaciones = new Vector<>();
         Vector<Integer> medicamentos = new Vector<>();
+
         C.conectar();
 
         String stat = "select id_brigada from brigada where ano_brigada = " + b.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + b.getCarrera() + "') and anno = " + b.getAnno();
@@ -1776,9 +1787,7 @@ public class Gestion {
         try {
             ResultSet RS = C.getConsulta().executeQuery(stat);
             int idB = RS.getInt("id_brigada");
-//             stat = "select id_estudiante from Estudiante where CI = '" + e.getCI() + "'";
-//            RS = C.getConsulta().executeQuery(stat);
-//           int id_estudiante =RS.getInt("id_estudiante");
+
             if (e.isBecado()) {
                 becado = 1;
             }
@@ -1803,6 +1812,12 @@ public class Gestion {
             if (e.isGusta_estudio()) {
                 gusto_estudio = 1;
             }
+            if (e.isDatos_moviles()) {
+                datosMoviles = 1;
+            }
+            if (e.isActivo()) {
+                activo = 1;
+            }
             for (int i = 0; i < e.getConvivencia().length; i++) {
                 if (e.getConvivencia()[i] == true) {
                     familiares[i] = 1;
@@ -1817,22 +1832,24 @@ public class Gestion {
                     electronics[i] = 0;
                 }
             }
-            stat = "update  Estudiante set nombreCompleto = '" + e.getNombre_estudiante() + "', CI = '" + e.getCI() + "', telefono_particular = " + e.getTelefono_particular() + ",telefono_fijo = " + e.getTelefono_fijo() + ", datos_moviles =" + e.isDatos_moviles() + ", email = '" + e.getEmail() + "', sexo = " + "'" + e.getSexo() + "', edad = " + e.getEdad() + ",becado =" + becado + ", id_color_piel = (select id_color_piel from color_piel where color_piel = '" + e.getColor_de_piel() + "'), militante =" + militante + ", id_estado_civil =" + "(select id_estado_civil from estado_civil where estado_civil = '" + e.getEstado_civil() + "'), hijos =" + hijos + ", direccion_particular = '" + e.getDireccion_particular() + "', id_zona = (select id_zona from zona where zona = '" + e.getZona() + "'), id_religion = (select id_religion from religion where religion = '" + e.getReligion() + "'), bebidas_alcoholicas = " + bebidas + ", fumador = " + fumador + ",participacion_brigada = " + e.getParticipacion_brigada() + ", " + idB + ", id_nivel_ingles = (select id_nivel_ingles from nivel_ingles where nivel_ingles = '" + e.getNivel_ingles() + "'), " + e.isActivo() + " where CI='" + e.getCI() + "'";
-            C.getConsulta().execute(stat);
             stat = "select id_estudiante from Estudiante where CI = '" + e.getCI() + "'";
             RS = C.getConsulta().executeQuery(stat);
             int idE = RS.getInt("id_estudiante");
+
+            stat = "update Estudiante set nombreCompleto = '" + e.getNombre_estudiante() + "', CI = '" + e.getCI() + "', telefono_particular = '" + e.getTelefono_particular() + "', telefono_fijo = '" + e.getTelefono_fijo() + "', datos_moviles = " + datosMoviles + ", email = '" + e.getEmail() + "', sexo = '" + e.getSexo() + "', edad = " + e.getEdad() + ", becado = " + becado + ", id_color_piel = " + e.getColor_de_piel() + ", militante = " + militante + ", id_estado_civil = " + e.getEstado_civil() + ", hijos = " + hijos + ", direccion_particular = '" + e.getDireccion_particular() + "', id_zona = " + e.getZona() + ", id_religion = (select id_religion from religion where religion = '" + e.getReligion() + "'), bebidas_alcoholicas = " + bebidas + ", fumador = " + fumador + ", participacion_brigada = " + e.getParticipacion_brigada() + ", id_brigada = " + idB + ", id_nivel_ingles = " + e.getNivel_ingles() + ", activo = " + activo + " where id_estudiante = " + idE;
+            C.getConsulta().execute(stat);
+
             for (int i = 0; i < e.getManifestaciones_artisticas().size(); i++) {
-                stat = "select manifestacion from manifestacion_artistica where" + e.getManifestaciones_artisticas().elementAt(i);
+                stat = "select * from manifestacion_artistica where manifestacion = '" + e.getManifestaciones_artisticas().elementAt(i) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 manifestaciones.add(RS.getInt("id_manifestacion"));
             }
             for (int i = 0; i < manifestaciones.size(); i++) {
-                stat = "update  artes_estudiante set  id_manifestacion " + manifestaciones.elementAt(i) + "where id_estudiante =" + idE;
+                stat = "update artes_estudiante set id_manifestacion = " + manifestaciones.elementAt(i) + " where id_estudiante = " + idE;
                 C.getConsulta().execute(stat);
             }
 
-            stat = "update  convivencia set padre=" + familiares[0] + ", madre= " + familiares[1] + ", hermana(s)=" + familiares[2] + ", hermano(s)=" + familiares[3] + ", abuelo paterno = " + familiares[4] + ", abuelo materno = " + familiares[5] + ", abuela paterna = " + familiares[6] + ", abuela materna = " + familiares[7] + ",otros familiares = " + familiares[8] + ", padres_divorciados = " + familiares[9] + ", total_familiares = " + e.getTotal_familiares() + ", ingreso_hogar = " + e.getIngreso_total() + ", id_relaciones = (select id_relaciones from relaciones convivencia where relaciones = '" + e.getRelaciones() + "') where id_estudiante=" + idE;
+            stat = "update convivencia set padre = " + familiares[0] + ", madre = " + familiares[1] + ", hermana(s) = " + familiares[2] + ", hermano(s) = " + familiares[3] + ", abuelo_paterno = " + familiares[4] + ", abuelo_materno = " + familiares[5] + ", abuela_paterna = " + familiares[6] + ", abuela_materna = " + familiares[7] + ",otros_familiares = " + familiares[8] + ", padres_divorciados = " + familiares[9] + ", total_familiares = " + e.getTotal_familiares() + ", ingreso_hogar = " + e.getIngreso_total() + ", id_relaciones = (select id_relaciones from relaciones convivencia where relaciones = '" + e.getRelaciones() + "') where id_estudiante = " + idE;
             C.getConsulta().execute(stat);
             for (int i = 0; i < e.getDeportes().size(); i++) {
                 stat = "select id_deporte from deporte where deporte = '" + e.getDeportes().elementAt(1) + "'";
@@ -1840,11 +1857,11 @@ public class Gestion {
                 deportes.add(RS.getInt("id_deporte"));
             }
             for (int i = 0; i < deportes.size(); i++) {
-                stat = "update  deporte_estudiante set id_deporte =" + deportes.elementAt(i) + "where id_estudiante";
+                stat = "update deporte_estudiante set id_deporte = " + deportes.elementAt(i) + " where id_estudiante = " + idE;
                 C.getConsulta().execute(stat);
             }
 
-            stat = "update  Electronics set pc = " + e.getElectronicos()[0] + ",laptop " + e.getElectronicos()[1] + ", movil" + e.getElectronicos()[2] + ",tablet " + e.getElectronicos()[3] + "where id_estudiante =" + idE;
+            stat = "update Electronics set pc = " + e.getElectronicos()[0] + ",laptop = " + e.getElectronicos()[1] + ", movil = " + e.getElectronicos()[2] + ",tablet = " + e.getElectronicos()[3] + " where id_estudiante = " + idE;
             C.getConsulta().execute(stat);
 
             for (int i = 0; i < e.getEnfermedades().size(); i++) {
@@ -1853,22 +1870,27 @@ public class Gestion {
                 enfermedades.add(RS.getInt("id_enfermedad"));
             }
             for (int i = 0; i < enfermedades.size(); i++) {
-                stat = "update enfermedades_estudiante set id_enfermedad = " + enfermedades.elementAt(i);
+                stat = "update enfermedades_estudiante set id_enfermedad = " + enfermedades.elementAt(i) + " where id_estudiante = " + idE;
                 C.getConsulta().execute(stat);
             }
             for (int i = 0; i < e.getMedicamentos().size(); i++) {
-                stat = "select id_medicamento from medicamneto where medicamento ='" + e.getMedicamentos().elementAt(i) + "'";
+                stat = "select id_medicamento from medicamento where medicamento = '" + e.getMedicamentos().elementAt(i) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 medicamentos.add(RS.getInt("id_medicamento"));
             }
             for (int i = 0; i < medicamentos.size(); i++) {
-                stat = "update  medicamentos_estudiante set id_medicamento = " + medicamentos.elementAt(i) + "where id_estudiante = " + idE;
+                stat = "update medicamentos_estudiante set id_medicamento = " + medicamentos.elementAt(i) + " where id_estudiante = " + idE;
                 C.getConsulta().execute(stat);
             }
 
-            stat = "update  psiquis_estudiante set deseos_futuros = '" + e.getDeseos_futuros() + "', actividades_tiempo_libre = '" + e.getActividades_tiempo_libre() + "', proyectos_de_vida = '" + e.getProyectos_vida() + "',rasgos_y_habitos ='" + e.getRasgos_habitos() + "', felicidad = " + feliz + ", gusto_por_estudio = " + gusto_estudio + ", gusto_por_carrera = " + gusto_carrera + "where id_estudiante =" + idE;
+            stat = "update psiquis_estudiante set deseos_futuros = '" + e.getDeseos_futuros() + "', actividades_tiempo_libre = '" + e.getActividades_tiempo_libre() + "', proyectos_de_vida = '" + e.getProyectos_vida() + "',rasgos_y_habitos = '" + e.getRasgos_habitos() + "', felicidad = " + feliz + ", gusto_por_estudio = " + gusto_estudio + ", gusto_por_carrera = " + gusto_carrera + " where id_estudiante = " + idE;
             C.getConsulta().execute(stat);
+
+            stat = "update EstudianteSencillo set nombre_estudiante = '" + e.getNombre_estudiante() + "', CI = '" + e.getCI() + "' where CI = '" + CIViejo + "'";
+            C.getConsulta().execute(stat);
+
         } catch (SQLException ex) {
+            System.out.println(ex);
             C.desconectar();
 
         }
@@ -1878,19 +1900,28 @@ public class Gestion {
     public void agregarEstudianteBrigada(Estudiante E, Brigada B) {
 
         C.conectar();
-        
+
         try {
+
             String stat = "select id_estudiante from EstudianteSencillo where CI = '" + E.getCI() + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             int idE = RS.getInt("id_estudiante");
-            
+
+            if (B == null) {
+                stat = "update EstudianteSencillo set id_brigada = " + 0 + " where id_estudiante = " + idE;
+                C.getConsulta().execute(stat);
+            }
+
             stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
-            RS = C.getConsulta().executeQuery(stat);
-            int idB = RS.getInt("id_brigada");
-            
+            int idB = 0;
+            if (RS.next()) {
+                RS = C.getConsulta().executeQuery(stat);
+                idB = RS.getInt("id_brigada");
+            }
+
             stat = "update EstudianteSencillo set id_brigada = " + idB + " where id_estudiante = " + idE;
             C.getConsulta().execute(stat);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1898,13 +1929,13 @@ public class Gestion {
     }
 
     public boolean obtenerDimensionEvento(Tupla<Integer, String> evento, String dimension) {
-        
+
         C.conectar();
         try {
-            String stat = "select nombre_dimension from eventos join dimensiones join nombre_evento on dimensiones.id_dimension = eventos.id_dimension and eventos.id_nombre_evento = nombre_evento.id_nombre_evento where eventos.id_nombre_evento = " + evento.getN1() + " and eventos.fecha_evento = '" + evento.getN2() + "'";
+            String stat = "select nombre_dimension from eventos join dimensiones join nombre_evento on dimensiones.id_dimension = eventos.id_dimension and eventos.id_nombre_evento = nombre_evento.id_nombre_evento where eventos.id_evento = " + evento.getN1() + " and eventos.fecha_evento = '" + evento.getN2() + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             String nombreDimension = RS.getString("nombre_dimension");
-            if(dimension.equals(nombreDimension)){
+            if (dimension.equals(nombreDimension)) {
                 C.desconectar();
                 RS.close();
                 return true;
@@ -1919,7 +1950,7 @@ public class Gestion {
 
     public Vector<Tupla<Integer, String>> obtenerEventosAnno(int anno) {
 
-         C.conectar();
+        C.conectar();
         Vector<Tupla<Integer, String>> eventos = new Vector<>();
 
         try {
@@ -1930,7 +1961,7 @@ public class Gestion {
 
             if (RS.next()) {
                 do {
-                    eventos.add(new Tupla<>(RS.getInt(2), RS.getString("fecha_evento")));
+                    eventos.add(new Tupla<>(RS.getInt("id_evento"), RS.getString("fecha_evento")));
 
                 } while (RS.next());
 
@@ -1940,7 +1971,7 @@ public class Gestion {
         }
         C.desconectar();
         return eventos;
-        
+
     }
 
     public Object obtenerDimensionEvento(Integer eventoID) {
@@ -1959,7 +1990,7 @@ public class Gestion {
     }
 
     public Evento obtenerEvento(Integer eventoID) {
-        
+
         C.conectar();
         Evento E = null;
         try {
@@ -1970,34 +2001,34 @@ public class Gestion {
             String nombreEvento = RS.getString(8);
             E = new Evento(nombreEvento, dimensionEvento, fechaEvento);
         } catch (SQLException e) {
-            
+
         }
         C.desconectar();
         return E;
     }
 
     public void eliminarLogro(Tupla<String, Integer> logro, Evento E) {
-        
+
         C.conectar();
-        
+
         try {
-            
-            String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and fecha_evento = '" + E.getAnno() + "'";            
+
+            String stat = "select id_evento from eventos where id_nombre_evento = (select id_nombre_evento from nombre_evento where nombre_evento = '" + E.getNombre() + "') and fecha_evento = '" + E.getAnno() + "'";
             ResultSet RS = C.getConsulta().executeQuery(stat);
             int idE = RS.getInt("id_evento");
-            
+
             stat = "select id_logro from logros_evento where id_evento = " + idE + " and logro_evento = '" + logro.getN1() + "'";
             RS = C.getConsulta().executeQuery(stat);
             int idL = RS.getInt("id_logro");
-            
+
             stat = "delete from logros_evento where id_logro = " + idL;
             C.getConsulta().execute(stat);
-            
+
             stat = "delete from eventos_estudiante where id_logro = " + idL;
             C.getConsulta().execute(stat);
-            
+
         } catch (SQLException e) {
-            
+
         }
 
         C.desconectar();

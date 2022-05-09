@@ -420,7 +420,7 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
 
-        //acordarse de la verificacion del CI conchetumadre
+      
         String[] nombres = nombreT.getText().split(" ");
 
         if (nombres.length < 3) {
@@ -444,6 +444,9 @@ public class Editor_brigada extends javax.swing.JFrame {
             CIT.setText("");
             nombreT.setText("");
         }
+        else{
+            JOptionPane.showMessageDialog(null, "No se ha podido crear el estudiante. Ha ocurrido un error");
+        }
         if (actualizacion) {
             G.agregarEstudianteBrigada(E, B);
         }
@@ -465,6 +468,10 @@ public class Editor_brigada extends javax.swing.JFrame {
 
         Estudiante E = estudiantes.elementAt(TablaEst.getSelectedRow());
         estudiantes.remove(E);
+        
+        if(actualizacion){
+            G.agregarEstudianteBrigada(E, null);
+        }
 
         actualizarTabla(estudiantes);
         MenuEstudiantes.setVisible(false);

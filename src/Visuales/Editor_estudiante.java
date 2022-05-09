@@ -54,7 +54,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         initComponents();
         this.E = E;
         this.b = b;
-        setTitle("Editando los datos del estudinate " + E.getNombre_estudiante());
+        setTitle("Editando los datos del estudiante " + E.getNombre_estudiante());
         setResizable(false);
         setLocationRelativeTo(null);
         deportesDB = new Vector<>();
@@ -100,16 +100,16 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         Vector<String> estCivil = g.obtenerEstadoCivil();
         for (int i = 0; i < estCivil.size(); i++) {
-            estadoCivilComboBox.addItem(estCivil.elementAt(i));
+            estadoCivilComboBox.addItem(estCivil.elementAt(i));     
         }
+        estadoCivilComboBox.setSelectedIndex(1);
 
         religiones.add("Nueva Religión");
         religiones.addAll(g.obtenerReligiones());
         for (int i = 0; i < religiones.size(); i++) {
             religionComboBox.addItem(religiones.elementAt(i));
         }
-        religionTexto.setVisible(false);
-        annadirReligion.setVisible(false);
+
 
         buttonGroup2.add(participacionBrigadaBien);
         buttonGroup2.add(participacionBrigadaRegular);
@@ -141,7 +141,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         flag = true;
         this.E = E;
         this.b = b;
-        setTitle("Editando los datos del estudinate " + E.getNombre_estudiante());
+        setTitle("Editando los datos del estudiante " + E.getNombre_estudiante());
         setResizable(false);
         setLocationRelativeTo(null);
         datosEstudiante = d;
@@ -150,18 +150,26 @@ public class Editor_estudiante extends javax.swing.JFrame {
         } else {
             femenino.setSelected(true);
         }
+        manifestaciones = d.getManifestaciones_artisticas();
         radioButtonManifestaciones = new Vector<>();
         manifestacionesArtisticas = g.obtenerManifestaciones();
         actualizarTablaManifestaciones(manifestacionesArtisticas);
+        
+        deportesDB = d.getDeportes();
         radioButtonDeportes = new Vector<>();
         deportes = g.obtenerDeportes();
         actualizarTablaDeportes(deportes);
+        
+        enfermedadesDB = d.getEnfermedades();
         radioButtonEnfermedades = new Vector<>();
         enfermedades = g.obtenerEnfermedades();
         actualizarTablaEnfermedades(enfermedades);
+        
+        medicamentosDB = d.getMedicamentos();
         radioButtonMedicamentos = new Vector<>();
         medicamentos = g.obtenerMedicamentos();
         actualizarTablaMedicamentos(medicamentos);
+        
         this.carr = g.obtener_carrera(carrera);
 
         nombreEstudianteT.setText(E.getNombre_estudiante());
@@ -219,7 +227,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         for (int i = 0; i < nivIng.size(); i++) {
             nivelDeInglesComboBox.addItem(nivIng.elementAt(i));
         }
-        nivelDeInglesComboBox.setSelectedIndex(d.getNivel_ingles());
+        nivelDeInglesComboBox.setSelectedIndex(d.getNivel_ingles() - 1);
 
         Vector<String> convivencia = g.obtenerConvivencia();
         for (int i = 0; i < convivencia.size(); i++) {
@@ -260,7 +268,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         abuelaP.setSelected(convivenciaArray[6]);
         abuelaM.setSelected(convivenciaArray[7]);
         otrosFamiliares.setSelected(convivenciaArray[8]);
-        padresDivorciadosOpcion.setSelected(false);
+        padresDivorciadosOpcion.setSelected(convivenciaArray[9]);
 
     }
 
@@ -462,7 +470,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                             .addComponent(finalizar)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 111, Short.MAX_VALUE)
+                                    .addComponent(nombreEstudiante, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                                     .addComponent(carnet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1140,8 +1148,6 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         emailT.setToolTipText("ejemplo@dominio.ext");
 
-        estadoCivilComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-
         direccionParticularT.setToolTipText("nombre de calle, numero de casa, % calle 1 y calle 2, reparto, municipio, provincia, pais");
 
         religionComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
@@ -1736,7 +1742,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_editarNotaMouseClicked
 
     private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
-        if (nombreEstudianteT.getText().equals("") || carnetTexto.getText().equals("") || carreraT.getText().equals("") || edadT.getText().equals("") || direccionParticularT.equals("")) {
+        if (nombreEstudianteT.getText().equals("") || carnetTexto.getText().equals("") || carreraT.getText().equals("") || edadT.getText().equals("") || direccionParticularT.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -1754,13 +1760,13 @@ public class Editor_estudiante extends javax.swing.JFrame {
         } else if (participaicoBrigadaMal.isSelected()) {
             participacion = 3;
         }
-        int telefonoParticular = 0;
+        String telefonoParticular = "";
         if (!telefonoParticularT.getText().equals("")) {
-            telefonoParticular = Integer.parseInt(telefonoParticularT.getText());
+            telefonoParticular = telefonoParticularT.getText();
         }
-        int telefonoFijo = 0;
+        String telefonoFijo = "";
         if (!telefonoFijoT.getText().equals("")) {
-            telefonoFijo = Integer.parseInt(telefonoFijoT.getText());
+            telefonoFijo = telefonoFijoT.getText();
         }
         String religion = "";
         if (!religiones.isEmpty() && religionComboBox.getSelectedIndex() != 0) {
@@ -1776,12 +1782,13 @@ public class Editor_estudiante extends javax.swing.JFrame {
         }
 
         boolean[] electronic = {computadora.isSelected(), laptop.isSelected(), movil.isSelected(), tablet.isSelected()};
-        boolean[] familiares = {padre.isSelected(), madre.isSelected(), hermanas.isSelected(), hermanos.isSelected(), abueloP.isSelected(), abueloM.isSelected(), abuelaP.isSelected(), abuelaM.isSelected(), otrosFamiliares.isSelected()};
-        DatosEstudiante e = new DatosEstudiante(E.getNombre_estudiante(), E.getCI(), telefonoParticular, telefonoFijo, movileDataBooton.isSelected(), emailT.getText(), sexo, Integer.parseInt(edadT.getText()), becadoBooton.isSelected(), colorDePielComboBox.getSelectedIndex() + 1, militanteRadioB.isSelected(), estadoCivilComboBox.getSelectedIndex() + 1, hijosBooton.isSelected(), direccionParticularT.getText(), zonaOpciones.getSelectedIndex() + 1, religion, bebidasAl.isSelected(), fumadorBooton.isSelected(), participacion, manifestaciones, familiares, totalFamiliares, ingresosTotales, relacionesConvivenciaComboBox.getSelectedIndex() + 1, deportesDB, electronic, enfermedades, true, new Vector<>(), medicamentos, deseosFuturosT.getText(), actividadesTiempoLibreT.getText(), proyectosVidaT.getText(), rasgosHabitosT.getText(), felicidadOpcion.isSelected(), estudioOpcion.isSelected(), carreraOpcion.isSelected(), nivelDeInglesComboBox.getSelectedIndex() + 1);
+        boolean[] familiares = {padre.isSelected(), madre.isSelected(), hermanas.isSelected(), hermanos.isSelected(), abueloP.isSelected(), abueloM.isSelected(), abuelaP.isSelected(), abuelaM.isSelected(), otrosFamiliares.isSelected(), padresDivorciadosOpcion.isSelected()};
+
+        DatosEstudiante e = new DatosEstudiante(nombreEstudianteT.getText(), carnetTexto.getText(), telefonoParticular, telefonoFijo, movileDataBooton.isSelected(), emailT.getText(), sexo, Integer.parseInt(edadT.getText()), becadoBooton.isSelected(), colorDePielComboBox.getSelectedIndex() + 1, militanteRadioB.isSelected(), estadoCivilComboBox.getSelectedIndex() + 1, hijosBooton.isSelected(), direccionParticularT.getText(), zonaOpciones.getSelectedIndex() + 1, religion, bebidasAl.isSelected(), fumadorBooton.isSelected(), participacion, manifestaciones, familiares, totalFamiliares, ingresosTotales, relacionesConvivenciaComboBox.getSelectedIndex() + 1, deportesDB, electronic, enfermedadesDB, true, new Vector<>(), medicamentosDB, deseosFuturosT.getText(), actividadesTiempoLibreT.getText(), proyectosVidaT.getText(), rasgosHabitosT.getText(), felicidadOpcion.isSelected(), estudioOpcion.isSelected(), carreraOpcion.isSelected(), nivelDeInglesComboBox.getSelectedIndex() + 1);
         if (flag) {
-            g.actualizarEstudiante(e, b);
+            g.actualizarEstudiante(e, b, E.getCI());
         } else {
-            g.editar_estudiante(b, e);
+            g.editar_estudiante(b, e, E.getCI());
         }
 
         this.dispose();
@@ -1939,6 +1946,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         d.addColumn("Nombre de la Manifestacion");
         d.addColumn("Seleccion");
         boolean bandera = false;
+        radioButtonManifestaciones = new Vector<>();
         for (int i = 0; i < manifestacionesArtisticas.size(); i++) {
             if (flag) {
                 for (int j = 0; j < datosEstudiante.getManifestaciones_artisticas().size(); j++) {
@@ -1993,6 +2001,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         d.addColumn("Deporte");
         d.addColumn("Seleccion");
         boolean bandera = false;
+        radioButtonDeportes = new Vector<>();
         for (int i = 0; i < deporte.size(); i++) {
             if (flag) {
                 for (int j = 0; j < datosEstudiante.getDeportes().size(); j++) {
@@ -2048,6 +2057,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         d.addColumn("Enfermedad");
         d.addColumn("Seleccion");
         boolean bandera = false;
+        radioButtonEnfermedades = new Vector<>();
         for (int i = 0; i < enfermedade.size(); i++) {
             if (flag) {
                 for (int j = 0; j < datosEstudiante.getEnfermedades().size(); j++) {
@@ -2100,6 +2110,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         d.addColumn("Medicamento");
         d.addColumn("Seleccion");
         boolean bandera = false;
+        radioButtonMedicamentos = new Vector<>();
         for (int i = 0; i < medicamento.size(); i++) {
             if (flag) {
                 for (int j = 0; j < datosEstudiante.getMedicamentos().size(); j++) {

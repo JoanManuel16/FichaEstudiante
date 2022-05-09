@@ -7,8 +7,8 @@ import utiles.Tupla;
 public class DatosEstudiante extends Estudiante{
 
 	
-	private int telefono_particular;
-	private int telefono_fijo;
+	private String telefono_particular;
+	private String telefono_fijo;
 	private boolean datos_moviles;
 	private String email;
 	private String sexo;
@@ -29,6 +29,7 @@ public class DatosEstudiante extends Estudiante{
 	private int total_familiares;
 	private int ingreso_total;
 	private int relaciones;
+        private boolean padres_divorciados;
 	private Vector<String> deportes; 
 	private boolean[] electronicos;
 	private Vector<String> enfermedades;
@@ -43,7 +44,7 @@ public class DatosEstudiante extends Estudiante{
 	private boolean gusta_carrera;
 	private boolean gusta_estudio;
 	private int nivel_ingles;
-	public DatosEstudiante(String nombre, String CI, int telefono_particular, int telefono_fijo, boolean datos_moviles,
+	public DatosEstudiante(String nombre, String CI, String telefono_particular, String telefono_fijo, boolean datos_moviles,
 			String email, String sexo, int edad, boolean becado, int color_de_piel, boolean militante,
 			int estado_civil, boolean hijos, String direccion_particular, int zona, String religion,
 			boolean bebidas_alcoholicas, boolean fumador, int participacion_brigada,
@@ -91,10 +92,10 @@ public class DatosEstudiante extends Estudiante{
 		this.nivel_ingles = nivel_ingles;
 	}
 	
-	public int getTelefono_particular() {
+	public String getTelefono_particular() {
 		return telefono_particular;
 	}
-	public int getTelefono_fijo() {
+	public String getTelefono_fijo() {
 		return telefono_fijo;
 	}
 	public boolean isDatos_moviles() {
@@ -205,6 +206,15 @@ public class DatosEstudiante extends Estudiante{
 	public void setNivel_ingles(int nivel_ingles) {
 		this.nivel_ingles = nivel_ingles;
 	}
+
+    public boolean isPadres_divorciados() {
+        return padres_divorciados;
+    }
+
+    public void setPadres_divorciados(boolean padres_divorciados) {
+        this.padres_divorciados = padres_divorciados;
+    }
+        
 	
 	
 	

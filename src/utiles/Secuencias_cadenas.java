@@ -123,8 +123,11 @@ public class Secuencias_cadenas {
          if(sigloN >= 5 && sigloN <= 7){
              anno = "20" + anno;
          }
-         else{
+         else if(sigloN >= 1 && sigloN <= 4){
              anno = "19" + anno;
+         }
+         else{
+             return false;
          }
          
          int annoActual = Calendar.getInstance().get(1);
