@@ -196,6 +196,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             estadoCivilComboBox.addItem(estCivil.elementAt(i));
         }
         estadoCivilComboBox.setSelectedIndex(d.getEstado_civil() - 1);
+        
         religiones = new Vector<>();
         religiones.add("Nueva Religión");
         religiones.addAll(g.obtenerReligiones());
@@ -233,7 +234,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         for (int i = 0; i < convivencia.size(); i++) {
             relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
         }
-        relacionesConvivenciaComboBox.setSelectedIndex(d.getRelaciones());
+        relacionesConvivenciaComboBox.setSelectedIndex(d.getRelaciones() - 1);
         for (int i = 0; i < carr.getAsignaturas().size(); i++) {
             AnnoComboBox.addItem((i + 1) + "");
         }
@@ -269,6 +270,13 @@ public class Editor_estudiante extends javax.swing.JFrame {
         abuelaM.setSelected(convivenciaArray[7]);
         otrosFamiliares.setSelected(convivenciaArray[8]);
         padresDivorciadosOpcion.setSelected(convivenciaArray[9]);
+        emailT.setText(d.getEmail());
+        computadora.setSelected(d.getElectronicos()[0]);
+        laptop.setSelected(d.getElectronicos()[1]);
+        movil.setSelected(d.getElectronicos()[2]);
+        tablet.setSelected(d.getElectronicos()[3]);
+        militanteRadioB.setSelected(d.isMilitante());
+        
 
     }
 
@@ -506,7 +514,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(zonaOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edadT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,7 +546,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(edadT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(edad)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
                 .addComponent(finalizar)
                 .addContainerGap())
         );
@@ -578,7 +586,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(agregarManifestacion)
                         .addGap(18, 18, 18)
@@ -591,7 +599,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(agregarManifestacion)
                     .addComponent(manifestacionTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -633,7 +641,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(agregarDeporte)
                         .addGap(18, 18, 18)
@@ -646,7 +654,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(agregarDeporte)
                     .addComponent(deporteTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -688,7 +696,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(agregarEnfermedad)
                         .addGap(18, 18, 18)
@@ -701,7 +709,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(agregarEnfermedad)
                     .addComponent(enfermedadTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -743,7 +751,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(agregarMedicamento)
                         .addGap(18, 18, 18)
@@ -756,7 +764,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(agregarMedicamento)
                     .addComponent(medicamentoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -998,7 +1006,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                     .addComponent(proyectosVida))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rasgosHabitos)
@@ -1024,7 +1032,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                     .addComponent(rasgosHabitos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                     .addComponent(jScrollPane8))
                 .addContainerGap())
         );
@@ -1071,7 +1079,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 .addComponent(Anno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AnnoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1084,7 +1092,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Anno)
                         .addComponent(AnnoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         panelPestanas.addTab("Notas", jPanel9);
@@ -1098,14 +1106,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
 
         panelPestanas.addTab("Eventos", jPanel10);
@@ -1339,7 +1347,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                                 .addComponent(participacionBrigadaRegular)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(participaicoBrigadaMal)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(direccionParticular)
                 .addGap(5, 5, 5)
                 .addComponent(direccionParticularT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1787,6 +1795,14 @@ public class Editor_estudiante extends javax.swing.JFrame {
         } else {
             g.editar_estudiante(b, e, E.getCI());
         }
+        
+        for(int i = 0; i < b.getEstudiantes().size(); i++){
+            if(b.getEstudiantes().elementAt(i).getCI().equals(E.getCI())){
+                b.getEstudiantes().elementAt(i).setCI(carnetTexto.getText());
+                b.getEstudiantes().elementAt(i).setNombre_estudiante(nombreEstudianteT.getText());
+                break;
+            }
+        }
 
         this.dispose();
 
@@ -1986,7 +2002,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
                     } else {
                         if (manifestaciones.contains(manifestacionesArtisticas.elementAt(fila))) {
-                            manifestaciones.remove(fila);
+                            manifestaciones.remove(manifestacionesArtisticas.elementAt(fila));
                         }
                     }
                 }
@@ -2048,7 +2064,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
                     } else {
                         if (deportesDB.contains(deportes.elementAt(fila))) {
-                            deportesDB.remove(fila);
+                            deportesDB.remove(deportes.elementAt(fila));
                         }
                     }
                 }
@@ -2109,7 +2125,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
                     } else {
                         if (enfermedadesDB.contains(enfermedades.elementAt(fila))) {
-                            enfermedadesDB.remove(fila);
+                            enfermedadesDB.remove(enfermedades.elementAt(fila));
                         }
                     }
                 }
@@ -2157,7 +2173,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         }
 
         TablaMedicamentos = new JTable(d);
-        TablaDeportes.addMouseListener(new MouseAdapter() {
+        TablaMedicamentos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -2168,7 +2184,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
                     } else {
                         if (medicamentosDB.contains(medicamentos.elementAt(fila))) {
-                            medicamentosDB.remove(fila);
+                            medicamentosDB.remove(medicamentos.elementAt(fila));
                         }
                     }
                 }

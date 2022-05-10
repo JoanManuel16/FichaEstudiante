@@ -6,8 +6,8 @@ package clases;
 
 public class Estudiante {
     
-    protected final String nombre_estudiante;
-    protected final String CI;
+    protected String nombre_estudiante;
+    protected String CI;
     protected boolean activo;
     
     public Estudiante(String nombre, String CI){
@@ -31,6 +31,14 @@ public class Estudiante {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+    
+    public void setCI(String CI){
+        this.CI = CI;
+    }
+
+    public void setNombre_estudiante(String nombre_estudiante) {
+        this.nombre_estudiante = nombre_estudiante;
     }
     
     
