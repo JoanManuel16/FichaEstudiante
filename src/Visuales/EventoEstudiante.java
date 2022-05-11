@@ -225,7 +225,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
     private void escogerEventoWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_escogerEventoWindowClosing
         escogerEvento.setAlwaysOnTop(false);
         if (tablaEventos.getSelectedColumn() < 0) {
-            JOptionPane.showMessageDialog(null, "No hay ningun evento seleccionado se procedera a abrir el menu principal", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No hay ningún evento seleccionado. Se procederá a abrir el menú principal", "Error", JOptionPane.ERROR_MESSAGE);
             Main m = new Main();
             m.setVisible(true);
             dispose();
@@ -255,7 +255,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column==3;
+                return column == 3;
             }
         ;
         };
@@ -263,7 +263,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
         d.addColumn("Estudiante");
         d.addColumn("CI");
         d.addColumn("Logro");
-        d.addColumn("Seleccion");
+        d.addColumn("Selección");
 
         Vector<Estudiante> estudiantesBrigada = brigada.getEstudiantes();
         RadioButtonVector = new Vector<>();
@@ -288,9 +288,9 @@ public class EventoEstudiante extends javax.swing.JFrame {
         TableEstudiantes.setRowHeight(30);
         TableEstudiantes.setShowGrid(true);
 
-        TableEstudiantes.getColumn("Seleccion").setCellRenderer(
+        TableEstudiantes.getColumn("Selección").setCellRenderer(
                 new RadioButtonRenderer());
-        TableEstudiantes.getColumn("Seleccion").setCellEditor(
+        TableEstudiantes.getColumn("Selección").setCellEditor(
                 new RadioButtonEditor(new JCheckBox()));
 
         TableEstudiantes.addMouseListener(new MouseAdapter() {
@@ -310,7 +310,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
                             PopupMenuLogros.setVisible(true);
                             PopupMenuLogros.setLocation(e.getLocationOnScreen());
                         } else {
-                            JOptionPane.showMessageDialog(null, "Este evento aun no tiene logros");
+                            JOptionPane.showMessageDialog(null, "Este evento aún no tiene logros");
                             RadioButtonVector.elementAt(fila).setSelected(false);
                         }
                     }
@@ -367,8 +367,8 @@ public class EventoEstudiante extends javax.swing.JFrame {
         };
         Object[] OBJ = new Object[3];
         d.addColumn("Evento");
-        d.addColumn("Dimension");
-        d.addColumn("Anno");
+        d.addColumn("Dimensión");
+        d.addColumn("Año");
 
         for (int i = 0; i < eventosBrigada.size(); i++) {
             OBJ[0] = eventosBrigada.elementAt(i).getNombre();

@@ -333,7 +333,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="Anno_brigada">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Anno de brigada:"/>
+        <Property name="text" type="java.lang.String" value="A&#xf1;o de brigada:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="Finalizar">
@@ -361,7 +361,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="Anno">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Anno:"/>
+        <Property name="text" type="java.lang.String" value="A&#xf1;o:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="Annos">
@@ -376,7 +376,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="Pasar_anno">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pasar de anno"/>
+        <Property name="text" type="java.lang.String" value="Pasar de a&#xf1;o"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Pasar_annoActionPerformed"/>

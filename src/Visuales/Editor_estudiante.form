@@ -75,37 +75,39 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="finalizar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="nombreEstudiante" pref="0" max="32767" attributes="0"/>
-                                          <Component id="carnet" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="nombreEstudianteT" max="32767" attributes="0"/>
-                                          <Component id="carnetTexto" min="-2" pref="280" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="finalizar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                                  <Component id="sexo" min="-2" pref="42" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="masculino" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="femenino" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="carrera" min="-2" pref="52" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="carreraT" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                              <Component id="sexo" min="-2" pref="42" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="masculino" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="femenino" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="carrera" min="-2" pref="52" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="carreraT" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="carnet" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nombreEstudiante" min="-2" pref="132" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="carnetTexto" min="-2" pref="280" max="-2" attributes="0"/>
+                                          <Component id="nombreEstudianteT" min="-2" pref="280" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -123,7 +125,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="277" max="32767" attributes="0"/>
+                      <EmptySpace pref="285" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -165,7 +167,7 @@
                               <Component id="edad" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="180" max="32767" attributes="0"/>
+                      <EmptySpace pref="201" max="32767" attributes="0"/>
                       <Component id="finalizar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -265,12 +267,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" pref="687" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="703" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="agregarManifestacion" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="manifestacionTexto" min="-2" pref="201" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="339" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="412" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -344,12 +346,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="687" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="703" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="agregarDeporte" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="deporteTexto" min="-2" pref="201" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="339" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="412" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -423,12 +425,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane6" alignment="0" pref="687" max="32767" attributes="0"/>
+                          <Component id="jScrollPane6" alignment="0" pref="703" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="agregarEnfermedad" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="enfermedadTexto" min="-2" pref="201" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="339" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="412" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -502,12 +504,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane5" alignment="0" pref="687" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" alignment="0" pref="703" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="agregarMedicamento" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="medicamentoTexto" min="-2" pref="201" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="339" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="412" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -607,8 +609,9 @@
                                   <Component id="abuelaM" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                   <Component id="padre" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="madre" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="hermanos" min="-2" max="-2" attributes="0"/>
@@ -665,7 +668,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="129" max="32767" attributes="0"/>
+                      <EmptySpace pref="183" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -747,7 +750,7 @@
                           <Component id="gustaCarrera" min="-2" max="-2" attributes="0"/>
                           <Component id="carreraOpcion" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="64" max="32767" attributes="0"/>
+                      <EmptySpace pref="91" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -812,7 +815,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="totalFamiliares">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Total de familiares en el nucleo"/>
+                <Property name="text" type="java.lang.String" value="Total de familiares en el n&#xfa;cleo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="totalFamiliaresT">
@@ -847,17 +850,17 @@
             </Component>
             <Component class="javax.swing.JLabel" name="felicidad">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Es feliz el estudiante"/>
+                <Property name="text" type="java.lang.String" value="&#xbf;Es feliz el estudiante?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="gustaEstudiar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Le gusta el estudio"/>
+                <Property name="text" type="java.lang.String" value="&#xbf;Le gusta el estudio?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="gustaCarrera">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Le gusta la carrera"/>
+                <Property name="text" type="java.lang.String" value="&#xbf;Le gusta la carrera?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="felicidadOpcion">
@@ -873,7 +876,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="movil">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Movil"/>
+                <Property name="text" type="java.lang.String" value="M&#xf3;vil"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="tablet">
@@ -915,7 +918,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane4" pref="403" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" pref="419" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="rasgosHabitos" min="-2" max="-2" attributes="0"/>
@@ -1060,7 +1063,7 @@
                       <Component id="Anno" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="AnnoComboBox" min="-2" pref="90" max="-2" attributes="0"/>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
+                      <EmptySpace pref="95" max="32767" attributes="0"/>
                       <Component id="jScrollPane9" min="-2" pref="490" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1098,7 +1101,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="Anno">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Anno"/>
+                <Property name="text" type="java.lang.String" value="A&#xf1;o"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane9">
@@ -1139,7 +1142,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="454" max="-2" attributes="0"/>
-                      <EmptySpace pref="151" max="32767" attributes="0"/>
+                      <EmptySpace pref="167" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1217,20 +1220,17 @@
                                       <Component id="telefonoParticularT" min="-2" pref="171" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="89" max="32767" attributes="0"/>
+                              <EmptySpace pref="152" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="religion" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hijos" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="hijos" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="hijosBooton" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="religion" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="religionComboBox" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="religionComboBox" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hijosBooton" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                                   </Group>
@@ -1287,13 +1287,22 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="hijos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="telefonoParticularT" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hijosBooton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="telefonoParticular" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="telefonoParticularT" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="telefonoParticular" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="hijos" min="-2" max="-2" attributes="0"/>
+                                  <Component id="hijosBooton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="telefonoFijo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="religion" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1375,7 +1384,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
+                      <EmptySpace pref="89" max="32767" attributes="0"/>
                       <Component id="direccionParticular" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Component id="direccionParticularT" min="-2" max="-2" attributes="0"/>
@@ -1442,12 +1451,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="bebidasAlc">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bebidas Alcoh&#xf3;licas"/>
+                <Property name="text" type="java.lang.String" value="&#xbf;Bebe el estudiante?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="fumador">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Fumador"/>
+                <Property name="text" type="java.lang.String" value="&#xbf;Fuma el estudiante?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="participacionBrigada">
@@ -1457,7 +1466,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="nivelIngles">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nivel Ingl&#xe9;s"/>
+                <Property name="text" type="java.lang.String" value="Nivel de ingl&#xe9;s"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="telefonoParticularT">

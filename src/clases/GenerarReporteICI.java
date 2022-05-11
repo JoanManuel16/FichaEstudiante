@@ -41,11 +41,11 @@ public class GenerarReporteICI {
     public boolean generarReporte() throws DocumentException {
         try {
             Document pdf = new Document();
-            String sol = "Resumen del ICI de la birgada de la carrera " + b.getCarrera() + " del anno " + b.getAnno_brigada() + "del " + b.getAnno();
+            String sol = "Resumen del ICI de la brigada de la carrera " + b.getCarrera() + " del año " + b.getAnno_brigada() + " del " + b.getAnno();
             String ruta = System.getProperty("user.home");
             PdfWriter.getInstance(pdf, new FileOutputStream(ruta + "/Desktop/" + sol + ".pdf"));
             pdf.open();
-            Paragraph informacionExtra = new Paragraph("Valor de las actividades extra curriculares: "+m +"\n relacion academico curricular: "+M+"\n Se tomo en cuenta el ICI con un PA de: "+PA);
+            Paragraph informacionExtra = new Paragraph("Valor de las actividades extracurriculares: "+m +"\n Relación académico-curricular: "+M+"\n Se tomó en cuenta el ICI con un PA de: "+PA);
           informacionExtra.setAlignment(Paragraph.ALIGN_JUSTIFIED);
           pdf.add(informacionExtra);
           Paragraph saltos = new Paragraph("\n\n");

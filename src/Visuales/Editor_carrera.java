@@ -121,7 +121,7 @@ public class Editor_carrera extends javax.swing.JFrame {
                 
                 int anno = Integer.parseInt((String)Annos.getSelectedItem());
                  
-                int respuesta = JOptionPane.showConfirmDialog(null, "Desea agregar la asignatura al semestre " + semestre + " del anno " + anno + "?");
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea agregar la asignatura al semestre " + semestre + " del año " + anno + "?");
                 
                 if(respuesta == 0){
                     Asignaturas.elementAt(anno-1).add(new Tupla<>(semestre, asig));
@@ -310,7 +310,7 @@ public class Editor_carrera extends javax.swing.JFrame {
 
         SegundoSem.setText("Segundo Semestre");
 
-        Anno.setText("Anno");
+        Anno.setText("Año");
 
         Annos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,14 +318,14 @@ public class Editor_carrera extends javax.swing.JFrame {
             }
         });
 
-        Annadir_anno.setText("Annadir Anno");
+        Annadir_anno.setText("Añadir Año");
         Annadir_anno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Annadir_annoActionPerformed(evt);
             }
         });
 
-        Eliminar_anno.setText("Eliminar Ultimo Anno");
+        Eliminar_anno.setText("Eliminar último año");
         Eliminar_anno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Eliminar_annoActionPerformed(evt);
@@ -395,7 +395,6 @@ public class Editor_carrera extends javax.swing.JFrame {
                     .addComponent(Eliminar_anno))
                 .addGap(17, 17, 17)
                 .addComponent(PrimerSem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(AgregarAsig)
@@ -424,7 +423,7 @@ public class Editor_carrera extends javax.swing.JFrame {
     private void Eliminar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_annoActionPerformed
         
         if(Annos.getItemCount()<=1){
-            JOptionPane.showMessageDialog(null, "Una carrera debe tener al menos un anno", "Error" , JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null, "Una carrera debe tener al menos un año", "Error" , JOptionPane.ERROR_MESSAGE );
         return;
         }
         
@@ -472,7 +471,7 @@ public class Editor_carrera extends javax.swing.JFrame {
     private void AgregarAsigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAsigActionPerformed
         
         if(AsignaturaNombre.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "No hay ningun nombre de asignatura");
+            JOptionPane.showMessageDialog(null, "No hay ningún nombre de asignatura");
         return;
         }
         
@@ -570,9 +569,9 @@ public class Editor_carrera extends javax.swing.JFrame {
     private void FinalizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FinalizarMouseReleased
         
         String s = "Se presentan los siguientes problemas: ";
-        String s2 = "\n El ano: ";
+        String s2 = "\n El año: ";
         String s3 = "no tiene asignaturas.";
-        String s4 = "\n Los siguientes semestres del anno ";
+        String s4 = "\n Los siguientes semestres del año ";
         String s5 = "no tienen asignaturas: ";
         for(int i = 0; i < Asignaturas.size(); i++){
             if(Asignaturas.elementAt(i).isEmpty()){

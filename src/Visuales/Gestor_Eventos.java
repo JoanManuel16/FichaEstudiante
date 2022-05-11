@@ -46,7 +46,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         eventosSeleccionados = new Vector<>();
         eventosAnno = 0;
         eventosDimension = "";
-        setTitle("Getion de eventos");
+        setTitle("Gestión de eventos");
         setLocationRelativeTo(null);
         setResizable(false);
         
@@ -343,7 +343,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         logrosSeleccion.setLocation(this.getLocationOnScreen());
         logrosSeleccion.setSize(624, 473);
         eventoTemp = G.obtenerEvento(eventosSeleccionados.elementAt(tablaEventos.getSelectedRow()).getN1());
-        logrosSeleccion.setTitle("Editor de logros del evento "+ eventoTemp.getNombre() +" del anno "+eventoTemp.getAnno().substring(eventoTemp.getAnno().length()-4));
+        logrosSeleccion.setTitle("Editor de logros del evento "+ eventoTemp.getNombre() +" del año "+eventoTemp.getAnno().substring(eventoTemp.getAnno().length()-4));
         actualizarTablaLogros(eventoTemp);
         
     }//GEN-LAST:event_editarLogrosActionPerformed
@@ -369,7 +369,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             actualizarTablaLogros(eventoTemp);
         }
         else{
-            JOptionPane.showMessageDialog(null, "No hay ningun logro seleccionado");
+            JOptionPane.showMessageDialog(null, "No hay ningún logro seleccionado");
         }
         
     }//GEN-LAST:event_eliminarLogroActionPerformed
@@ -382,7 +382,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
                 
             int valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Escriba el valor"));
         if(valor < 0){
-            JOptionPane.showMessageDialog(null, "El numero debe ser mayor que 0 ", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El número debe ser mayor que 0", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
             if(valor != 0){
@@ -391,12 +391,12 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             actualizarTablaLogros(eventoTemp);
         }
                     } catch (HeadlessException | NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Debe escribir un numero", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Debe escribir un número", "Error", JOptionPane.ERROR_MESSAGE);
             }
             
         }
         else{
-            JOptionPane.showMessageDialog(null, "No hay ningun logro seleccionado");
+            JOptionPane.showMessageDialog(null, "No hay ningún logro seleccionado");
         }
     }//GEN-LAST:event_cambiarValorActionPerformed
 
@@ -451,11 +451,11 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         Object[] OBJ = new Object[3];
         d.addColumn("Evento");
         d.addColumn("Año");
-        d.addColumn("Dimension");
+        d.addColumn("Dimensión");
         
         eventosSeleccionados = new Vector<>();
         if(eventosNombre.isEmpty()&& !nombreEventoT.getText().equals("")){
-            System.err.println("tu amma es pelua");
+            System.err.println("Error");
         }
         else if(eventosAnno == 0 && eventosDimension.equals("") && eventosNombre.isEmpty()){
             eventosSeleccionados = eventos;
