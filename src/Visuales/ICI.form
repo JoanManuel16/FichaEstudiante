@@ -136,7 +136,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="relacion">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Relacion academico-extracurricular"/>
+        <Property name="text" type="java.lang.String" value="Relaci&#xf3;n acad&#xe9;mico-extracurricular"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="relacionL">

@@ -36,9 +36,10 @@ public class Conexion
         
         
        
- ruta = System.getProperty("user.dir")+System.getProperty("file.separator")+"FichaEstudianteDB.db";    
+    ruta = System.getProperty("user.dir")+System.getProperty("file.separator")+"FichaEstudianteDB.db";    
     ///RUTA PARA EL JAR SI NO NO CORRE
- //  ruta = "..\\FichaEstudianteDB.db";
+    ruta = ".."+System.getProperty("file.separator")+"FichaEstudianteDB.db";
+    
         
    
     }

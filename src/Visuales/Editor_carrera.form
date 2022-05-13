@@ -235,7 +235,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="Anno">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Anno"/>
+        <Property name="text" type="java.lang.String" value="A&#xf1;o"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="Annos">
@@ -253,7 +253,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="Annadir_anno">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Annadir Anno"/>
+        <Property name="text" type="java.lang.String" value="A&#xf1;adir A&#xf1;o"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Annadir_annoActionPerformed"/>
@@ -261,7 +261,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="Eliminar_anno">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar Ultimo Anno"/>
+        <Property name="text" type="java.lang.String" value="Eliminar &#xfa;ltimo a&#xf1;o"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Eliminar_annoActionPerformed"/>

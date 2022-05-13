@@ -228,7 +228,7 @@ public class EditorEventos extends javax.swing.JFrame {
             if (x == null) {
                 g.agregar_nombre_evento(temp);
                 NombreEventos.add(temp);
-                JOptionPane.showMessageDialog(null, "Evento: " + temp + "agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Evento: " + temp + " agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
             }
 
             Vector<String> V = new Vector<String>();
@@ -238,7 +238,7 @@ public class EditorEventos extends javax.swing.JFrame {
 
         } else {
             g.agregar_nombre_evento(temp);
-            JOptionPane.showMessageDialog(null, "Evento: " + temp + "agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Evento: " + temp + " agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
             NombreEventos.add(temp);
 
             Vector<String> V = new Vector<String>();
@@ -270,9 +270,9 @@ public class EditorEventos extends javax.swing.JFrame {
 
                 TextNombreEvento.setText("");
                 actualizarTabla(NombreEventos);
-                JOptionPane.showMessageDialog(null, "Se ha agregado el evento con exito");
+                JOptionPane.showMessageDialog(null, "Se ha agregado el evento con éxito");
             } else {
-                JOptionPane.showMessageDialog(null, "Este evento ya existe en el anno indicado");
+                JOptionPane.showMessageDialog(null, "Este evento ya existe en el año indicado");
             }
 
         } else {

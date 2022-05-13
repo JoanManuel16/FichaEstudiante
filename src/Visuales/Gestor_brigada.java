@@ -124,7 +124,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
             }
         });
 
-        ComboBoxAnnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none" }));
+        ComboBoxAnnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
         ComboBoxAnnos.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -135,9 +135,9 @@ public class Gestor_brigada extends javax.swing.JFrame {
             }
         });
 
-        annoBrigada.setText("Anno de la brigada");
+        annoBrigada.setText("Año de la brigada");
 
-        anno.setText("Anno");
+        anno.setText("Año");
 
         annoLabel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -171,7 +171,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(carreraBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +304,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
     private void ComboBoxAnnosPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ComboBoxAnnosPopupMenuWillBecomeInvisible
         String seleccion = (String) ComboBoxAnnos.getSelectedItem();
-        if (seleccion.equals("none")) {
+        if (seleccion.equals("Todos")) {
             BrigadasAnnoB = 0;
             actualizarTablaBrigadas(Brigadas);
             return;

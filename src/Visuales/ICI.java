@@ -98,7 +98,7 @@ public class ICI extends javax.swing.JFrame {
             }
         });
 
-        relacion.setText("Relacion academico-extracurricular");
+        relacion.setText("Relación académico-extracurricular");
 
         ButtonReporte.setText("Reporte");
         ButtonReporte.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,7 +172,7 @@ public class ICI extends javax.swing.JFrame {
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         
         if (PAT.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo PA no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El campo PA no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
             PAT.setText("");
             ButtonReporte.setVisible(false);
             return;

@@ -25,9 +25,10 @@ public class Gestor_carreras extends javax.swing.JFrame {
     private Vector<String> carreras;
     private Gestion G = new Gestion();
     private boolean Main;
-    
+    private boolean openMain;
     public Gestor_carreras(boolean Main) {
         initComponents();
+        openMain=true;
         carreras = G.obtener_carreras();
         actualizarTabla(carreras);
         this.Main = Main;
@@ -73,7 +74,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                
                 if(Habilitar.isSelected()){
                     
-                    int b = JOptionPane.showConfirmDialog(null, "Desea editar esta carrera?");
+                    int b = JOptionPane.showConfirmDialog(null, "¿Desea editar esta carrera?");
                     
                     if(b == 0){
                     
@@ -86,10 +87,10 @@ public class Gestor_carreras extends javax.swing.JFrame {
                 }
                 
                 if(!Habilitar.isSelected() && !Main){
-                    int b = JOptionPane.showConfirmDialog(null, "Desea seleccionar esta carrera para la brigada?");
+                    int b = JOptionPane.showConfirmDialog(null, "¿Desea seleccionar esta carrera para la brigada?");
                     
                     if(b == 0){
-                    
+                    openMain=false;
                     Editor_brigada CB = new Editor_brigada(carrera);
                     CB.setVisible(true);
                     dispose();
@@ -155,7 +156,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
             }
         });
 
-        Habilitar.setText("Habilitar Edicion");
+        Habilitar.setText("Habilitar Edición");
 
         Finalizar.setText("Finalizar");
         Finalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +209,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
     private void Crear_carreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Crear_carreraActionPerformed
         
          if(Texto_carrera.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "No hay ningun nombre de carrera");
+            JOptionPane.showMessageDialog(null, "No hay ningún nombre de carrera escrito");
         return;
         }
         
@@ -240,6 +241,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     
              }
              else{
+                 openMain=false;
                   Editor_carrera CC = new Editor_carrera(temp);
                     CC.setVisible(true);
                     this.dispose();
@@ -275,9 +277,11 @@ public class Gestor_carreras extends javax.swing.JFrame {
     }//GEN-LAST:event_FinalizarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+      if(openMain){
         Main m = new Main();
         m.setVisible(true);
         this.dispose();
+      }
     }//GEN-LAST:event_formWindowClosed
 
 

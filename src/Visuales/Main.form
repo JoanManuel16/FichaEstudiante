@@ -42,7 +42,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="annadirEstudiantesEvento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="A&#xf1;adir Estudiantes a un evento"/>
+                <Property name="text" type="java.lang.String" value="A&#xf1;adir estudiantes a un evento"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annadirEstudiantesEventoActionPerformed"/>
@@ -57,7 +57,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="filtrarNotas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Filtrar por Notas"/>
+                <Property name="text" type="java.lang.String" value="Filtrar por notas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtrarNotasActionPerformed"/>

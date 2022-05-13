@@ -1693,13 +1693,13 @@ public class Gestion {
             RS = C.getConsulta().executeQuery(stat);
             convivencia[0] = RS.getBoolean("padre");
             convivencia[1] = RS.getBoolean("madre");
-            convivencia[2] = RS.getBoolean("hermana(s)");
-            convivencia[3] = RS.getBoolean("hermano(s)");
-            convivencia[4] = RS.getBoolean("abuelo paterno");
-            convivencia[5] = RS.getBoolean("abuelo materno");
-            convivencia[6] = RS.getBoolean("abuela paterna");
-            convivencia[7] = RS.getBoolean("abuela materna");
-            convivencia[8] = RS.getBoolean("otros familiares");
+            convivencia[2] = RS.getBoolean("hermanas");
+            convivencia[3] = RS.getBoolean("hermanos");
+            convivencia[4] = RS.getBoolean("abuelo_paterno");
+            convivencia[5] = RS.getBoolean("abuelo_materno");
+            convivencia[6] = RS.getBoolean("abuela_paterna");
+            convivencia[7] = RS.getBoolean("abuela_materna");
+            convivencia[8] = RS.getBoolean("otros_familiares");
             convivencia[9] = RS.getBoolean("padres_divorciados");
 
             total_familiares = RS.getInt("total_familiares");
@@ -1835,7 +1835,7 @@ public class Gestion {
                     electronics[i] = 0;
                 }
             }
-            stat = "select id_estudiante from Estudiante where CI = '" + e.getCI() + "'";
+            stat = "select id_estudiante from Estudiante where CI = '" + CIViejo + "'";
             RS = C.getConsulta().executeQuery(stat);
             int idE = RS.getInt("id_estudiante");
 
@@ -1843,37 +1843,38 @@ public class Gestion {
             C.getConsulta().execute(stat);
 
             for (int i = 0; i < e.getManifestaciones_artisticas().size(); i++) {
-                stat = "select * from manifestacion_artistica where manifestacion = '" + e.getManifestaciones_artisticas().elementAt(i) + "'";
+                stat = "select id_manifestacion from manifestacion_artistica where manifestacion = '" + e.getManifestaciones_artisticas().elementAt(i) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 manifestaciones.add(RS.getInt("id_manifestacion"));
-            }
+            }            
+            stat = "delete from artes_estudiante where id_estudiante = " + idE;
+            C.getConsulta().execute(stat);            
             for (int i = 0; i < manifestaciones.size(); i++) {
-                stat = "update artes_estudiante set id_manifestacion = " + manifestaciones.elementAt(i) + " where id_estudiante = " + idE;
+                stat = "insert into artes_estudiante values(" + idE + ", " + manifestaciones.elementAt(i) + ")";
                 C.getConsulta().execute(stat);
             }
-
-            stat = "update convivencia set padre = " + familiares[0] + ", madre = " + familiares[1] + ", hermana(s) = " + familiares[2] + ", hermano(s) = " + familiares[3] + ", abuelo_paterno = " + familiares[4] + ", abuelo_materno = " + familiares[5] + ", abuela_paterna = " + familiares[6] + ", abuela_materna = " + familiares[7] + ",otros_familiares = " + familiares[8] + ", padres_divorciados = " + familiares[9] + ", total_familiares = " + e.getTotal_familiares() + ", ingreso_hogar = " + e.getIngreso_total() + ", id_relaciones = (select id_relaciones from relaciones convivencia where relaciones = '" + e.getRelaciones() + "') where id_estudiante = " + idE;
-            C.getConsulta().execute(stat);
+            
             for (int i = 0; i < e.getDeportes().size(); i++) {
-                stat = "select id_deporte from deporte where deporte = '" + e.getDeportes().elementAt(1) + "'";
+                stat = "select id_deporte from deporte where deporte = '" + e.getDeportes().elementAt(i) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 deportes.add(RS.getInt("id_deporte"));
             }
+            stat = "delete from deporte_estudiante where id_estudiante = " + idE;
+            C.getConsulta().execute(stat);            
             for (int i = 0; i < deportes.size(); i++) {
-                stat = "update deporte_estudiante set id_deporte = " + deportes.elementAt(i) + " where id_estudiante = " + idE;
+                stat = "insert into deporte_estudiante values(" + idE + ", " + deportes.elementAt(i) + ")";
                 C.getConsulta().execute(stat);
             }
-
-            stat = "update Electronics set pc = " + e.getElectronicos()[0] + ",laptop = " + e.getElectronicos()[1] + ", movil = " + e.getElectronicos()[2] + ",tablet = " + e.getElectronicos()[3] + " where id_estudiante = " + idE;
-            C.getConsulta().execute(stat);
-
+            
             for (int i = 0; i < e.getEnfermedades().size(); i++) {
                 stat = "select id_enfermedad from enfermedad where enfermedad = '" + e.getEnfermedades().elementAt(i) + "'";
                 RS = C.getConsulta().executeQuery(stat);
                 enfermedades.add(RS.getInt("id_enfermedad"));
             }
+            stat = "delete from enfermedades_estudiante where id_estudiante = " + idE;
+            C.getConsulta().execute(stat);
             for (int i = 0; i < enfermedades.size(); i++) {
-                stat = "update enfermedades_estudiante set id_enfermedad = " + enfermedades.elementAt(i) + " where id_estudiante = " + idE;
+                stat = "insert into enfermedades_estudiante values(" + idE + ", " + enfermedades.elementAt(i) + ")";
                 C.getConsulta().execute(stat);
             }
             for (int i = 0; i < e.getMedicamentos().size(); i++) {
@@ -1881,11 +1882,19 @@ public class Gestion {
                 RS = C.getConsulta().executeQuery(stat);
                 medicamentos.add(RS.getInt("id_medicamento"));
             }
+            stat = "delete from medicamentos_estudiante where id_estudiante = " + idE;
+            C.getConsulta().execute(stat);
             for (int i = 0; i < medicamentos.size(); i++) {
-                stat = "update medicamentos_estudiante set id_medicamento = " + medicamentos.elementAt(i) + " where id_estudiante = " + idE;
+                stat = "insert into medicamentos_estudiante values(" + idE + ", " + medicamentos.elementAt(i) + ")";
                 C.getConsulta().execute(stat);
             }
 
+            stat = "update convivencia set padre = " + familiares[0] + ", madre = " + familiares[1] + ", hermanas = " + familiares[2] + ", hermanos = " + familiares[3] + ", abuelo_paterno = " + familiares[4] + ", abuelo_materno = " + familiares[5] + ", abuela_paterna = " + familiares[6] + ", abuela_materna = " + familiares[7] + ", otros_familiares = " + familiares[8] + ", padres_divorciados = " + familiares[9] + ", total_familiares = " + e.getTotal_familiares() + ", ingreso_hogar = " + e.getIngreso_total() + ", id_relaciones = " + e.getRelaciones() + " where id_estudiante = " + idE;
+            C.getConsulta().execute(stat);
+            
+            stat = "update Electronics set pc = " + electronics[0] + ", laptop = " + electronics[1] + ", movil = " + electronics[2] + ", tablet = " + electronics[3] + " where id_estudiante = " + idE;
+            C.getConsulta().execute(stat);
+            
             stat = "update psiquis_estudiante set deseos_futuros = '" + e.getDeseos_futuros() + "', actividades_tiempo_libre = '" + e.getActividades_tiempo_libre() + "', proyectos_de_vida = '" + e.getProyectos_vida() + "',rasgos_y_habitos = '" + e.getRasgos_habitos() + "', felicidad = " + feliz + ", gusto_por_estudio = " + gusto_estudio + ", gusto_por_carrera = " + gusto_carrera + " where id_estudiante = " + idE;
             C.getConsulta().execute(stat);
 
