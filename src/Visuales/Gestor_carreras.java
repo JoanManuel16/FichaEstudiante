@@ -234,7 +234,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     String  x =(String) JOptionPane.showInputDialog(null, "Estas carreras son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
             
                     if(x == null){
-                        
+                    openMain = false;    
                     Editor_carrera CC = new Editor_carrera(temp, Main);
                     CC.setVisible(true);
                     this.dispose();
