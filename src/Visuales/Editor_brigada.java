@@ -518,6 +518,10 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void Pasar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pasar_annoActionPerformed
         openMain=false;
+        if(G.obtener_annos_carrera(B.getCarrera()) == B.getAnno_brigada()){
+            JOptionPane.showMessageDialog(null, "No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " años");
+            return;
+        }
         Brigada new_brigada = new Brigada(B.getCarrera(), B.getAnno() + 1, B.getAnno_brigada() + 1, B.getEstudiantes());
         G.agregar_brigada(new_brigada);
         Editor_brigada EB = new Editor_brigada(new_brigada);
