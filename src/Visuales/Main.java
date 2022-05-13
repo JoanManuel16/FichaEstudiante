@@ -126,14 +126,14 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(143, 143, 143)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,7 +143,7 @@ public class Main extends javax.swing.JFrame {
 
         Gestor_carreras GC = new Gestor_carreras(false);
         GC.setVisible(true);
-        dispose();
+        this.dispose();
 
     }//GEN-LAST:event_crearBrigadaActionPerformed
 
@@ -157,7 +157,7 @@ public class Main extends javax.swing.JFrame {
     private void brigadasExistentesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brigadasExistentesMouseReleased
         Gestor_brigada gestorBrigada = new Gestor_brigada(1);
         gestorBrigada.setVisible(true);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_brigadasExistentesMouseReleased
 
     private void ICIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ICIActionPerformed

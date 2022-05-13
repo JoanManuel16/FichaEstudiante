@@ -7,7 +7,7 @@ package Visuales;
 import Base_de_Datos.Gestion;
 import clases.Brigada;
 import java.util.Vector;
-import javax.crypto.spec.GCMParameterSpec;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
@@ -150,12 +150,6 @@ public class Gestor_brigada extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(editar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -165,22 +159,29 @@ public class Gestor_brigada extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(anno)
                         .addGap(24, 24, 24)
-                        .addComponent(annoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(LabelBeigadasExistentes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(annoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(carreraBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LabelBeigadasExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(carreraBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(editar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelBeigadasExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(carreraBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboBoxAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,7 +191,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(anno)
                             .addComponent(annoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editar)
                     .addComponent(ButtonCancelar))
@@ -283,6 +284,10 @@ public class Gestor_brigada extends javax.swing.JFrame {
                 if (BrigadasSeleccionadas.isEmpty()) {
                     for (int i = 0; i < Brigadas.size(); i++) {
                         if (Brigadas.elementAt(i).getAnno() == anno && Brigadas.elementAt(i).getAnno_brigada() == annoB && Brigadas.elementAt(i).getCarrera().equals(carr)) {
+                            if(g.obtenerEventosBrigada(Brigadas.elementAt(i)).isEmpty()){
+                                JOptionPane.showMessageDialog(null, "Esta brigada no tiene eventos. Añada eventos a la brigada en el editor de brigada");
+                                return;
+                            }
                             EventoEstudiante EE = new EventoEstudiante(Brigadas.elementAt(i));
                             EE.setVisible(true);
                             dispose();
@@ -291,6 +296,10 @@ public class Gestor_brigada extends javax.swing.JFrame {
                 }
                 for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
                     if (BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada() == annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)) {
+                        if(g.obtenerEventosBrigada(Brigadas.elementAt(i)).isEmpty()){
+                                JOptionPane.showMessageDialog(null, "Esta brigada no tiene eventos. Añada eventos a la brigada en el editor de brigada");
+                                return;
+                            }
                         EventoEstudiante EE = new EventoEstudiante(BrigadasSeleccionadas.elementAt(i));
                         EE.setVisible(true);
                         dispose();
@@ -333,10 +342,6 @@ public class Gestor_brigada extends javax.swing.JFrame {
     }//GEN-LAST:event_annoLabelKeyReleased
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
-
-        if (opcion == 4) {
-
-        }
 
         Main M = new Main();
         M.setVisible(true);

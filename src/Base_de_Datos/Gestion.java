@@ -190,16 +190,16 @@ public class Gestion {
 
             Vector<Tupla<Integer, String>> V = new Vector<>();
 
-            do {
+            while(RS.next()){
                 int idA = RS.getInt("id_asignatura");
                 String NA = RS.getString("nombre_asignatura");
                 V.add(new Tupla<>(idA, NA));
+            }
 
-            } while (RS.next());
 
             for (int i = 0; i < V.size(); i++) {
                 //A veces pone la asignatura doble
-                String execute = "insert into notas_estudiante values(" + idE + ", " + V.elementAt(i).getN1() + ", 0, 0, '" + V.elementAt(i).getN2() + "')";
+                String execute = "insert into notas_estudiante values(" + idE + ", " + V.elementAt(i).getN1() + ", 0, '" + V.elementAt(i).getN2() + "')";
                 C.getConsulta().execute(execute);
             }
 
@@ -460,10 +460,14 @@ public class Gestion {
 
         try {
 
-            String stat = "select * from asignaturas order by nombre_asignatura";
+            String stat = "select * from asignaturas";
             ResultSet RS = C.getConsulta().executeQuery(stat);
-            while (RS.next()) {
+            if(RS.next()) {
+                stat = "select * from asignaturas order by nombre_asignatura";
+                RS = C.getConsulta().executeQuery(stat);
+                while(RS.next()){
                 asig.add(RS.getString("nombre_asignatura"));
+                }
             }
 
         } catch (SQLException ex) {
@@ -1125,7 +1129,7 @@ public class Gestion {
                 do {
                     int idA = RS.getInt(2);
                     String NA = RS.getString("nombre_asignatura");
-                    notas.add(new Nota(idA, 0, 0, NA));
+                    notas.add(new Nota(idA, 0, NA));
                 } while (RS.next());
             }
 
@@ -1134,9 +1138,7 @@ public class Gestion {
                 RS = C.getConsulta().executeQuery(stat);
 
                 int notaAsig = RS.getInt("nota_asignatura");
-                int notaPremio = RS.getInt("nota_examen_premio");
 
-                notas.elementAt(i).setLugar_examen_premio(notaPremio);
                 notas.elementAt(i).setNota(notaAsig);
             }
 
@@ -1307,7 +1309,7 @@ public class Gestion {
 
             for (int i = 0; i < eventosBrigada.size(); i++) {
 
-                stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_nombre_evento = " + eventosBrigada.elementAt(i).getN1();
+                stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_evento = " + eventosBrigada.elementAt(i).getN1();
                 RS = C.getConsulta().executeQuery(stat);
                 int idE = RS.getInt("id_evento");
 

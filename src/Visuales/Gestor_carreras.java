@@ -79,7 +79,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     if(b == 0){
                     
                     Carrera Carr = G.obtener_carrera(carrera);
-                    Editor_carrera CC = new Editor_carrera(Carr);
+                    Editor_carrera CC = new Editor_carrera(Carr, Main);
                     
                     CC.setVisible(true);
                     dispose();
@@ -171,36 +171,42 @@ public class Gestor_carreras extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(Nombre_carrera)
+                .addGap(12, 12, 12)
+                .addComponent(Texto_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Crear_carrera)
+                .addContainerGap(312, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
                         .addComponent(Habilitar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(597, 597, 597)
                         .addComponent(Finalizar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Nombre_carrera)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Texto_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Crear_carrera)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(Nombre_carrera))
                     .addComponent(Texto_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Nombre_carrera)
-                        .addComponent(Crear_carrera)))
-                .addGap(18, 18, 18)
+                    .addComponent(Crear_carrera))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Finalizar)
-                    .addComponent(Habilitar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(Habilitar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(Finalizar)))
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,7 +235,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
             
                     if(x == null){
                         
-                    Editor_carrera CC = new Editor_carrera(temp);
+                    Editor_carrera CC = new Editor_carrera(temp, Main);
                     CC.setVisible(true);
                     this.dispose();
                     }
@@ -242,7 +248,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
              }
              else{
                  openMain=false;
-                  Editor_carrera CC = new Editor_carrera(temp);
+                  Editor_carrera CC = new Editor_carrera(temp, Main);
                     CC.setVisible(true);
                     this.dispose();
              }

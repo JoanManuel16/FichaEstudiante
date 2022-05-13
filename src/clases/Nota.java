@@ -4,13 +4,11 @@ public class Nota {
 
 	private int idAsignatura;
 	private int nota;
-	private int lugar_examen_premio;
         private String nombreAsignatura;
 	
-	public Nota(int A, int N, int L, String NA) {
+	public Nota(int A, int N, String NA) {
 		idAsignatura = A;
 		nota = N;
-		lugar_examen_premio = L;
                 nombreAsignatura = NA;
 	}
 
@@ -20,14 +18,6 @@ public class Nota {
 
 	public void setNota(int nota) {
 		this.nota = nota;
-	}
-
-	public int getLugar_examen_premio() {
-		return lugar_examen_premio;
-	}
-
-	public void setLugar_examen_premio(int lugar_examen_premio) {
-		this.lugar_examen_premio = lugar_examen_premio;
 	}
 
     public int getIdAsignatura() {
