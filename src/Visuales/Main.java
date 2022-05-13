@@ -81,7 +81,7 @@ public class Main extends javax.swing.JFrame {
         });
         eventos.add(gestorEventos);
 
-        annadirEstudiantesEvento.setText("Añadir Estudiantes a un evento");
+        annadirEstudiantesEvento.setText("Añadir estudiantes a un evento");
         annadirEstudiantesEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 annadirEstudiantesEventoActionPerformed(evt);
@@ -93,7 +93,7 @@ public class Main extends javax.swing.JFrame {
 
         notas.setText("Notas");
 
-        filtrarNotas.setText("Filtrar por Notas");
+        filtrarNotas.setText("Filtrar por notas");
         filtrarNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filtrarNotasActionPerformed(evt);
