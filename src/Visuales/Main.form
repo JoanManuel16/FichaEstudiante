@@ -9,9 +9,17 @@
             <Property name="text" type="java.lang.String" value="Gestor de Brigada"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="gestorCarreras">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestor de Carreras"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gestorCarrerasActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="brigadasExistentes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Brigadas Existentes"/>
+                <Property name="text" type="java.lang.String" value="Gestor de Brigadas"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="brigadasExistentesMouseReleased"/>

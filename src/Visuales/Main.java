@@ -35,6 +35,7 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         gestorBrigadas = new javax.swing.JMenu();
+        gestorCarreras = new javax.swing.JMenuItem();
         brigadasExistentes = new javax.swing.JMenuItem();
         crearBrigada = new javax.swing.JMenuItem();
         eventos = new javax.swing.JMenu();
@@ -53,7 +54,15 @@ public class Main extends javax.swing.JFrame {
 
         gestorBrigadas.setText("Gestor de Brigada");
 
-        brigadasExistentes.setText("Brigadas Existentes");
+        gestorCarreras.setText("Gestor de Carreras");
+        gestorCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestorCarrerasActionPerformed(evt);
+            }
+        });
+        gestorBrigadas.add(gestorCarreras);
+
+        brigadasExistentes.setText("Gestor de Brigadas");
         brigadasExistentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 brigadasExistentesMouseReleased(evt);
@@ -172,6 +181,12 @@ public class Main extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Not implemented yet still in testing", "INFO", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_filtrarNotasActionPerformed
 
+    private void gestorCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorCarrerasActionPerformed
+        Gestor_carreras GC = new Gestor_carreras(true);
+        GC.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_gestorCarrerasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -215,6 +230,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu eventos;
     private javax.swing.JMenuItem filtrarNotas;
     private javax.swing.JMenu gestorBrigadas;
+    private javax.swing.JMenuItem gestorCarreras;
     private javax.swing.JMenuItem gestorEventos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
