@@ -566,7 +566,7 @@ public class Gestion {
             String stat = "select max (anno_brigada) from carrera join asignaturas_semestre on carrera.id_carrera = asignaturas_semestre.id_carrera where carrera.nombre_carrera = '" + Carr + "'";
 
             ResultSet RS = C.getConsulta().executeQuery(stat);
-            max_anno = RS.getInt("anno_brigada");
+            max_anno = RS.getInt(1);
 
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
