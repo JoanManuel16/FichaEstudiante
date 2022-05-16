@@ -86,6 +86,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         annoEventoT = new javax.swing.JTextField();
         dimensionEvento = new javax.swing.JComboBox<>();
         nuevoEvento = new javax.swing.JButton();
+        ButtonFinalizar = new javax.swing.JButton();
 
         tablaLogros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -196,7 +197,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaEventos);
 
-        nombreEvento.setText("Nombre del Evento");
+        nombreEvento.setText("Buscar Evento");
 
         nombreEventoT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -225,6 +226,13 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             }
         });
 
+        ButtonFinalizar.setText("Finalizar");
+        ButtonFinalizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonFinalizarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -239,12 +247,17 @@ public class Gestor_Eventos extends javax.swing.JFrame {
                             .addComponent(annoEvento))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombreEventoT, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(annoEventoT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 317, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nombreEventoT, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 344, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(annoEventoT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dimensionEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonFinalizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(nuevoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -262,10 +275,11 @@ public class Gestor_Eventos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dimensionEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nuevoEvento))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                    .addComponent(nuevoEvento)
+                    .addComponent(ButtonFinalizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -417,8 +431,16 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         eventosMenu.setVisible(false);
     }//GEN-LAST:event_formMouseClicked
 
+    private void ButtonFinalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonFinalizarMouseClicked
+       eventosMenu.setVisible(false);
+        Main M = new Main();
+        M.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonFinalizarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonFinalizar;
     private javax.swing.JMenuItem EliminarEvento;
     private javax.swing.JButton agregarLogro;
     private javax.swing.JLabel annoEvento;
@@ -543,7 +565,12 @@ public class Gestor_Eventos extends javax.swing.JFrame {
 
     private void actualizarTablaLogros(Evento eventoTemp) {
 
-         DefaultTableModel d = new DefaultTableModel();
+         DefaultTableModel d = new DefaultTableModel(){
+           @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;         
+             };
+         };
         Object[] OBJ = new Object[2];
         d.addColumn("Logro");
         d.addColumn("Valor");

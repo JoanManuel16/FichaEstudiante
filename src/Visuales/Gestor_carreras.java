@@ -77,7 +77,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     int b = JOptionPane.showConfirmDialog(null, "¿Desea editar esta carrera?");
                     
                     if(b == 0){
-                    
+                    openMain=false;
                     Carrera Carr = G.obtener_carrera(carrera);
                     Editor_carrera CC = new Editor_carrera(Carr, Main);
                     
@@ -247,10 +247,13 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     
              }
              else{
+                 int opcion =JOptionPane.showConfirmDialog(null, "Va a proceder a la creacion de la carrera "+temp+" esta seguro", "Mensaje de ayuda", JOptionPane.INFORMATION_MESSAGE);
+                 if(opcion==0){
                  openMain=false;
                   Editor_carrera CC = new Editor_carrera(temp, Main);
                     CC.setVisible(true);
                     this.dispose();
+                 }
              }
     }//GEN-LAST:event_Crear_carreraActionPerformed
 

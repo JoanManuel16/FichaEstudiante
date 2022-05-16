@@ -36,7 +36,8 @@ public class ICI extends javax.swing.JFrame {
         int m = g.obtenerSumaValoresEventos(brigada);
 
         actividadesExtraL.setText(m + "");
-
+        relacion.setVisible(false);
+        relacionL.setVisible(false);
         actualizarTablaICI();
 
     }
