@@ -1759,7 +1759,7 @@ public class Gestion {
         }
         C.desconectar();
 
-        DatosEstudiante dt = new DatosEstudiante(email, sexo, telefono_particular, telefono_fijo, datos_moviles, email, sexo, edad, becado, color_de_piel, militante, estado_civil, hijos, direccion_particular, zona, religion, bebidas_alcoholicas, fumador, participacion_brigada, manifestaciones_artisticas, convivencia, total_familiares, ingreso_total, relaciones, deportes, electronicos, enfermedades, activo, eventos, medicamentos, deseos_futuros, actividades_tiempo_libre, proyectos_vida, rasgos_habitos, feliz, gusta_carrera, gusta_estudio, nivel_ingles);
+        DatosEstudiante dt = new DatosEstudiante(estudiante.getNombre_estudiante(), sexo, telefono_particular, telefono_fijo, datos_moviles, email, sexo, edad, becado, color_de_piel, militante, estado_civil, hijos, direccion_particular, zona, religion, bebidas_alcoholicas, fumador, participacion_brigada, manifestaciones_artisticas, convivencia, total_familiares, ingreso_total, relaciones, deportes, electronicos, enfermedades, activo, eventos, medicamentos, deseos_futuros, actividades_tiempo_libre, proyectos_vida, rasgos_habitos, feliz, gusta_carrera, gusta_estudio, nivel_ingles);
         return dt;
     }
 
