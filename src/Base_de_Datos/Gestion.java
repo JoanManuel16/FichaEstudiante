@@ -15,6 +15,7 @@ import clases.DatosEstudiante;
 import clases.Estudiante;
 import clases.Evento;
 import clases.Nota;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -72,7 +73,7 @@ public class Gestion {
 
     }
 
-    //Agrega la brigada a la base de datos
+    
     public boolean agregar_brigada(Brigada B) {
 
         C.conectar();
@@ -1280,12 +1281,42 @@ public class Gestion {
         C.desconectar();
         return eventos;
     }
+    
+    public HashSet<Integer> obtenerBrigadaEventosH(Brigada B) {
+
+        C.conectar();
+        HashSet<Integer> eventos = new HashSet<>();
+
+        try {
+
+            String stat = "select id_brigada from brigada where ano_brigada = " + B.getAnno_brigada() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + B.getCarrera() + "') and anno = " + B.getAnno();
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            int idB = RS.getInt("id_brigada");
+
+            stat = "select * from eventos_brigada join eventos join nombre_evento on eventos_brigada.id_evento = eventos.id_evento and eventos.id_nombre_evento = nombre_evento.id_nombre_evento where eventos_brigada.id_brigada = " + idB;
+
+            RS = C.getConsulta().executeQuery(stat);
+
+            if (RS.next()) {
+                do {
+                    eventos.add(RS.getInt(2));
+
+                } while (RS.next());
+
+            }
+            
+            C.desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return eventos;
+    }
 
     public Object obtenerNombreEvento(Integer id) {
 
+        C.conectar();
         String nombreEvento = "";
         try {
-            C.conectar();
 
             String stat = "select nombre_evento.nombre_evento from eventos join nombre_evento on nombre_evento.id_nombre_evento = eventos.id_nombre_evento where eventos.id_evento = " + id;
             ResultSet RS = C.getConsulta().executeQuery(stat);
@@ -1307,30 +1338,27 @@ public class Gestion {
             ResultSet RS = C.getConsulta().executeQuery(stat);
             int idB = RS.getInt("id_brigada");
 
-            for (int i = 0; i < eventosBrigada.size(); i++) {
-
-                stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_evento = " + eventosBrigada.elementAt(i).getN1();
-                RS = C.getConsulta().executeQuery(stat);
-                int idE = RS.getInt("id_evento");
-
-                stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
-                RS = C.getConsulta().executeQuery(stat);
-                if (!RS.next()) {
-                    stat = "insert into eventos_brigada values(" + idB + ", " + idE + ")";
-                    C.getConsulta().execute(stat);
-                }
-            }
-
+            
             for (int i = 0; i < eventosEliminados.size(); i++) {
 
-                stat = "select id_evento from eventos where fecha_evento = '" + eventosBrigada.elementAt(i).getN2() + "' and id_nombre_evento = " + eventosBrigada.elementAt(i).getN1();
-                RS = C.getConsulta().executeQuery(stat);
-                int idE = RS.getInt("id_evento");
+                int idE = eventosEliminados.elementAt(i).getN1();
 
                 stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
                 RS = C.getConsulta().executeQuery(stat);
                 if (RS.next()) {
                     stat = "delete from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
+                    C.getConsulta().execute(stat);
+                }
+            }
+            
+            for (int i = 0; i < eventosBrigada.size(); i++) {
+
+                int idE = eventosBrigada.elementAt(i).getN1();
+
+                stat = "select * from eventos_brigada where id_brigada = " + idB + " and id_evento = " + idE;
+                RS = C.getConsulta().executeQuery(stat);
+                if (!RS.next()) {
+                    stat = "insert into eventos_brigada values(" + idB + ", " + idE + ")";
                     C.getConsulta().execute(stat);
                 }
             }
@@ -1356,11 +1384,12 @@ public class Gestion {
             stat = "select * from eventos_brigada join eventos on eventos_brigada.id_evento = eventos.id_evento where eventos_brigada.id_brigada = " + idB;
             RS = C.getConsulta().executeQuery(stat);
             Vector<Integer> eventosID = new Vector<>();
-            do {
-
+            if(RS.next()){
+                do{
                 eventosID.add(RS.getInt(2));
 
             } while (RS.next());
+            }
 
             int sum = 0;
             for (int i = 0; i < eventosID.size(); i++) {
@@ -1416,7 +1445,7 @@ public class Gestion {
             ResultSet RS = C.getConsulta().executeQuery(stat2);
             int idE = RS.getInt(1);
 
-            String stat = "select sum (logros_evento.valor_logro) from logros_evento join eventos_estudiante on logros_evento.id_logro = eventos_estudiante.id_logro where eventos_estudiante.id_estudiante = " + idE;
+            String stat = "select sum (logros_evento.valor_logro) from logros_evento join eventos_estudiante join eventos_brigada on logros_evento.id_logro = eventos_estudiante.id_logro and eventos_estudiante.id_evento = eventos_brigada.id_evento where eventos_estudiante.id_estudiante = " + idE;
             RS = C.getConsulta().executeQuery(stat);
             sol = RS.getInt(1);
 
@@ -2046,5 +2075,42 @@ public class Gestion {
         }
 
         C.desconectar();
+    }
+
+    public boolean existeBrigada(Brigada brigada) {
+            C.conectar();
+        try {
+            String stat = "select * from brigada where ano_brigada = " + brigada.getAnno_brigada() + " and anno = " + brigada.getAnno() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + brigada.getCarrera() + "')";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            if(RS.next()){
+                C.desconectar();
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.conectar();
+        return false;
+    }
+
+    public boolean brigadaTieneEstudiantes(Brigada brigada) {
+      C.conectar();
+        try {
+            String stat = "select id_brigada from brigada where ano_brigada = " + brigada.getAnno_brigada() + " and anno = " + brigada.getAnno() + " and id_carrera = (select id_carrera from carrera where nombre_carrera = '" + brigada.getCarrera() + "')";
+            ResultSet RS = C.getConsulta().executeQuery(stat);
+            int idB = RS.getInt("id_brigada");
+            
+            stat = "select * from EstudianteSencillo where id_brigada = " +idB;
+            RS = C.getConsulta().executeQuery(stat);
+            
+            if(RS.next()){
+                C.desconectar();
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        C.conectar();
+        return false;
     }
 }

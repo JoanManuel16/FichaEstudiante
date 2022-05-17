@@ -288,6 +288,10 @@ public class Gestor_brigada extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "Esta brigada no tiene eventos. Añada eventos a la brigada en el editor de brigada");
                                 return;
                             }
+                            if(!g.brigadaTieneEstudiantes(Brigadas.elementAt(i))){
+                            JOptionPane.showMessageDialog(null, "Esta brigada no tiene estudiantes. Añada estudiantes a la brigada en el editor de brigada");
+                                return;
+                            }
                             EventoEstudiante EE = new EventoEstudiante(Brigadas.elementAt(i));
                             EE.setVisible(true);
                             dispose();
@@ -300,6 +304,10 @@ public class Gestor_brigada extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "Esta brigada no tiene eventos. Añada eventos a la brigada en el editor de brigada");
                                 return;
                             }
+                        if(!g.brigadaTieneEstudiantes(Brigadas.elementAt(i))){
+                            JOptionPane.showMessageDialog(null, "Esta brigada no tiene estudiantes. Añada estudiantes a la brigada en el editor de brigada");
+                                return;
+                        }
                         EventoEstudiante EE = new EventoEstudiante(BrigadasSeleccionadas.elementAt(i));
                         EE.setVisible(true);
                         dispose();
@@ -343,9 +351,8 @@ public class Gestor_brigada extends javax.swing.JFrame {
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
 
-        Main M = new Main();
-        M.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_ButtonCancelarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

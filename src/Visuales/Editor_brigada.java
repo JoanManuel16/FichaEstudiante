@@ -14,6 +14,7 @@ import com.toedter.calendar.JYearChooser;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashSet;
 import java.util.Vector;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -39,6 +40,9 @@ public class Editor_brigada extends javax.swing.JFrame {
     private boolean actualizacion;
     private Vector<String> dimensiones = new Vector<>();
     private boolean openMain;
+    
+    private HashSet<Integer> eventosAnnadidosID;
+    
     public Editor_brigada(String Carr) {
         initComponents();
         openMain=true;
@@ -59,6 +63,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         }
 
         eventosBrigada = new Vector<>();
+        eventosAnnadidosID = new HashSet<>();
         eventos = G.obtenerEventos();
 
         Pasar_anno.setVisible(false);
@@ -82,8 +87,17 @@ public class Editor_brigada extends javax.swing.JFrame {
         Anno_seleccionado.setText(B.getAnno_brigada() + "");
 
 
-        eventosBrigada = G.obtenerBrigadaEventos(B);
+        eventosBrigada = new Vector<>();
         eventos = G.obtenerEventosAnno(B.getAnno());
+        eventosAnnadidosID = G.obtenerBrigadaEventosH(B);
+        
+        for(int i = 0; i < eventos.size(); i++){
+            if(eventosAnnadidosID.contains(eventos.elementAt(i).getN1())){
+                eventosBrigada.add(eventos.elementAt(i));
+            }
+        }
+        
+        
 
         Pasar_anno.setVisible(true);
 
@@ -491,6 +505,10 @@ public class Editor_brigada extends javax.swing.JFrame {
         Brigada brigada = null;
         if (!actualizacion) {
             brigada = new Brigada(Carrera_seleccionada.getText(), Integer.parseInt((String) Annos.getSelectedItem()), Integer.parseInt(Anno_seleccionado.getText()), estudiantes);
+            if(G.existeBrigada(brigada)){
+                JOptionPane.showMessageDialog(null, "Ya existe una brigada de primer año en el año " + brigada.getAnno());
+                return;
+            }
             G.agregar_brigada(brigada);
         } else {
             brigada = new Brigada(Carrera_seleccionada.getText(), B.getAnno(), B.getAnno_brigada(), estudiantes);
@@ -499,8 +517,6 @@ public class Editor_brigada extends javax.swing.JFrame {
 
         if (actualizacion) {
             G.actualizarEventosBrigada(brigada, eventosBrigada, eventosEliminados);
-            Main M = new Main();
-            M.setVisible(true);
             dispose();
         } else {
             openMain=false;
@@ -649,11 +665,10 @@ public class Editor_brigada extends javax.swing.JFrame {
             radioButtonEventos.add(new JRadioButton("", false));
             OBJ[1] = eventos.elementAt(i).getN2();
             OBJ[2] = radioButtonEventos.lastElement();
-            for (int j = 0; j < eventosBrigada.size(); j++) {
-                if (eventosBrigada.elementAt(j).getN1().equals(eventos.elementAt(i).getN1()) && eventosBrigada.elementAt(j).getN2().equals(eventos.elementAt(i).getN2())) {
+
+                if (eventosAnnadidosID.contains(eventos.elementAt(i).getN1())) {
                     radioButtonEventos.lastElement().setSelected(true);
-                    break;
-                }
+
             }
             d.addRow(OBJ);
             }
@@ -688,6 +703,7 @@ public class Editor_brigada extends javax.swing.JFrame {
                     }
                     if (radioButtonEventos.elementAt(fila).isSelected()) {
                         eventosBrigada.add(eventos.elementAt(pos));
+                        eventosAnnadidosID.add(eventos.elementAt(pos).getN1());
                         if (eventosEliminados.contains(eventos.elementAt(pos))) {
                             eventosEliminados.remove(eventos.elementAt(pos));
                         }
@@ -696,6 +712,7 @@ public class Editor_brigada extends javax.swing.JFrame {
                         eventosEliminados.add(eventos.elementAt(pos));
                         if (eventosBrigada.contains(eventos.elementAt(pos))) {
                             eventosBrigada.remove(eventos.elementAt(pos));
+                            eventosAnnadidosID.remove(eventos.elementAt(pos).getN1());
                         }
                     }
 

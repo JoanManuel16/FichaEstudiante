@@ -127,7 +127,12 @@ public class EventoEstudiante extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         TableEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -230,9 +235,15 @@ public class EventoEstudiante extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay ningún evento seleccionado. Se procederá a abrir el menú principal", "Error", JOptionPane.ERROR_MESSAGE);
             Main m = new Main();
             m.setVisible(true);
-            dispose();
+            this.dispose();
         }
     }//GEN-LAST:event_escogerEventoWindowClosing
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+            Main m = new Main();
+            m.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
