@@ -49,7 +49,7 @@ public class Editor_carrera extends javax.swing.JFrame {
       PrimerSem.setSelected(true);
       edicion = false;
       this.Main = Main;
-        
+      AgregarAsig.setVisible(false);
       this.setLocationRelativeTo(null);
       this.setTitle("Editor de carrera: " + NC);
     }
@@ -59,7 +59,7 @@ public class Editor_carrera extends javax.swing.JFrame {
         nombre_carrera = Carr.getNombre();
         Asignaturas = Carr.getAsignaturas();
         NombreAsig = G.obtener_asignaturas();
-        
+        AgregarAsig.setVisible(false);
         for(int i = 0; i < Asignaturas.size(); i++){
             Annos.addItem((i+1)+"");
             for(int j = 0; j < Asignaturas.elementAt(i).size(); j++){
@@ -148,7 +148,7 @@ public class Editor_carrera extends javax.swing.JFrame {
             AsigXSem = new JTable(df);
             jScrollPane2.setViewportView(AsigXSem);
             df.addColumn("Nombre de la asignatura");
-            df.addColumn("Anno");
+            df.addColumn("Año");
             
             Vector<String> primerSemestre = new Vector<>();
             Vector<String> segundoSemestre = new Vector<>();
@@ -429,12 +429,14 @@ public class Editor_carrera extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Annadir_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Annadir_annoActionPerformed
-        
-        int cantA = Annos.getItemCount()+1;
-            
+        if(Annos.getItemCount()<6){
+        int cantA = Annos.getItemCount()+1;     
         Annos.addItem(cantA+"");
         Asignaturas.add(new Vector<>());   
-        
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "No se pueden agregar mas de 6 años", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_Annadir_annoActionPerformed
 
     private void Eliminar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_annoActionPerformed
@@ -471,6 +473,7 @@ public class Editor_carrera extends javax.swing.JFrame {
          
           String temp = AsignaturaNombre.getText();
          if(temp.length()>=3){
+             AgregarAsig.setVisible(true);
              Vector<String> Similares = new Vector<>();
              for(int i = 0; i < NombreAsig.size(); i++){
                  if(Secuencias_cadenas.mayor_subcadena(temp, NombreAsig.elementAt(i))){
@@ -481,6 +484,7 @@ public class Editor_carrera extends javax.swing.JFrame {
          }
          else if(temp.length()<3){
              actualizarTablaAsig(NombreAsig);
+             AgregarAsig.setVisible(false);
          }
         
     }//GEN-LAST:event_AsignaturaNombreKeyReleased

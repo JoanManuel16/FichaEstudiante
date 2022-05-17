@@ -23,7 +23,6 @@ import static utiles.Secuencias_cadenas.sonNumeros;
  */
 public class EditorEventos extends javax.swing.JFrame {
 
-   
     private Vector<String> NombreEventos;
     private Gestion g;
 
@@ -44,6 +43,7 @@ public class EditorEventos extends javax.swing.JFrame {
         dimensionesComboBox.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Editor de Evento");
+        this.setResizable(false);
     }
 
     /**
@@ -67,7 +67,6 @@ public class EditorEventos extends javax.swing.JFrame {
         jCalendar1 = new com.toedter.calendar.JCalendar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(850, 500));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -92,7 +91,7 @@ public class EditorEventos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TableEventos);
 
-        nombreEvento.setText("Nombre del evento");
+        nombreEvento.setText("Buscar Evento");
 
         TextNombreEvento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -208,8 +207,15 @@ public class EditorEventos extends javax.swing.JFrame {
 
     private void nuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoEventoMouseClicked
 
-        String temp = JOptionPane.showInputDialog(null, "Introduzca el nombre del evento");
+        String temp = JOptionPane.showInputDialog(null, "Desea agregar el evento ", TextNombreEvento.getText());
         if (temp == null || temp.equals("")) {
+            TableEventos.clearSelection();
+            jCalendar1.setVisible(false);
+            dimensionesL.setVisible(false);
+            dimensionesComboBox.setVisible(false);
+            nuevoEvento.setVisible(false);
+            TextNombreEvento.setText("");
+            actualizarTabla(NombreEventos);
             return;
         }
 
@@ -272,6 +278,10 @@ public class EditorEventos extends javax.swing.JFrame {
                 TextNombreEvento.setText("");
                 actualizarTabla(NombreEventos);
                 JOptionPane.showMessageDialog(null, "Se ha agregado el evento con éxito");
+                TableEventos.clearSelection();
+                jCalendar1.setVisible(false);
+                dimensionesL.setVisible(false);
+                dimensionesComboBox.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Este evento ya existe en el año indicado");
             }
@@ -316,11 +326,12 @@ public class EditorEventos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void actualizarTabla(Vector<String> v) {
-        DefaultTableModel df = new DefaultTableModel(){
-             @Override
-             public boolean isCellEditable(int row, int column) {
-                return false;         
-             };
+        DefaultTableModel df = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        ;
         };
         TableEventos = new JTable(df);
         jScrollPane1.setViewportView(TableEventos);

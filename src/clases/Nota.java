@@ -6,11 +6,12 @@ public class Nota {
 	private int nota;
         private String nombreAsignatura;
 	
-	public Nota(int A, int N, String NA) {
-		idAsignatura = A;
-		nota = N;
+
+    public Nota(int idA, int i, String NA) {
+		idAsignatura = idA;
+		nota = i;
                 nombreAsignatura = NA;
-	}
+    }
 
 	public int getNota() {
 		return nota;
