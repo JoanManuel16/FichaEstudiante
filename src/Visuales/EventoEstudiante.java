@@ -44,7 +44,6 @@ public class EventoEstudiante extends javax.swing.JFrame {
     
     public EventoEstudiante(Brigada b) {
         initComponents();
-        
         this.setLocationRelativeTo(null);
         this.setTitle("Gestor de participacion en eventos");
         
@@ -268,7 +267,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
             
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 3;
+                return column == 4;
             }
         ;
         };

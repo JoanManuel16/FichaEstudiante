@@ -3,20 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/ICI.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Gestor_brigada.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Base_de_Datos/Gestion.java</file>
-=======
             <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Visuales/Editor_brigada.java</file>
+            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Visuales/Editor_estudiante.java</file>
+            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/clases/GenerarReporteICI.java</file>
+            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Visuales/ICI.java</file>
+            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Base_de_Datos/Conexion.java</file>
+            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/clases/DatosEstudiante.java</file>
+            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/clases/ReproteAlumnos.java</file>
+            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/utiles/Tupla.java</file>
             <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Visuales/Main.java</file>
-<<<<<<< HEAD
             <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Visuales/EventoEstudiante.java</file>
-            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Base_de_Datos/Gestion.java</file>
->>>>>>> 2f2c8fffbf0bc33d04a3d0eb6f9d36f791b31499
-=======
             <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Visuales/Gestor_brigada.java</file>
->>>>>>> 4eb0420fff0176b2432a2b281474a2773778aec7
+            <file>file:/run/media/joanmanuel/Unicornio/PROGRAMAS/Proyectos%20y%20utiles/Java/Proyectos/FichaEstudiante/FichaEstudiante/src/Base_de_Datos/Gestion.java</file>
         </group>
     </open-files>
 </project-private>

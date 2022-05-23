@@ -9,6 +9,7 @@ import clases.Brigada;
 import clases.DatosEstudiante;
 import clases.Estudiante;
 import clases.Nota;
+import clases.ReproteAlumnos;
 import com.itextpdf.text.DocumentException;
 import utiles.RadioButtonEditor;
 import utiles.RadioButtonRenderer;
