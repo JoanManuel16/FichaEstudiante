@@ -29,10 +29,6 @@ import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import utiles.Tupla;
 
-/**
- *
- * @author joanmanuel
- */
 public class Editor_brigada extends javax.swing.JFrame {
     
     private final Gestion G = new Gestion();
@@ -459,7 +455,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         String[] nombres = nombreT.getText().split(" ");
         
         if (nombres.length < 3) {
-            JOptionPane.showMessageDialog(null, "Este nombre no es viable. Se necesitan al menos dos apellidos.");
+            JOptionPane.showMessageDialog(null, "Este nombre no es viable. Se necesitan al menos dos apellidos");
             return;
         }
         
@@ -546,6 +542,11 @@ public class Editor_brigada extends javax.swing.JFrame {
     private void Pasar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pasar_annoActionPerformed
         openMain = false;
         if (G.obtener_annos_carrera(B.getCarrera()) <= B.getAnno_brigada()) {
+            if(B.getAnno_brigada()==1){
+                JOptionPane.showMessageDialog(null, "No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " año");
+                openMain = true;
+                return; 
+            }
             JOptionPane.showMessageDialog(null, "No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " años");
             openMain = true;
             return;
@@ -614,7 +615,7 @@ public class Editor_brigada extends javax.swing.JFrame {
             }
             ReproteAlumnos al = new ReproteAlumnos(datosEstudiantes, B);
             if(al.GenerarReporte()){
-        JOptionPane.showMessageDialog(null, "Reporte creado exitosamente en el escritorio", "Informacion del sistema", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Reporte creado exitosamente en el escritorio", "Información del sistema", JOptionPane.INFORMATION_MESSAGE);
         }
         } catch (DocumentException ex) {
             Logger.getLogger(Editor_brigada.class.getName()).log(Level.SEVERE, null, ex);
