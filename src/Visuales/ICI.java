@@ -261,7 +261,7 @@ public class ICI extends javax.swing.JFrame {
                 OBJ[0] = brigada.getEstudiantes().elementAt(i).getNombre_estudiante();
                 double promedioi = g.obtenerPromedio(brigada.getEstudiantes().elementAt(i));
                 OBJ[1] = promedioi;
-                int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
+                int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i), brigada);
                 OBJ[2] = miTemp;
                 OBJ[3] = utiles.ICI.ICI(m, M, promedioi, miTemp);
                 d.addRow(OBJ);
@@ -271,7 +271,7 @@ public class ICI extends javax.swing.JFrame {
                 OBJ[0] = brigada.getEstudiantes().elementAt(i).getNombre_estudiante();
                 double promedioi = g.obtenerPromedio(brigada.getEstudiantes().elementAt(i));
                 OBJ[1] = promedioi;
-                int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i));
+                int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i), brigada);
                 OBJ[2] = miTemp;
                 OBJ[3] = 0;
                 d.addRow(OBJ);

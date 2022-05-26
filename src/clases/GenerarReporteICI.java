@@ -79,7 +79,7 @@ public class GenerarReporteICI {
     }
 
     private int calcularMi(Estudiante e) {
-        return g.obtenerValoresEventosEstudiante(e);
+        return g.obtenerValoresEventosEstudiante(e, b);
     }
 
     private double calcularPrmedio(Estudiante e) {

@@ -124,8 +124,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
         }
         
-        for (int i = 0; i < carr.getAsignaturas().size(); i++) {
-            
+        for (int i = 0; i < b.getAnno_brigada()-1; i++) {
             AnnoComboBox.addItem((i + 1) + "");
         }
         
@@ -1754,6 +1753,8 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_AnnoComboBoxPopupMenuWillBecomeInvisible
 
     private void editarNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarNotaMouseClicked
+        
+        menuNotas.setVisible(false);
         
         String posiblesNotas[] = {"0", "2", "3", "4", "5"};
         String x = (String) JOptionPane.showInputDialog(null, "Seleccione la nota del estudiante", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, posiblesNotas, posiblesNotas[0]);
