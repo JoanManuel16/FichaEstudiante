@@ -101,20 +101,20 @@ public class Gestion {
     }
 
     //Agrega la carrera a la base de datos
-    public boolean agregar_carrera(Carrera Carr) {
+    public boolean agregar_carrera(Carrera Carr, String nombreCarrera) {
         C.conectar();
 
-        String stat = "select * from carrera where nombre_carrera = '" + Carr.getNombre() + "'";
+        String stat = "select * from carrera where nombre_carrera = '" + nombreCarrera + "'";
         try {
             ResultSet RS = C.getConsulta().executeQuery(stat);
             if (RS.next()) {
                 throw new SQLException();
             }
 
-            stat = "insert into carrera values(null, '" + Carr.getNombre() + "')";
+            stat = "insert into carrera values(null, '" + nombreCarrera + "')";
             C.getConsulta().execute(stat);
 
-            stat = "select * from carrera where nombre_carrera = '" + Carr.getNombre() + "'";
+            stat = "select * from carrera where nombre_carrera = '" + nombreCarrera + "'";
             RS = C.getConsulta().executeQuery(stat);
             int idC = RS.getInt("id_carrera");
 
@@ -568,7 +568,7 @@ public class Gestion {
         return max_anno;
     }
 
-    public void editar_carrera(Carrera Carr) {
+    public void editar_carrera(Carrera Carr, String nombreCarrera) {
 
         C.conectar();
         try {
@@ -616,6 +616,9 @@ public class Gestion {
                 stat = "delete from asignaturas_semestre where id_carrera = " + idC + " and id_asignatura = " + asignaturasBorrar.elementAt(i).getN1() + " and anno_brigada = " + asignaturasBorrar.elementAt(i).getN2().getN1() + " and semestre = " + asignaturasBorrar.elementAt(i).getN2().getN2();
                 C.getConsulta().execute(stat);
             }
+            
+            stat = "update carrera set nombre_carrera = '" + nombreCarrera + "' where nombre_carrera = '" + Carr.getNombre() + "'";
+            C.getConsulta().execute(stat);
 
         } catch (SQLException ex) {
             Logger.getLogger(Gestion.class.getName()).log(Level.SEVERE, null, ex);

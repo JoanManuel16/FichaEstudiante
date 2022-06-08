@@ -218,7 +218,6 @@ public class Editor_carrera extends javax.swing.JFrame {
         Cambiar_semestre = new javax.swing.JMenuItem();
         Eliminar = new javax.swing.JMenuItem();
         Carrera = new javax.swing.JLabel();
-        CarreraNombre = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         seleccionAsig = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -233,6 +232,7 @@ public class Editor_carrera extends javax.swing.JFrame {
         Annos = new javax.swing.JComboBox<>();
         Annadir_anno = new javax.swing.JButton();
         Eliminar_anno = new javax.swing.JButton();
+        CarreraNombre = new javax.swing.JTextField();
 
         Cambiar_semestre.setText("Cambiar asignatura de semestre");
         Cambiar_semestre.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -348,9 +348,9 @@ public class Editor_carrera extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(206, 206, 206)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139)
                         .addComponent(Anno)
                         .addGap(18, 18, 18)
                         .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,28 +377,28 @@ public class Editor_carrera extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(Carrera))
-                    .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Carrera)
+                            .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(25, 25, 25)
                         .addComponent(Anno))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                        .addGap(20, 20, 20)
                         .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                        .addGap(20, 20, 20)
                         .addComponent(Annadir_anno))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                        .addGap(20, 20, 20)
                         .addComponent(Eliminar_anno)))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,11 +525,15 @@ public class Editor_carrera extends javax.swing.JFrame {
                     }
              }
              else{
+                  int x = JOptionPane.showConfirmDialog(null, "Desea introducir esta asignatura?");
+                  
+                  if(x == 0){               
                  NombreAsig.add(temp);
                         G.agregar_asignatura(temp);
                         Vector<String> V = new Vector<>();
                         V.add(temp);
                         actualizarTablaAsig(V);
+                  }
              }
              
              AsignaturaNombre.setText("");
@@ -630,14 +634,14 @@ public class Editor_carrera extends javax.swing.JFrame {
         
         
         if(edicion){
-        G.editar_carrera(C);
+        G.editar_carrera(C, CarreraNombre.getText());
         
         Gestor_carreras GC = new Gestor_carreras(false);
         GC.setVisible(true);
         this.dispose();
         }
         else{
-        G.agregar_carrera(C);
+        G.agregar_carrera(C, CarreraNombre.getText());
             Editor_brigada CB = new Editor_brigada(C.getNombre());
             CB.setVisible(true);
             this.dispose();
@@ -670,7 +674,7 @@ public class Editor_carrera extends javax.swing.JFrame {
     private javax.swing.JTextField AsignaturaNombre;
     private javax.swing.JMenuItem Cambiar_semestre;
     private javax.swing.JLabel Carrera;
-    private javax.swing.JLabel CarreraNombre;
+    private javax.swing.JTextField CarreraNombre;
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.JButton Eliminar_anno;
     private javax.swing.JButton Finalizar;
