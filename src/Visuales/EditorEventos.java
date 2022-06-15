@@ -38,9 +38,9 @@ public class EditorEventos extends javax.swing.JFrame {
         for (int i = 0; i < dimensiones.size(); i++) {
             dimensionesComboBox.addItem(dimensiones.elementAt(i));
         }
-        jCalendar1.setVisible(false);
-        dimensionesL.setVisible(false);
-        dimensionesComboBox.setVisible(false);
+        jCalendar1.setEnabled(false);
+        dimensionesL.setEnabled(false);
+        dimensionesComboBox.setEnabled(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Editor de Evento");
         this.setResizable(false);
@@ -192,7 +192,7 @@ public class EditorEventos extends javax.swing.JFrame {
         String temp = TextNombreEvento.getText();
         if (temp.length() >= 3) {
             Vector<String> Similares = new Vector<>();
-            nuevoEvento.setVisible(true);
+            nuevoEvento.setEnabled(true);
             for (int i = 0; i < NombreEventos.size(); i++) {
                 if (Secuencias_cadenas.mayor_subcadena(temp, NombreEventos.elementAt(i))) {
                     Similares.add(NombreEventos.elementAt(i));
@@ -200,7 +200,7 @@ public class EditorEventos extends javax.swing.JFrame {
             }
             actualizarTabla(Similares);
         } else if (temp.length() < 3) {
-            nuevoEvento.setVisible(false);
+            nuevoEvento.setEnabled(false);
             actualizarTabla(NombreEventos);
         }
     }//GEN-LAST:event_TextNombreEventoKeyReleased
@@ -210,10 +210,10 @@ public class EditorEventos extends javax.swing.JFrame {
         String temp = JOptionPane.showInputDialog(null, "Desea agregar el evento ", TextNombreEvento.getText());
         if (temp == null || temp.equals("")) {
             TableEventos.clearSelection();
-            jCalendar1.setVisible(false);
-            dimensionesL.setVisible(false);
-            dimensionesComboBox.setVisible(false);
-            nuevoEvento.setVisible(false);
+            jCalendar1.setEnabled(false);
+            dimensionesL.setEnabled(false);
+            dimensionesComboBox.setEnabled(false);
+            nuevoEvento.setEnabled(false);
             TextNombreEvento.setText("");
             actualizarTabla(NombreEventos);
             return;
@@ -279,9 +279,9 @@ public class EditorEventos extends javax.swing.JFrame {
                 actualizarTabla(NombreEventos);
                 JOptionPane.showMessageDialog(null, "Se ha agregado el evento con éxito");
                 TableEventos.clearSelection();
-                jCalendar1.setVisible(false);
-                dimensionesL.setVisible(false);
-                dimensionesComboBox.setVisible(false);
+                jCalendar1.setEnabled(false);
+                dimensionesL.setEnabled(false);
+                dimensionesComboBox.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Este evento ya existe en el año indicado");
             }
@@ -300,15 +300,15 @@ public class EditorEventos extends javax.swing.JFrame {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         TableEventos.clearSelection();
-        jCalendar1.setVisible(false);
-        dimensionesL.setVisible(false);
-        dimensionesComboBox.setVisible(false);
+        jCalendar1.setEnabled(false);
+        dimensionesL.setEnabled(false);
+        dimensionesComboBox.setEnabled(false);
     }//GEN-LAST:event_formMouseClicked
 
     private void TextNombreEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextNombreEventoMouseClicked
-        jCalendar1.setVisible(false);
-        dimensionesL.setVisible(false);
-        dimensionesComboBox.setVisible(false);
+        jCalendar1.setEnabled(false);
+        dimensionesL.setEnabled(false);
+        dimensionesComboBox.setEnabled(false);
         TableEventos.clearSelection();
     }//GEN-LAST:event_TextNombreEventoMouseClicked
 
@@ -341,13 +341,13 @@ public class EditorEventos extends javax.swing.JFrame {
                 int fila = TableEventos.rowAtPoint(e.getPoint());
 
                 if (fila > -1) {
-                    jCalendar1.setVisible(true);
-                    dimensionesL.setVisible(true);
-                    dimensionesComboBox.setVisible(true);
+                    jCalendar1.setEnabled(true);
+                    dimensionesL.setEnabled(true);
+                    dimensionesComboBox.setEnabled(true);
                 } else {
-                    jCalendar1.setVisible(false);
-                    dimensionesL.setVisible(false);
-                    dimensionesComboBox.setVisible(false);
+                    jCalendar1.setEnabled(false);
+                    dimensionesL.setEnabled(false);
+                    dimensionesComboBox.setEnabled(false);
                 }
             }
         });

@@ -32,12 +32,12 @@ public class ICI extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         this.brigada = brigada;
-        ButtonReporte.setVisible(false);
+        ButtonReporte.setEnabled(false);
         int m = g.obtenerSumaValoresEventos(brigada);
 
         actividadesExtraL.setText(m + "");
-        relacion.setVisible(false);
-        relacionL.setVisible(false);
+        relacion.setEnabled(false);
+        relacionL.setEnabled(false);
         actualizarTablaICI();
 
     }
@@ -166,7 +166,7 @@ public class ICI extends javax.swing.JFrame {
 
     private void PATKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PATKeyReleased
         if (PAT.getText().equals("")) {
-            ButtonReporte.setVisible(false);
+            ButtonReporte.setEnabled(false);
         }
         Secuencias_cadenas.borrarLetras(evt.getKeyChar(), PAT);
 
@@ -177,7 +177,7 @@ public class ICI extends javax.swing.JFrame {
         if (PAT.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo PA no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
             PAT.setText("");
-            ButtonReporte.setVisible(false);
+            ButtonReporte.setEnabled(false);
             return;
         } 
         if(Integer.parseInt(PAT.getText()) <= 0 ||Integer.parseInt(PAT.getText()) >=100 ){
@@ -188,7 +188,7 @@ public class ICI extends javax.swing.JFrame {
             double M = (double) (Integer.parseInt(actividadesExtraL.getText()) * 100) / ((double) (Integer.parseInt(PAT.getText())));
             relacionL.setText(M + "");
         }
-        ButtonReporte.setVisible(true);
+        ButtonReporte.setEnabled(true);
         actualizarTablaICI();
     }//GEN-LAST:event_aceptarActionPerformed
 

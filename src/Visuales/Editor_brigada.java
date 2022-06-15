@@ -56,7 +56,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Carrera_seleccionada.setText(Carr);
         Anno_seleccionado.setText("1");
-        ButtonReporteEstudiantes.setVisible(false);
+        ButtonReporteEstudiantes.setEnabled(false);
         JYearChooser YC = new JYearChooser();
         int Anno_actual = YC.getYear();
         for (int i = Anno_actual - 5; i <= Anno_actual + 5; i++) {
@@ -67,9 +67,9 @@ public class Editor_brigada extends javax.swing.JFrame {
         eventosAnnadidosID = new HashSet<>();
         eventos = G.obtenerEventos();
         
-        Pasar_anno.setVisible(false);
-        EditarEstudiante.setVisible(false);
-        agregarEventos.setVisible(false);
+        Pasar_anno.setEnabled(false);
+        EditarEstudiante.setEnabled(false);
+        agregarEventos.setEnabled(false);
         
     }
     
@@ -84,10 +84,10 @@ public class Editor_brigada extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.B = B;
         if(!B.getEstudiantes().isEmpty()){
-        ButtonReporteEstudiantes.setVisible(true);
+        ButtonReporteEstudiantes.setEnabled(true);
         }
         else{
-            ButtonReporteEstudiantes.setVisible(false);
+            ButtonReporteEstudiantes.setEnabled(false);
         }
         Carrera_seleccionada.setText(B.getCarrera());
         Anno_seleccionado.setText(B.getAnno_brigada() + "");
@@ -103,9 +103,9 @@ public class Editor_brigada extends javax.swing.JFrame {
         }
         
         
-        Pasar_anno.setVisible(true);
+        Pasar_anno.setEnabled(true);
         
-        EditarEstudiante.setVisible(true);
+        EditarEstudiante.setEnabled(true);
         
         Annos.setEnabled(false);
         Annos.addItem(B.getAnno() + "");

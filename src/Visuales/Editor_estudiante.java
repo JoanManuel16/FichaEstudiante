@@ -207,8 +207,8 @@ public class Editor_estudiante extends javax.swing.JFrame {
             religionComboBox.setSelectedItem(d.getReligion());
         }
         
-        religionTexto.setVisible(false);
-        annadirReligion.setVisible(false);
+        religionTexto.setEnabled(false);
+        annadirReligion.setEnabled(false);
         
         buttonGroup2.add(participacionBrigadaBien);
         buttonGroup2.add(participacionBrigadaRegular);
@@ -1632,9 +1632,9 @@ public class Editor_estudiante extends javax.swing.JFrame {
             religionComboBox.addItem(temp);
             religionComboBox.setSelectedItem(temp);
         }
-        religionTexto.setVisible(false);
+        religionTexto.setEnabled(false);
         religionTexto.setText("");
-        annadirReligion.setVisible(false);
+        annadirReligion.setEnabled(false);
     }//GEN-LAST:event_annadirReligionActionPerformed
 
     private void manifestacionTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_manifestacionTextoKeyReleased
@@ -1894,12 +1894,12 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     private void religionComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_religionComboBoxPopupMenuWillBecomeInvisible
         if ((religionComboBox.getSelectedItem() + "").equals("Nueva Religión")) {
-            religionTexto.setVisible(true);
-            annadirReligion.setVisible(true);
+            religionTexto.setEnabled(true);
+            annadirReligion.setEnabled(true);
             
         } else {
-            religionTexto.setVisible(false);
-            annadirReligion.setVisible(false);
+            religionTexto.setEnabled(false);
+            annadirReligion.setEnabled(false);
         }
     }//GEN-LAST:event_religionComboBoxPopupMenuWillBecomeInvisible
 
