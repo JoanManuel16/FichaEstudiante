@@ -207,7 +207,7 @@ public class EditorEventos extends javax.swing.JFrame {
 
     private void nuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoEventoMouseClicked
 
-        String temp = JOptionPane.showInputDialog(null, "Desea agregar el evento ", TextNombreEvento.getText());
+        String temp = JOptionPane.showInputDialog(null, "¿Desea agregar el evento?", TextNombreEvento.getText());
         if (temp == null || temp.equals("")) {
             TableEventos.clearSelection();
             jCalendar1.setEnabled(false);
@@ -230,12 +230,12 @@ public class EditorEventos extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
 
-            String x = (String) JOptionPane.showInputDialog(null, "Estas carreras son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+            String x = (String) JOptionPane.showInputDialog(null, "Existen carreras con nombres similares al de la carrera que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
 
             if (x == null) {
                 g.agregar_nombre_evento(temp);
                 NombreEventos.add(temp);
-                JOptionPane.showMessageDialog(null, "Evento: " + temp + " agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El evento \"" + temp + "\" ha sido agregado satisfactoriamente.", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
             }
 
             Vector<String> V = new Vector<String>();
@@ -245,7 +245,7 @@ public class EditorEventos extends javax.swing.JFrame {
 
         } else {
             g.agregar_nombre_evento(temp);
-            JOptionPane.showMessageDialog(null, "Evento: " + temp + " agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El evento \"" + temp + "\" ha sido agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
             NombreEventos.add(temp);
 
             Vector<String> V = new Vector<String>();
@@ -277,17 +277,17 @@ public class EditorEventos extends javax.swing.JFrame {
 
                 TextNombreEvento.setText("");
                 actualizarTabla(NombreEventos);
-                JOptionPane.showMessageDialog(null, "Se ha agregado el evento con éxito");
+                JOptionPane.showMessageDialog(null, "Se ha agregado con éxito el evento \"" + nombreEvento + "\" en el año: " + anno);
                 TableEventos.clearSelection();
                 jCalendar1.setEnabled(false);
                 dimensionesL.setEnabled(false);
                 dimensionesComboBox.setEnabled(false);
             } else {
-                JOptionPane.showMessageDialog(null, "Este evento ya existe en el año indicado");
+                JOptionPane.showMessageDialog(null, "El evento \"" + nombreEvento + "\" ya existe en el año " + anno);
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "No hay evento seleccionado");
+            JOptionPane.showMessageDialog(null, "No hay ningún evento seleccionado en la tabla de los nombres de evento");
         }
 
     }//GEN-LAST:event_aceptarMouseClicked

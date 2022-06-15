@@ -262,7 +262,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
     private void Crear_carreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Crear_carreraActionPerformed
         
          if(Texto_carrera.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "No hay ningún nombre de carrera escrito");
+            JOptionPane.showMessageDialog(null, "No hay ningún nombre de carrera escrito en el campo de texto a la derecha de la etiqueta \" Nombre de la carrera\". Escriba uno para proceder");
         return;
         }
         
@@ -278,7 +278,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
              String[] S = new String[Similares.size()];
              Similares.copyInto(S);
              
-                    String  x =(String) JOptionPane.showInputDialog(null, "Estas carreras son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+                    String  x =(String) JOptionPane.showInputDialog(null, "Existen carreras con nombres similares al de la carrera que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
             
                     if(x == null){  
                     Editor_carrera CC = new Editor_carrera(temp, Main);
@@ -293,7 +293,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     
              }
              else{
-                 int opcion =JOptionPane.showConfirmDialog(null, "Va a proceder a la creacion de la carrera "+temp+" esta seguro", "Mensaje de ayuda", JOptionPane.INFORMATION_MESSAGE);
+                 int opcion =JOptionPane.showConfirmDialog(null, "Comenzará el proceso de edición de la carrera \""+temp+"\". ¿Desea proceder?", "Mensaje de ayuda", JOptionPane.INFORMATION_MESSAGE);
                  if(opcion==0){
                   Editor_carrera CC = new Editor_carrera(temp, Main);
                     CC.setVisible(true);

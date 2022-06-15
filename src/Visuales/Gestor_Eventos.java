@@ -383,7 +383,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             actualizarTablaLogros(eventoTemp);
         }
         else{
-            JOptionPane.showMessageDialog(null, "No hay ningún logro seleccionado");
+            JOptionPane.showMessageDialog(null, "No hay ningún logro seleccionado en la tabla");
         }
         
     }//GEN-LAST:event_eliminarLogroActionPerformed
@@ -394,7 +394,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         if(fila > -1){
             try {
                 
-            int valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Escriba el valor"));
+            int valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Escriba el valor del logro"));
         if(valor < 0){
             JOptionPane.showMessageDialog(null, "El número debe ser mayor que 0", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -410,7 +410,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             
         }
         else{
-            JOptionPane.showMessageDialog(null, "No hay ningún logro seleccionado");
+            JOptionPane.showMessageDialog(null, "No hay ningún logro seleccionado en la tabla");
         }
     }//GEN-LAST:event_cambiarValorActionPerformed
 

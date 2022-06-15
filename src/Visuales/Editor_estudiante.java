@@ -1392,7 +1392,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void agregarManifestacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManifestacionMouseClicked
         
         if (manifestacionTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo esta vacío");
+            JOptionPane.showMessageDialog(null, "El campo de texto de manifestaciones está vacío");
             return;
         }
         
@@ -1409,7 +1409,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Estas manifestaciones artísticas son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+            String x = (String) JOptionPane.showInputDialog(null, "Existen manifestaciones artísticas con nombres similares al de la manifestación que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
             
             if (x == null) {
                 manifestacionesArtisticas.add(temp);
@@ -1432,7 +1432,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void agregarDeporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarDeporteMouseClicked
         
         if (deporteTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo esta vacío");
+            JOptionPane.showMessageDialog(null, "El campo de texto de deportes está vacío");
             return;
         }
         
@@ -1449,7 +1449,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Estos deportes son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+            String x = (String) JOptionPane.showInputDialog(null, "Existen deportes con nombres similares al del deporte que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
             
             if (x == null) {
                 deportes.add(temp);
@@ -1472,7 +1472,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void agregarMedicamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMedicamentoMouseClicked
         
         if (medicamentoTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo esta vacío");
+            JOptionPane.showMessageDialog(null, "El campo de texto de medicamentos está vacío");
             return;
         }
         
@@ -1489,7 +1489,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Estos medicamentos son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+            String x = (String) JOptionPane.showInputDialog(null, "Existen medicamentos con nombres similares al del medicamento que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
             
             if (x == null) {
                 medicamentos.add(temp);
@@ -1512,7 +1512,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void agregarEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarEnfermedadMouseClicked
         
         if (enfermedadTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo esta vacío");
+            JOptionPane.showMessageDialog(null, "El campo de texto de enfermedades está vacío");
             return;
         }
         
@@ -1529,7 +1529,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Estas enfermedades son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+            String x = (String) JOptionPane.showInputDialog(null, "Existen enfermedades con nombres similares al de la enfermedad que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
             
             if (x == null) {
                 enfermedades.add(temp);
@@ -1599,7 +1599,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void annadirReligionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annadirReligionActionPerformed
         
         if (religionTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo esta vacío");
+            JOptionPane.showMessageDialog(null, "El campo de texto de religiones está vacío");
             return;
         }
         
@@ -1616,7 +1616,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Estas religiones son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+            String x = (String) JOptionPane.showInputDialog(null, "Existen religiones con nombres similares al de la religión que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
             
             if (x == null) {
                 religiones.add(temp);
@@ -1823,7 +1823,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         
         String nombre[] = nombreEstudianteT.getText().split(" ");
         if (nombre.length <= 2) {
-            JOptionPane.showMessageDialog(null, "El nombre del estudiante es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El nombre completo del estudiante es incorrecto, pues debe tener al menos dos apellidos", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!Secuencias_cadenas.carnetIdentidadCorrecto(carnetTexto.getText())) {
@@ -1831,7 +1831,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             return;
         }
         if (Integer.parseInt(edadT.getText()) <= 15) {
-            JOptionPane.showMessageDialog(null, "La edad del estudiante es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La edad del estudiante es incorrecta. Debe ser mayor de 15 años", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         

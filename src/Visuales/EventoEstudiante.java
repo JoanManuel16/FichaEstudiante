@@ -37,6 +37,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
     private Vector<Tupla<Estudiante, String>> estudiantesEvento;
     private Vector<Tupla<String, Integer>> logros;
     private Vector<JMenuItem> logrosPopMenu;
+    private boolean entrada;
     
     private Vector<Evento> eventosBrigada;
     
@@ -46,6 +47,8 @@ public class EventoEstudiante extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Gestor de participacion en eventos");
+        
+        entrada = false;
         
         this.brigada = b;
         RadioButtonVector = new Vector<>();
@@ -230,11 +233,14 @@ public class EventoEstudiante extends javax.swing.JFrame {
 
     private void escogerEventoWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_escogerEventoWindowClosing
         escogerEvento.setAlwaysOnTop(false);
-        if (tablaEventos.getSelectedColumn() < 0) {
-            JOptionPane.showMessageDialog(null, "No hay ningún evento seleccionado. Se procederá a abrir el menú principal", "Error", JOptionPane.ERROR_MESSAGE);
+        if (tablaEventos.getSelectedColumn() < 0 && !entrada) {
+            JOptionPane.showMessageDialog(null, "Ha cerrado el menú de selección de eventos sin escoger ninguno. Se procederá a abrir la ventana principal", "Error", JOptionPane.ERROR_MESSAGE);
             Main m = new Main();
             m.setVisible(true);
             this.dispose();
+        }
+        else{
+            entrada = true;
         }
     }//GEN-LAST:event_escogerEventoWindowClosing
 
@@ -325,7 +331,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
                             PopupMenuLogros.setVisible(true);
                             PopupMenuLogros.setLocation(e.getLocationOnScreen());
                         } else {
-                            JOptionPane.showMessageDialog(null, "Este evento aún no tiene logros");
+                            JOptionPane.showMessageDialog(null, "Este evento aún no tiene logros. Debe introducir alguno desde la ventana \"Gestor de eventos\"");
                             RadioButtonVector.elementAt(fila).setSelected(false);
                         }
                     }
@@ -359,7 +365,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
                     
                     PopupMenuLogros.setVisible(false);
                     if (indiceLogro < 0) {
-                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error");
+                        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún logro");
                         return;
                     }
                     g.agregar_evento_a_estudiante(eventoSeleccionado, a, logros.elementAt(indiceLogro));
@@ -409,7 +415,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
                 if (fila > -1) {
                     eventoSeleccionado = eventosBrigada.elementAt(fila);
                     
-                    eventoActualInfo.setText(eventoSeleccionado.getNombre() + " / " + eventoSeleccionado.getDimension() + " / " + eventoSeleccionado.getAnno());
+                    eventoActualInfo.setText(eventoSeleccionado.getNombre() + " / " + g.obtenerDimension(eventoSeleccionado.getDimension()) + " / " + eventoSeleccionado.getAnno());
                     actualizar_tabla(eventoSeleccionado);
                     logros = g.obtenerLogrosEvento(eventoSeleccionado);
                     

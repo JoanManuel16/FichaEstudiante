@@ -507,7 +507,7 @@ public class Editor_carrera extends javax.swing.JFrame {
         return;
         }
         else{
-           int seleccion = JOptionPane.showConfirmDialog(null, "Si elimina este año de la carrera se perderán junto con él todas las asignaturas del año. Desea proceder?"); 
+           int seleccion = JOptionPane.showConfirmDialog(null, "Si elimina este año de la carrera se perderán junto con él todas las asignaturas del año. ¿Desea proceder?"); 
            
            if(seleccion != 0){
                return;
@@ -560,7 +560,7 @@ public class Editor_carrera extends javax.swing.JFrame {
     private void AgregarAsigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAsigActionPerformed
         
         if(AsignaturaNombre.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "No hay ningún nombre de asignatura. Escriba uno en el campo de texto");
+            JOptionPane.showMessageDialog(null, "No hay escrito un nombre de asignatura en el campo de texto a la derecha de la etiqueta \"Nombre de la asignatura\". Escriba uno para proceder.");
         return;
         }
         
@@ -577,7 +577,7 @@ public class Editor_carrera extends javax.swing.JFrame {
              String[] S = new String[Similares.size()];
              Similares.copyInto(S);
              
-                    String  x =(String) JOptionPane.showInputDialog(null, "Estas asignaturas son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
+                    String  x =(String) JOptionPane.showInputDialog(null, "Existen asignaturas con nombres similares al de la asignatura que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
             
                     if(x == null){
                         NombreAsig.add(temp);
@@ -593,7 +593,7 @@ public class Editor_carrera extends javax.swing.JFrame {
                     }
              }
              else{
-                  int x = JOptionPane.showConfirmDialog(null, "Desea introducir esta asignatura?");
+                  int x = JOptionPane.showConfirmDialog(null, "Se agregará la asignatura a la base de datos. ¿Desea proceder?");
                   
                   if(x == 0){               
                  NombreAsig.add(temp);

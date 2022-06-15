@@ -455,7 +455,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         String[] nombres = nombreT.getText().split(" ");
         
         if (nombres.length < 3) {
-            JOptionPane.showMessageDialog(null, "Este nombre no es viable. Se necesitan al menos dos apellidos");
+            JOptionPane.showMessageDialog(null, "El nombre completo del estudiante es incorrecto, pues debe tener al menos dos apellidos");
             return;
         }
         
@@ -475,7 +475,7 @@ public class Editor_brigada extends javax.swing.JFrame {
             CIT.setText("");
             nombreT.setText("");
         } else {
-            JOptionPane.showMessageDialog(null, "No se ha podido crear el estudiante. Ha ocurrido un error");
+            JOptionPane.showMessageDialog(null, "Ya existe un estudiante con este carnet de identidad");
         }
         if (actualizacion) {
             G.agregarEstudianteBrigada(E, B);
@@ -518,7 +518,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         if (!actualizacion) {
             brigada = new Brigada(Carrera_seleccionada.getText(), Integer.parseInt((String) Annos.getSelectedItem()), Integer.parseInt(Anno_seleccionado.getText()), estudiantes);
             if(G.existeBrigada(brigada)){
-                JOptionPane.showMessageDialog(null, "Ya existe una brigada de primer año en el año " + brigada.getAnno());
+                JOptionPane.showMessageDialog(null, "Ya existe una brigada de primer año de la carrera \"" + Carrera_seleccionada.getText() + "\" en el año " + brigada.getAnno());
                 return;
             }
             G.agregar_brigada(brigada);
@@ -541,6 +541,13 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void Pasar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pasar_annoActionPerformed
         openMain = false;
+        
+        int opcion = JOptionPane.showConfirmDialog(null, "Al pasar de año una brigada todos los estudiantes de la brigada pasarán a pertenecer a una brigada un año superior a la actual. Ya no se podrá acceder a los eventos del año actual desde la brigada. ¿Desea proceder?");
+        
+        if(opcion != 0){
+            return;
+        }
+        
         if (G.obtener_annos_carrera(B.getCarrera()) <= B.getAnno_brigada()) {
             if(B.getAnno_brigada()==1){
                 JOptionPane.showMessageDialog(null, "No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " año");
