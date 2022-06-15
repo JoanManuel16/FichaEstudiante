@@ -159,7 +159,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
 
         Habilitar.setText("Habilitar Edición");
 
-        Finalizar.setText(" Finalizar Gestión");
+        Finalizar.setText("Atrás");
         Finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FinalizarActionPerformed(evt);

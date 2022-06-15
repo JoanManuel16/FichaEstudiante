@@ -341,7 +341,7 @@ public class Editor_brigada extends javax.swing.JFrame {
 
         Anno.setText("Año:");
 
-        Pasar_anno.setText("Pasar de año");
+        Pasar_anno.setText("Pasar de año a la brigada");
         Pasar_anno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Pasar_annoActionPerformed(evt);
@@ -355,7 +355,7 @@ public class Editor_brigada extends javax.swing.JFrame {
             }
         });
 
-        ButtonReporteEstudiantes.setText("Generar Reporte");
+        ButtonReporteEstudiantes.setText("Generar Reporte de los estudiantes");
         ButtonReporteEstudiantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonReporteEstudiantesActionPerformed(evt);
@@ -407,11 +407,11 @@ public class Editor_brigada extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Anno)
                             .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47)
+                        .addGap(29, 29, 29)
                         .addComponent(Pasar_anno)
-                        .addGap(63, 63, 63)
+                        .addGap(18, 18, 18)
                         .addComponent(ButtonReporteEstudiantes)
-                        .addGap(64, 64, 64)
+                        .addGap(127, 127, 127)
                         .addComponent(Agregar_estudiante)
                         .addGap(18, 18, 18)
                         .addComponent(agregarEventos)

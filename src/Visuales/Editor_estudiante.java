@@ -421,7 +421,6 @@ public class Editor_estudiante extends javax.swing.JFrame {
         menuNotas.add(editarNota);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(850, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -466,7 +465,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         zona.setText("Zona");
 
-        finalizar.setText("Finalizar");
+        finalizar.setText("Terminar edición de los datos del estudiante");
         finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 finalizarActionPerformed(evt);

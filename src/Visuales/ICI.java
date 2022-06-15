@@ -92,7 +92,7 @@ public class ICI extends javax.swing.JFrame {
             }
         });
 
-        aceptar.setText("Aceptar");
+        aceptar.setText("Calcular ICI");
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarActionPerformed(evt);
@@ -101,7 +101,7 @@ public class ICI extends javax.swing.JFrame {
 
         relacion.setText("Relación académico-extracurricular");
 
-        ButtonReporte.setText("Reporte");
+        ButtonReporte.setText("Generar Reporte");
         ButtonReporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonReporteMouseClicked(evt);

@@ -101,7 +101,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TableBrigadasExistentes);
 
-        editar.setText("Editar");
+        editar.setText("Editar Brigada Seleccionada");
         editar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editarMouseClicked(evt);
@@ -117,7 +117,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
             }
         });
 
-        ButtonCancelar.setText("Cancelar");
+        ButtonCancelar.setText("Atrás");
         ButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonCancelarActionPerformed(evt);
@@ -168,7 +168,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
                         .addComponent(carreraBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(editar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE))

@@ -154,7 +154,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
         LabelInformacion.setText("Estudiantes que participaron en el evento");
         LabelInformacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        ButtonAceptarFrame.setText("Aceptar");
+        ButtonAceptarFrame.setText("Finalizar Selección");
         ButtonAceptarFrame.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonAceptarFrameMouseClicked(evt);
