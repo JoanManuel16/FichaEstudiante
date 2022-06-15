@@ -49,7 +49,7 @@ public class Editor_carrera extends javax.swing.JFrame {
       PrimerSem.setSelected(true);
       edicion = false;
       this.Main = Main;
-      AgregarAsig.setVisible(false);
+      AgregarAsig.setEnabled(false);
       this.setLocationRelativeTo(null);
       this.setTitle("Editor de carrera: " + NC);
     }
@@ -67,7 +67,8 @@ public class Editor_carrera extends javax.swing.JFrame {
             }
         }
         
-        CarreraNombre.setText(nombre_carrera);        
+        CarreraNombre.setText(nombre_carrera);
+        Finalizar.setText("Terminar edición de carrera");
 
         Annos.setSelectedIndex(0);
         actualizarTablaAsig(NombreAsig);
@@ -233,6 +234,13 @@ public class Editor_carrera extends javax.swing.JFrame {
         Annadir_anno = new javax.swing.JButton();
         Eliminar_anno = new javax.swing.JButton();
         CarreraNombre = new javax.swing.JTextField();
+        Atras = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        gestorBrigadas = new javax.swing.JMenu();
+        gestorCarreras = new javax.swing.JMenuItem();
+        brigadasExistentes = new javax.swing.JMenuItem();
+        gestorEventos = new javax.swing.JMenuItem();
+        regresarMain = new javax.swing.JMenu();
 
         Cambiar_semestre.setText("Cambiar asignatura de semestre");
         Cambiar_semestre.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -263,7 +271,7 @@ public class Editor_carrera extends javax.swing.JFrame {
             }
         });
 
-        Carrera.setText("Carrera:");
+        Carrera.setText("Nombre de la carrera:");
 
         seleccionAsig.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -291,7 +299,7 @@ public class Editor_carrera extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(AsigXSem);
 
-        AsignaturaL.setText("Asignatura:");
+        AsignaturaL.setText("Buscar asignatura:");
 
         AsignaturaNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -306,10 +314,15 @@ public class Editor_carrera extends javax.swing.JFrame {
             }
         });
 
-        Finalizar.setText("Finalizar");
+        Finalizar.setText("Crear carrera");
         Finalizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 FinalizarMouseReleased(evt);
+            }
+        });
+        Finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinalizarActionPerformed(evt);
             }
         });
 
@@ -317,7 +330,7 @@ public class Editor_carrera extends javax.swing.JFrame {
 
         SegundoSem.setText("Segundo Semestre");
 
-        Anno.setText("Año");
+        Anno.setText("Año de la carrera");
 
         Annos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,19 +338,73 @@ public class Editor_carrera extends javax.swing.JFrame {
             }
         });
 
-        Annadir_anno.setText("Añadir Año");
+        Annadir_anno.setText("Añadir Año a la carrera");
         Annadir_anno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Annadir_annoActionPerformed(evt);
             }
         });
 
-        Eliminar_anno.setText("Eliminar último año");
+        Eliminar_anno.setText("Eliminar último año de la carrera");
         Eliminar_anno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Eliminar_annoActionPerformed(evt);
             }
         });
+
+        Atras.setText("Atrás");
+        Atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtrasActionPerformed(evt);
+            }
+        });
+
+        gestorBrigadas.setText("Gestores");
+
+        gestorCarreras.setText("Gestor de Carreras");
+        gestorCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestorCarrerasActionPerformed(evt);
+            }
+        });
+        gestorBrigadas.add(gestorCarreras);
+
+        brigadasExistentes.setText("Gestor de Brigadas");
+        brigadasExistentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                brigadasExistentesMouseReleased(evt);
+            }
+        });
+        gestorBrigadas.add(brigadasExistentes);
+
+        gestorEventos.setText("Gestor de Eventos");
+        gestorEventos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestorEventosActionPerformed(evt);
+            }
+        });
+        gestorBrigadas.add(gestorEventos);
+
+        jMenuBar1.add(gestorBrigadas);
+
+        regresarMain.setText("Regresar a la Ventana Principal");
+        regresarMain.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                regresarMainMenuSelected(evt);
+            }
+        });
+        regresarMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarMainActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(regresarMain);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -346,78 +413,72 @@ public class Editor_carrera extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139)
-                        .addComponent(Anno)
-                        .addGap(18, 18, 18)
-                        .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
-                        .addComponent(Annadir_anno)
-                        .addGap(18, 18, 18)
-                        .addComponent(Eliminar_anno))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(AsignaturaL)
-                        .addGap(28, 28, 28)
-                        .addComponent(AsignaturaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(AgregarAsig)
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PrimerSem)
-                            .addComponent(SegundoSem))
-                        .addGap(436, 436, 436)
-                        .addComponent(Finalizar))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(PrimerSem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(SegundoSem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Finalizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(Atras))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(AsignaturaL)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(67, 67, 67)
+                                .addComponent(Anno))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(AsignaturaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(AgregarAsig)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Eliminar_anno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Annadir_anno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Carrera)
-                            .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(CarreraNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Anno)
+                            .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(AsignaturaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AgregarAsig)
+                            .addComponent(AsignaturaL)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(Anno))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(Annos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(Annadir_anno))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addComponent(Annadir_anno)
+                        .addGap(18, 18, 18)
                         .addComponent(Eliminar_anno)))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(AsignaturaL))
-                    .addComponent(AsignaturaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(AgregarAsig))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(PrimerSem)
-                        .addGap(1, 1, 1)
-                        .addComponent(SegundoSem))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(Finalizar)))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SegundoSem)
+                    .addComponent(PrimerSem)
+                    .addComponent(Finalizar)
+                    .addComponent(Atras))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -435,15 +496,22 @@ public class Editor_carrera extends javax.swing.JFrame {
         Asignaturas.add(new Vector<>());   
         }
         else {
-            JOptionPane.showMessageDialog(null, "No se pueden agregar mas de 6 años", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se pueden agregar más de 6 años a esta carrera", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_Annadir_annoActionPerformed
 
     private void Eliminar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_annoActionPerformed
         
         if(Annos.getItemCount()<=1){
-            JOptionPane.showMessageDialog(null, "Una carrera debe tener al menos un año", "Error" , JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null, "Una carrera debe tener al menos un año. No se puede eliminar el año 1", "Error" , JOptionPane.ERROR_MESSAGE );
         return;
+        }
+        else{
+           int seleccion = JOptionPane.showConfirmDialog(null, "Si elimina este año de la carrera se perderán junto con él todas las asignaturas del año. Desea proceder?"); 
+           
+           if(seleccion != 0){
+               return;
+           }
         }
         
         Annos.setSelectedIndex(Annos.getItemCount()-2);
@@ -473,7 +541,7 @@ public class Editor_carrera extends javax.swing.JFrame {
          
           String temp = AsignaturaNombre.getText();
          if(temp.length()>=3){
-             AgregarAsig.setVisible(true);
+             AgregarAsig.setEnabled(true);
              Vector<String> Similares = new Vector<>();
              for(int i = 0; i < NombreAsig.size(); i++){
                  if(Secuencias_cadenas.mayor_subcadena(temp, NombreAsig.elementAt(i))){
@@ -484,7 +552,7 @@ public class Editor_carrera extends javax.swing.JFrame {
          }
          else if(temp.length()<3){
              actualizarTablaAsig(NombreAsig);
-             AgregarAsig.setVisible(false);
+             AgregarAsig.setEnabled(false);
          }
         
     }//GEN-LAST:event_AsignaturaNombreKeyReleased
@@ -654,11 +722,54 @@ public class Editor_carrera extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        
-        Gestor_carreras GC = new Gestor_carreras(Main);
-        GC.setVisible(true);
+
         
     }//GEN-LAST:event_formWindowClosing
+
+    private void gestorCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorCarrerasActionPerformed
+        Gestor_carreras GC = new Gestor_carreras(true);
+        GC.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_gestorCarrerasActionPerformed
+
+    private void brigadasExistentesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brigadasExistentesMouseReleased
+        Gestor_brigada gestorBrigada = new Gestor_brigada(1);
+        gestorBrigada.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_brigadasExistentesMouseReleased
+
+    private void gestorEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorEventosActionPerformed
+
+        Gestor_Eventos GE = new Gestor_Eventos();
+        GE.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_gestorEventosActionPerformed
+
+    private void regresarMainMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_regresarMainMenuSelected
+
+        Main M = new Main();
+        M.setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_regresarMainMenuSelected
+
+    private void regresarMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarMainActionPerformed
+
+        Main M = new Main();
+        M.setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_regresarMainActionPerformed
+
+    private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
+
+    }//GEN-LAST:event_FinalizarActionPerformed
+
+    private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
+        Gestor_carreras GC = new Gestor_carreras(false);
+        GC.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_AtrasActionPerformed
 
     
     
@@ -672,6 +783,7 @@ public class Editor_carrera extends javax.swing.JFrame {
     private javax.swing.JTable AsigXSem;
     private javax.swing.JLabel AsignaturaL;
     private javax.swing.JTextField AsignaturaNombre;
+    private javax.swing.JButton Atras;
     private javax.swing.JMenuItem Cambiar_semestre;
     private javax.swing.JLabel Carrera;
     private javax.swing.JTextField CarreraNombre;
@@ -681,9 +793,15 @@ public class Editor_carrera extends javax.swing.JFrame {
     private javax.swing.JPopupMenu Menu_seleccion;
     private javax.swing.JRadioButton PrimerSem;
     private javax.swing.JRadioButton SegundoSem;
+    private javax.swing.JMenuItem brigadasExistentes;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JMenu gestorBrigadas;
+    private javax.swing.JMenuItem gestorCarreras;
+    private javax.swing.JMenuItem gestorEventos;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenu regresarMain;
     private javax.swing.JTable seleccionAsig;
     // End of variables declaration//GEN-END:variables
 }

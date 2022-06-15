@@ -25,16 +25,12 @@ public class Gestor_carreras extends javax.swing.JFrame {
     private Vector<String> carreras;
     private Gestion G = new Gestion();
     private boolean Main;
-    private boolean openMain;
+    
     public Gestor_carreras(boolean Main) {
         initComponents();
-        openMain=true;
         carreras = G.obtener_carreras();
         actualizarTabla(carreras);
         this.Main = Main;
-        if(Main){
-            Finalizar.setVisible(false);
-        }
         
         this.setLocationRelativeTo(null);
         this.setTitle("Gestor de carreras");
@@ -77,12 +73,12 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     int b = JOptionPane.showConfirmDialog(null, "¿Desea editar esta carrera?");
                     
                     if(b == 0){
-                    openMain=false;
+                        
                     Carrera Carr = G.obtener_carrera(carrera);
-                    Editor_carrera CC = new Editor_carrera(Carr, Main);
-                    
+                    Editor_carrera CC = new Editor_carrera(Carr, Main);                    
                     CC.setVisible(true);
                     dispose();
+                    
                     }
                 }
                 
@@ -90,7 +86,6 @@ public class Gestor_carreras extends javax.swing.JFrame {
                     int b = JOptionPane.showConfirmDialog(null, "¿Desea seleccionar esta carrera para la brigada?");
                     
                     if(b == 0){
-                    openMain=false;
                     Editor_brigada CB = new Editor_brigada(carrera);
                     CB.setVisible(true);
                     dispose();
@@ -119,6 +114,12 @@ public class Gestor_carreras extends javax.swing.JFrame {
         Crear_carrera = new javax.swing.JButton();
         Habilitar = new javax.swing.JRadioButton();
         Finalizar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        gestorBrigadas = new javax.swing.JMenu();
+        gestorCarreras = new javax.swing.JMenuItem();
+        brigadasExistentes = new javax.swing.JMenuItem();
+        gestorEventos = new javax.swing.JMenuItem();
+        regresarMain = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -128,7 +129,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
             }
         });
 
-        Nombre_carrera.setText("Carrera:");
+        Nombre_carrera.setText("Nombre de la carrera:");
 
         Texto_carrera.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -158,12 +159,59 @@ public class Gestor_carreras extends javax.swing.JFrame {
 
         Habilitar.setText("Habilitar Edición");
 
-        Finalizar.setText("Finalizar");
+        Finalizar.setText(" Finalizar Gestión");
         Finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FinalizarActionPerformed(evt);
             }
         });
+
+        gestorBrigadas.setText("Gestores");
+
+        gestorCarreras.setText("Gestor de Carreras");
+        gestorCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestorCarrerasActionPerformed(evt);
+            }
+        });
+        gestorBrigadas.add(gestorCarreras);
+
+        brigadasExistentes.setText("Gestor de Brigadas");
+        brigadasExistentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                brigadasExistentesMouseReleased(evt);
+            }
+        });
+        gestorBrigadas.add(brigadasExistentes);
+
+        gestorEventos.setText("Gestor de Eventos");
+        gestorEventos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestorEventosActionPerformed(evt);
+            }
+        });
+        gestorBrigadas.add(gestorEventos);
+
+        jMenuBar1.add(gestorBrigadas);
+
+        regresarMain.setText("Regresar a la Ventana Principal");
+        regresarMain.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                regresarMainMenuSelected(evt);
+            }
+        });
+        regresarMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarMainActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(regresarMain);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,17 +224,17 @@ public class Gestor_carreras extends javax.swing.JFrame {
                 .addComponent(Texto_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Crear_carrera)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(Habilitar)
-                        .addGap(597, 597, 597)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Finalizar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,19 +242,18 @@ public class Gestor_carreras extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(Nombre_carrera))
-                    .addComponent(Texto_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Crear_carrera))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Habilitar)
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(Finalizar)))
-                .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Nombre_carrera)
+                            .addComponent(Texto_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Crear_carrera))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Habilitar)
+                    .addComponent(Finalizar))
+                .addGap(9, 9, 9)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -233,8 +280,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
              
                     String  x =(String) JOptionPane.showInputDialog(null, "Estas carreras son similares a lo escrito. Seleccione una de las opciones si se ha equivocado", "Sugerencia",JOptionPane.QUESTION_MESSAGE,null , S, S[0]);
             
-                    if(x == null){
-                    openMain = false;    
+                    if(x == null){  
                     Editor_carrera CC = new Editor_carrera(temp, Main);
                     CC.setVisible(true);
                     this.dispose();
@@ -249,7 +295,6 @@ public class Gestor_carreras extends javax.swing.JFrame {
              else{
                  int opcion =JOptionPane.showConfirmDialog(null, "Va a proceder a la creacion de la carrera "+temp+" esta seguro", "Mensaje de ayuda", JOptionPane.INFORMATION_MESSAGE);
                  if(opcion==0){
-                 openMain=false;
                   Editor_carrera CC = new Editor_carrera(temp, Main);
                     CC.setVisible(true);
                     this.dispose();
@@ -282,16 +327,49 @@ public class Gestor_carreras extends javax.swing.JFrame {
     }//GEN-LAST:event_Texto_carreraKeyReleased
 
     private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
-        dispose();
-    }//GEN-LAST:event_FinalizarActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-      if(openMain){
         Main m = new Main();
         m.setVisible(true);
         this.dispose();
-      }
+    }//GEN-LAST:event_FinalizarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+ 
     }//GEN-LAST:event_formWindowClosed
+
+    private void gestorCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorCarrerasActionPerformed
+        Gestor_carreras GC = new Gestor_carreras(true);
+        GC.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_gestorCarrerasActionPerformed
+
+    private void brigadasExistentesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brigadasExistentesMouseReleased
+        Gestor_brigada gestorBrigada = new Gestor_brigada(1);
+        gestorBrigada.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_brigadasExistentesMouseReleased
+
+    private void gestorEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorEventosActionPerformed
+
+        Gestor_Eventos GE = new Gestor_Eventos();
+        GE.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_gestorEventosActionPerformed
+
+    private void regresarMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarMainActionPerformed
+        
+        Main M = new Main();
+        M.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_regresarMainActionPerformed
+
+    private void regresarMainMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_regresarMainMenuSelected
+        
+          Main M = new Main();
+        M.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_regresarMainMenuSelected
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -301,6 +379,12 @@ public class Gestor_carreras extends javax.swing.JFrame {
     private javax.swing.JLabel Nombre_carrera;
     private javax.swing.JTable Tabla_carreras;
     private javax.swing.JTextField Texto_carrera;
+    private javax.swing.JMenuItem brigadasExistentes;
+    private javax.swing.JMenu gestorBrigadas;
+    private javax.swing.JMenuItem gestorCarreras;
+    private javax.swing.JMenuItem gestorEventos;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu regresarMain;
     // End of variables declaration//GEN-END:variables
 }
