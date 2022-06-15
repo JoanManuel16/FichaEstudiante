@@ -280,7 +280,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
                     }
                 }
             }
-            default -> {
+            case 3 -> {
                 if (BrigadasSeleccionadas.isEmpty()) {
                     for (int i = 0; i < Brigadas.size(); i++) {
                         if (Brigadas.elementAt(i).getAnno() == anno && Brigadas.elementAt(i).getAnno_brigada() == annoB && Brigadas.elementAt(i).getCarrera().equals(carr)) {

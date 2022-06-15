@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="gestorBrigadas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Gestor de Brigada"/>
+            <Property name="text" type="java.lang.String" value="Gestores"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="gestorCarreras">
@@ -25,58 +25,12 @@
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="brigadasExistentesMouseReleased"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="crearBrigada">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Crear Nueva Brigada"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="crearBrigadaActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="eventos">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Eventos"/>
-          </Properties>
-          <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="gestorEventos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gestor de eventos"/>
+                <Property name="text" type="java.lang.String" value="Gestor de Eventos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gestorEventosActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="annadirEstudiantesEvento">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="A&#xf1;adir estudiantes a un evento"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annadirEstudiantesEventoActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="notas">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Notas"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="filtrarNotas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Filtrar por notas"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtrarNotasActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="ICI">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ICI"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ICIActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -109,14 +63,29 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLabel1" alignment="1" pref="850" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="crearNuevaBrigada" min="-2" pref="167" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+              <Component id="annadirEstudiantesEvento" min="-2" pref="167" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="ICI" min="-2" pref="167" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="133" max="-2" attributes="0"/>
-              <EmptySpace pref="203" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="crearNuevaBrigada" alignment="3" min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="annadirEstudiantesEvento" alignment="3" min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="ICI" alignment="3" min="-2" pref="82" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="200" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -130,6 +99,31 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Gestor de fichas de estudiantes"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="crearNuevaBrigada">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Crear nueva brigada"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="crearNuevaBrigadaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="annadirEstudiantesEvento">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="A&#xf1;adir estudiantes a una brigada"/>
+        <Property name="autoscrolls" type="boolean" value="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annadirEstudiantesEventoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="ICI">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Calcular el ICI"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ICIActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -33,17 +33,14 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        crearNuevaBrigada = new javax.swing.JButton();
+        annadirEstudiantesEvento = new javax.swing.JButton();
+        ICI = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         gestorBrigadas = new javax.swing.JMenu();
         gestorCarreras = new javax.swing.JMenuItem();
         brigadasExistentes = new javax.swing.JMenuItem();
-        crearBrigada = new javax.swing.JMenuItem();
-        eventos = new javax.swing.JMenu();
         gestorEventos = new javax.swing.JMenuItem();
-        annadirEstudiantesEvento = new javax.swing.JMenuItem();
-        notas = new javax.swing.JMenu();
-        filtrarNotas = new javax.swing.JMenuItem();
-        ICI = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -52,7 +49,29 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Gestor de fichas de estudiantes");
 
-        gestorBrigadas.setText("Gestor de Brigada");
+        crearNuevaBrigada.setText("Crear nueva brigada");
+        crearNuevaBrigada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearNuevaBrigadaActionPerformed(evt);
+            }
+        });
+
+        annadirEstudiantesEvento.setText("Añadir estudiantes a una brigada");
+        annadirEstudiantesEvento.setAutoscrolls(true);
+        annadirEstudiantesEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annadirEstudiantesEventoActionPerformed(evt);
+            }
+        });
+
+        ICI.setText("Calcular el ICI");
+        ICI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ICIActionPerformed(evt);
+            }
+        });
+
+        gestorBrigadas.setText("Gestores");
 
         gestorCarreras.setText("Gestor de Carreras");
         gestorCarreras.addActionListener(new java.awt.event.ActionListener() {
@@ -70,55 +89,15 @@ public class Main extends javax.swing.JFrame {
         });
         gestorBrigadas.add(brigadasExistentes);
 
-        crearBrigada.setText("Crear Nueva Brigada");
-        crearBrigada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                crearBrigadaActionPerformed(evt);
-            }
-        });
-        gestorBrigadas.add(crearBrigada);
-
-        jMenuBar1.add(gestorBrigadas);
-
-        eventos.setText("Eventos");
-
-        gestorEventos.setText("Gestor de eventos");
+        gestorEventos.setText("Gestor de Eventos");
         gestorEventos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gestorEventosActionPerformed(evt);
             }
         });
-        eventos.add(gestorEventos);
+        gestorBrigadas.add(gestorEventos);
 
-        annadirEstudiantesEvento.setText("Añadir estudiantes a un evento");
-        annadirEstudiantesEvento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                annadirEstudiantesEventoActionPerformed(evt);
-            }
-        });
-        eventos.add(annadirEstudiantesEvento);
-
-        jMenuBar1.add(eventos);
-
-        notas.setText("Notas");
-
-        filtrarNotas.setText("Filtrar por notas");
-        filtrarNotas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filtrarNotasActionPerformed(evt);
-            }
-        });
-        notas.add(filtrarNotas);
-
-        ICI.setText("ICI");
-        ICI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ICIActionPerformed(evt);
-            }
-        });
-        notas.add(ICI);
-
-        jMenuBar1.add(notas);
+        jMenuBar1.add(gestorBrigadas);
 
         setJMenuBar(jMenuBar1);
 
@@ -127,25 +106,30 @@ public class Main extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(crearNuevaBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124)
+                .addComponent(annadirEstudiantesEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ICI, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(143, 143, 143)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(crearNuevaBrigada, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(annadirEstudiantesEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ICI, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void crearBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBrigadaActionPerformed
-
-        Gestor_carreras GC = new Gestor_carreras(false);
-        GC.setVisible(true);
-        this.dispose();
-
-    }//GEN-LAST:event_crearBrigadaActionPerformed
 
     private void gestorEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorEventosActionPerformed
 
@@ -160,32 +144,35 @@ public class Main extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_brigadasExistentesMouseReleased
 
-    private void ICIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ICIActionPerformed
-
-        Gestor_brigada GB = new Gestor_brigada(2);
-        GB.setVisible(true);
-        this.dispose();
-
-
-    }//GEN-LAST:event_ICIActionPerformed
-
-    private void annadirEstudiantesEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annadirEstudiantesEventoActionPerformed
-
-        Gestor_brigada GB = new Gestor_brigada(3);
-        GB.setVisible(true);
-        this.dispose();
-
-    }//GEN-LAST:event_annadirEstudiantesEventoActionPerformed
-
-    private void filtrarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarNotasActionPerformed
-        JOptionPane.showMessageDialog(null, "Not implemented yet still in testing", "INFO", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_filtrarNotasActionPerformed
-
     private void gestorCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorCarrerasActionPerformed
         Gestor_carreras GC = new Gestor_carreras(true);
         GC.setVisible(true);
         dispose();
     }//GEN-LAST:event_gestorCarrerasActionPerformed
+
+    private void crearNuevaBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearNuevaBrigadaActionPerformed
+       
+        Gestor_carreras GC = new Gestor_carreras(false);
+        GC.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_crearNuevaBrigadaActionPerformed
+
+    private void annadirEstudiantesEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annadirEstudiantesEventoActionPerformed
+        
+        Gestor_brigada GB = new Gestor_brigada(3);
+        GB.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_annadirEstudiantesEventoActionPerformed
+
+    private void ICIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ICIActionPerformed
+        
+        Gestor_brigada GB = new Gestor_brigada(2);
+        GB.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_ICIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,17 +210,14 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem ICI;
-    private javax.swing.JMenuItem annadirEstudiantesEvento;
+    private javax.swing.JButton ICI;
+    private javax.swing.JButton annadirEstudiantesEvento;
     private javax.swing.JMenuItem brigadasExistentes;
-    private javax.swing.JMenuItem crearBrigada;
-    private javax.swing.JMenu eventos;
-    private javax.swing.JMenuItem filtrarNotas;
+    private javax.swing.JButton crearNuevaBrigada;
     private javax.swing.JMenu gestorBrigadas;
     private javax.swing.JMenuItem gestorCarreras;
     private javax.swing.JMenuItem gestorEventos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu notas;
     // End of variables declaration//GEN-END:variables
 }
