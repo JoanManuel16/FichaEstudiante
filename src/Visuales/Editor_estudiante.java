@@ -49,6 +49,8 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private Estudiante E;
     private DatosEstudiante datosEstudiante;
     private boolean flag = false;
+    private String stringTemporal;
+    private String eleccionTabla;
     
     public Editor_estudiante(Estudiante E, String carrera, Brigada b) {
         initComponents();
@@ -290,6 +292,10 @@ public class Editor_estudiante extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         menuNotas = new javax.swing.JPopupMenu();
         editarNota = new javax.swing.JMenuItem();
+        mensajeDialog = new javax.swing.JDialog();
+        Informacion = new javax.swing.JLabel();
+        aceptarBoton = new javax.swing.JButton();
+        cancelarBoton = new javax.swing.JButton();
         panelPestanas = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         nombreEstudiante = new javax.swing.JLabel();
@@ -419,6 +425,54 @@ public class Editor_estudiante extends javax.swing.JFrame {
             }
         });
         menuNotas.add(editarNota);
+
+        mensajeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                mensajeDialogWindowClosing(evt);
+            }
+        });
+
+        Informacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        aceptarBoton.setText("Aceptar");
+        aceptarBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarBotonActionPerformed(evt);
+            }
+        });
+
+        cancelarBoton.setText("Cancelar");
+        cancelarBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBotonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout mensajeDialogLayout = new javax.swing.GroupLayout(mensajeDialog.getContentPane());
+        mensajeDialog.getContentPane().setLayout(mensajeDialogLayout);
+        mensajeDialogLayout.setHorizontalGroup(
+            mensajeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mensajeDialogLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(mensajeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(mensajeDialogLayout.createSequentialGroup()
+                        .addComponent(aceptarBoton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cancelarBoton))
+                    .addComponent(Informacion, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        mensajeDialogLayout.setVerticalGroup(
+            mensajeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mensajeDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Informacion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(mensajeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(aceptarBoton)
+                    .addComponent(cancelarBoton))
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1420,9 +1474,15 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 actualizarTablaManifestaciones(V);
             }
         } else {
-            manifestacionesArtisticas.add(temp);
-            g.agregarManifestacionArtistica(temp);
-            actualizarTablaManifestaciones(manifestacionesArtisticas);
+            mensajeDialog.setVisible(true);
+            mensajeDialog.setLocationRelativeTo(null);
+            mensajeDialog.setSize(345, 110);
+            mensajeDialog.setTitle("Información");
+            mensajeDialog.setResizable(false);
+            this.setEnabled(false);
+            Informacion.setText("Desea añadir esta manifestación a la lista?");
+            stringTemporal = temp;
+            eleccionTabla = "Manifestacion";
         }
         manifestacionTexto.setText("");
         manifestaciones.removeAllElements();
@@ -1460,9 +1520,15 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 actualizarTablaDeportes(V);
             }
         } else {
-            deportes.add(temp);
-            g.agregarDeporte(temp);
-            actualizarTablaDeportes(deportes);
+             mensajeDialog.setVisible(true);
+            mensajeDialog.setLocationRelativeTo(null);
+            mensajeDialog.setSize(345, 110);
+            mensajeDialog.setTitle("Información");
+            mensajeDialog.setResizable(false);
+            this.setEnabled(false);
+            Informacion.setText("Desea añadir este deporte a la lista?");
+            stringTemporal = temp;
+            eleccionTabla = "Deporte";
         }
         deporteTexto.setText("");
         deportesDB.removeAllElements();
@@ -1500,9 +1566,15 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 actualizarTablaMedicamentos(V);
             }
         } else {
-            medicamentos.add(temp);
-            g.agregarMedicamento(temp);
-            actualizarTablaMedicamentos(medicamentos);
+            mensajeDialog.setVisible(true);
+            mensajeDialog.setLocationRelativeTo(null);
+            mensajeDialog.setSize(345, 110);
+            mensajeDialog.setTitle("Información");
+            mensajeDialog.setResizable(false);
+            this.setEnabled(false);
+            Informacion.setText("Desea añadir este medicamento a la lista?");
+            stringTemporal = temp;
+            eleccionTabla = "Medicamento";
         }
         medicamentoTexto.setText("");
 
@@ -1540,9 +1612,17 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 actualizarTablaEnfermedades(V);
             }
         } else {
-            enfermedades.add(temp);
-            g.agregarEnfermedad(temp);
-            actualizarTablaEnfermedades(enfermedades);
+            
+            mensajeDialog.setVisible(true);
+            mensajeDialog.setLocationRelativeTo(null);
+            mensajeDialog.setSize(345, 110);
+            mensajeDialog.setTitle("Información");
+            mensajeDialog.setResizable(false);
+            this.setEnabled(false);
+            Informacion.setText("Desea añadir esta enfermedad a la lista?");
+            stringTemporal = temp;
+            eleccionTabla = "Enfermedad";
+            
         }
         enfermedadTexto.setText("");
 
@@ -1626,10 +1706,15 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 religionComboBox.setSelectedItem(x);
             }
         } else {
-            religiones.add(temp);
-            g.agregarReligion(temp);
-            religionComboBox.addItem(temp);
-            religionComboBox.setSelectedItem(temp);
+             mensajeDialog.setVisible(true);
+            mensajeDialog.setLocationRelativeTo(null);
+            mensajeDialog.setSize(345, 110);
+            mensajeDialog.setTitle("Información");
+            mensajeDialog.setResizable(false);
+            this.setEnabled(false);
+            Informacion.setText("Desea añadir esta enfermedad a la lista?");
+            stringTemporal = temp;
+            eleccionTabla = "Religion";
         }
         religionTexto.setEnabled(false);
         religionTexto.setText("");
@@ -1915,9 +2000,65 @@ public class Editor_estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
 
+    private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
+        
+        if(eleccionTabla.equals("Enfermedad")){
+          enfermedades.add(stringTemporal);
+          g.agregarEnfermedad(stringTemporal);
+          actualizarTablaEnfermedades(enfermedades);
+        }
+        else if(eleccionTabla.equals("Manifestacion")){
+            manifestacionesArtisticas.add(stringTemporal);
+            g.agregarManifestacionArtistica(stringTemporal);
+            actualizarTablaManifestaciones(manifestacionesArtisticas);
+            
+        }
+        else if(eleccionTabla.equals("Medicamento")){
+            medicamentos.add(stringTemporal);
+          g.agregarMedicamento(stringTemporal);
+          actualizarTablaMedicamentos(medicamentos);
+        }
+        else if(eleccionTabla.equals("Deporte")){
+            deportes.add(stringTemporal);
+          g.agregarDeporte(stringTemporal);
+          actualizarTablaDeportes(deportes);
+        }
+        else if(eleccionTabla.equals("Religion")){
+            religiones.add(stringTemporal);
+          g.agregarReligion(stringTemporal);
+          religionComboBox.addItem(stringTemporal);
+          religionComboBox.setSelectedItem(stringTemporal);
+         
+        }
+          
+          stringTemporal="";
+          eleccionTabla="";
+          mensajeDialog.dispose();
+          this.setEnabled(true);
+        
+    }//GEN-LAST:event_aceptarBotonActionPerformed
+
+    private void cancelarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBotonActionPerformed
+        
+          stringTemporal="";
+          eleccionTabla="";
+          mensajeDialog.dispose();
+          this.setEnabled(true);
+          
+    }//GEN-LAST:event_cancelarBotonActionPerformed
+
+    private void mensajeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_mensajeDialogWindowClosing
+            
+            stringTemporal="";
+            eleccionTabla="";
+            this.setEnabled(true);
+    }//GEN-LAST:event_mensajeDialogWindowClosing
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Anno;
     private javax.swing.JComboBox<String> AnnoComboBox;
+    private javax.swing.JLabel Informacion;
     private javax.swing.JTable TablaDeportes;
     private javax.swing.JTable TablaEnfermedades;
     private javax.swing.JTable TablaManifestaciones;
@@ -1926,6 +2067,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JCheckBox abuelaP;
     private javax.swing.JCheckBox abueloM;
     private javax.swing.JCheckBox abueloP;
+    private javax.swing.JButton aceptarBoton;
     private javax.swing.JLabel actividadesTiempoLibre;
     private javax.swing.JTextArea actividadesTiempoLibreT;
     private javax.swing.JButton agregarDeporte;
@@ -1939,6 +2081,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JRadioButton becadoBooton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton cancelarBoton;
     private javax.swing.JLabel carnet;
     private javax.swing.JTextField carnetTexto;
     private javax.swing.JLabel carrera;
@@ -2003,6 +2146,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JTextField manifestacionTexto;
     private javax.swing.JRadioButton masculino;
     private javax.swing.JTextField medicamentoTexto;
+    private javax.swing.JDialog mensajeDialog;
     private javax.swing.JPopupMenu menuNotas;
     private javax.swing.JLabel militante;
     private javax.swing.JRadioButton militanteRadioB;
@@ -2043,7 +2187,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> zonaOpciones;
     // End of variables declaration//GEN-END:variables
 
-    private void actualizarTablaManifestaciones(Vector<String> manifestacionesArtisticas) {
+    protected void actualizarTablaManifestaciones(Vector<String> manifestacionesArtisticas) {
         DefaultTableModel d = new DefaultTableModel() {
             
             @Override
@@ -2104,7 +2248,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         jScrollPane1.setViewportView(TablaManifestaciones);
     }
     
-    private void actualizarTablaDeportes(Vector<String> deporte) {
+    protected void actualizarTablaDeportes(Vector<String> deporte) {
         
         DefaultTableModel d = new DefaultTableModel() {
             
@@ -2167,7 +2311,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         
     }
     
-    private void actualizarTablaEnfermedades(Vector<String> enfermedade) {
+    protected void actualizarTablaEnfermedades(Vector<String> enfermedade) {
         
         DefaultTableModel d = new DefaultTableModel() {
             @Override
@@ -2226,7 +2370,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
         jScrollPane6.setViewportView(TablaEnfermedades);
     }
     
-    private void actualizarTablaMedicamentos(Vector<String> medicamento) {
+    protected void actualizarTablaMedicamentos(Vector<String> medicamento) {
         
         DefaultTableModel d = new DefaultTableModel() {
             @Override
