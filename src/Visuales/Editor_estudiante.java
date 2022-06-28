@@ -126,7 +126,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
         }
         
-        for (int i = 0; i < b.getAnno_brigada()-1; i++) {
+        for (int i = 0; i < b.getAnno_brigada(); i++) {
             AnnoComboBox.addItem((i + 1) + "");
         }
         
