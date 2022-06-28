@@ -339,7 +339,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="Agregar_estudiante">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar Estudiante"/>
+        <Property name="text" type="java.lang.String" value="Agregar estudiante"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Agregar_estudianteActionPerformed"/>
@@ -377,7 +377,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="agregarEventos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar Eventos"/>
+        <Property name="text" type="java.lang.String" value="Agregar eventos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarEventosActionPerformed"/>
@@ -385,7 +385,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="ButtonReporteEstudiantes">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Generar Reporte de los estudiantes"/>
+        <Property name="text" type="java.lang.String" value="Generar reporte de los estudiantes"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonReporteEstudiantesActionPerformed"/>

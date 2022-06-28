@@ -198,7 +198,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaEventos);
 
-        nombreEvento.setText("Buscar Evento por nombre");
+        nombreEvento.setText("Buscar evento por nombre");
 
         nombreEventoT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -206,7 +206,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             }
         });
 
-        annoEvento.setText("Buscar Evento por año");
+        annoEvento.setText("Buscar evento por año");
 
         annoEventoT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -220,7 +220,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             }
         });
 
-        nuevoEvento.setText("Nuevo Evento");
+        nuevoEvento.setText("Nuevo evento");
         nuevoEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nuevoEventoActionPerformed(evt);
@@ -234,7 +234,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Buscar Evento por extensión");
+        jLabel1.setText("Buscar evento por extensión");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

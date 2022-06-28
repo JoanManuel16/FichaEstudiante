@@ -20,7 +20,9 @@ public class Main extends javax.swing.JFrame {
         initComponents();
 
         this.setLocationRelativeTo(null);
-        this.setTitle("Ventana principal");
+        this.setTitle("Ventana Principal");
+        
+        annadirEstudiantesEvento.setText("Añadir estudiantes a un nuevo evento");
     }
 
     /**
@@ -56,8 +58,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        annadirEstudiantesEvento.setText("Añadir estudiantes a una brigada");
+        annadirEstudiantesEvento.setText("Añadir estudiantes\\\\n a una brigada");
         annadirEstudiantesEvento.setAutoscrolls(true);
+        annadirEstudiantesEvento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        annadirEstudiantesEvento.setInheritsPopupMenu(true);
         annadirEstudiantesEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 annadirEstudiantesEventoActionPerformed(evt);

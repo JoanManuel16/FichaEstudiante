@@ -307,7 +307,7 @@ public class Editor_carrera extends javax.swing.JFrame {
             }
         });
 
-        AgregarAsig.setText("Agregar Asignatura");
+        AgregarAsig.setText("Agregar asignatura");
         AgregarAsig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarAsigActionPerformed(evt);
@@ -338,7 +338,7 @@ public class Editor_carrera extends javax.swing.JFrame {
             }
         });
 
-        Annadir_anno.setText("Añadir Año a la carrera");
+        Annadir_anno.setText("Añadir año a la carrera");
         Annadir_anno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Annadir_annoActionPerformed(evt);

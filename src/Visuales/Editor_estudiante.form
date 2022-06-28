@@ -252,7 +252,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="nombreEstudiante">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nombre del Estudiante"/>
+                <Property name="text" type="java.lang.String" value="Nombre del estudiante"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="nombreEstudianteT">
@@ -768,7 +768,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="330" max="32767" attributes="0"/>
+                      <EmptySpace pref="331" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -925,7 +925,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="ingresoHogar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ingreso en el Hogar"/>
+                <Property name="text" type="java.lang.String" value="Ingreso en el hogar"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="ingresoHogarT">
@@ -1073,7 +1073,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="deseosFuturos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Deseos Futuros"/>
+                <Property name="text" type="java.lang.String" value="Deseos futuros"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
@@ -1521,17 +1521,17 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="telefonoParticular">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Particular"/>
+                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono particular"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="telefonoFijo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Fijo"/>
+                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono fijo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="datosMoviles">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Datos M&#xf3;viles"/>
+                <Property name="text" type="java.lang.String" value="Datos m&#xf3;viles"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="email">
@@ -1546,7 +1546,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="colorPiel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Color de Piel"/>
+                <Property name="text" type="java.lang.String" value="Color de piel"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="militante">
@@ -1556,7 +1556,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="estadoCivil">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Estado Civil"/>
+                <Property name="text" type="java.lang.String" value="Estado civil"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="hijos">
@@ -1566,7 +1566,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="direccionParticular">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Direcci&#xf3;n Particular"/>
+                <Property name="text" type="java.lang.String" value="Direcci&#xf3;n particular"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="religion">
@@ -1586,7 +1586,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="participacionBrigada">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Participaci&#xf3;n en la Brigada"/>
+                <Property name="text" type="java.lang.String" value="Participaci&#xf3;n en la brigada"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="nivelIngles">

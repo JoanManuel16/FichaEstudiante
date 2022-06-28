@@ -91,7 +91,7 @@ public class EditorEventos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TableEventos);
 
-        nombreEvento.setText("Buscar Evento por nombre");
+        nombreEvento.setText("Buscar evento por nombre");
 
         TextNombreEvento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -104,7 +104,7 @@ public class EditorEventos extends javax.swing.JFrame {
             }
         });
 
-        aceptar.setText("Agregar Evento en el año seleccionado ");
+        aceptar.setText("Agregar evento en el año seleccionado ");
         aceptar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 aceptarMouseClicked(evt);
@@ -118,7 +118,7 @@ public class EditorEventos extends javax.swing.JFrame {
             }
         });
 
-        nuevoEvento.setText("Crear Nuevo Evento");
+        nuevoEvento.setText("Crear nuevo evento");
         nuevoEvento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nuevoEventoMouseClicked(evt);
@@ -138,7 +138,7 @@ public class EditorEventos extends javax.swing.JFrame {
                 .addComponent(TextNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nuevoEvento)
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 19, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

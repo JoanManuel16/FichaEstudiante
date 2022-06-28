@@ -101,7 +101,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TableBrigadasExistentes);
 
-        editar.setText("Editar Brigada Seleccionada");
+        editar.setText("Editar brigada seleccionada");
         editar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editarMouseClicked(evt);

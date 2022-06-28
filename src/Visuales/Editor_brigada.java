@@ -330,7 +330,7 @@ public class Editor_brigada extends javax.swing.JFrame {
             }
         });
 
-        Agregar_estudiante.setText("Agregar Estudiante");
+        Agregar_estudiante.setText("Agregar estudiante");
         Agregar_estudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Agregar_estudianteActionPerformed(evt);
@@ -348,14 +348,14 @@ public class Editor_brigada extends javax.swing.JFrame {
             }
         });
 
-        agregarEventos.setText("Agregar Eventos");
+        agregarEventos.setText("Agregar eventos");
         agregarEventos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarEventosActionPerformed(evt);
             }
         });
 
-        ButtonReporteEstudiantes.setText("Generar Reporte de los estudiantes");
+        ButtonReporteEstudiantes.setText("Generar reporte de los estudiantes");
         ButtonReporteEstudiantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonReporteEstudiantesActionPerformed(evt);

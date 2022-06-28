@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
@@ -110,8 +110,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="annadirEstudiantesEvento">
       <Properties>
-        <Property name="text" type="java.lang.String" value="A&#xf1;adir estudiantes a una brigada"/>
+        <Property name="text" type="java.lang.String" value="A&#xf1;adir estudiantes\u005c\u005cn a una brigada" containsInvalidXMLChars="true"/>
         <Property name="autoscrolls" type="boolean" value="true"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="inheritsPopupMenu" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annadirEstudiantesEventoActionPerformed"/>

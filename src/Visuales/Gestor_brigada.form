@@ -115,7 +115,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="editar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Editar Brigada Seleccionada"/>
+        <Property name="text" type="java.lang.String" value="Editar brigada seleccionada"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editarMouseClicked"/>

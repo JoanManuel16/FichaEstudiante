@@ -157,7 +157,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
             }
         });
 
-        Habilitar.setText("Habilitar Edición");
+        Habilitar.setText("Habilitar edición");
 
         Finalizar.setText("Atrás");
         Finalizar.addActionListener(new java.awt.event.ActionListener() {

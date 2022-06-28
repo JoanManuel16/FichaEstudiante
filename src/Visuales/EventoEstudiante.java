@@ -154,7 +154,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
         LabelInformacion.setText("Estudiantes que participaron en el evento");
         LabelInformacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        ButtonAceptarFrame.setText("Finalizar Selección");
+        ButtonAceptarFrame.setText("Finalizar selección");
         ButtonAceptarFrame.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonAceptarFrameMouseClicked(evt);
@@ -163,7 +163,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
 
         eventoActual.setText("Evento:");
 
-        seleccionarEvento.setText("Seleccionar Evento");
+        seleccionarEvento.setText("Seleccionar evento");
         seleccionarEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seleccionarEventoActionPerformed(evt);

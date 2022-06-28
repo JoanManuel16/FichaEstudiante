@@ -487,7 +487,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(850, 500));
 
-        nombreEstudiante.setText("Nombre del Estudiante");
+        nombreEstudiante.setText("Nombre del estudiante");
 
         nombreEstudianteT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -870,7 +870,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             }
         });
 
-        ingresoHogar.setText("Ingreso en el Hogar");
+        ingresoHogar.setText("Ingreso en el hogar");
 
         ingresoHogarT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -968,7 +968,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                                     .addComponent(tablet)
                                     .addComponent(laptop)))
                             .addComponent(electronicos))))
-                .addContainerGap(330, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1039,7 +1039,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         jPanel8.setPreferredSize(new java.awt.Dimension(850, 500));
 
-        deseosFuturos.setText("Deseos Futuros");
+        deseosFuturos.setText("Deseos futuros");
 
         deseosFuturosT.setColumns(20);
         deseosFuturosT.setRows(5);
@@ -1196,25 +1196,25 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(850, 500));
 
-        telefonoParticular.setText("Teléfono Particular");
+        telefonoParticular.setText("Teléfono particular");
 
-        telefonoFijo.setText("Teléfono Fijo");
+        telefonoFijo.setText("Teléfono fijo");
 
-        datosMoviles.setText("Datos Móviles");
+        datosMoviles.setText("Datos móviles");
 
         email.setText("Email");
 
         becado.setText("Becado");
 
-        colorPiel.setText("Color de Piel");
+        colorPiel.setText("Color de piel");
 
         militante.setText("Militante");
 
-        estadoCivil.setText("Estado Civil");
+        estadoCivil.setText("Estado civil");
 
         hijos.setText("Hijos");
 
-        direccionParticular.setText("Dirección Particular");
+        direccionParticular.setText("Dirección particular");
 
         religion.setText("Religión");
 
@@ -1222,7 +1222,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
         fumador.setText("¿Fuma el estudiante?");
 
-        participacionBrigada.setText("Participación en la Brigada");
+        participacionBrigada.setText("Participación en la brigada");
 
         nivelIngles.setText("Nivel de inglés");
 

@@ -166,7 +166,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="Habilitar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Habilitar Edici&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Habilitar edici&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="Finalizar">

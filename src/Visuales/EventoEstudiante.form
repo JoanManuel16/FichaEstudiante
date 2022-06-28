@@ -166,7 +166,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="ButtonAceptarFrame">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Finalizar Selecci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Finalizar selecci&#xf3;n"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonAceptarFrameMouseClicked"/>
@@ -181,7 +181,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="seleccionarEvento">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Seleccionar Evento"/>
+        <Property name="text" type="java.lang.String" value="Seleccionar evento"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seleccionarEventoActionPerformed"/>

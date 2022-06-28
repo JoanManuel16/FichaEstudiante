@@ -232,7 +232,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="nombreEvento">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar Evento por nombre"/>
+        <Property name="text" type="java.lang.String" value="Buscar evento por nombre"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="nombreEventoT">
@@ -242,7 +242,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="annoEvento">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar Evento por a&#xf1;o"/>
+        <Property name="text" type="java.lang.String" value="Buscar evento por a&#xf1;o"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="annoEventoT">
@@ -265,7 +265,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="nuevoEvento">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nuevo Evento"/>
+        <Property name="text" type="java.lang.String" value="Nuevo evento"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevoEventoActionPerformed"/>
@@ -281,7 +281,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar Evento por extensi&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Buscar evento por extensi&#xf3;n"/>
       </Properties>
     </Component>
   </SubComponents>

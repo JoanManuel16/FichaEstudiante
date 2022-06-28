@@ -101,7 +101,7 @@ public class ICI extends javax.swing.JFrame {
 
         relacion.setText("Relación académico-extracurricular");
 
-        ButtonReporte.setText("Generar Reporte");
+        ButtonReporte.setText("Generar reporte");
         ButtonReporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonReporteMouseClicked(evt);
