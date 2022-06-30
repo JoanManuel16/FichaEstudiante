@@ -173,18 +173,17 @@ public class ICI extends javax.swing.JFrame {
     }//GEN-LAST:event_PATKeyReleased
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        
+
         if (PAT.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El campo de texto \"PA\" no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
             PAT.setText("");
             ButtonReporte.setEnabled(false);
             return;
-        } 
-        if(Integer.parseInt(PAT.getText()) <= 0 ||Integer.parseInt(PAT.getText()) >=100 ){
+        }
+        if (Integer.parseInt(PAT.getText()) <= 0 || Integer.parseInt(PAT.getText()) >= 100) {
             JOptionPane.showMessageDialog(null, "El PA debe ser mayor que 0 y menor que 100", "Error", JOptionPane.ERROR_MESSAGE);
             return;
-        }
-        else  {
+        } else {
             double M = (double) (Integer.parseInt(actividadesExtraL.getText()) * 100) / ((double) (Integer.parseInt(PAT.getText())));
             relacionL.setText(M + "");
         }
@@ -241,11 +240,12 @@ public class ICI extends javax.swing.JFrame {
                 }
                 return String.class;
             }
-            
+
             @Override
-             public boolean isCellEditable(int row, int column) {
-                return false;         
-             };
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        ;
         };
         Object[] OBJ = new Object[4];
         d.addColumn("Estudiante");
@@ -278,6 +278,8 @@ public class ICI extends javax.swing.JFrame {
             }
         }
         TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(d);
+        modeloOrdenado.toggleSortOrder(3);
+        modeloOrdenado.toggleSortOrder(3);
         tablaICI = new JTable(d);
         tablaICI.setRowSorter(modeloOrdenado);
         jScrollPane1.setViewportView(tablaICI);

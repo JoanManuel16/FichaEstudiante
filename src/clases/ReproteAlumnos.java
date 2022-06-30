@@ -40,6 +40,27 @@ public class ReproteAlumnos {
             String ruta = System.getProperty("user.home");
             PdfWriter.getInstance(pdf, new FileOutputStream(ruta + "/Desktop/" + sol + ".pdf"));
             pdf.open();
+            Paragraph separador = new Paragraph("-----------------------------------------------");
+            Paragraph datos_de_la_brigada = new Paragraph("Brigada de la carrra: " + b.getCarrera() + "\n Anno de la brigada: " + b.getAnno_brigada() + " Anno escolar: " + b.getAnno() + "\n Total de alumnos de la brigada: " + b.getEstudiantes().size() + "\n");
+            pdf.add(separador);
+            pdf.add(datos_de_la_brigada);
+            pdf.add(new Paragraph("Eventos a de la brigada\n\n"));
+            PdfPTable TablaEventosBrigada = new PdfPTable(3);
+
+            Vector<Evento> eventos_de_la_brigada = g.obtenerEventosBrigada(b);
+            Vector <String>dimensiones = g.obtenerDimensiones();
+
+            TablaEventosBrigada.setHorizontalAlignment(Paragraph.ALIGN_JUSTIFIED);
+            TablaEventosBrigada.addCell("Nombre del  evento");
+            TablaEventosBrigada.addCell("Diemsion");
+            TablaEventosBrigada.addCell("Anno");
+            for (Evento evento: eventos_de_la_brigada) {
+                TablaEventosBrigada.addCell(evento.getNombre());
+                TablaEventosBrigada.addCell(dimensiones.elementAt(evento.getDimension()-1));
+                TablaEventosBrigada.addCell(""+evento.getAnno());
+            }
+            pdf.add(TablaEventosBrigada);
+            Paragraph separador2 = new Paragraph("-----------------------------------------------");
             for (int i = 0; i < datosEstudiantes.size(); i++) {
 
                 Paragraph informacionExtra = new Paragraph("Nombre del Estudiante: " + datosEstudiantes.elementAt(i).getN1().getNombre_estudiante() + "\n");

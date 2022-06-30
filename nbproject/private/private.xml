@@ -3,20 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/ICI.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/utiles/Ventana_OK_Cancel.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Gestor_brigada.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Main.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/EventoEstudiante.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/clases/Nota.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Base_de_Datos/Gestion.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Gestor_carreras.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Editor_brigada.java</file>
-            <file>file:/E:/%5BSchWarZer%5D/Proyectos/FichaEstudiante/src/Visuales/Editor_carrera.java</file>
-=======
-            <file>file:/home/joanmanuel/NetBeansProjects/Ficha%20estudinate/FichaEstudiante/src/Visuales/Editor_carrera.java</file>
->>>>>>> e8b3e24b69409ae723ea373972407e5a8b1dfe14
+            <file>file:/home/joanmanuel/NetBeansProjects/Ficha%20estudinate/FichaEstudiante/src/clases/ReproteAlumnos.java</file>
+            <file>file:/home/joanmanuel/NetBeansProjects/Ficha%20estudinate/FichaEstudiante/src/Visuales/ICI.java</file>
         </group>
     </open-files>
 </project-private>
