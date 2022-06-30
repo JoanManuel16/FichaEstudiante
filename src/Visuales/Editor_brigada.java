@@ -37,7 +37,7 @@ public class Editor_brigada extends javax.swing.JFrame {
     private Vector<Tupla<Integer, String>> eventosBrigada;
     private Vector<Tupla<Integer, String>> eventos;
     private Vector<Tupla<Integer, String>> eventosEliminados = new Vector<>();
-    private Vector<JRadioButton> radioButtonEventos = new Vector<>();
+    private Vector<JCheckBox> radioButtonEventos = new Vector<>();
     private boolean actualizacion;
     private Vector<String> dimensiones = new Vector<>();
     private boolean openMain;
@@ -714,7 +714,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         if (dimension.equals("Todos")) {
             for (int i = 0; i < eventos.size(); i++) {
                 OBJ[0] = G.obtenerNombreEvento(eventos.elementAt(i).getN1());
-                radioButtonEventos.add(new JRadioButton("", false));
+                radioButtonEventos.add(new JCheckBox("", false));
                 OBJ[1] = eventos.elementAt(i).getN2();
                 OBJ[2] = radioButtonEventos.lastElement();
                 for (int j = 0; j < eventosBrigada.size(); j++) {
@@ -730,7 +730,7 @@ public class Editor_brigada extends javax.swing.JFrame {
         for (int i = 0; i < eventos.size(); i++) {
             if(Integer.parseInt(eventos.elementAt(i).getN2().substring(eventos.elementAt(i).getN2().length()-4)) == B.getAnno() && G.obtenerDimensionEvento(eventos.elementAt(i), dimension)){
             OBJ[0] = G.obtenerNombreEvento(eventos.elementAt(i).getN1());
-            radioButtonEventos.add(new JRadioButton("", false));
+            radioButtonEventos.add(new JCheckBox("", false));
             OBJ[1] = eventos.elementAt(i).getN2();
             OBJ[2] = radioButtonEventos.lastElement();
 

@@ -30,16 +30,16 @@ import utiles.Secuencias_cadenas;
 public class Editor_estudiante extends javax.swing.JFrame {
     
     private Vector<String> manifestacionesArtisticas;
-    private Vector<JRadioButton> radioButtonManifestaciones;
+    private Vector<JCheckBox> radioButtonManifestaciones;
     private Vector<String> deportes;
     private Vector<String> deportesDB;
-    private Vector<JRadioButton> radioButtonDeportes;
+    private Vector<JCheckBox> radioButtonDeportes;
     private Vector<String> enfermedades;
     private Vector<String> enfermedadesDB;
-    private Vector<JRadioButton> radioButtonEnfermedades;
+    private Vector<JCheckBox> radioButtonEnfermedades;
     private Vector<String> medicamentos;
     private Vector<String> medicamentosDB;
-    private Vector<JRadioButton> radioButtonMedicamentos;
+    private Vector<JCheckBox> radioButtonMedicamentos;
     private Vector<String> manifestaciones;
     private Vector<Nota> notas;
     private Brigada b;
@@ -126,7 +126,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
             relacionesConvivenciaComboBox.addItem(convivencia.elementAt(i));
         }
         
-        for (int i = 0; i < b.getAnno_brigada()-1; i++) {
+        for (int i = 0; i < b.getAnno_brigada(); i++) {
             AnnoComboBox.addItem((i + 1) + "");
         }
         
@@ -2211,7 +2211,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 }
             }
             OBJ[0] = manifestacionesArtisticas.elementAt(i);
-            radioButtonManifestaciones.add(new JRadioButton("", bandera));
+            radioButtonManifestaciones.add(new JCheckBox("", bandera));
             OBJ[1] = radioButtonManifestaciones.lastElement();
             d.addRow(OBJ);
             bandera = false;
@@ -2273,7 +2273,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 }
             }
             OBJ[0] = deporte.elementAt(i);
-            radioButtonDeportes.add(new JRadioButton("", bandera));
+            radioButtonDeportes.add(new JCheckBox("", bandera));
             OBJ[1] = radioButtonDeportes.lastElement();
             d.addRow(OBJ);
             bandera = false;
@@ -2335,7 +2335,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 }
             }
             OBJ[0] = enfermedade.elementAt(i);
-            radioButtonEnfermedades.add(new JRadioButton("", bandera));
+            radioButtonEnfermedades.add(new JCheckBox("", bandera));
             OBJ[1] = radioButtonEnfermedades.lastElement();
             d.addRow(OBJ);
             bandera = false;
@@ -2394,7 +2394,7 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 }
             }
             OBJ[0] = medicamento.elementAt(i);
-            radioButtonMedicamentos.add(new JRadioButton("", bandera));
+            radioButtonMedicamentos.add(new JCheckBox("", bandera));
             OBJ[1] = radioButtonMedicamentos.lastElement();
             d.addRow(OBJ);
             bandera = false;

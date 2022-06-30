@@ -32,7 +32,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
      * Creates new form EventoEstudiante
      */
     private Brigada brigada;
-    private Vector<JRadioButton> RadioButtonVector;
+    private Vector<JCheckBox> RadioButtonVector;
     private Gestion g;
     private Vector<Tupla<Estudiante, String>> estudiantesEvento;
     private Vector<Tupla<String, Integer>> logros;
@@ -315,7 +315,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
         for (int i = 0; i < estudiantesBrigada.size(); i++) {
             OBJ[0] = estudiantesBrigada.elementAt(i).getNombre_estudiante();
             OBJ[1] = estudiantesBrigada.elementAt(i).getCI();
-            RadioButtonVector.add(new JRadioButton("", false));
+            RadioButtonVector.add(new JCheckBox("", false));
             OBJ[4] = RadioButtonVector.lastElement();
             if (g.existeEstudianteEvento(E, estudiantesBrigada.elementAt(i))) {
                 RadioButtonVector.lastElement().setSelected(true);
