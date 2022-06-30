@@ -92,6 +92,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
         eventoActual = new javax.swing.JLabel();
         eventoActualInfo = new javax.swing.JLabel();
         seleccionarEvento = new javax.swing.JButton();
+        seleccionarBrigada = new javax.swing.JButton();
 
         escogerEvento.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -130,6 +131,11 @@ public class EventoEstudiante extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -170,6 +176,13 @@ public class EventoEstudiante extends javax.swing.JFrame {
             }
         });
 
+        seleccionarBrigada.setText("Seleccionar brigada");
+        seleccionarBrigada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionarBrigadaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,7 +195,10 @@ public class EventoEstudiante extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(seleccionarEvento)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(seleccionarEvento)
+                                .addGap(26, 26, 26)
+                                .addComponent(seleccionarBrigada))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(eventoActual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,7 +220,9 @@ public class EventoEstudiante extends javax.swing.JFrame {
                     .addComponent(eventoActual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(eventoActualInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(seleccionarEvento)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seleccionarEvento)
+                    .addComponent(seleccionarBrigada))
                 .addGap(17, 17, 17)
                 .addComponent(ButtonAceptarFrame)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -250,9 +268,15 @@ public class EventoEstudiante extends javax.swing.JFrame {
             this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * @param args the command line arguments
-     */
+    private void seleccionarBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarBrigadaActionPerformed
+        Gestor_brigada GB = new Gestor_brigada(3);
+        GB.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_seleccionarBrigadaActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        PopupMenuLogros.setVisible(false);
+    }//GEN-LAST:event_formMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAceptarFrame;
@@ -264,6 +288,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
     private javax.swing.JLabel eventoActualInfo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton seleccionarBrigada;
     private javax.swing.JButton seleccionarEvento;
     private javax.swing.JTable tablaEventos;
     // End of variables declaration//GEN-END:variables
@@ -317,9 +342,11 @@ public class EventoEstudiante extends javax.swing.JFrame {
         TableEstudiantes.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                PopupMenuLogros.setVisible(false);
                 int fila = TableEstudiantes.rowAtPoint(e.getPoint());
+                int columna = TableEstudiantes.columnAtPoint(e.getPoint());
                 
-                if (fila > -1) {
+                if (fila > -1 && columna == 4) {
                     
                     if (!RadioButtonVector.elementAt(fila).isSelected()) {
                         

@@ -7,6 +7,7 @@ package Visuales;
 import Base_de_Datos.Gestion;
 import clases.Brigada;
 import java.util.Vector;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +29,8 @@ public class Gestor_brigada extends javax.swing.JFrame {
     private boolean openMain;
     private Vector<Brigada> Brigadas;
 
+    JFrame antecesor;
+    
     private Vector<Brigada> BrigadasSeleccionadas;
 
     public Gestor_brigada(int opcion) {
@@ -315,6 +318,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
                 }
                 openMain = false;
             }
+            
         }
 
     }
