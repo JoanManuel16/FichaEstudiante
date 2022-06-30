@@ -41,6 +41,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
     public Gestor_Eventos() {
         initComponents();
         
+        
         eventos = G.obtenerEventos();
         eventosNombre = new Vector<>();
         eventosSeleccionados = new Vector<>();

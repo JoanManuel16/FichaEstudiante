@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import static utiles.Secuencias_cadenas.sonNumeros;
+import utiles.Ventana_OK_Cancel;
 
 /**
  *
@@ -36,6 +37,18 @@ public class Gestor_carreras extends javax.swing.JFrame {
         this.setTitle("Gestor de carreras");
         
         
+    }
+    
+    public void devolverValor(Object O){
+    
+        if(O instanceof Boolean){
+            Boolean nO = (Boolean)O;
+            
+            if(nO==false){
+                
+            }
+        }
+    
     }
     
     
@@ -84,6 +97,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
                 
                 if(!Habilitar.isSelected() && !Main){
                     int b = JOptionPane.showConfirmDialog(null, "¿Desea seleccionar esta carrera para la brigada?");
+                    
                     
                     if(b == 0){
                     Editor_brigada CB = new Editor_brigada(carrera);
