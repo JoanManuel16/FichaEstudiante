@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import static utiles.Secuencias_cadenas.sonNumeros;
-import utiles.Ventana_OK_Cancel;
+import utiles.ConfirmDialog;
 
 /**
  *

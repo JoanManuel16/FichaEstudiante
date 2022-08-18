@@ -16,19 +16,21 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import static utiles.Secuencias_cadenas.sonNumeros;
+import utiles.AbstractFrame;
+import utiles.InputDialog;
+import utiles.ConfirmDialog;
 
 /**
  *
  * @author joanmanuel
  */
-public class EditorEventos extends javax.swing.JFrame {
+public class EditorEventos extends AbstractFrame {
 
     private Vector<String> NombreEventos;
     private Gestion g;
 
     public EditorEventos() {
         initComponents();
-        nuevoEvento.setVisible(false);
         g = new Gestion();
         NombreEventos = g.obtener_nombres_eventos();
         actualizarTabla(NombreEventos);
@@ -38,12 +40,67 @@ public class EditorEventos extends javax.swing.JFrame {
         for (int i = 0; i < dimensiones.size(); i++) {
             dimensionesComboBox.addItem(dimensiones.elementAt(i));
         }
+        nuevoEvento.setEnabled(false);
         jCalendar1.setEnabled(false);
         dimensionesL.setEnabled(false);
         dimensionesComboBox.setEnabled(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Editor de Evento");
         this.setResizable(false);
+    }
+    
+    
+    @Override
+    public void inputDialog_devolverValor(Object O, int seleccion){
+        if(seleccion == 1){
+            if (O.equals(false)) {
+            TableEventos.clearSelection();
+            jCalendar1.setEnabled(false);
+            dimensionesL.setEnabled(false);
+            dimensionesComboBox.setEnabled(false);
+            nuevoEvento.setEnabled(false);
+            TextNombreEvento.setText("");
+            actualizarTabla(NombreEventos);
+            return;
+            }
+            
+            String temp = (String)O;
+            
+             Vector<String> Similares = new Vector<>();
+        for (int i = 0; i < NombreEventos.size(); i++) {
+            if (Secuencias_cadenas.LongestCommonSubsequence(temp, NombreEventos.elementAt(i)) >= 75.00) {
+                Similares.add(NombreEventos.elementAt(i));
+            }
+        }
+
+        if (!Similares.isEmpty()) {
+            String[] S = new String[Similares.size()];
+            Similares.copyInto(S);
+
+            String x = (String) JOptionPane.showInputDialog(null, "Existen eventos con nombres similares al del evento que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+
+            if (x == null) {
+                g.agregar_nombre_evento(temp);
+                NombreEventos.add(temp);
+                JOptionPane.showMessageDialog(null, "El evento \"" + temp + "\" ha sido agregado satisfactoriamente.", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
+            }
+
+            Vector<String> V = new Vector<String>();
+            V.add(x);
+
+            actualizarTabla(V);
+
+        } else {
+            g.agregar_nombre_evento(temp);
+            JOptionPane.showMessageDialog(null, "El evento \"" + temp + "\" ha sido agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
+            NombreEventos.add(temp);
+
+            Vector<String> V = new Vector<String>();
+            V.add(temp);
+
+            actualizarTabla(V);
+        }
+        }
     }
 
     /**
@@ -208,52 +265,10 @@ public class EditorEventos extends javax.swing.JFrame {
 
     private void nuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoEventoMouseClicked
 
-        String temp = JOptionPane.showInputDialog(null, "¿Desea agregar el evento?", TextNombreEvento.getText());
-        if (temp == null || temp.equals("")) {
-            TableEventos.clearSelection();
-            jCalendar1.setEnabled(false);
-            dimensionesL.setEnabled(false);
-            dimensionesComboBox.setEnabled(false);
-            nuevoEvento.setEnabled(false);
-            TextNombreEvento.setText("");
-            actualizarTabla(NombreEventos);
-            return;
-        }
-
-        Vector<String> Similares = new Vector<>();
-        for (int i = 0; i < NombreEventos.size(); i++) {
-            if (Secuencias_cadenas.LongestCommonSubsequence(temp, NombreEventos.elementAt(i)) >= 75.00) {
-                Similares.add(NombreEventos.elementAt(i));
-            }
-        }
-
-        if (!Similares.isEmpty()) {
-            String[] S = new String[Similares.size()];
-            Similares.copyInto(S);
-
-            String x = (String) JOptionPane.showInputDialog(null, "Existen carreras con nombres similares al de la carrera que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-
-            if (x == null) {
-                g.agregar_nombre_evento(temp);
-                NombreEventos.add(temp);
-                JOptionPane.showMessageDialog(null, "El evento \"" + temp + "\" ha sido agregado satisfactoriamente.", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
-            }
-
-            Vector<String> V = new Vector<String>();
-            V.add(x);
-
-            actualizarTabla(V);
-
-        } else {
-            g.agregar_nombre_evento(temp);
-            JOptionPane.showMessageDialog(null, "El evento \"" + temp + "\" ha sido agregado satisfactoriamente", "Mensaje del sistema", JOptionPane.QUESTION_MESSAGE);
-            NombreEventos.add(temp);
-
-            Vector<String> V = new Vector<String>();
-            V.add(temp);
-
-            actualizarTabla(V);
-        }
+        InputDialog inputDialog = new InputDialog(1, "¿Desea agregar el evento?", TextNombreEvento.getText(), "", this);
+        inputDialog.setVisible(true);
+        this.setEnabled(false);
+        
     }//GEN-LAST:event_nuevoEventoMouseClicked
 
     private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
