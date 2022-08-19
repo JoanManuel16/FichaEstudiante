@@ -277,7 +277,7 @@ public class ICI extends javax.swing.JFrame {
                 d.addRow(OBJ);
             }
         }
-        TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(d);
+        TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<>(d);
         modeloOrdenado.toggleSortOrder(3);
         modeloOrdenado.toggleSortOrder(3);
         tablaICI = new JTable(d);
