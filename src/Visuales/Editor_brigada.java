@@ -9,7 +9,7 @@ import clases.Brigada;
 import clases.DatosEstudiante;
 import clases.Estudiante;
 import clases.Nota;
-import clases.ReproteAlumnos;
+import utiles.ReporteAlumnos;
 import com.itextpdf.text.DocumentException;
 import utiles.RadioButtonEditor;
 import utiles.RadioButtonRenderer;
@@ -619,7 +619,7 @@ public class Editor_brigada extends javax.swing.JFrame {
                     datosEstudiantes.add(tupla);
                 }
             }
-            ReproteAlumnos al = new ReproteAlumnos(datosEstudiantes, B);
+            ReporteAlumnos al = new ReporteAlumnos(datosEstudiantes, B);
             if(al.GenerarReporte()){
         JOptionPane.showMessageDialog(null, "Reporte creado exitosamente en el escritorio", "Información del sistema", JOptionPane.INFORMATION_MESSAGE);
         }

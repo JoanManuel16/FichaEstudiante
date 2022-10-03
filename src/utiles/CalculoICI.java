@@ -13,7 +13,7 @@ import java.math.RoundingMode;
  *
  * @author SchWarZer
  */
-public class ICI {
+public class CalculoICI {
     
     public static double ICI(int m, double M, double promedio, int mis){
 

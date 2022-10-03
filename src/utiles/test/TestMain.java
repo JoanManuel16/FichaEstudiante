@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utiles;
+package utiles.test;
 
-import static utiles.ICI.ICI;
+import static utiles.CalculoICI.ICI;
 
 /**
  *

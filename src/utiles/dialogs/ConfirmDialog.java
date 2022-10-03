@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utiles;
+package utiles.dialogs;
 
 import javax.swing.JFrame;
 
@@ -27,7 +27,7 @@ public class ConfirmDialog extends JFrame {
         
         initComponents();
         
-        this.setSize(400, 130);
+        this.setSize(450, 200);
         this.setLocationRelativeTo(null);
         
         this.padre = padre;
@@ -36,18 +36,6 @@ public class ConfirmDialog extends JFrame {
         this.texto.setText(texto);
         
         this.setTitle(titulo);
-    }
-    
-    public ConfirmDialog(int seleccion, String texto, AbstractFrame padre) {
-        initComponents();
-        
-        this.setSize(400, 200);
-        this.setLocationRelativeTo(null);
-        
-        this.padre = padre;
-        this.seleccion = seleccion;
-        
-        this.texto.setText(texto);
     }
 
     /**
@@ -69,6 +57,8 @@ public class ConfirmDialog extends JFrame {
                 formWindowClosing(evt);
             }
         });
+
+        texto.setAutoscrolls(true);
 
         aceptar.setText("Aceptar");
         aceptar.addActionListener(new java.awt.event.ActionListener() {

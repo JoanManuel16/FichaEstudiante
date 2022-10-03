@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clases;
+package utiles;
 
 import Base_de_Datos.Gestion;
+import clases.Brigada;
+import clases.DatosEstudiante;
+import clases.Evento;
+import clases.Nota;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -21,13 +25,13 @@ import utiles.Tupla;
  *
  * @author joanmanuel
  */
-public class ReproteAlumnos {
+public class ReporteAlumnos {
 
     Vector<Tupla<DatosEstudiante, Vector<Nota>>> datosEstudiantes;
     Gestion g;
     Brigada b;
 
-    public ReproteAlumnos(Vector<Tupla<DatosEstudiante, Vector<Nota>>> datosEstudiantes, Brigada b) {
+    public ReporteAlumnos(Vector<Tupla<DatosEstudiante, Vector<Nota>>> datosEstudiantes, Brigada b) {
         this.datosEstudiantes = datosEstudiantes;
         g = new Gestion();
         this.b = b;
@@ -133,7 +137,7 @@ public class ReproteAlumnos {
             }
             pdf.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GenerarReporteICI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReporteICI.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utiles;
+package utiles.dialogs;
 
 /**
  *
@@ -14,6 +14,8 @@ public class InputDialog extends javax.swing.JFrame {
     
     private AbstractFrame padre;
     private int seleccion;
+    String opcion_seleccionada;
+    String valorInicial;
     /**
      * Creates new form inputDialog
      * @param seleccion
@@ -26,23 +28,25 @@ public class InputDialog extends javax.swing.JFrame {
         
         initComponents();
         
-        this.setSize(400, 200);
+        this.setSize(450, 200);
         this.setLocationRelativeTo(null);
         
         this.padre = padre;
         this.seleccion = seleccion;
+        this.valorInicial="";
         
         this.opciones.setVisible(false);
         this.input.setVisible(true);
         
         this.texto.setText(texto);
         this.input.setText(input);
+        this.opcion_seleccionada = input;
         
         this.setTitle(titulo);
     }
    
     
-    public InputDialog(int seleccion, String texto, String titulo, String[] opciones, int opcionSeleccionada, AbstractFrame padre) {
+    public InputDialog(int seleccion, String texto, String titulo, String[] opciones, String valorInicial, AbstractFrame padre) {
         initComponents();
         
         
@@ -50,13 +54,21 @@ public class InputDialog extends javax.swing.JFrame {
         this.input.setVisible(false);
         
         
-        this.setSize(400, 200);
+        this.setSize(450, 200);
         this.setLocationRelativeTo(null);
         
+        this.valorInicial = valorInicial;
         this.padre = padre;
         this.seleccion = seleccion;
-        
+        this.setTitle(titulo);
         this.texto.setText(texto);
+        
+        for (String opcione : opciones) {
+            this.opciones.addItem(opcione);
+        }
+        
+        opcion_seleccionada = this.opciones.getItemAt(0);
+                
     }
 
     /**
@@ -68,17 +80,24 @@ public class InputDialog extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        texto = new javax.swing.JLabel();
         input = new javax.swing.JTextField();
         aceptar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         opciones = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        texto = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+        });
+
+        input.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputKeyReleased(evt);
             }
         });
 
@@ -96,40 +115,50 @@ public class InputDialog extends javax.swing.JFrame {
             }
         });
 
+        opciones.setAutoscrolls(true);
+        opciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionesActionPerformed(evt);
+            }
+        });
+
+        texto.setEditable(false);
+        texto.setColumns(20);
+        texto.setRows(3);
+        jScrollPane1.setViewportView(texto);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(input)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(aceptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(opciones, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(132, 132, 132)
-                        .addComponent(texto, javax.swing.GroupLayout.DEFAULT_SIZE, 5, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(opciones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(input, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(aceptar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addComponent(cancelar)
+                .addGap(97, 97, 97))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(texto, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(opciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(opciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aceptar)
-                    .addComponent(cancelar))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(cancelar)
+                    .addComponent(aceptar))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,31 +166,40 @@ public class InputDialog extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
        padre.setEnabled(true);
-       if(input.getText().equals("")){
-           padre.inputDialog_devolverValor(false, seleccion);
+       if(opcion_seleccionada.equals("")){
+           padre.inputDialog_devolverValor(valorInicial, valorInicial, seleccion);
        }
-       padre.inputDialog_devolverValor(input.getText(), seleccion);
+       padre.inputDialog_devolverValor(opcion_seleccionada, valorInicial, seleccion);
        dispose();
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
        padre.setEnabled(true);
-       padre.inputDialog_devolverValor(false, seleccion);
+       padre.inputDialog_devolverValor(valorInicial, valorInicial, seleccion);
        dispose();
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
        padre.setEnabled(true);
-       padre.inputDialog_devolverValor(false, seleccion);
+       padre.inputDialog_devolverValor(valorInicial, valorInicial, seleccion);
        dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void opcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActionPerformed
+        opcion_seleccionada = (String)this.opciones.getSelectedItem();
+    }//GEN-LAST:event_opcionesActionPerformed
+
+    private void inputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputKeyReleased
+        opcion_seleccionada = input.getText();
+    }//GEN-LAST:event_inputKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;
     private javax.swing.JButton cancelar;
     private javax.swing.JTextField input;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> opciones;
-    private javax.swing.JLabel texto;
+    private javax.swing.JTextArea texto;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,7 @@ package Visuales;
 import Base_de_Datos.Gestion;
 import clases.Brigada;
 import clases.Estudiante;
-import clases.GenerarReporteICI;
+import utiles.ReporteICI;
 import com.itextpdf.text.DocumentException;
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -194,7 +194,7 @@ public class ICI extends javax.swing.JFrame {
     private void ButtonReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteMouseClicked
         try {
             Queue estudiantesOrdenados = organizarEstudiantes();
-            GenerarReporteICI ICI = new GenerarReporteICI(Double.parseDouble(relacionL.getText()), Integer.parseInt(actividadesExtraL.getText()), Integer.parseInt(PAT.getText()), brigada, estudiantesOrdenados);
+            ReporteICI ICI = new ReporteICI(Double.parseDouble(relacionL.getText()), Integer.parseInt(actividadesExtraL.getText()), Integer.parseInt(PAT.getText()), brigada, estudiantesOrdenados);
             if (ICI.generarReporte()) {
                 JOptionPane.showMessageDialog(null, "Reporte creado exitosamente en el escritorio", "Mensaje del sistema", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -263,7 +263,7 @@ public class ICI extends javax.swing.JFrame {
                 OBJ[1] = promedioi;
                 int miTemp = g.obtenerValoresEventosEstudiante(brigada.getEstudiantes().elementAt(i), brigada);
                 OBJ[2] = miTemp;
-                OBJ[3] = utiles.ICI.ICI(m, M, promedioi, miTemp);
+                OBJ[3] = utiles.CalculoICI.ICI(m, M, promedioi, miTemp);
                 d.addRow(OBJ);
             }
         } else {

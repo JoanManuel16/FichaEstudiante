@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utiles;
+package utiles.test;
+
+import utiles.dialogs.AbstractFrame;
+import utiles.dialogs.InputDialog;
 
 /**
  *
@@ -70,10 +73,10 @@ public class TestFrame extends AbstractFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
-        ConfirmDialog okc = new ConfirmDialog(1, "Prueba", this);
-        okc.setVisible(true);
-        this.setEnabled(false);
+        
+        InputDialog inputDialog = new InputDialog(2, "Existen eventos con nombres similares al del evento que ha escrito. \nSeleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia","A", this);
+            inputDialog.setVisible(true);
+            this.setEnabled(false);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

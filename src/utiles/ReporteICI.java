@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clases;
+package utiles;
 
 import Base_de_Datos.Gestion;
+import clases.Brigada;
+import clases.Estudiante;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -21,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author Joan Manuel
  */
-public class GenerarReporteICI {
+public class ReporteICI {
 
     private double M;
     private int m;
@@ -29,7 +31,7 @@ public class GenerarReporteICI {
     private Gestion g;
     private int PA;
     private Queue e;
-    public GenerarReporteICI(double M, int m,int PA, Brigada b, Queue e) {
+    public ReporteICI(double M, int m,int PA, Brigada b, Queue e) {
         this.M = M;
         this.m = m;
         this.b = b;
@@ -67,12 +69,12 @@ public class GenerarReporteICI {
             int mi = calcularMi(estudiante);
             tabla1.addCell(mi+"");
             
-            tabla1.addCell(utiles.ICI.ICI(m, M, PromedioEstudiante, mi)+"");
+            tabla1.addCell(utiles.CalculoICI.ICI(m, M, PromedioEstudiante, mi)+"");
         }while(!e.isEmpty());
              pdf.add(tabla1);
               pdf.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GenerarReporteICI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReporteICI.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;

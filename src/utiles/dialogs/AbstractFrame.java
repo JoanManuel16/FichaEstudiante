@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utiles;
+package utiles.dialogs;
 
 /**
  *
@@ -18,13 +18,14 @@ public abstract class AbstractFrame extends javax.swing.JFrame{
         initComponents();
     }
     
-    public void inputDialog_devolverValor(Object O, int seleccion){
+    public void inputDialog_devolverValor(Object O, Object valorInicial, int seleccion){
         
     }
     
     public void confirmDialog_devolverValor(Object O, int seleccion){
         
     }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
