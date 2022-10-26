@@ -26,7 +26,7 @@ import utiles.Tupla;
  *
  * @author joanmanuel
  */
-public class EventoEstudiante extends javax.swing.JFrame {
+public class Evento_estudiante extends javax.swing.JFrame {
 
     /**
      * Creates new form EventoEstudiante
@@ -43,7 +43,7 @@ public class EventoEstudiante extends javax.swing.JFrame {
     
     private Evento eventoSeleccionado;
     
-    public EventoEstudiante(Brigada b) {
+    public Evento_estudiante(Brigada b) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Gestor de participacion en eventos");

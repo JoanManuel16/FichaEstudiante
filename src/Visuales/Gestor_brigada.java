@@ -295,7 +295,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Esta brigada no tiene estudiantes. Añada estudiantes a la brigada en el editor de brigada");
                                 return;
                             }
-                            EventoEstudiante EE = new EventoEstudiante(Brigadas.elementAt(i));
+                            Evento_estudiante EE = new Evento_estudiante(Brigadas.elementAt(i));
                             EE.setVisible(true);
                             dispose();
                         }
@@ -311,7 +311,7 @@ public class Gestor_brigada extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Esta brigada no tiene estudiantes. Añada estudiantes a la brigada en el editor de brigada");
                                 return;
                         }
-                        EventoEstudiante EE = new EventoEstudiante(BrigadasSeleccionadas.elementAt(i));
+                        Evento_estudiante EE = new Evento_estudiante(BrigadasSeleccionadas.elementAt(i));
                         EE.setVisible(true);
                         dispose();
                     }

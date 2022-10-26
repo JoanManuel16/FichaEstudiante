@@ -364,7 +364,7 @@ public class Gestor_carreras extends javax.swing.JFrame {
 
     private void gestorEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorEventosActionPerformed
 
-        Gestor_Eventos GE = new Gestor_Eventos();
+        Gestor_eventos GE = new Gestor_eventos();
         GE.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_gestorEventosActionPerformed

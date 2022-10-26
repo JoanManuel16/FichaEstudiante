@@ -25,12 +25,12 @@ import utiles.dialogs.MessageDialog;
  *
  * @author joanmanuel
  */
-public class EditorEventos extends AbstractFrame {
+public class Editor_eventos extends AbstractFrame {
 
     private Vector<String> NombreEventos;
     private Gestion g;
 
-    public EditorEventos() {
+    public Editor_eventos() {
         initComponents();
         g = new Gestion();
         NombreEventos = g.obtener_nombres_eventos();
@@ -298,7 +298,7 @@ public class EditorEventos extends AbstractFrame {
     }//GEN-LAST:event_nuevoEventoMouseClicked
 
     private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
-        Gestor_Eventos GE = new Gestor_Eventos();
+        Gestor_eventos GE = new Gestor_eventos();
         GE.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelarMouseClicked

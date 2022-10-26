@@ -15,16 +15,19 @@ import utiles.Secuencias_cadenas;
 import utiles.Tupla;
 import clases.Carrera;
 import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
 import utiles.RadioButtonEditor;
 import utiles.RadioButtonRenderer;
 import static utiles.Secuencias_cadenas.sonNumeros;
+import utiles.dialogs.AbstractFrame;
+import utiles.dialogs.ConfirmDialog;
+import utiles.dialogs.InputDialog;
+import utiles.dialogs.MessageDialog;
 
 /**
  *
  * @author joanmanuel
  */
-public class Editor_carrera extends javax.swing.JFrame {
+public class Editor_carrera extends AbstractFrame {
 
     private String nombre_carrera;
     private Vector<Vector<Tupla<Integer, String>>> Asignaturas;
@@ -37,6 +40,8 @@ public class Editor_carrera extends javax.swing.JFrame {
     private Vector<String> asignaturasSeleccionadas;
     private Vector<String> por_eliminar;
 
+    private String tempGlobal;
+    
     public Editor_carrera(String NC, boolean Main) {
         initComponents();
         por_eliminar= new Vector<>();
@@ -97,137 +102,63 @@ public class Editor_carrera extends javax.swing.JFrame {
         asignaturasSeleccionadas = new Vector<>();
     }
 
-    private void actualizarTablaAsig(Vector<String> V) {
-        checkBox = new Vector<>();
-        DefaultTableModel df = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 1;
-            }
-        };
-        seleccionAsig = new JTable(df);
-        jScrollPane1.setViewportView(seleccionAsig);
-        df.addColumn("Nombre de la asignatura");
-        df.addColumn("Seleccion");
-
-        Object[] ob = new Object[2];
-        for (int i = 0; i < V.size(); i++) {
-            ob[0] = V.elementAt(i);
-            checkBox.add(new JCheckBox("", false));
-            ob[1] = checkBox.lastElement();
-            df.addRow(ob);
+    @Override
+    public void confirmDialog_devolverValor(Object O, int seleccion) {
+        if(seleccion == 1){
+            confirmOption1(O);
         }
-        seleccionAsig.getColumn("Seleccion").setCellRenderer(
-                new RadioButtonRenderer());
-        seleccionAsig.getColumn("Seleccion").setCellEditor(
-                new RadioButtonEditor(new JCheckBox()));
-
-        seleccionAsig.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int fila = seleccionAsig.rowAtPoint(e.getPoint());
-                int columna = seleccionAsig.columnAtPoint(e.getPoint());
-
-                if (columna == 1) {
-
-                    String asig = (String) seleccionAsig.getValueAt(fila, 0);
-
-                    if (asignaturasSeleccionadas.contains(asig)) {
-                        asignaturasSeleccionadas.remove(asig);
-                    } else {
-                        asignaturasSeleccionadas.add(asig);
-
-                    }
-
-                }
-
+        else if(seleccion == 2){
+            confirmOption2(O);
+        }
+    }
+    
+    private void confirmOption1(Object O){
+        
+        boolean opcion = (boolean)O;
+            if (!opcion) {
+                return;
             }
-        });
+
+        Annos.setSelectedIndex(Annos.getItemCount() - 2);
+        Annos.removeItemAt(Annos.getItemCount() - 1);
+        Asignaturas.remove(Asignaturas.size() - 1);
+        actualizarTablaSem(Annos.getItemCount() - 1);
+        actualizarTablaAsig(NombreAsig);
+        PrimerSem.setSelected(true);
+        
+    }
+    
+    private void confirmOption2(Object O){
+        
+            boolean x = (boolean)O;
+        
+            if (x) {
+                NombreAsig.add(tempGlobal);
+                G.agregar_asignatura(tempGlobal);
+                Vector<String> V = new Vector<>();
+                V.add(tempGlobal);
+                actualizarTablaAsig(V);
+            }
     }
 
-    public void actualizarTablaSem(int anno) {
-        chekBoxTablaXSemestre= new Vector<>();
-        DefaultTableModel df = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 2;
-            }
-        };
-        AsigXSem = new JTable(df);
-        jScrollPane2.setViewportView(AsigXSem);
-        df.addColumn("Nombre de la asignatura");
-        df.addColumn("Año");
-        df.addColumn("Selecion");
-
-        Vector<String> primerSemestre = new Vector<>();
-        Vector<String> segundoSemestre = new Vector<>();
-
-        for (int i = 0; i < Asignaturas.elementAt(anno).size(); i++) {
-            if (Asignaturas.elementAt(anno).elementAt(i).getN1() == 1) {
-                primerSemestre.add(Asignaturas.elementAt(anno).elementAt(i).getN2());
+    @Override
+    public void inputDialog_devolverValor(Object O, Object valorInicial, int seleccion) {
+              
+            String x = (String)O;
+            if (x.equals(valorInicial)) {
+                NombreAsig.add(x);
+                G.agregar_asignatura(x);
+                Vector<String> V = new Vector<>();
+                V.add(x);
+                actualizarTablaAsig(V);
             } else {
-                segundoSemestre.add(Asignaturas.elementAt(anno).elementAt(i).getN2());
+                Vector<String> V = new Vector<>();
+                V.add(x);
+                actualizarTablaAsig(V);
             }
-        }
-
-        Object[] ob = new Object[3];
-
-        ob[0] = "Primer Semestre";
-        ob[1] = "";
-        ob[2] = new JCheckBox("", false);
-        df.addRow(ob);
-
-        for (int i = 0; i < primerSemestre.size(); i++) {
-            ob[0] = primerSemestre.elementAt(i);
-            ob[1] = anno + 1;
-            chekBoxTablaXSemestre.add(new JCheckBox("", false));
-            ob[2] = chekBoxTablaXSemestre.lastElement();
-            df.addRow(ob);
-        }
-
-        ob[0] = "Segundo Semestre";
-        ob[1] = "";
-        ob[2] = new JCheckBox("", false);
-        df.addRow(ob);
-
-        for (int i = 0; i < segundoSemestre.size(); i++) {
-            ob[0] = segundoSemestre.elementAt(i);
-            ob[1] = anno + 1;
-            chekBoxTablaXSemestre.add(new JCheckBox("", false));
-            ob[2] = chekBoxTablaXSemestre.lastElement();
-            df.addRow(ob);
-        }
-        AsigXSem.getColumn("Selecion").setCellRenderer(
-                new RadioButtonRenderer());
-        AsigXSem.getColumn("Selecion").setCellEditor(
-                new RadioButtonEditor(new JCheckBox()));
-
-        AsigXSem.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int fila = AsigXSem.rowAtPoint(e.getPoint());
-
-                if (fila > -1) {
-
-                    String asig = (String) AsigXSem.getValueAt(fila, 0);
-                    if (!(asig.equals("Primer Semestre") || asig.equals("Segundo Semestre"))&& fila==0) {
-
-                        Menu_seleccion.setLocation(e.getXOnScreen(), e.getYOnScreen());
-                        Menu_seleccion.setVisible(true);
-                    }
-                else{
-                        if(por_eliminar.contains(asig)){
-                            por_eliminar.remove(asig);
-                        }
-                else{
-                            por_eliminar.add(asig);
-                        }
-                    }
-
-                }
-            }
-        });
     }
+
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -541,30 +472,26 @@ public class Editor_carrera extends javax.swing.JFrame {
             Annos.addItem(cantA + "");
             Asignaturas.add(new Vector<>());
         } else {
-            JOptionPane.showMessageDialog(null, "No se pueden agregar más de 6 años a esta carrera", "Error", JOptionPane.ERROR_MESSAGE);
+            MessageDialog messageDialog = new MessageDialog("No se pueden agregar más de 6 años a esta carrera", "Error", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
         }
     }//GEN-LAST:event_Annadir_annoActionPerformed
 
     private void Eliminar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_annoActionPerformed
 
         if (Annos.getItemCount() <= 1) {
-            JOptionPane.showMessageDialog(null, "Una carrera debe tener al menos un año. No se puede eliminar el año 1", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            MessageDialog messageDialog = new MessageDialog("Una carrera debe tener al menos un año. No se puede eliminar el año 1", "Error", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
+            
         } else {
-            int seleccion = JOptionPane.showConfirmDialog(null, "Si elimina este año de la carrera se perderán junto con él todas las asignaturas del año. ¿Desea proceder?");
+            
+            ConfirmDialog confirmDialog = new ConfirmDialog(1, "Si elimina este año de la carrera se perderán junto con él todas las asignaturas del año. ¿Desea proceder?", "", this);
+            confirmDialog.setVisible(true);
+            this.setEnabled(false);
 
-            if (seleccion != 0) {
-                return;
-            }
         }
-
-        Annos.setSelectedIndex(Annos.getItemCount() - 2);
-        Annos.removeItemAt(Annos.getItemCount() - 1);
-        Asignaturas.remove(Asignaturas.size() - 1);
-        actualizarTablaSem(Annos.getItemCount() - 1);
-        actualizarTablaAsig(NombreAsig);
-        PrimerSem.setSelected(true);
-
     }//GEN-LAST:event_Eliminar_annoActionPerformed
 
     private void AnnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnosActionPerformed
@@ -603,7 +530,10 @@ public class Editor_carrera extends javax.swing.JFrame {
     private void AgregarAsigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAsigActionPerformed
 
         if (AsignaturaNombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "No hay escrito un nombre de asignatura en el campo de texto a la derecha de la etiqueta \"Nombre de la asignatura\". Escriba uno para proceder.");
+            MessageDialog messageDialog = new MessageDialog("No hay escrito un nombre de asignatura en el campo de texto a la derecha de la etiqueta \"Nombre de la asignatura\". Escriba uno para proceder.", "Error", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
+            
             return;
         }
 
@@ -620,29 +550,17 @@ public class Editor_carrera extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
 
-            String x = (String) JOptionPane.showInputDialog(null, "Existen asignaturas con nombres similares al de la asignatura que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-
-            if (x == null) {
-                NombreAsig.add(temp);
-                G.agregar_asignatura(temp);
-                Vector<String> V = new Vector<>();
-                V.add(temp);
-                actualizarTablaAsig(V);
-            } else {
-                Vector<String> V = new Vector<>();
-                V.add(x);
-                actualizarTablaAsig(V);
-            }
+            InputDialog inputDialog = new InputDialog(1, "Existen asignaturas con nombres similares al de la asignatura que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", S, temp, this);
+            inputDialog.setVisible(true);
+            this.setEnabled(false);
+  
         } else {
-            int x = JOptionPane.showConfirmDialog(null, "Se agregará la asignatura a la base de datos. ¿Desea proceder?");
-
-            if (x == 0) {
-                NombreAsig.add(temp);
-                G.agregar_asignatura(temp);
-                Vector<String> V = new Vector<>();
-                V.add(temp);
-                actualizarTablaAsig(V);
-            }
+            
+            tempGlobal = temp;
+            ConfirmDialog confirmDialog = new ConfirmDialog(2, "Se agregará la asignatura a la base de datos. ¿Desea proceder?", "", this);
+            confirmDialog.setVisible(true);
+            this.setEnabled(false);
+            
         }
 
         AsignaturaNombre.setText("");
@@ -733,7 +651,9 @@ public class Editor_carrera extends javax.swing.JFrame {
         }
 
         if (!s.equals("Se presentan los siguientes problemas: ")) {
-            JOptionPane.showMessageDialog(null, s);
+            MessageDialog messageDialog = new MessageDialog(s, "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
             return;
         }
 
@@ -777,7 +697,7 @@ public class Editor_carrera extends javax.swing.JFrame {
 
     private void gestorEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestorEventosActionPerformed
 
-        Gestor_Eventos GE = new Gestor_Eventos();
+        Gestor_eventos GE = new Gestor_eventos();
         GE.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_gestorEventosActionPerformed
@@ -886,4 +806,136 @@ public class Editor_carrera extends javax.swing.JFrame {
     private javax.swing.JMenu regresarMain;
     private javax.swing.JTable seleccionAsig;
     // End of variables declaration//GEN-END:variables
+
+private void actualizarTablaAsig(Vector<String> V) {
+        checkBox = new Vector<>();
+        DefaultTableModel df = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 1;
+            }
+        };
+        seleccionAsig = new JTable(df);
+        jScrollPane1.setViewportView(seleccionAsig);
+        df.addColumn("Nombre de la asignatura");
+        df.addColumn("Seleccion");
+
+        Object[] ob = new Object[2];
+        for (int i = 0; i < V.size(); i++) {
+            ob[0] = V.elementAt(i);
+            checkBox.add(new JCheckBox("", false));
+            ob[1] = checkBox.lastElement();
+            df.addRow(ob);
+        }
+        seleccionAsig.getColumn("Seleccion").setCellRenderer(
+                new RadioButtonRenderer());
+        seleccionAsig.getColumn("Seleccion").setCellEditor(
+                new RadioButtonEditor(new JCheckBox()));
+
+        seleccionAsig.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila = seleccionAsig.rowAtPoint(e.getPoint());
+                int columna = seleccionAsig.columnAtPoint(e.getPoint());
+
+                if (columna == 1) {
+
+                    String asig = (String) seleccionAsig.getValueAt(fila, 0);
+
+                    if (asignaturasSeleccionadas.contains(asig)) {
+                        asignaturasSeleccionadas.remove(asig);
+                    } else {
+                        asignaturasSeleccionadas.add(asig);
+
+                    }
+
+                }
+
+            }
+        });
+    }
+
+    public void actualizarTablaSem(int anno) {
+        chekBoxTablaXSemestre= new Vector<>();
+        DefaultTableModel df = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2;
+            }
+        };
+        AsigXSem = new JTable(df);
+        jScrollPane2.setViewportView(AsigXSem);
+        df.addColumn("Nombre de la asignatura");
+        df.addColumn("Año");
+        df.addColumn("Selecion");
+
+        Vector<String> primerSemestre = new Vector<>();
+        Vector<String> segundoSemestre = new Vector<>();
+
+        for (int i = 0; i < Asignaturas.elementAt(anno).size(); i++) {
+            if (Asignaturas.elementAt(anno).elementAt(i).getN1() == 1) {
+                primerSemestre.add(Asignaturas.elementAt(anno).elementAt(i).getN2());
+            } else {
+                segundoSemestre.add(Asignaturas.elementAt(anno).elementAt(i).getN2());
+            }
+        }
+
+        Object[] ob = new Object[3];
+
+        ob[0] = "Primer Semestre";
+        ob[1] = "";
+        ob[2] = new JCheckBox("", false);
+        df.addRow(ob);
+
+        for (int i = 0; i < primerSemestre.size(); i++) {
+            ob[0] = primerSemestre.elementAt(i);
+            ob[1] = anno + 1;
+            chekBoxTablaXSemestre.add(new JCheckBox("", false));
+            ob[2] = chekBoxTablaXSemestre.lastElement();
+            df.addRow(ob);
+        }
+
+        ob[0] = "Segundo Semestre";
+        ob[1] = "";
+        ob[2] = new JCheckBox("", false);
+        df.addRow(ob);
+
+        for (int i = 0; i < segundoSemestre.size(); i++) {
+            ob[0] = segundoSemestre.elementAt(i);
+            ob[1] = anno + 1;
+            chekBoxTablaXSemestre.add(new JCheckBox("", false));
+            ob[2] = chekBoxTablaXSemestre.lastElement();
+            df.addRow(ob);
+        }
+        AsigXSem.getColumn("Selecion").setCellRenderer(
+                new RadioButtonRenderer());
+        AsigXSem.getColumn("Selecion").setCellEditor(
+                new RadioButtonEditor(new JCheckBox()));
+
+        AsigXSem.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila = AsigXSem.rowAtPoint(e.getPoint());
+
+                if (fila > -1) {
+
+                    String asig = (String) AsigXSem.getValueAt(fila, 0);
+                    if (!(asig.equals("Primer Semestre") || asig.equals("Segundo Semestre"))&& fila==0) {
+
+                        Menu_seleccion.setLocation(e.getXOnScreen(), e.getYOnScreen());
+                        Menu_seleccion.setVisible(true);
+                    }
+                else{
+                        if(por_eliminar.contains(asig)){
+                            por_eliminar.remove(asig);
+                        }
+                else{
+                            por_eliminar.add(asig);
+                        }
+                    }
+
+                }
+            }
+        });
+    }
 }

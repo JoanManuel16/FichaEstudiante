@@ -23,7 +23,7 @@ import utiles.Tupla;
  *
  * @author SchWarZer
  */
-public class Gestor_Eventos extends javax.swing.JFrame {
+public class Gestor_eventos extends javax.swing.JFrame {
 
     /**
      * Creates new form GestorEventos
@@ -38,7 +38,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
     
     private Evento eventoTemp;
             
-    public Gestor_Eventos() {
+    public Gestor_eventos() {
         initComponents();
         
         
@@ -337,7 +337,7 @@ public class Gestor_Eventos extends javax.swing.JFrame {
 
     private void nuevoEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoEventoActionPerformed
        
-        EditorEventos EE = new EditorEventos();
+        Editor_eventos EE = new Editor_eventos();
         EE.setVisible(true);
         eventosMenu.setVisible(false);
         dispose();      

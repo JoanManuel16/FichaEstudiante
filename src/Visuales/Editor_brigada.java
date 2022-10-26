@@ -27,8 +27,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import utiles.Tupla;
+import utiles.dialogs.AbstractFrame;
+import utiles.dialogs.ConfirmDialog;
+import utiles.dialogs.MessageDialog;
 
-public class Editor_brigada extends javax.swing.JFrame {
+public class Editor_brigada extends AbstractFrame {
     
     private final Gestion G = new Gestion();
     private final Vector<Estudiante> estudiantes;
@@ -115,6 +118,44 @@ public class Editor_brigada extends javax.swing.JFrame {
         }
     }
 
+    @Override
+    public void confirmDialog_devolverValor(Object O, int seleccion) {
+    
+        boolean opcion = (boolean)O;
+        
+        if(!opcion){
+            return;
+        }
+        
+        if (G.obtener_annos_carrera(B.getCarrera()) <= B.getAnno_brigada()) {
+            if(B.getAnno_brigada()==1){
+                
+                MessageDialog messageDialog = new MessageDialog("No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " año", "", this);
+                messageDialog.setVisible(true);
+                this.setEnabled(false);
+                
+                openMain = true;
+                return; 
+            }
+            
+            MessageDialog messageDialog = new MessageDialog("No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " años", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
+           
+            openMain = true;
+            return;
+        }
+        Brigada new_brigada = new Brigada(B.getCarrera(), B.getAnno() + 1, B.getAnno_brigada() + 1, B.getEstudiantes());
+        G.agregar_brigada(new_brigada);
+        Editor_brigada EB = new Editor_brigada(new_brigada);
+        EB.setVisible(true);
+        dispose();
+    
+    }
+
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -454,12 +495,16 @@ public class Editor_brigada extends javax.swing.JFrame {
         String[] nombres = nombreT.getText().split(" ");
         
         if (nombres.length < 3) {
-            JOptionPane.showMessageDialog(null, "El nombre completo del estudiante es incorrecto, pues debe tener al menos dos apellidos");
+            MessageDialog messageDialog = new MessageDialog("El nombre completo del estudiante es incorrecto, pues debe tener al menos dos apellidos", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
             return;
         }
         
         if (!Secuencias_cadenas.carnetIdentidadCorrecto(CIT.getText())) {
-            JOptionPane.showMessageDialog(null, "El carnet de identidad es incorrecto");
+            MessageDialog messageDialog = new MessageDialog("El carnet de identidad es incorrecto", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
             return;
         }
         
@@ -474,7 +519,10 @@ public class Editor_brigada extends javax.swing.JFrame {
             CIT.setText("");
             nombreT.setText("");
         } else {
-            JOptionPane.showMessageDialog(null, "Ya existe un estudiante con este carnet de identidad");
+            MessageDialog messageDialog = new MessageDialog("Ya existe un estudiante con este carnet de identidad", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
+            
         }
         if (actualizacion) {
             G.agregarEstudianteBrigada(E, B);
@@ -517,7 +565,12 @@ public class Editor_brigada extends javax.swing.JFrame {
         if (!actualizacion) {
             brigada = new Brigada(Carrera_seleccionada.getText(), Integer.parseInt((String) Annos.getSelectedItem()), Integer.parseInt(Anno_seleccionado.getText()), estudiantes);
             if(G.existeBrigada(brigada)){
-                JOptionPane.showMessageDialog(null, "Ya existe una brigada de primer año de la carrera \"" + Carrera_seleccionada.getText() + "\" en el año " + brigada.getAnno());
+                
+                String S = "Ya existe una brigada de primer año de la carrera \"" + Carrera_seleccionada.getText() + "\" en el año " + brigada.getAnno();
+                MessageDialog messageDialog = new MessageDialog(S, "", this);
+                messageDialog.setVisible(true);
+                this.setEnabled(false);
+            
                 return;
             }
             G.agregar_brigada(brigada);
@@ -540,29 +593,10 @@ public class Editor_brigada extends javax.swing.JFrame {
 
     private void Pasar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pasar_annoActionPerformed
         openMain = false;
+        ConfirmDialog confirmDialog = new ConfirmDialog(1, "Desea pasar de año la brigada", "", this);
+        confirmDialog.setVisible(true);
+        this.setEnabled(false);
         
-        int opcion = JOptionPane.showConfirmDialog(null, "Al pasar de año una brigada todos los estudiantes de la brigada pasarán a pertenecer a una brigada un año superior a la actual. Ya no se podrá acceder a los eventos del año actual desde la brigada. ¿Desea proceder?");
-        
-        if(opcion != 0){
-            return;
-        }
-        
-        if (G.obtener_annos_carrera(B.getCarrera()) <= B.getAnno_brigada()) {
-            if(B.getAnno_brigada()==1){
-                JOptionPane.showMessageDialog(null, "No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " año");
-                openMain = true;
-                return; 
-            }
-            JOptionPane.showMessageDialog(null, "No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " años");
-            openMain = true;
-            return;
-        }
-        Brigada new_brigada = new Brigada(B.getCarrera(), B.getAnno() + 1, B.getAnno_brigada() + 1, B.getEstudiantes());
-        G.agregar_brigada(new_brigada);
-        Editor_brigada EB = new Editor_brigada(new_brigada);
-        EB.setVisible(true);
-        dispose();
-
     }//GEN-LAST:event_Pasar_annoActionPerformed
 
     private void agregarEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarEventosActionPerformed
@@ -621,7 +655,10 @@ public class Editor_brigada extends javax.swing.JFrame {
             }
             ReporteAlumnos al = new ReporteAlumnos(datosEstudiantes, B);
             if(al.GenerarReporte()){
-        JOptionPane.showMessageDialog(null, "Reporte creado exitosamente en el escritorio", "Información del sistema", JOptionPane.INFORMATION_MESSAGE);
+                MessageDialog messageDialog = new MessageDialog("Reporte creado exitosamente en el escritorio", "Información del sistema", this);
+                messageDialog.setVisible(true);
+                this.setEnabled(false);
+            
         }
         } catch (DocumentException ex) {
             Logger.getLogger(Editor_brigada.class.getName()).log(Level.SEVERE, null, ex);
