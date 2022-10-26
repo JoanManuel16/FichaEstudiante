@@ -54,7 +54,15 @@ public class EditorEventos extends AbstractFrame {
     @Override
     public void inputDialog_devolverValor(Object O, Object valorInicial, int seleccion){
         if(seleccion == 1){
-            if (O.equals("")) {
+         opcionDevuelta1(O);
+        }
+        else if(seleccion == 2){
+            opcionDevuelta2(O, valorInicial);
+    }
+    }
+    
+    private void opcionDevuelta1(Object O){
+        if (O.equals("")) {
             TableEventos.clearSelection();
             jCalendar1.setEnabled(false);
             dimensionesL.setEnabled(false);
@@ -97,9 +105,10 @@ public class EditorEventos extends AbstractFrame {
             actualizarTabla(V);
             TextNombreEvento.setText("");
         }
-        }
-        else if(seleccion == 2){
-
+    }
+    
+    private void opcionDevuelta2(Object O, Object valorInicial){
+        
             String temp = (String)O;
             String VI = (String)valorInicial;
             
@@ -117,7 +126,7 @@ public class EditorEventos extends AbstractFrame {
             actualizarTabla(V);
             TextNombreEvento.setText("");
         }
-    }
+    
     
 
     /**
