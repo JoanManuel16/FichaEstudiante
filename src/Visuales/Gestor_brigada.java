@@ -13,12 +13,14 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import static utiles.Secuencias_cadenas.sonNumeros;
+import utiles.dialogs.AbstractFrame;
+import utiles.dialogs.MessageDialog;
 
 /**
  *
  * @author joanmanuel
  */
-public class Gestor_brigada extends javax.swing.JFrame {
+public class Gestor_brigada extends AbstractFrame {
 
     private Gestion g;
     private Vector<String> carreras;
@@ -288,11 +290,15 @@ public class Gestor_brigada extends javax.swing.JFrame {
                     for (int i = 0; i < Brigadas.size(); i++) {
                         if (Brigadas.elementAt(i).getAnno() == anno && Brigadas.elementAt(i).getAnno_brigada() == annoB && Brigadas.elementAt(i).getCarrera().equals(carr)) {
                             if(g.obtenerEventosBrigada(Brigadas.elementAt(i)).isEmpty()){
-                                JOptionPane.showMessageDialog(null, "Esta brigada no tiene eventos. Añada eventos a la brigada en el editor de brigada");
+                                MessageDialog messageDialog = new MessageDialog("Esta brigada no tiene eventos. Añada eventos a la brigada en el editor de brigada", "", this);
+                                messageDialog.setVisible(true);
+                                this.setEnabled(false);
                                 return;
                             }
                             if(!g.brigadaTieneEstudiantes(Brigadas.elementAt(i))){
-                            JOptionPane.showMessageDialog(null, "Esta brigada no tiene estudiantes. Añada estudiantes a la brigada en el editor de brigada");
+                                MessageDialog messageDialog = new MessageDialog("Esta brigada no tiene estudiantes. Añada estudiantes a la brigada en el editor de brigada", "", this);
+                                messageDialog.setVisible(true);
+                                this.setEnabled(false);
                                 return;
                             }
                             Evento_estudiante EE = new Evento_estudiante(Brigadas.elementAt(i));
@@ -304,11 +310,15 @@ public class Gestor_brigada extends javax.swing.JFrame {
                 for (int i = 0; i < BrigadasSeleccionadas.size(); i++) {
                     if (BrigadasSeleccionadas.elementAt(i).getAnno() == anno && BrigadasSeleccionadas.elementAt(i).getAnno_brigada() == annoB && BrigadasSeleccionadas.elementAt(i).getCarrera().equals(carr)) {
                         if(g.obtenerEventosBrigada(Brigadas.elementAt(i)).isEmpty()){
-                                JOptionPane.showMessageDialog(null, "Esta brigada no tiene eventos. Añada eventos a la brigada en el editor de brigada");
+                                MessageDialog messageDialog = new MessageDialog("Esta brigada no tiene eventos. Añada eventos a la brigada en el editor de brigada", "", this);
+                                messageDialog.setVisible(true);
+                                this.setEnabled(false);
                                 return;
                             }
                         if(!g.brigadaTieneEstudiantes(Brigadas.elementAt(i))){
-                            JOptionPane.showMessageDialog(null, "Esta brigada no tiene estudiantes. Añada estudiantes a la brigada en el editor de brigada");
+                            MessageDialog messageDialog = new MessageDialog("Esta brigada no tiene estudiantes. Añada estudiantes a la brigada en el editor de brigada", "", this);
+                                messageDialog.setVisible(true);
+                                this.setEnabled(false);
                                 return;
                         }
                         Evento_estudiante EE = new Evento_estudiante(BrigadasSeleccionadas.elementAt(i));

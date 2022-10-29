@@ -21,16 +21,18 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Tupla;
+import utiles.dialogs.*;
 
 /**
  *
  * @author joanmanuel
  */
-public class Evento_estudiante extends javax.swing.JFrame {
+public class Evento_estudiante extends AbstractFrame {
 
     /**
      * Creates new form EventoEstudiante
      */
+    
     private Brigada brigada;
     private Vector<JCheckBox> RadioButtonVector;
     private Gestion g;
@@ -61,7 +63,9 @@ public class Evento_estudiante extends javax.swing.JFrame {
         this.setResizable(false);
         eventoSeleccionado = null;
         
-        JOptionPane.showMessageDialog(null, "Escoja un evento");
+        MessageDialog messageDialog = new MessageDialog("Escoja un evento", "", this);
+        messageDialog.setVisible(true);
+        this.setEnabled(false);
         
         escogerEvento.setVisible(true);
         escogerEvento.setSize(594, 485);
@@ -252,7 +256,10 @@ public class Evento_estudiante extends javax.swing.JFrame {
     private void escogerEventoWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_escogerEventoWindowClosing
         escogerEvento.setAlwaysOnTop(false);
         if (tablaEventos.getSelectedColumn() < 0 && !entrada) {
-            JOptionPane.showMessageDialog(null, "Ha cerrado el menú de selección de eventos sin escoger ninguno. Se procederá a abrir la ventana principal", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            MessageDialog messageDialog = new MessageDialog("Ha cerrado el menú de selección de eventos sin escoger ninguno. Se procederá a abrir la ventana principal", "Error", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
             Main m = new Main();
             m.setVisible(true);
             this.dispose();
@@ -358,7 +365,10 @@ public class Evento_estudiante extends javax.swing.JFrame {
                             PopupMenuLogros.setVisible(true);
                             PopupMenuLogros.setLocation(e.getLocationOnScreen());
                         } else {
-                            JOptionPane.showMessageDialog(null, "Este evento aún no tiene logros. Debe introducir alguno desde la ventana \"Gestor de eventos\"");
+                            
+                            MessageDialog messageDialog = new MessageDialog("Este evento aún no tiene logros. Debe introducir alguno desde la ventana \"Gestor de eventos\"", "", null);
+                            messageDialog.setVisible(true);
+                            
                             RadioButtonVector.elementAt(fila).setSelected(false);
                         }
                     }
@@ -392,7 +402,9 @@ public class Evento_estudiante extends javax.swing.JFrame {
                     
                     PopupMenuLogros.setVisible(false);
                     if (indiceLogro < 0) {
-                        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún logro");
+                        
+                        MessageDialog messageDialog = new MessageDialog("No ha seleccionado ningún logro", "", null);
+                        messageDialog.setVisible(true);                            
                         return;
                     }
                     g.agregar_evento_a_estudiante(eventoSeleccionado, a, logros.elementAt(indiceLogro));

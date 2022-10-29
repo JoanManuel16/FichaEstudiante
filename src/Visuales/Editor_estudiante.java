@@ -22,12 +22,16 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
+import utiles.dialogs.AbstractFrame;
+import utiles.dialogs.ConfirmDialog;
+import utiles.dialogs.InputDialog;
+import utiles.dialogs.MessageDialog;
 
 /**
  *
  * @author joanmanuel
  */
-public class Editor_estudiante extends javax.swing.JFrame {
+public class Editor_estudiante extends AbstractFrame {
     
     private Vector<String> manifestacionesArtisticas;
     private Vector<JCheckBox> radioButtonManifestaciones;
@@ -50,7 +54,6 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private DatosEstudiante datosEstudiante;
     private boolean flag = false;
     private String stringTemporal;
-    private String eleccionTabla;
     
     public Editor_estudiante(Estudiante E, String carrera, Brigada b) {
         initComponents();
@@ -277,6 +280,152 @@ public class Editor_estudiante extends javax.swing.JFrame {
         tablet.setSelected(d.getElectronicos()[3]);
         militanteRadioB.setSelected(d.isMilitante());
         
+    }
+
+    @Override
+    public void inputDialog_devolverValor(Object O, Object valorInicial, int seleccion) {
+    
+        String x = (String)O;
+        
+        switch (seleccion) {
+            case 1 -> inputOption1(x, valorInicial);
+            case 2 -> inputOption2(x, valorInicial);
+            case 3 -> inputOption3(x, valorInicial);
+            case 4 -> inputOption4(x, valorInicial);
+            case 5 -> inputOption5(x, valorInicial);
+            case 6 -> inputOption6(x, valorInicial);
+            default -> {
+            }
+        }
+        
+    }
+    
+    private void inputOption1(String x, Object valorInicial){
+         if (x == valorInicial) {
+                manifestacionesArtisticas.add(x);
+                g.agregarManifestacionArtistica(x);
+                actualizarTablaManifestaciones(manifestacionesArtisticas);
+            } else {
+                Vector<String> V = new Vector<>();
+                V.add(x);
+                actualizarTablaManifestaciones(V);
+            }
+    }
+    
+    private void inputOption2(String x, Object valorInicial){
+        if (x == valorInicial) {
+                deportes.add(x);
+                g.agregarDeporte(x);
+                actualizarTablaDeportes(deportes);
+            } else {
+                Vector<String> V = new Vector<>();
+                V.add(x);
+                actualizarTablaDeportes(V);
+            }
+    }
+    
+    private void inputOption3(String x, Object valorInicial){
+        if (x == valorInicial) {
+                medicamentos.add(x);
+                g.agregarMedicamento(x);
+                actualizarTablaMedicamentos(medicamentos);
+            } else {
+                Vector<String> V = new Vector<>();
+                V.add(x);
+                actualizarTablaMedicamentos(V);
+            }
+    }
+    
+    private void inputOption4(String x, Object valorInicial){
+        if (x == valorInicial) {
+                enfermedades.add(x);
+                g.agregarEnfermedad(x);
+                actualizarTablaEnfermedades(enfermedades);
+            } else {
+                Vector<String> V = new Vector<>();
+                V.add(x);
+                actualizarTablaEnfermedades(V);
+            }
+    }
+    
+    private void inputOption5(String x, Object valorInicial){
+        if (x == valorInicial) {
+                religiones.add(x);
+                g.agregarReligion(x);
+                religionComboBox.addItem(x);
+                religionComboBox.setSelectedItem(x);
+            } else {
+                religionComboBox.setSelectedItem(x);
+            }
+    }
+    
+    private void inputOption6(String x, Object valorInicial){
+        if (x != valorInicial) {
+            int nota = Integer.parseInt(x);
+            
+            String asignatura = (String) tablaNotas.getValueAt(tablaNotas.getSelectedRow(), 0);
+            
+            for (int i = 0; i < notas.size(); i++) {
+                if (notas.elementAt(i).getNombreAsignatura().equals(asignatura)) {
+                    notas.elementAt(i).setNota(nota);
+                    g.actualizarNota(notas.elementAt(i), E);
+                    
+                    actualizarTablaNotas(notas);
+                    break;
+                }
+            }
+        }
+    }
+    
+
+    @Override
+    public void confirmDialog_devolverValor(Object O, int seleccion) {
+    
+        if((boolean)O){
+            switch (seleccion) {
+                case 1 -> confirmOption1();
+                case 2 -> confirmOption2();
+                case 3 -> confirmOption3();
+                case 4 -> confirmOption4();
+                case 5 -> confirmOption5();
+                default -> {
+                }
+            }
+        }
+        
+    }
+    
+    private void confirmOption1(){
+        manifestacionesArtisticas.add(stringTemporal);
+        g.agregarManifestacionArtistica(stringTemporal);
+        actualizarTablaManifestaciones(manifestacionesArtisticas);
+            
+    }
+    
+    private void confirmOption2(){
+          deportes.add(stringTemporal);
+          g.agregarDeporte(stringTemporal);
+          actualizarTablaDeportes(deportes);
+    }
+    
+    private void confirmOption3(){
+          medicamentos.add(stringTemporal);
+          g.agregarMedicamento(stringTemporal);
+          actualizarTablaMedicamentos(medicamentos);
+    }
+    
+    private void confirmOption4(){
+          enfermedades.add(stringTemporal);
+          g.agregarEnfermedad(stringTemporal);
+          actualizarTablaEnfermedades(enfermedades);
+    }
+    
+    private void confirmOption5(){
+          religiones.add(stringTemporal);
+          g.agregarReligion(stringTemporal);
+          religionComboBox.addItem(stringTemporal);
+          religionComboBox.setSelectedItem(stringTemporal);
+         
     }
 
     /**
@@ -1445,7 +1594,9 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void agregarManifestacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManifestacionMouseClicked
         
         if (manifestacionTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo de texto de manifestaciones está vacío");
+            MessageDialog messageDialog = new MessageDialog("El campo de texto de manifestaciones está vacío", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
             return;
         }
         
@@ -1462,27 +1613,18 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Existen manifestaciones artísticas con nombres similares al de la manifestación que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-            
-            if (x == null) {
-                manifestacionesArtisticas.add(temp);
-                g.agregarManifestacionArtistica(temp);
-                actualizarTablaManifestaciones(manifestacionesArtisticas);
-            } else {
-                Vector<String> V = new Vector<>();
-                V.add(x);
-                actualizarTablaManifestaciones(V);
-            }
-        } else {
-            mensajeDialog.setVisible(true);
-            mensajeDialog.setLocationRelativeTo(null);
-            mensajeDialog.setSize(345, 110);
-            mensajeDialog.setTitle("Información");
-            mensajeDialog.setResizable(false);
+            InputDialog inputDialog = new InputDialog(1, "Existen manifestaciones artísticas con nombres similares al de la manifestación que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", S, temp,this);
+            inputDialog.setVisible(true);
             this.setEnabled(false);
-            Informacion.setText("Desea añadir esta manifestación a la lista?");
+            
+        } else {
+            
             stringTemporal = temp;
-            eleccionTabla = "Manifestacion";
+            ConfirmDialog confirmDialog = new ConfirmDialog(1, "Desea añadir esta manifestación a la lista?", "Información", this);
+            confirmDialog.setVisible(true);
+            this.setEnabled(false);
+            
+           
         }
         manifestacionTexto.setText("");
         manifestaciones.removeAllElements();
@@ -1491,7 +1633,10 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void agregarDeporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarDeporteMouseClicked
         
         if (deporteTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo de texto de deportes está vacío");
+            MessageDialog messageDialog = new MessageDialog("El campo de texto de deportes está vacío", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
+            
             return;
         }
         
@@ -1508,27 +1653,17 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Existen deportes con nombres similares al del deporte que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-            
-            if (x == null) {
-                deportes.add(temp);
-                g.agregarDeporte(temp);
-                actualizarTablaDeportes(deportes);
-            } else {
-                Vector<String> V = new Vector<>();
-                V.add(x);
-                actualizarTablaDeportes(V);
-            }
-        } else {
-             mensajeDialog.setVisible(true);
-            mensajeDialog.setLocationRelativeTo(null);
-            mensajeDialog.setSize(345, 110);
-            mensajeDialog.setTitle("Información");
-            mensajeDialog.setResizable(false);
+            InputDialog inputDialog = new InputDialog(2, "Existen deportes con nombres similares al del deporte que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", S, temp,this);
+            inputDialog.setVisible(true);
             this.setEnabled(false);
-            Informacion.setText("Desea añadir este deporte a la lista?");
+            
+            
+        } else {
+            
             stringTemporal = temp;
-            eleccionTabla = "Deporte";
+            ConfirmDialog confirmDialog = new ConfirmDialog(2, "Desea añadir este deporte a la lista?", "Información", this);
+            confirmDialog.setVisible(true);
+            this.setEnabled(false);
         }
         deporteTexto.setText("");
         deportesDB.removeAllElements();
@@ -1537,7 +1672,10 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void agregarMedicamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMedicamentoMouseClicked
         
         if (medicamentoTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo de texto de medicamentos está vacío");
+            MessageDialog messageDialog = new MessageDialog("El campo de texto de medicamentos está vacío", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
+                        
             return;
         }
         
@@ -1554,36 +1692,27 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Existen medicamentos con nombres similares al del medicamento que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
-            
-            if (x == null) {
-                medicamentos.add(temp);
-                g.agregarMedicamento(temp);
-                actualizarTablaMedicamentos(medicamentos);
-            } else {
-                Vector<String> V = new Vector<>();
-                V.add(x);
-                actualizarTablaMedicamentos(V);
-            }
-        } else {
-            mensajeDialog.setVisible(true);
-            mensajeDialog.setLocationRelativeTo(null);
-            mensajeDialog.setSize(345, 110);
-            mensajeDialog.setTitle("Información");
-            mensajeDialog.setResizable(false);
+            InputDialog inputDialog = new InputDialog(3, "Existen medicamentos con nombres similares al del medicamento que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", S, temp,this);
+            inputDialog.setVisible(true);
             this.setEnabled(false);
-            Informacion.setText("Desea añadir este medicamento a la lista?");
+            
+        } else {
             stringTemporal = temp;
-            eleccionTabla = "Medicamento";
+            ConfirmDialog confirmDialog = new ConfirmDialog(3, "Desea añadir este medicamento a la lista?", "Información", this);
+            confirmDialog.setVisible(true);
+            this.setEnabled(false);
         }
         medicamentoTexto.setText("");
-
+        medicamentosDB.removeAllElements();
     }//GEN-LAST:event_agregarMedicamentoMouseClicked
 
     private void agregarEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarEnfermedadMouseClicked
         
         if (enfermedadTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo de texto de enfermedades está vacío");
+            MessageDialog messageDialog = new MessageDialog("El campo de texto de enfermedades está vacío", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
+            
             return;
         }
         
@@ -1600,31 +1729,20 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Existen enfermedades con nombres similares al de la enfermedad que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+            InputDialog inputDialog = new InputDialog(4, "Existen enfermedades con nombres similares al de la enfermedad que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", S, temp,this);
+            inputDialog.setVisible(true);
+            this.setEnabled(false);            
             
-            if (x == null) {
-                enfermedades.add(temp);
-                g.agregarEnfermedad(temp);
-                actualizarTablaEnfermedades(enfermedades);
-            } else {
-                Vector<String> V = new Vector<>();
-                V.add(x);
-                actualizarTablaEnfermedades(V);
-            }
         } else {
             
-            mensajeDialog.setVisible(true);
-            mensajeDialog.setLocationRelativeTo(null);
-            mensajeDialog.setSize(345, 110);
-            mensajeDialog.setTitle("Información");
-            mensajeDialog.setResizable(false);
-            this.setEnabled(false);
-            Informacion.setText("Desea añadir esta enfermedad a la lista?");
             stringTemporal = temp;
-            eleccionTabla = "Enfermedad";
+            ConfirmDialog confirmDialog = new ConfirmDialog(4, "Desea añadir esta enfermedad a la lista?", "Información", this);
+            confirmDialog.setVisible(true);
+            this.setEnabled(false);
             
         }
         enfermedadTexto.setText("");
+        enfermedadesDB.removeAllElements();
 
     }//GEN-LAST:event_agregarEnfermedadMouseClicked
 
@@ -1678,7 +1796,10 @@ public class Editor_estudiante extends javax.swing.JFrame {
     private void annadirReligionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annadirReligionActionPerformed
         
         if (religionTexto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El campo de texto de religiones está vacío");
+            MessageDialog messageDialog = new MessageDialog("El campo de texto de religiones está vacío", "", this);
+            messageDialog.setVisible(true);
+            this.setEnabled(false);
+            
             return;
         }
         
@@ -1695,30 +1816,20 @@ public class Editor_estudiante extends javax.swing.JFrame {
             String[] S = new String[Similares.size()];
             Similares.copyInto(S);
             
-            String x = (String) JOptionPane.showInputDialog(null, "Existen religiones con nombres similares al de la religión que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, S, S[0]);
+            InputDialog inputDialog = new InputDialog(5, "Existen religiones con nombres similares al de la religión que ha escrito. Seleccione uno de ellos o pulse en cancelar si no se ha equivocado.", "Sugerencia", S, temp,this);
+            inputDialog.setVisible(true);
+            this.setEnabled(false);            
             
-            if (x == null) {
-                religiones.add(temp);
-                g.agregarReligion(temp);
-                religionComboBox.addItem(temp);
-                religionComboBox.setSelectedItem(temp);
-            } else {
-                religionComboBox.setSelectedItem(x);
-            }
         } else {
-             mensajeDialog.setVisible(true);
-            mensajeDialog.setLocationRelativeTo(null);
-            mensajeDialog.setSize(345, 110);
-            mensajeDialog.setTitle("Información");
-            mensajeDialog.setResizable(false);
+            
+            ConfirmDialog confirmDialog = new ConfirmDialog(5, "Desea añadir esta religion a la lista?", "Información", this);
+            confirmDialog.setVisible(true);
             this.setEnabled(false);
-            Informacion.setText("Desea añadir esta enfermedad a la lista?");
-            stringTemporal = temp;
-            eleccionTabla = "Religion";
-        }
+            }
         religionTexto.setEnabled(false);
         religionTexto.setText("");
         annadirReligion.setEnabled(false);
+        
     }//GEN-LAST:event_annadirReligionActionPerformed
 
     private void manifestacionTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_manifestacionTextoKeyReleased
@@ -1841,23 +1952,11 @@ public class Editor_estudiante extends javax.swing.JFrame {
         menuNotas.setVisible(false);
         
         String posiblesNotas[] = {"0", "2", "3", "4", "5"};
-        String x = (String) JOptionPane.showInputDialog(null, "Seleccione la nota del estudiante", "Sugerencia", JOptionPane.QUESTION_MESSAGE, null, posiblesNotas, posiblesNotas[0]);
         
-        if (x != null) {
-            int nota = Integer.parseInt(x);
-            
-            String asignatura = (String) tablaNotas.getValueAt(tablaNotas.getSelectedRow(), 0);
-            
-            for (int i = 0; i < notas.size(); i++) {
-                if (notas.elementAt(i).getNombreAsignatura().equals(asignatura)) {
-                    notas.elementAt(i).setNota(nota);
-                    g.actualizarNota(notas.elementAt(i), E);
-                    
-                    actualizarTablaNotas(notas);
-                    break;
-                }
-            }
-        }
+        InputDialog inputDialog = new InputDialog(6, "Selecciona la nota del estudiante", "Sugerencia", posiblesNotas, "", this);
+        inputDialog.setVisible(true);
+        this.setEnabled(false);
+        
     }//GEN-LAST:event_editarNotaMouseClicked
 
     private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
@@ -1901,21 +2000,30 @@ public class Editor_estudiante extends javax.swing.JFrame {
                 S = S + "\n Dirección particular";
             }
             
-            JOptionPane.showMessageDialog(null, S, "Error", JOptionPane.ERROR_MESSAGE);
+            
+            MessageDialog messageDialog = new MessageDialog(S, "Error", this);
+            messageDialog.setVisible(true);
+            this.setVisible(true);
             return;
         }
         
         String nombre[] = nombreEstudianteT.getText().split(" ");
         if (nombre.length <= 2) {
-            JOptionPane.showMessageDialog(null, "El nombre completo del estudiante es incorrecto, pues debe tener al menos dos apellidos", "Error", JOptionPane.ERROR_MESSAGE);
+            MessageDialog messageDialog = new MessageDialog("El nombre completo del estudiante es incorrecto, pues debe tener al menos dos apellidos", "Error", this);
+            messageDialog.setVisible(true);
+            this.setVisible(true);            
             return;
         }
         if (!Secuencias_cadenas.carnetIdentidadCorrecto(carnetTexto.getText())) {
-            JOptionPane.showMessageDialog(null, "El carnet de identidad del estudiante es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+            MessageDialog messageDialog = new MessageDialog("El carnet de identidad del estudiante es incorrecto", "Error", this);
+            messageDialog.setVisible(true);
+            this.setVisible(true);            
             return;
         }
         if (Integer.parseInt(edadT.getText()) <= 15) {
-            JOptionPane.showMessageDialog(null, "La edad del estudiante es incorrecta. Debe ser mayor de 15 años", "Error", JOptionPane.ERROR_MESSAGE);
+            MessageDialog messageDialog = new MessageDialog("La edad del estudiante es incorrecta. Debe ser mayor de 15 años", "Error", this);
+            messageDialog.setVisible(true);
+            this.setVisible(true);            
             return;
         }
         
@@ -2002,56 +2110,15 @@ public class Editor_estudiante extends javax.swing.JFrame {
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
         
-        if(eleccionTabla.equals("Enfermedad")){
-          enfermedades.add(stringTemporal);
-          g.agregarEnfermedad(stringTemporal);
-          actualizarTablaEnfermedades(enfermedades);
-        }
-        else if(eleccionTabla.equals("Manifestacion")){
-            manifestacionesArtisticas.add(stringTemporal);
-            g.agregarManifestacionArtistica(stringTemporal);
-            actualizarTablaManifestaciones(manifestacionesArtisticas);
-            
-        }
-        else if(eleccionTabla.equals("Medicamento")){
-            medicamentos.add(stringTemporal);
-          g.agregarMedicamento(stringTemporal);
-          actualizarTablaMedicamentos(medicamentos);
-        }
-        else if(eleccionTabla.equals("Deporte")){
-            deportes.add(stringTemporal);
-          g.agregarDeporte(stringTemporal);
-          actualizarTablaDeportes(deportes);
-        }
-        else if(eleccionTabla.equals("Religion")){
-            religiones.add(stringTemporal);
-          g.agregarReligion(stringTemporal);
-          religionComboBox.addItem(stringTemporal);
-          religionComboBox.setSelectedItem(stringTemporal);
-         
-        }
-          
-          stringTemporal="";
-          eleccionTabla="";
-          mensajeDialog.dispose();
-          this.setEnabled(true);
-        
     }//GEN-LAST:event_aceptarBotonActionPerformed
 
     private void cancelarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBotonActionPerformed
         
-          stringTemporal="";
-          eleccionTabla="";
-          mensajeDialog.dispose();
-          this.setEnabled(true);
           
     }//GEN-LAST:event_cancelarBotonActionPerformed
 
     private void mensajeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_mensajeDialogWindowClosing
-            
-            stringTemporal="";
-            eleccionTabla="";
-            this.setEnabled(true);
+        
     }//GEN-LAST:event_mensajeDialogWindowClosing
 
 
