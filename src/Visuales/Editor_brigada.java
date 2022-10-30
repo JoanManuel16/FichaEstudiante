@@ -27,9 +27,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
 import utiles.Tupla;
-import utiles.dialogs.AbstractFrame;
-import utiles.dialogs.ConfirmDialog;
-import utiles.dialogs.MessageDialog;
+import dialogs.AbstractFrame;
+import dialogs.ConfirmDialog;
+import dialogs.MessageDialog;
 
 public class Editor_brigada extends AbstractFrame {
     
@@ -119,7 +119,7 @@ public class Editor_brigada extends AbstractFrame {
     }
 
     @Override
-    public void confirmDialog_devolverValor(Object O, int seleccion) {
+    public void confirmDialog_returnValue(Object O, int seleccion) {
     
         boolean opcion = (boolean)O;
         
@@ -130,17 +130,13 @@ public class Editor_brigada extends AbstractFrame {
         if (G.obtener_annos_carrera(B.getCarrera()) <= B.getAnno_brigada()) {
             if(B.getAnno_brigada()==1){
                 
-                MessageDialog messageDialog = new MessageDialog("No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " año", "", this);
-                messageDialog.setVisible(true);
-                this.setEnabled(false);
+                MessageDialog messageDialog = new MessageDialog("No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " año", "", Language.ES,this);
                 
                 openMain = true;
                 return; 
             }
             
-            MessageDialog messageDialog = new MessageDialog("No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " años", "", this);
-            messageDialog.setVisible(true);
-            this.setEnabled(false);
+            MessageDialog messageDialog = new MessageDialog("No se puede pasar de año a esta brigada. La carrera solo tiene " + B.getAnno_brigada() + " años", "", Language.ES,this);
            
             openMain = true;
             return;
@@ -495,16 +491,12 @@ public class Editor_brigada extends AbstractFrame {
         String[] nombres = nombreT.getText().split(" ");
         
         if (nombres.length < 3) {
-            MessageDialog messageDialog = new MessageDialog("El nombre completo del estudiante es incorrecto, pues debe tener al menos dos apellidos", "", this);
-            messageDialog.setVisible(true);
-            this.setEnabled(false);
+            MessageDialog messageDialog = new MessageDialog("El nombre completo del estudiante es incorrecto, pues debe tener al menos dos apellidos", "", Language.ES,this);
             return;
         }
         
         if (!Secuencias_cadenas.carnetIdentidadCorrecto(CIT.getText())) {
-            MessageDialog messageDialog = new MessageDialog("El carnet de identidad es incorrecto", "", this);
-            messageDialog.setVisible(true);
-            this.setEnabled(false);
+            MessageDialog messageDialog = new MessageDialog("El carnet de identidad es incorrecto", "", Language.ES,this);
             return;
         }
         
@@ -519,9 +511,7 @@ public class Editor_brigada extends AbstractFrame {
             CIT.setText("");
             nombreT.setText("");
         } else {
-            MessageDialog messageDialog = new MessageDialog("Ya existe un estudiante con este carnet de identidad", "", this);
-            messageDialog.setVisible(true);
-            this.setEnabled(false);
+            MessageDialog messageDialog = new MessageDialog("Ya existe un estudiante con este carnet de identidad", "", Language.ES,this);
             
         }
         if (actualizacion) {
@@ -567,9 +557,7 @@ public class Editor_brigada extends AbstractFrame {
             if(G.existeBrigada(brigada)){
                 
                 String S = "Ya existe una brigada de primer año de la carrera \"" + Carrera_seleccionada.getText() + "\" en el año " + brigada.getAnno();
-                MessageDialog messageDialog = new MessageDialog(S, "", this);
-                messageDialog.setVisible(true);
-                this.setEnabled(false);
+                MessageDialog messageDialog = new MessageDialog(S, "", Language.ES,this);
             
                 return;
             }
@@ -593,9 +581,7 @@ public class Editor_brigada extends AbstractFrame {
 
     private void Pasar_annoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pasar_annoActionPerformed
         openMain = false;
-        ConfirmDialog confirmDialog = new ConfirmDialog(1, "Desea pasar de año la brigada", "", this);
-        confirmDialog.setVisible(true);
-        this.setEnabled(false);
+        ConfirmDialog confirmDialog = new ConfirmDialog(1, "Desea pasar de año la brigada", "",Language.ES, this);
         
     }//GEN-LAST:event_Pasar_annoActionPerformed
 
@@ -655,9 +641,7 @@ public class Editor_brigada extends AbstractFrame {
             }
             ReporteAlumnos al = new ReporteAlumnos(datosEstudiantes, B);
             if(al.GenerarReporte()){
-                MessageDialog messageDialog = new MessageDialog("Reporte creado exitosamente en el escritorio", "Información del sistema", this);
-                messageDialog.setVisible(true);
-                this.setEnabled(false);
+                MessageDialog messageDialog = new MessageDialog("Reporte creado exitosamente en el escritorio", "Información del sistema", Language.ES,this);
             
         }
         } catch (DocumentException ex) {

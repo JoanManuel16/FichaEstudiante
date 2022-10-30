@@ -22,10 +22,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utiles.Secuencias_cadenas;
-import utiles.dialogs.AbstractFrame;
-import utiles.dialogs.ConfirmDialog;
-import utiles.dialogs.InputDialog;
-import utiles.dialogs.MessageDialog;
+import dialogs.AbstractFrame;
+import dialogs.ConfirmDialog;
+import dialogs.InputDialog;
+import dialogs.MessageDialog;
 
 /**
  *
